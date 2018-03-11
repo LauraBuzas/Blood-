@@ -11,41 +11,15 @@ using System;
 namespace BloodPlus.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180305171239_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("BloodPlus.Models.Address", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("ApartmentNumber");
-
-                    b.Property<string>("City")
-                        .IsRequired();
-
-                    b.Property<string>("County")
-                        .IsRequired();
-
-                    b.Property<int>("Floor");
-
-                    b.Property<int>("Number");
-
-                    b.Property<string>("Street")
-                        .IsRequired();
-
-                    b.Property<int>("Unit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Addresses");
-                });
 
             modelBuilder.Entity("BloodPlus.Models.ApplicationUser", b =>
                 {
