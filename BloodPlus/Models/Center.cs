@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace BloodPlus.Models
 {
@@ -14,7 +12,7 @@ namespace BloodPlus.Models
             AdressId = 0;
             AvailableQuantity = 0;
         }
-        public Center(int id,String name,int adrid,double qty)
+        public Center(int id, String name, int adrid, double qty)
         {
             CenterId = id;
             CenterName = name;

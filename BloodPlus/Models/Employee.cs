@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace BloodPlus.Models
 {
@@ -14,7 +12,7 @@ namespace BloodPlus.Models
             AdressId = 0;
             CenterId = 0;
         }
-        public Employee(int id,String name,int adrid,int centerid)
+        public Employee(int id, String name, int adrid, int centerid)
         {
             EmployeeId = id;
             EmployeeName = name;
