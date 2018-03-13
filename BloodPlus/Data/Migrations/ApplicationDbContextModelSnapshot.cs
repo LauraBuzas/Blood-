@@ -106,8 +106,6 @@ namespace BloodPlus.Data.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired();
 
-                    b.Property<int>("IdHospital");
-
                     b.Property<string>("LastName")
                         .IsRequired();
 
@@ -126,8 +124,6 @@ namespace BloodPlus.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<int>("IdAdress");
 
                     b.Property<int>("Name");
 

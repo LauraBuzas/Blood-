@@ -10,8 +10,6 @@ namespace BloodPlus.Models
     {
         public int Id { get; set; }
 
-        public int IdAdress { get; set; }
-
         [Required]
         public int Name { get; set; }
     }
