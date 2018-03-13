@@ -11,7 +11,7 @@ namespace BloodPlus
         {
             get
             {
-                return "Data Source=localhost\\SQLEXPRESS01;Initial Catalog=BloodPlus;Integrated Security=True;";
+                return "Data Source=i3-PC\\SQLEXPRESS;Initial Catalog=BloodPlus;Integrated Security=True;";
             }
         }
     }
