@@ -11,7 +11,7 @@ using System;
 namespace BloodPlus.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180313141056_CreateHospitalAndDoctorMigration")]
+    [Migration("20180313143538_CreateHospitalAndDoctorMigration")]
     partial class CreateHospitalAndDoctorMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -107,8 +107,6 @@ namespace BloodPlus.Data.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired();
 
-                    b.Property<int>("IdHospital");
-
                     b.Property<string>("LastName")
                         .IsRequired();
 
@@ -127,8 +125,6 @@ namespace BloodPlus.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<int>("IdAdress");
 
                     b.Property<int>("Name");
 
