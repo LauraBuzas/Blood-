@@ -11,7 +11,7 @@ using System;
 namespace BloodPlus.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180311123456_InitialMigration")]
+    [Migration("20180311090149_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
