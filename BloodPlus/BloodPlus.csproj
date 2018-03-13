@@ -16,6 +16,8 @@
     <Compile Remove="Data\Migrations\20180310164927_test2.Designer.cs" />
     <Compile Remove="Data\Migrations\20180311143955_AddressMigration.cs" />
     <Compile Remove="Data\Migrations\20180311143955_AddressMigration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180313141304_CreatePatientAndRequestClasses.cs" />
+    <Compile Remove="Data\Migrations\20180313141304_CreatePatientAndRequestClasses.Designer.cs" />
   </ItemGroup>
 
 
