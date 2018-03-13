@@ -17,6 +17,8 @@ namespace BloodPlus.Data
 
         public DbSet<Address> Addresses { get; set; }
 
+        public DbSet<Donor> Donors { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -25,7 +27,8 @@ namespace BloodPlus.Data
             // Add your customizations after calling base.OnModelCreating(builder);
 
             builder.Entity<Address>().ToTable("Addresses");
-            
+            builder.Entity<Donor>().ToTable("Donors");
+
         }
     }
 }
