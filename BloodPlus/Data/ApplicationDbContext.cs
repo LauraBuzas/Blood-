@@ -17,7 +17,11 @@ namespace BloodPlus.Data
 
         public DbSet<Address> Addresses { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        public DbSet<Patient> Patients { get; set; }
+
+        public DbSet<Request> Requests { get; set; }
+
+                protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
             // Customize the ASP.NET Identity model and override the defaults if needed.
@@ -25,6 +29,10 @@ namespace BloodPlus.Data
             // Add your customizations after calling base.OnModelCreating(builder);
 
             builder.Entity<Address>().ToTable("Addresses");
+            builder.Entity<Patient>().ToTable("Patients");
+            builder.Entity<Request>().ToTable("Requests");
+    
+           
             
         }
     }

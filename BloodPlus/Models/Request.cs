@@ -14,7 +14,8 @@ namespace BloodPlus.Models
         //Grupa
         public string BloodType { get; set; }
 
-        public int IdPatient { get; set;}
+
+        //public int IdPatient { get; set;}
 
         [Required]
         public int EmergencyLevel { get; set; }
@@ -28,7 +29,7 @@ namespace BloodPlus.Models
         [Required]
         public int RequestedQuantity { get; set; }
 
-        public int IdDoctor { get; set; }
+        //public int IdDoctor { get; set; }
  
     }
 }

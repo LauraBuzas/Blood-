@@ -9,6 +9,8 @@ namespace BloodPlus.Models
 {
     public class Patient
     {
+      
+
         public int Id { get; set; }
 
         [Required]
@@ -20,12 +22,13 @@ namespace BloodPlus.Models
         [Required]
         public string FirstName { get; set; }
 
+        /*
         //CodA
         public int IdAddress { get; set; }
 
         //CodD
         public int IdDoctor { get; set; }
-
+        */
   
 
     }
