@@ -17,7 +17,7 @@ using BloodPlus.Services;
 namespace BloodPlus.Controllers
 {
     [Authorize]
-    [Route("[controller]/[action]")]
+    [Route("account")]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -40,7 +40,7 @@ namespace BloodPlus.Controllers
         [TempData]
         public string ErrorMessage { get; set; }
 
-        [HttpGet]
+        [HttpGet("login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
         {
@@ -51,25 +51,26 @@ namespace BloodPlus.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("loginba")]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login([FromBody]LoginViewModel model)
         {
-            ViewData["ReturnUrl"] = returnUrl;
+            //ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return RedirectToLocal(returnUrl);
+                    return Ok();
                 }
                 if (result.RequiresTwoFactor)
                 {
-                    return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
+                    //return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
+                    return Ok();
                 }
                 if (result.IsLockedOut)
                 {
@@ -84,7 +85,7 @@ namespace BloodPlus.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return BadRequest();
         }
 
         [HttpGet]
