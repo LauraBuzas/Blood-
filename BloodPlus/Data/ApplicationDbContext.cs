@@ -17,6 +17,10 @@ namespace BloodPlus.Data
 
         public DbSet<Address> Addresses { get; set; }
 
+        public DbSet<Hospital> Hospitals { get; set; }
+
+        public DbSet<Doctor> Doctors { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -25,7 +29,8 @@ namespace BloodPlus.Data
             // Add your customizations after calling base.OnModelCreating(builder);
 
             builder.Entity<Address>().ToTable("Addresses");
-            
+            builder.Entity<Hospital>().ToTable("Hospitals");
+            builder.Entity<Doctor>().ToTable("Doctors");
         }
     }
 }
