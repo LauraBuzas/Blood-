@@ -20,8 +20,8 @@ namespace BloodPlus.Models
         [Required]
         public int EmergencyLevel { get; set; }
 
-        [Required]
-        public string IdHospital { get; set; }
+        //[Required]
+        //public int IdHospital { get; set; }
 
         [Required]
         public string Status { get; set; }
