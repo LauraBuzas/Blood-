@@ -35,6 +35,8 @@ namespace BloodPlus.Data
             builder.Entity<Address>().ToTable("Addresses");
             builder.Entity<Hospital>().ToTable("Hospitals");
             builder.Entity<Doctor>().ToTable("Doctors");
+            builder.Entity<Patient>().ToTable("Patients");
+            builder.Entity<Request>().ToTable("Requests");
         }
     }
 }
