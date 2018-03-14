@@ -9,16 +9,6 @@ namespace BloodPlus.Models
     public class Donor
     {
 
-        public Donor(int id, string CNP, string firstName, string lastName, string email, string phone)
-        {
-            this.Id = id;
-            this.CNP = CNP;
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            this.Email = email;
-            this.PhoneNumber = phone;
-        }
-
         public int Id { get; set; }
 
         [Required]

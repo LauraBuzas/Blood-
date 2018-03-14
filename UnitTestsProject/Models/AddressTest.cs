@@ -9,8 +9,17 @@ namespace UnitTestsProject.Models
     [TestClass]
     public class AddressTest {
         [TestMethod]
-        public void TestAddress() {
-            Address address = new Address(1, "cluj", "cluj", "kogalniceanu", 1, 10, 2, 3);
+        public void SmokeTestAddress() {
+            Address address = new Address() {
+                Id = 1,
+                City = "cluj",
+                County = "cluj",
+                Street = "kogalniceanu",
+                Number = 1,
+                ApartmentNumber = 10,
+                Unit = 2,
+                Floor = 3 }
+            ;
             Assert.IsTrue(address.Id.Equals(1));
             Assert.IsTrue(address.City.Equals("cluj"));
             Assert.IsTrue(address.County.Equals("cluj"));

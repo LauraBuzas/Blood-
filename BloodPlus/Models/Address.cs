@@ -8,25 +8,25 @@ namespace BloodPlus.Models
 {
     public class Address
     {
-        public Address(
-                int id, 
-                string city, 
-                string county, 
-                string street, 
-                int number, 
-                int apartmentNumber, 
-                int unit, 
-                int floor
-            ) { //uratel
-            Id = id;
-            City = city;
-            County = county;
-            Street = street;
-            Number = number;
-            ApartmentNumber = apartmentNumber;
-            Unit = unit;
-            Floor = floor;
-        }
+        //public Address(
+        //        int id, 
+        //        string city, 
+        //        string county, 
+        //        string street, 
+        //        int number, 
+        //        int apartmentNumber, 
+        //        int unit, 
+        //        int floor
+        //    ) { //uratel
+        //    Id = id;
+        //    City = city;
+        //    County = county;
+        //    Street = street;
+        //    Number = number;
+        //    ApartmentNumber = apartmentNumber;
+        //    Unit = unit;
+        //    Floor = floor;
+        //}
 
         public int Id { get; set; }
 

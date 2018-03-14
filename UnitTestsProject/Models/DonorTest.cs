@@ -7,8 +7,15 @@ namespace UnitTestsProject.Models
     public class DonorTest
     {
         [TestMethod]
-        public void TestDonor() {
-            Donor donor = new Donor(1, "1234567890", "Ion", "Pop", "ionpop@ubb.com", "0000");
+        public void SmokeTestDonor() {
+            Donor donor = new Donor() {
+                Id = 1,
+                CNP = "1234567890",
+                FirstName = "Ion",
+                LastName = "Pop",
+                Email = "ionpop@ubb.com",
+                PhoneNumber = "0000"
+            };
             Assert.IsTrue(donor.Id == 1);
             Assert.IsTrue(donor.CNP.Equals("1234567890"));
             Assert.IsTrue(donor.FirstName.Equals("Ion"));
