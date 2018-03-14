@@ -21,6 +21,10 @@ namespace BloodPlus.Data
 
         public DbSet<Doctor> Doctors { get; set; }
 
+        public DbSet<Patient> Patients { get; set; }
+
+        public DbSet<Request> Requests { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
