@@ -4,14 +4,17 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
 namespace BloodPlus.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180313061740_CreateDonorMigration")]
+    partial class CreateDonorMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,10 +99,16 @@ namespace BloodPlus.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("BloodPlus.Models.Doctor", b =>
+            modelBuilder.Entity("BloodPlus.Models.Donor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CNP")
+                        .IsRequired();
+
+                    b.Property<string>("Email")
+                        .IsRequired();
 
                     b.Property<string>("FirstName")
                         .IsRequired();
@@ -107,27 +116,11 @@ namespace BloodPlus.Data.Migrations
                     b.Property<string>("LastName")
                         .IsRequired();
 
-                    b.Property<string>("Speciality")
-                        .IsRequired();
-
-                    b.Property<string>("Ward")
-                        .IsRequired();
+                    b.Property<string>("PhoneNumber");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Doctors");
-                });
-
-            modelBuilder.Entity("BloodPlus.Models.Hospital", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Hospitals");
+                    b.ToTable("Donors");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
