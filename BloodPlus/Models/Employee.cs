@@ -10,6 +10,6 @@ namespace BloodPlus.Models
         public String LastName { get; set; }
         public String FirstName { get; set; }
         public int Age { get; set; }
-       
+        public int CenterId { get; set; }
     }
 }
