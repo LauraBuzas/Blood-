@@ -21,6 +21,8 @@ namespace BloodPlus.Data
 
         public DbSet<Doctor> Doctors { get; set; }
 
+        public DbSet<Donor> Donors { get; set; }
+
         //1st public DbSet<Center> Centers { get; set; }
 
 
@@ -35,6 +37,8 @@ namespace BloodPlus.Data
             builder.Entity<Address>().ToTable("Addresses");
             builder.Entity<Hospital>().ToTable("Hospitals");
             builder.Entity<Doctor>().ToTable("Doctors");
+            builder.Entity<Donor>().ToTable("Donors");
+
             //1st builder.Entity<Center>().ToTable("Centers");
         }
     }
