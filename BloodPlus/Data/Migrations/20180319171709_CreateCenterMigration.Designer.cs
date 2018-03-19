@@ -11,8 +11,8 @@ using System;
 namespace BloodPlus.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180317211536_CreateHospitalAndDoctorMigration")]
-    partial class CreateHospitalAndDoctorMigration
+    [Migration("20180319171709_CreateCenterMigration")]
+    partial class CreateCenterMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -97,6 +97,20 @@ namespace BloodPlus.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("BloodPlus.Models.Center", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<double>("AvailableQuantity");
+
+                    b.Property<string>("CenterName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Centers");
                 });
 
             modelBuilder.Entity("BloodPlus.Models.Doctor", b =>
