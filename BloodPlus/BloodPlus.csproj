@@ -16,6 +16,17 @@
     <Compile Remove="Data\Migrations\20180310164927_test2.Designer.cs" />
     <Compile Remove="Data\Migrations\20180311143955_AddressMigration.cs" />
     <Compile Remove="Data\Migrations\20180311143955_AddressMigration.Designer.cs" />
+    
+    <Compile Remove="Data\Migrations\20180312212441_CreateDonorMigration.cs" />
+    <Compile Remove="Data\Migrations\20180312212441_CreateDonorMigration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180313120643_DonorChangeMigration.cs" />
+    <Compile Remove="Data\Migrations\20180313120643_DonorChangeMigration.Designer.cs" />
+    
+    <Compile Remove="Data\Migrations\20180314213643_CreateHospitalMigration.cs" />
+    <Compile Remove="Data\Migrations\20180314213643_CreateHospitalMigration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180314214420_CreateHospitalMigration.cs" />
+    <Compile Remove="Data\Migrations\20180314214420_CreateHospitalMigration.Designer.cs" />
+
   </ItemGroup>
 
 
