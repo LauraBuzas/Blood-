@@ -11,8 +11,8 @@ using System;
 namespace BloodPlus.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180317211536_CreateHospitalAndDoctorMigration")]
-    partial class CreateHospitalAndDoctorMigration
+    [Migration("20180319171807_CreateEmployeeMigration")]
+    partial class CreateEmployeeMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -99,6 +99,20 @@ namespace BloodPlus.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("BloodPlus.Models.Center", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<double>("AvailableQuantity");
+
+                    b.Property<string>("CenterName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Centers");
+                });
+
             modelBuilder.Entity("BloodPlus.Models.Doctor", b =>
                 {
                     b.Property<int>("Id")
@@ -143,6 +157,22 @@ namespace BloodPlus.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Donors");
+                });
+
+            modelBuilder.Entity("BloodPlus.Models.Employee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Age");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("BloodPlus.Models.Hospital", b =>
