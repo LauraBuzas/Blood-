@@ -27,6 +27,11 @@ namespace BloodPlus.Data
 
         public DbSet<Employee> Employee { get; set; }
 
+        public DbSet<Patient> Patient { get; set; }
+
+        public DbSet<Request> Request { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -41,6 +46,8 @@ namespace BloodPlus.Data
             builder.Entity<Donor>().ToTable("Donors");
             builder.Entity<Center>().ToTable("Centers");
             builder.Entity<Employee>().ToTable("Employees");
+            builder.Entity<Patient>().ToTable("Patients");
+            builder.Entity<Request>().ToTable("Requests");
 
         }
     }

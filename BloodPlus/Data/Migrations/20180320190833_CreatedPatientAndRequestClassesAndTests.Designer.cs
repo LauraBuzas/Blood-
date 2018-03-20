@@ -11,9 +11,10 @@ using System;
 namespace BloodPlus.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180320190833_CreatedPatientAndRequestClassesAndTests")]
+    partial class CreatedPatientAndRequestClassesAndTests
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
