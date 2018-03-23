@@ -5,30 +5,6 @@
     <UserSecretsId>aspnet-BloodPlus-6CDFE939-9FC6-4A2A-8E89-0ADCCFB2C2F2</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Data\Migrations\20180310163315_test.cs" />
-    <Compile Remove="Data\Migrations\20180310163315_test.Designer.cs" />
-    <Compile Remove="Data\Migrations\20180310164428_test2.cs" />
-    <Compile Remove="Data\Migrations\20180310164428_test2.Designer.cs" />
-    <Compile Remove="Data\Migrations\20180310164521_test2.cs" />
-    <Compile Remove="Data\Migrations\20180310164521_test2.Designer.cs" />
-    <Compile Remove="Data\Migrations\20180310164927_test2.cs" />
-    <Compile Remove="Data\Migrations\20180310164927_test2.Designer.cs" />
-    <Compile Remove="Data\Migrations\20180311143955_AddressMigration.cs" />
-    <Compile Remove="Data\Migrations\20180311143955_AddressMigration.Designer.cs" />
-    
-    <Compile Remove="Data\Migrations\20180312212441_CreateDonorMigration.cs" />
-    <Compile Remove="Data\Migrations\20180312212441_CreateDonorMigration.Designer.cs" />
-    <Compile Remove="Data\Migrations\20180313120643_DonorChangeMigration.cs" />
-    <Compile Remove="Data\Migrations\20180313120643_DonorChangeMigration.Designer.cs" />
-    
-    <Compile Remove="Data\Migrations\20180314213643_CreateHospitalMigration.cs" />
-    <Compile Remove="Data\Migrations\20180314213643_CreateHospitalMigration.Designer.cs" />
-    <Compile Remove="Data\Migrations\20180314214420_CreateHospitalMigration.cs" />
-    <Compile Remove="Data\Migrations\20180314214420_CreateHospitalMigration.Designer.cs" />
-
-  </ItemGroup>
-
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
@@ -40,6 +16,11 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.1" />
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DatabaseAccess\DatabaseAccess.csproj" />
+    <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
 </Project>

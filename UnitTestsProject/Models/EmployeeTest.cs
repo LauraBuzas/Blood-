@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BloodPlus.Models;
+using DatabaseAccess.Models;
 namespace UnitTestsProject
 {
     [TestClass]
