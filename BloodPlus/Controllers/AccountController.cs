@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using DatabaseAccess.Models;
 using BloodPlus.ModelViews.AccountViewModels;
 using BloodPlus.Services2;
+using Services;
 
 namespace BloodPlus.Controllers
 {
@@ -22,19 +23,23 @@ namespace BloodPlus.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<ApplicationUser> _roleManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly DoctorsService _doctorsService;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+             DoctorsService doctorsService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _doctorsService = doctorsService;
         }
 
         [TempData]
@@ -428,8 +433,8 @@ namespace BloodPlus.Controllers
 
 
         [HttpPost("register/doctor")]
-        [Authorize(Roles ="Admin")]
-        [ValidateAntiForgeryToken]
+        [Authorize(Roles ="HospitalAdmin")]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> RegisterDoctor([FromBody] RegisterDoctorViewModel doctorModel)
         {
             //ViewData["ReturnUrl"] = returnUrl;
@@ -437,30 +442,38 @@ namespace BloodPlus.Controllers
             {
                 var user = new ApplicationUser { UserName = doctorModel.Email, Email = doctorModel.Email };
                 var result = await _userManager.CreateAsync(user, doctorModel.Password);
-
+                
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
                     var createdDoctor = await _userManager.FindByEmailAsync(doctorModel.Email);
+                    await _userManager.AddToRoleAsync(createdDoctor, "HospitalDoctor");
+                    var doctorDb = Mappers.MapperRegisterDoctor.ToDoctor(doctorModel, createdDoctor);
+                    try
+                    {
+                        _doctorsService.AddDoctor(doctorDb);
 
 
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+                        //await _emailSender.SendEmailConfirmationAsync(doctorModel.Email, callbackUrl);
 
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
-                    await _emailSender.SendEmailConfirmationAsync(doctorModel.Email, callbackUrl);
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        _logger.LogInformation("User created a new account with password.");
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation("User created a new account with password.");
-
-                    //return RedirectToLocal(returnUrl);
-                    return Ok();
+                        //return RedirectToLocal(returnUrl);
+                        return Ok();
+                    }catch(Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
-            return BadRequest();
+            return BadRequest("aici");
 
         }
 
