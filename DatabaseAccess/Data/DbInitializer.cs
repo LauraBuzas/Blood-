@@ -21,10 +21,10 @@ namespace DatabaseAccess.Data
 
             await Seed(userManager, roleManager);
 
-            await SeedDoctors(context);
+            await SeedDoctors(context,userManager);
         }
 
-        private static async Task SeedDoctors(ApplicationDbContext context)
+        private static async Task SeedDoctors(ApplicationDbContext context, UserManager<ApplicationUser>userManager)
         {
             Doctor doctor1 = new Doctor()
             {
@@ -33,36 +33,38 @@ namespace DatabaseAccess.Data
                 Speciality = "Surgery",
                 Ward = "Ward 1"
             };
-            Doctor doctor2 = new Doctor()
-            {
-                FirstName = "Daniel",
-                LastName = "Popa",
-                Speciality = "Dermatologist",
-                Ward = "Ward 2"
-            };
-            Doctor doctor3 = new Doctor()
-            {
-                FirstName = "Ionel",
-                LastName = "Popescu",
-                Speciality = "Cardiologist",
-                Ward = "Ward 3"
-            };
+
+            var createdUser = await userManager.FindByEmailAsync("doctor1@spital.com");
+
+            doctor1.Id = createdUser.Id;
+
+            //Doctor doctor2 = new Doctor()
+            //{
+            //    FirstName = "Daniel",
+            //    LastName = "Popa",
+            //    Speciality = "Dermatologist",
+            //    Ward = "Ward 2"
+            //};
+            //Doctor doctor3 = new Doctor()
+            //{
+            //    FirstName = "Ionel",
+            //    LastName = "Popescu",
+            //    Speciality = "Cardiologist",
+            //    Ward = "Ward 3"
+            //};
 
             context.Doctors.Add(doctor1);
-            context.Doctors.Add(doctor2);
-            context.Doctors.Add(doctor3);
+            //context.Doctors.Add(doctor2);
+            //context.Doctors.Add(doctor3);
             context.SaveChanges();
 
         }
 
         public static async Task Seed(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            List<ApplicationUser> identityUsers = new List<ApplicationUser>()
-            {
-                new ApplicationUser{Email="god@iss.com",UserName="god"}
-            };
 
             await userManager.CreateAsync(new ApplicationUser { Email = "god@iss.com", UserName = "God" }, "Password123.");
+            await userManager.CreateAsync(new ApplicationUser { Email = "doctor1@spital.com", UserName = "johnica"}, "Password123.");
 
             await roleManager.CreateAsync(new IdentityRole { Name = "God"});
             await roleManager.CreateAsync(new IdentityRole { Name = "DonationCenterAdmin"});
@@ -72,6 +74,8 @@ namespace DatabaseAccess.Data
             await roleManager.CreateAsync(new IdentityRole { Name = "Donator"});
 
             var createdUser =await userManager.FindByEmailAsync("god@iss.com");
+            var createdDoctor = await userManager.FindByEmailAsync("doctor1@spital.com");
+
 
             var role1 = await roleManager.FindByNameAsync("God");
             var role2 = await roleManager.FindByNameAsync("DonationCenterAdmin");
@@ -85,7 +89,7 @@ namespace DatabaseAccess.Data
             var role6 = await roleManager.FindByNameAsync("Donator");
             //await userManager.AddToRoleAsync(createdUser, role6.Name);
             await userManager.AddToRolesAsync(createdUser, new List<string> { role1.Name, role2.Name, role3.Name, role4.Name, role5.Name, role6.Name });
-
+            await userManager.AddToRoleAsync(createdDoctor, role5.Name);
         }
 
        

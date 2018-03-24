@@ -42,6 +42,9 @@ namespace DatabaseAccess.Data
             builder.Entity<Center>().ToTable("Centers");
             builder.Entity<Employee>().ToTable("Employees");
 
+            builder.Entity<Doctor>(doc => doc.HasOne<ApplicationUser>().WithOne().HasForeignKey<Doctor>(d => d.Id));
+
+
         }
     }
 }
