@@ -6,11 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BloodPlus.Controllers
 {
     [Produces("application/json")]
-    [Route("Doctors")]
+    [Route("doctors")]
+    [Authorize(Roles ="HospitalDoctor")]
     public class DoctorsController : Controller
     {
         DoctorsService doctorsService;
@@ -20,7 +22,7 @@ namespace BloodPlus.Controllers
             this.doctorsService = doctorsService;
         }
 
-        [HttpGet]
+        [HttpGet("get")]
         public IActionResult Get()
         {
             List<Doctor> doctors = doctorsService.GetDoctors();          

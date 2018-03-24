@@ -8,7 +8,7 @@ namespace DatabaseAccess.Models
 {
     public class Doctor
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
         public string LastName { get; set; }
@@ -22,6 +22,8 @@ namespace DatabaseAccess.Models
         [Required]
         public string Speciality { get; set; }
 
-        
+        //public ApplicationUser User { get; set; }
+        //public string UserID { get; set; }
+
     }
 }

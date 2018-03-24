@@ -11,9 +11,10 @@ using System;
 namespace DatabaseAccess.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180324110546_DoctorChangeIdMigration")]
+    partial class DoctorChangeIdMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,7 +115,8 @@ namespace DatabaseAccess.Data.Migrations
 
             modelBuilder.Entity("DatabaseAccess.Models.Doctor", b =>
                 {
-                    b.Property<string>("Id");
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("FirstName")
                         .IsRequired();
@@ -292,14 +294,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("DatabaseAccess.Models.Doctor", b =>
-                {
-                    b.HasOne("DatabaseAccess.Models.ApplicationUser")
-                        .WithOne()
-                        .HasForeignKey("DatabaseAccess.Models.Doctor", "Id")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
