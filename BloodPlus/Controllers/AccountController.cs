@@ -464,6 +464,43 @@ namespace BloodPlus.Controllers
 
         }
 
+        //[HttpPost("register/doctor")]
+        //[Authorize(Roles = "Admin")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> RegisterDonationCenterDoctor([FromBody] RegisterDoctorViewModel doctorModel)
+        //{
+        //    //ViewData["ReturnUrl"] = returnUrl;
+        //    if (ModelState.IsValid)
+        //    {
+        //        var user = new ApplicationUser { UserName = doctorModel.Email, Email = doctorModel.Email };
+        //        var result = await _userManager.CreateAsync(user, doctorModel.Password);
+
+        //        if (result.Succeeded)
+        //        {
+        //            _logger.LogInformation("User created a new account with password.");
+
+        //            var createdDoctor = await _userManager.FindByEmailAsync(doctorModel.Email);
+
+
+
+        //            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        //            var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+        //            await _emailSender.SendEmailConfirmationAsync(doctorModel.Email, callbackUrl);
+
+        //            await _signInManager.SignInAsync(user, isPersistent: false);
+        //            _logger.LogInformation("User created a new account with password.");
+
+        //            //return RedirectToLocal(returnUrl);
+        //            return Ok();
+        //        }
+        //        AddErrors(result);
+        //    }
+
+            // If we got this far, something failed, redisplay form
+        //    return BadRequest();
+
+        //}
+
         //[HttpGet]
         //[AllowAnonymous]
         //public IActionResult ResetPasswordConfirmation()
