@@ -3,6 +3,8 @@ import { IDoctorGet } from '../../Models/IDoctorGet';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {Helmet} from 'react-helmet'
 import './AdminDoctor.css'
+import { AdminDoctorService } from '../../Services/AdminDoctorService';
+import Cookies from 'universal-cookie';
 
 export interface AdminDoctorProps{
 
@@ -29,26 +31,27 @@ export class AdminDoctor extends React.Component<AdminDoctorProps,AdminDoctorSta
 
 
     componentDidMount() {
-        let doctors:IDoctorGet[];
-        doctors=[];
-        var d1:IDoctorGet={
-        email:"email@assa.com",
-        firstname:"sasdasd",
-        lastname:"sadsda",
-        password:"1221323"}
-        var d2:IDoctorGet={
-            email:"emaisasdl@assa.com",
-            firstname:"bsasdasd",
-            lastname:"sadsda",
-            password:"1221323"}
-        doctors.push(d1);
-        doctors.push(d2);
+        
+       
+        const cookies = new Cookies();
+        cookies.set('.AspNetCore.Identity.Application',
+         'CfDJ8Om1XNJeLMtJh84tqTlDYqJPcxaONZmAJNdAEo0NnZHSniordwAE7ksU7vVASacN6TPHJvyQDlrKUi66JiOf3c6a-YoE057bBu7qLhzCUsouLziGX69HOxPHtSTvltZnMoC31UwBEGYlEBdDmw7zLxvLw5yT4CKgmLqpT_oZy3j7vuWwhZEuL8DFbBgq5z3YaLa0a9GEHbaYyWQqzjX6EFY1MjW4mbCEDmXRWPph2vs-MBvW5G3l4lSXey25332bmf5jN_iAOHKakO7xpDtSuiAaR-j_hFga7Zf8Js6sgpjVnTjy5itAimMx4k2bDIqCcnRGC3WAzZjuzl5LdFBnnaWhxTNCJIeMfsxhyJWCGzp6VOWbjmctev3TPaznrHXajH4O1MjwzsM-gL7G8GlmXeM2LrJHVh6GiuE98_EKV9x25BqE1LZ1pPHtvltuuskiGuRm46H-Utpd7k3U6w-_TOVzzCV_A5-Fz4Z2kP3Nkvu527-9xwMuwNJKRxNMbnUFbnZcOD6-LBK3l2zYM8Rs0yDwWoOUJAdUjY3R1ydpgFQOjswYXbMWvqlkHTQYDJrZUYuNr5KKOfoHOPafnNZEgr-waTWlq6TppBuLJrx9IKz3eYGFgbcIrgde5KJXIMnpj2StzjHIHLVW9WHQXshkq7Y4wZb2wx-7KHCHEeOsnNjHkEVl4tKTAHDoFG2Eg8u-EmTrK7q1zLVyuhM9pQfTdVw', 
+         { path: '/' });
+         cookies.set('HospitalId','1', 
+         { path: '/' });
 
 
-        this.setState({
-            doctors:doctors
-        })
-      
+
+        AdminDoctorService.getDoctors().then((doctors:IDoctorGet[]) => {
+            this.setState({
+                doctors: doctors
+            });    
+        },
+            (error) => {
+                this.setState({
+                    message: "Error getting doctors"
+                });
+            });
     }
     handleAddRowWithASyncError = (row, colInfo, errorCallback) => {
         // Use setTimeout to perform a async operation
@@ -59,43 +62,37 @@ export class AdminDoctor extends React.Component<AdminDoctorProps,AdminDoctorSta
         // return false to tell react-bootstrap-table to handle this operation as async
         // react-bootstrap-table will wait errorCallback be called.
         // return false;
-        let doctors:IDoctorGet[];
-        doctors=[];
-        var d2:IDoctorGet={
-            email:row.email,
-            firstname:row.firstname,
-            lastname:row.lastname,
-            password:row.password}
-        if(2==2)
-            {
+        // let doctors:IDoctorGet[];
+        // doctors=[];
+        // var d2:IDoctorGet={
+        //     email:row.email,
+        //     firstname:row.firstname,
+        //     lastname:row.lastname,
+        //     password:row.password}
+        // if(2==2)
+        //     {
                 
-            }
-        else
-        {
-        doctors.push(d2);
-        this.setState({
-            doctors:doctors
-        })
-    }
+        //     }
+        // else
+        // {
+        // doctors.push(d2);
+        // this.setState({
+        //     doctors:doctors
+        // })}
+    
         
       }
 
     render()
     {
-        const option = {
-            onAddRow: this.handleAddRowWithASyncError
-            // onAddRow: this.handleAddRowWithSyncError
-          };
+        // const option = {
+        //     onAddRow: this.handleAddRowWithASyncError
+        //     // onAddRow: this.handleAddRowWithSyncError
+        //   };
         return(
             <div>
-                {/* <table className="tableDoctors">
-
-                </table> */}
-
-
                 <Helmet>
                     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
-                    {/* <link rel="stylesheet" href="./dist/react-bootstrap-table.min.css"/>            */}
                 </Helmet>
                 <BootstrapTable data={ this.state.doctors} 
                                 stripped={true}
@@ -104,13 +101,12 @@ export class AdminDoctor extends React.Component<AdminDoctorProps,AdminDoctorSta
                                 exportCSV={true}
                                 deleteRow={true}
                                 insertRow={ true }
-                                options={option}
+                                // options={option}
                                 >
                 <TableHeaderColumn dataField='firstname'>First Name</TableHeaderColumn>
                 <TableHeaderColumn dataField='lastname'>Last name</TableHeaderColumn>
                 <TableHeaderColumn dataField='email' isKey={true}>Email</TableHeaderColumn>
                 <TableHeaderColumn dataField='password'>Password</TableHeaderColumn>
-    
                 </BootstrapTable>
 
             </div>

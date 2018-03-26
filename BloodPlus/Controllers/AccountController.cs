@@ -48,17 +48,17 @@ namespace BloodPlus.Controllers
         [TempData]
         public string ErrorMessage { get; set; }
 
-        //[HttpGet("login")]
-        //[AllowAnonymous]
-        //public async Task<IActionResult> Login(string returnUrl = null)
-        //{
-        //    // Clear the existing external cookie to ensure a clean login process
-        //    await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+        [HttpGet("login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(string returnUrl = null)
+        {
+            // Clear the existing external cookie to ensure a clean login process
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-        //    ViewData["ReturnUrl"] = returnUrl;
-        //    return View();
-        //}
-     
+            ViewData["ReturnUrl"] = returnUrl;
+            return Ok();
+        }
+
         private void SetCookie(string key,string value)
         {
             Response.Cookies.Append(key, value);

@@ -1,4 +1,5 @@
-﻿using BloodPlus.ModelViews.AccountViewModels;
+﻿using BloodPlus.ModelViews;
+using BloodPlus.ModelViews.AccountViewModels;
 using DatabaseAccess.Models;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,18 @@ namespace BloodPlus.Mappers
                 LastName = viewModel.LastName,
                 Speciality=viewModel.Speciality,
                 Ward=viewModel.Ward
+            };
+        }
+
+        public static DoctorGetModelView ToDoctorGet(Doctor doctor, ApplicationUser applicationUser)
+        {
+            return new DoctorGetModelView
+            {
+
+                FirstName = doctor.FirstName,
+                LastName = doctor.LastName,
+                Email = applicationUser.Email,
+                Password = "zsdsdas"
             };
         }
     }

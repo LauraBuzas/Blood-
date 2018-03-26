@@ -62,7 +62,7 @@ namespace BloodPlus
             //app.UseStaticFiles();
 
             app.UseAuthentication();
-
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials());
             app.UseMvc();
 
 
