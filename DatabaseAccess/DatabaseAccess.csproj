@@ -9,6 +9,8 @@
     <Compile Remove="Data\Migrations\20180324105116_DoctorExtendsUserMigration.cs" />
     <Compile Remove="Data\Migrations\20180324105316_DoctorExtendsUserMigration.cs" />
     <Compile Remove="Data\Migrations\20180324110308_DoctorChangeIdMigration.cs" />
+    <Compile Remove="Data\Migrations\20180326155327_HospitalDoctorOneToManyRelation.cs" />
+    <Compile Remove="Data\Migrations\20180326160709_HospitalDoctorOneToManyRelation.cs" />
   </ItemGroup>
 
   <ItemGroup>

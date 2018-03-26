@@ -41,6 +41,7 @@ namespace BloodPlus
 
             services.AddMvc();
             services.AddTransient<DoctorsService>();
+            services.AddTransient<HospitalAdminService>();
 
         }
 

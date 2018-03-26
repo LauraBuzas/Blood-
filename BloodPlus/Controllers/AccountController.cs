@@ -23,23 +23,26 @@ namespace BloodPlus.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly RoleManager<ApplicationUser> _roleManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly DoctorsService _doctorsService;
+        private readonly HospitalAdminService _hospitalAdminService;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ILogger<AccountController> logger,
-             DoctorsService doctorsService)
+            DoctorsService doctorsService,
+            HospitalAdminService hospitalAdminService)
         {
+
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
             _doctorsService = doctorsService;
+            _hospitalAdminService=hospitalAdminService;
         }
 
         [TempData]
@@ -55,26 +58,41 @@ namespace BloodPlus.Controllers
         //    ViewData["ReturnUrl"] = returnUrl;
         //    return View();
         //}
+     
+        private void SetCookie(string key,string value)
+        {
+            Response.Cookies.Append(key, value);
+        }
 
         [HttpPost("login")]
         [AllowAnonymous]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([FromBody]LoginViewModel model)
         {
+            
             //ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
+                
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    var user = await _userManager.FindByNameAsync(model.Username);
+                    var roles=_userManager.GetRolesAsync(user).Result.ToList();
+                    if(roles.Any(s=>s== "HospitalAdmin"))
+                    {
+                        var hospitalId = _hospitalAdminService.GetHospitalIdForHospitalAdmin(user.Id);
+                        SetCookie("HospitalId", hospitalId.ToString());
+                    }
                     return Ok();
                 }
                 if (result.RequiresTwoFactor)
                 {
                     //return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
+                   
                     return Ok();
                 }
                 if (result.IsLockedOut)

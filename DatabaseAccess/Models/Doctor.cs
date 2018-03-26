@@ -22,6 +22,9 @@ namespace DatabaseAccess.Models
         [Required]
         public string Speciality { get; set; }
 
+        public Hospital Hospital { get; set; }
+        public int HospitalId { get; set; }
+
         //public ApplicationUser User { get; set; }
         //public string UserID { get; set; }
 

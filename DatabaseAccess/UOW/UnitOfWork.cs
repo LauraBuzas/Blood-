@@ -13,6 +13,7 @@ namespace DatabaseAccess.UOW
         private readonly ApplicationDbContext context;
 
         private IRepository<Doctor> _DoctorRepository;
+        private IRepository<HospitalAdmin> _HospitalAdminRepository;
 
         public UnitOfWork()
         {
@@ -26,6 +27,16 @@ namespace DatabaseAccess.UOW
                 if (_DoctorRepository == null)
                     _DoctorRepository = new GenericRepository<Doctor>(context);
                 return _DoctorRepository;
+            }
+        }
+
+        public IRepository<HospitalAdmin> HospitalAdminRepository
+        {
+            get
+            {
+                if (_HospitalAdminRepository == null)
+                    _HospitalAdminRepository = new GenericRepository<HospitalAdmin>(context);
+                return _HospitalAdminRepository;
             }
         }
 
