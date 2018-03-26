@@ -32,7 +32,7 @@
     border-radius: 0;
     background: #f0f0f0;
     color: #333;
-    font-weight: bold;
+    /* font-weight: bold; */
     font-family: 'lato', sans-serif;
 }
 
@@ -45,8 +45,8 @@
     padding: 0 1em;
     width: 40%;
     color: #6a7989;
-    font-weight: bold;
-    font-size: 70.25%;
+    /* font-weight: bold; */
+    font-size: 90.25%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-touch-callout: none;

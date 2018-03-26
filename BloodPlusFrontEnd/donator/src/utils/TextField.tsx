@@ -1,22 +1,17 @@
 import * as React from 'react';
-import '../css/TextField.css';
 
-export class TextField extends React.Component
+export interface TextFieldProps {
+    text: string,
+    type: string,
+    onChangeFunction: any
+}
+
+interface TextFieldState { }
+
+export class TextField extends React.Component<TextFieldProps, TextFieldState>
 {
-    constructor(props){
-        super(props);
-        console.log(props);
-        this.state = {
-            text: props.text,
-            onChangeFunction: props.onChangeFunction,
-            type: props.type,
-            children: props.children,
-        };
-    }
-
-    render()
-    {
-        return(
+    render() {
+        return (
             <div>
                 <span className="input input--hoshi">
                     <input className="input__field input__field--hoshi" type={this.props.type} onChange={(event) => { this.props.onChangeFunction(event) }} />
@@ -24,7 +19,7 @@ export class TextField extends React.Component
                         <span className="input__label-content input__label-content--hoshi">{this.props.text}</span>
                     </label>
                 </span>
-             </div>
+            </div>
         )
     }
 
