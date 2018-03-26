@@ -11,9 +11,10 @@ using System;
 namespace DatabaseAccess.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180326204850_CenterEmployeeOneToManyRelation")]
+    partial class CenterEmployeeOneToManyRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,27 +106,11 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.Property<double>("AvailableQuantity");
 
-                    b.Property<string>("CenterAdminId");
-
                     b.Property<string>("CenterName");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CenterAdminId")
-                        .IsUnique()
-                        .HasFilter("[CenterAdminId] IS NOT NULL");
-
                     b.ToTable("Centers");
-                });
-
-            modelBuilder.Entity("DatabaseAccess.Models.CenterAdmin", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CenterAdmins");
                 });
 
             modelBuilder.Entity("DatabaseAccess.Models.Doctor", b =>
@@ -335,13 +320,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("DatabaseAccess.Models.Center", b =>
-                {
-                    b.HasOne("DatabaseAccess.Models.CenterAdmin", "CenterAdmin")
-                        .WithOne("Center")
-                        .HasForeignKey("DatabaseAccess.Models.Center", "CenterAdminId");
                 });
 
             modelBuilder.Entity("DatabaseAccess.Models.Doctor", b =>
