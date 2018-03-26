@@ -8,11 +8,12 @@ namespace Services
 {
     public class DoctorsService
     {
-         public List<Doctor> GetDoctors()
+
+         public List<Doctor> GetDoctors(int HospitlId)
          {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                return uow.DoctorRepository.GetAll().ToList();
+                return uow.DoctorRepository.GetAll().Where(d=>d.HospitalId==HospitlId).ToList();
             }
          }
 

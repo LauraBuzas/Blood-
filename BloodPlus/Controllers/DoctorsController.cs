@@ -22,10 +22,11 @@ namespace BloodPlus.Controllers
             this.doctorsService = doctorsService;
         }
 
-        [HttpGet("get")]
-        public IActionResult Get()
+        [HttpGet]
+        public IActionResult GetDoctors()
         {
-            List<Doctor> doctors = doctorsService.GetDoctors();          
+            var hospitalId=Request.Cookies["HospitalId"];
+            List<Doctor> doctors = doctorsService.GetDoctors(Int32.Parse(hospitalId));          
             return Ok(doctors);
         }
 

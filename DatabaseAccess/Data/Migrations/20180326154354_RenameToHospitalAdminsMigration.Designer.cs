@@ -11,9 +11,10 @@ using System;
 namespace DatabaseAccess.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180326154354_RenameToHospitalAdminsMigration")]
+    partial class RenameToHospitalAdminsMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,8 +120,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired();
 
-                    b.Property<int>("HospitalId");
-
                     b.Property<string>("LastName")
                         .IsRequired();
 
@@ -131,8 +130,6 @@ namespace DatabaseAccess.Data.Migrations
                         .IsRequired();
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HospitalId");
 
                     b.ToTable("Doctors");
                 });
@@ -315,11 +312,6 @@ namespace DatabaseAccess.Data.Migrations
 
             modelBuilder.Entity("DatabaseAccess.Models.Doctor", b =>
                 {
-                    b.HasOne("DatabaseAccess.Models.Hospital", "Hospital")
-                        .WithMany("Doctors")
-                        .HasForeignKey("HospitalId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("DatabaseAccess.Models.ApplicationUser")
                         .WithOne()
                         .HasForeignKey("DatabaseAccess.Models.Doctor", "Id")
@@ -330,8 +322,7 @@ namespace DatabaseAccess.Data.Migrations
                 {
                     b.HasOne("DatabaseAccess.Models.HospitalAdmin", "HospitalAdmin")
                         .WithOne("Hospital")
-                        .HasForeignKey("DatabaseAccess.Models.Hospital", "HospitalAdminId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("DatabaseAccess.Models.Hospital", "HospitalAdminId");
                 });
 
             modelBuilder.Entity("DatabaseAccess.Models.HospitalAdmin", b =>
