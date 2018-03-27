@@ -29,6 +29,8 @@ namespace DatabaseAccess.Data
 
         public DbSet<HospitalAdmin> HospitalAdmins { get; set; }
 
+        //public DbSet<Patient> Patients { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
