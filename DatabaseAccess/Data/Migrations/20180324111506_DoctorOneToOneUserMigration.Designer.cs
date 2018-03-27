@@ -11,9 +11,10 @@ using System;
 namespace DatabaseAccess.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180324111506_DoctorOneToOneUserMigration")]
+    partial class DoctorOneToOneUserMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,8 +120,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired();
 
-                    b.Property<int>("HospitalId");
-
                     b.Property<string>("LastName")
                         .IsRequired();
 
@@ -131,8 +130,6 @@ namespace DatabaseAccess.Data.Migrations
                         .IsRequired();
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HospitalId");
 
                     b.ToTable("Doctors");
                 });
@@ -182,27 +179,12 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("HospitalAdminId");
-
                     b.Property<string>("Name")
                         .IsRequired();
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HospitalAdminId")
-                        .IsUnique()
-                        .HasFilter("[HospitalAdminId] IS NOT NULL");
-
                     b.ToTable("Hospitals");
-                });
-
-            modelBuilder.Entity("DatabaseAccess.Models.HospitalAdmin", b =>
-                {
-                    b.Property<string>("Id");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("HospitalAdmins");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -315,30 +297,9 @@ namespace DatabaseAccess.Data.Migrations
 
             modelBuilder.Entity("DatabaseAccess.Models.Doctor", b =>
                 {
-                    b.HasOne("DatabaseAccess.Models.Hospital", "Hospital")
-                        .WithMany("Doctors")
-                        .HasForeignKey("HospitalId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("DatabaseAccess.Models.ApplicationUser")
                         .WithOne()
                         .HasForeignKey("DatabaseAccess.Models.Doctor", "Id")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DatabaseAccess.Models.Hospital", b =>
-                {
-                    b.HasOne("DatabaseAccess.Models.HospitalAdmin", "HospitalAdmin")
-                        .WithOne("Hospital")
-                        .HasForeignKey("DatabaseAccess.Models.Hospital", "HospitalAdminId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("DatabaseAccess.Models.HospitalAdmin", b =>
-                {
-                    b.HasOne("DatabaseAccess.Models.ApplicationUser")
-                        .WithOne()
-                        .HasForeignKey("DatabaseAccess.Models.HospitalAdmin", "Id")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
