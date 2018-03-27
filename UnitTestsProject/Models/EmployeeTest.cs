@@ -15,15 +15,14 @@ namespace UnitTestsProject
             employee1.LastName = "Ionescu";
             employee1.FirstName = "Ion";
             employee1.Age = 30;
-            
+
 
             Assert.IsTrue(employee1.Id == 12);
             Assert.IsTrue(employee1.LastName.Equals("Ionescu"));
             Assert.IsTrue(employee1.FirstName.Equals("Ion"));
             Assert.IsTrue(employee1.Age == 30);
-            
 
-            
+
 
         }
     }

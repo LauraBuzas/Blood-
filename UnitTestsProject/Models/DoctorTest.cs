@@ -11,13 +11,13 @@ namespace UnitTestsProject.Models
         {
             Doctor doctor = new Doctor();
 
-            doctor.Id = 222;
+            //doctor.Id = 222;
             doctor.FirstName = "Maria";
             doctor.LastName = "Pop";
             doctor.Ward = "cardiologie";
             doctor.Speciality = "cardiolog";
 
-            Assert.IsTrue(doctor.Id == 222);
+            //Assert.IsTrue(doctor.Id == 222);
             Assert.IsTrue(doctor.FirstName.Equals("Maria"));
             Assert.IsTrue(doctor.LastName.Equals("Pop"));
             Assert.IsTrue(doctor.Ward.Equals("cardiologie"));
