@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using BloodPlus.Models;
-using BloodPlus.Models.ManageViewModels;
-using BloodPlus.Services;
+using DatabaseAccess.Models;
+using BloodPlus.ModelViews.ManageViewModels;
+using BloodPlus.Services2;
 
 namespace BloodPlus.Controllers
 {
