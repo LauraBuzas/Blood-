@@ -6,11 +6,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+using BloodPlus.ModelViews;
 
 namespace BloodPlus.Controllers
 {
     [Produces("application/json")]
-    [Route("Doctors")]
+    [Route("doctors")]
+    
     public class DoctorsController : Controller
     {
         DoctorsService doctorsService;
@@ -20,11 +23,19 @@ namespace BloodPlus.Controllers
             this.doctorsService = doctorsService;
         }
 
+        [Authorize(Roles = "HospitalAdmin")]
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetDoctors()
         {
-            List<Doctor> doctors = doctorsService.GetDoctors();          
-            return Ok(doctors);
+            var hospitalId=Request.Cookies["HospitalId"];
+            List<Doctor> doctors = doctorsService.GetDoctors(Int32.Parse(hospitalId));
+            List<DoctorGetModelView> doctorsView = new List<DoctorGetModelView>();
+            foreach(var doctor in doctors)
+            {
+                var user = doctorsService.GetUserForDoctor(doctor.Id);
+                doctorsView.Add(Mappers.MapperRegisterDoctor.ToDoctorGet(doctor, user));
+            }
+            return Ok(doctorsView);
         }
 
 

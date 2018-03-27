@@ -20,50 +20,21 @@ namespace DatabaseAccess.Data
             }
 
             await Seed(userManager, roleManager);
-
-            await SeedDoctors(context);
-        }
-
-        private static async Task SeedDoctors(ApplicationDbContext context)
-        {
-            Doctor doctor1 = new Doctor()
-            {
-                FirstName = "Vasile",
-                LastName = "Ionescu",
-                Speciality = "Surgery",
-                Ward = "Ward 1"
-            };
-            Doctor doctor2 = new Doctor()
-            {
-                FirstName = "Daniel",
-                LastName = "Popa",
-                Speciality = "Dermatologist",
-                Ward = "Ward 2"
-            };
-            Doctor doctor3 = new Doctor()
-            {
-                FirstName = "Ionel",
-                LastName = "Popescu",
-                Speciality = "Cardiologist",
-                Ward = "Ward 3"
-            };
-
-            context.Doctors.Add(doctor1);
-            context.Doctors.Add(doctor2);
-            context.Doctors.Add(doctor3);
-            context.SaveChanges();
+            await SeedHospitalAdmin(context, userManager);
+            await SeedHospitals(context, userManager);
+            await SeedDoctors(context, userManager);
 
         }
 
+       
         public static async Task Seed(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            List<ApplicationUser> identityUsers = new List<ApplicationUser>()
-            {
-                new ApplicationUser{Email="god@iss.com",UserName="god"}
-            };
 
             await userManager.CreateAsync(new ApplicationUser { Email = "god@iss.com", UserName = "God" }, "Password123.");
+            await userManager.CreateAsync(new ApplicationUser { Email = "hospitalAdmin@admin.com", UserName = "HospitalAdmin" }, "Password123.");
+            await userManager.CreateAsync(new ApplicationUser { Email = "doctor1@spital.com", UserName = "Doctor1"}, "Password123.");
 
+      
             await roleManager.CreateAsync(new IdentityRole { Name = "God"});
             await roleManager.CreateAsync(new IdentityRole { Name = "DonationCenterAdmin"});
             await roleManager.CreateAsync(new IdentityRole { Name = "HospitalAdmin"});
@@ -72,6 +43,8 @@ namespace DatabaseAccess.Data
             await roleManager.CreateAsync(new IdentityRole { Name = "Donator"});
 
             var createdUser =await userManager.FindByEmailAsync("god@iss.com");
+            var createdDoctor = await userManager.FindByEmailAsync("doctor1@spital.com");
+            var createdHospitalAdmin = await userManager.FindByEmailAsync("hospitalAdmin@admin.com");
 
             var role1 = await roleManager.FindByNameAsync("God");
             var role2 = await roleManager.FindByNameAsync("DonationCenterAdmin");
@@ -85,10 +58,72 @@ namespace DatabaseAccess.Data
             var role6 = await roleManager.FindByNameAsync("Donator");
             //await userManager.AddToRoleAsync(createdUser, role6.Name);
             await userManager.AddToRolesAsync(createdUser, new List<string> { role1.Name, role2.Name, role3.Name, role4.Name, role5.Name, role6.Name });
+            await userManager.AddToRoleAsync(createdDoctor, role5.Name);
+            await userManager.AddToRoleAsync(createdHospitalAdmin, role3.Name);
 
         }
 
-       
+        private static async Task SeedHospitals(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        {
+            Hospital hospital1 = new Hospital()
+            {
+                Name="Hospital1",
+            };
+
+            var createdHospitalAdmin = await userManager.FindByEmailAsync("hospitalAdmin@admin.com");
+            hospital1.HospitalAdminId = createdHospitalAdmin.Id;
+            context.Hospitals.Add(hospital1);
+            context.SaveChanges();
+        }
+
+        private static async Task SeedHospitalAdmin(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        {
+            HospitalAdmin hospitalAdmin = new HospitalAdmin();
+            var createdHospitalAdmin = await userManager.FindByEmailAsync("hospitalAdmin@admin.com");
+            hospitalAdmin.Id = createdHospitalAdmin.Id;
+            context.HospitalAdmins.Add(hospitalAdmin);
+            context.SaveChanges();
+        }
+
+        private static async Task SeedDoctors(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        {
+            Doctor doctor1 = new Doctor()
+            {
+                FirstName = "Vasile",
+                LastName = "Ionescu",
+                Speciality = "Surgery",
+                Ward = "Ward 1",
+                HospitalId=1
+            };
+
+            var createdUser = await userManager.FindByEmailAsync("doctor1@spital.com");
+            doctor1.Id = createdUser.Id;
+
+            //Doctor doctor2 = new Doctor()
+            //{
+            //    FirstName = "Daniel",
+            //    LastName = "Popa",
+            //    Speciality = "Dermatologist",
+            //    Ward = "Ward 2"
+            //};
+            //Doctor doctor3 = new Doctor()
+            //{
+            //    FirstName = "Ionel",
+            //    LastName = "Popescu",
+            //    Speciality = "Cardiologist",
+            //    Ward = "Ward 3"
+            //};
+
+            context.Doctors.Add(doctor1);
+            //context.Doctors.Add(doctor2);
+            //context.Doctors.Add(doctor3);
+            context.SaveChanges();
+
+        }
+
+
+
+
 
 
     }

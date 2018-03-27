@@ -41,6 +41,7 @@ namespace BloodPlus
 
             services.AddMvc();
             services.AddTransient<DoctorsService>();
+            services.AddTransient<HospitalAdminService>();
 
         }
 
@@ -61,7 +62,7 @@ namespace BloodPlus
             //app.UseStaticFiles();
 
             app.UseAuthentication();
-
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials());
             app.UseMvc();
 
 

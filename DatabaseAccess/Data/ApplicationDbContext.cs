@@ -27,6 +27,8 @@ namespace DatabaseAccess.Data
 
         public DbSet<Employee> Employee { get; set; }
 
+        public DbSet<HospitalAdmin> HospitalAdmins { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -41,6 +43,27 @@ namespace DatabaseAccess.Data
             builder.Entity<Donor>().ToTable("Donors");
             builder.Entity<Center>().ToTable("Centers");
             builder.Entity<Employee>().ToTable("Employees");
+            builder.Entity<HospitalAdmin>().ToTable("HospitalAdmins");
+
+            builder.Entity<Doctor>(doc => doc.HasOne<ApplicationUser>()
+                                             .WithOne()
+                                             .HasForeignKey<Doctor>(d => d.Id));
+
+            builder.Entity<HospitalAdmin>(ha=>ha.HasOne<ApplicationUser>()
+                                              .WithOne()
+                                              .HasForeignKey<HospitalAdmin>(h => h.Id));
+            //One to one Hospital-HospitalAdmin
+            builder.Entity<HospitalAdmin>()
+               .HasOne(ha => ha.Hospital)
+               .WithOne(h => h.HospitalAdmin)
+               .HasForeignKey<Hospital>(h => h.HospitalAdminId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            //One to many Hospital-Doctor
+            builder.Entity<Hospital>()
+                .HasMany(h => h.Doctors)
+                .WithOne(d => d.Hospital)
+                .HasForeignKey(d => d.HospitalId);
 
         }
     }
