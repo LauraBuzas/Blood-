@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BloodPlus.Models;
+using DatabaseAccess.Models;
 
 namespace UnitTestsProject.Models
 {

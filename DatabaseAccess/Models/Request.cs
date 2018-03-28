@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace BloodPlus.Models
+namespace DatabaseAccess.Models
 {
     public class Request
     {

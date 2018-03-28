@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+
 using DatabaseAccess.Models;
 
 namespace DatabaseAccess.Data
@@ -29,7 +30,9 @@ namespace DatabaseAccess.Data
 
         public DbSet<HospitalAdmin> HospitalAdmins { get; set; }
 
-        //public DbSet<Patient> Patients { get; set; }
+        public DbSet<Patient> Patients { get; set; }
+
+        public DbSet<Request> Requests { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -46,6 +49,8 @@ namespace DatabaseAccess.Data
             builder.Entity<Center>().ToTable("Centers");
             builder.Entity<Employee>().ToTable("Employees");
             builder.Entity<HospitalAdmin>().ToTable("HospitalAdmins");
+            builder.Entity<Patient>().ToTable("Patients");
+            builder.Entity<Request>().ToTable("Requests");
 
             builder.Entity<Doctor>(doc => doc.HasOne<ApplicationUser>()
                                              .WithOne()
