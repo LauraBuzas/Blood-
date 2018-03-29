@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import logo from './logo.svg';
 import './App.css';
 import { elastic as Menu } from 'react-burger-menu'
 import './css/Menu.css'

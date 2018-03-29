@@ -2,6 +2,7 @@ import * as React from 'react';
 import { VBox, HBox } from 'react-stylesheet';
 import { TextField } from '../utils/TextField'
 import '../css/Button.css';
+import '../css/Login.css';
 
 export class SignUp extends React.Component {
     constructor(props) {
@@ -15,7 +16,7 @@ export class SignUp extends React.Component {
     render() {
         return (
             <div>
-                <VBox padding="70px 0px">
+                <VBox className='vboxLogin'>
                     <HBox>
                         <TextField text="First Name" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
                         <TextField text="Last Name" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />

@@ -8,7 +8,6 @@ export class AccountService {
         return new Promise((resolve, reject) => {
             axios.post(this.root + "/login", user).then((response: any) => {
                 console.log(user);
-                localStorage.setItem('token', response.data.access_token)
                 console.log(response);
                 resolve(response.data);
             },

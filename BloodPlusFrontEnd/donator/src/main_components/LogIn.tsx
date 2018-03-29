@@ -5,6 +5,7 @@ import update from 'react-addons-update';
 import '../css/Button.css';
 import { IUserRegister } from './../Models/IUserRegister';
 import { AccountService } from '../services/AccountServices';
+import '../css/Login.css';
 
 export interface LoginProps {
     isLoggedInFunct: any
@@ -13,7 +14,6 @@ export interface LoginProps {
 interface LoginState {
     userRegistered: IUserRegister
     message: string
-    token: string
 }
 
 export class LogIn extends React.Component<LoginProps, LoginState>
@@ -23,7 +23,6 @@ export class LogIn extends React.Component<LoginProps, LoginState>
 
         this.state =
             {
-                token: '',
                 message: '',
                 userRegistered:
                     {
@@ -68,7 +67,7 @@ export class LogIn extends React.Component<LoginProps, LoginState>
     render() {
         return (
             <div>
-                <VBox padding="150px 350px">
+                <VBox className="vboxLogin">
                     <TextField text="Username" type="text" onChangeFunction={(event) => this.handleUsernameChange(event)} />
                     <TextField text="Password" type="password" onChangeFunction={(event) => this.handlePasswordChange(event)} />
                     <button className="buttonLogIn" onClick={(event) => this.loginUser(event)}>Log in</button>

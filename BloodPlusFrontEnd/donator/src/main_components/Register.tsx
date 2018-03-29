@@ -10,7 +10,6 @@ export interface RegisterProps { }
 interface RegisterState {
     userRegistered: IUserRegister
     message: string
-    token: string
     isRegistered: boolean
 }
 
@@ -22,7 +21,6 @@ export class Register extends React.Component<RegisterProps, RegisterState>
         this.state =
             {
                 isRegistered: false,
-                token: '',
                 message: '',
                 userRegistered:
                     {
