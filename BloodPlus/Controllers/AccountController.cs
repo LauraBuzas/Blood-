@@ -472,7 +472,6 @@ namespace BloodPlus.Controllers
                     {
                         _doctorsService.AddDoctor(doctorDb);
 
-
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                         //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                         //await _emailSender.SendEmailConfirmationAsync(doctorModel.Email, callbackUrl);
@@ -481,7 +480,7 @@ namespace BloodPlus.Controllers
                         _logger.LogInformation("User created a new account with password.");
 
                         //return RedirectToLocal(returnUrl);
-                        return Ok();
+                        return Ok(doctorModel);
                     }catch(Exception ex)
                     {
                         return BadRequest(ex.Message);
@@ -491,7 +490,7 @@ namespace BloodPlus.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            return BadRequest("aici");
+            return BadRequest("Something failed in register doctor");
 
         }
 
