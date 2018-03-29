@@ -36,17 +36,15 @@ export class LogIn extends React.Component<LoginProps, LoginState>
             }
     }
 
-     handleUsernameChange(event:any)
-    {
+    handleUsernameChange(event: any) {
         this.setState({
-            userRegistered:update(this.state.userRegistered,{username:{$set:event.target.value}})
+            userRegistered: update(this.state.userRegistered, { username: { $set: event.target.value } })
         });
     }
-   
-    handlePasswordChange(event:any)
-    {
+
+    handlePasswordChange(event: any) {
         this.setState({
-            userRegistered:update(this.state.userRegistered,{password:{$set:event.target.value}})
+            userRegistered: update(this.state.userRegistered, { password: { $set: event.target.value } })
         });
     }
 
@@ -71,7 +69,7 @@ export class LogIn extends React.Component<LoginProps, LoginState>
         return (
             <div>
                 <VBox padding="150px 350px">
-                    <TextField text="Username" type="text" onChangeFunction={(event) => this.handleUsernameChange(event)}/>
+                    <TextField text="Username" type="text" onChangeFunction={(event) => this.handleUsernameChange(event)} />
                     <TextField text="Password" type="password" onChangeFunction={(event) => this.handlePasswordChange(event)} />
                     <button className="buttonLogIn" onClick={(event) => this.loginUser(event)}>Log in</button>
                 </VBox>

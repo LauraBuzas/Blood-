@@ -5,8 +5,6 @@ import { elastic as Menu } from 'react-burger-menu'
 import './css/Menu.css'
 import { HBox, VBox } from 'react-stylesheet/lib/Box';
 import { AdminDoctor } from './Components/AdminDoctor/AdminDoctor'
-import { LogIn } from './main_components/LogIn';
-import { SignUp } from './main_components/SignUp';
 import './css/TextField.css';
 import './css/Menu.css';
 
@@ -18,13 +16,6 @@ export class App extends React.Component {
 
     return (
       <div className="App">
-        {/* <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p> */}
         <div>
           <Menu disableCloseOnEsc customBurgerIcon={<img src="images/menuIcon.svg" />} itemListClassName={"menu-item"}  >
             <a id="home" className="menu-item" href="/">Home</a>
@@ -33,14 +24,7 @@ export class App extends React.Component {
             <a className="menu-item" href="">Settings</a>
           </Menu>
         </div>
-        <div>
-          <HBox>
-            <LogIn isLoggedInFunct="" />
-            <SignUp />
-          </HBox>
-        </div>
       </div>
-
     );
   }
 }

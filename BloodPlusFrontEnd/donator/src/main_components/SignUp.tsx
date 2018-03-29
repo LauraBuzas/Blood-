@@ -10,7 +10,7 @@ export class SignUp extends React.Component {
 
     }
 
-    handleUsernameChange() {}
+    handleUsernameChange() { }
 
     render() {
         return (
