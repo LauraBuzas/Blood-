@@ -8,9 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using BloodPlus.Data;
-using BloodPlus.Models;
-using BloodPlus.Services;
+using DatabaseAccess.Data;
+using DatabaseAccess.Models;
+using BloodPlus.Services2;
+using Services;
 
 namespace BloodPlus
 {
@@ -27,16 +28,19 @@ namespace BloodPlus
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(DatabaseAccess.Configuration.ConnectionString));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddTransient<ApplicationDbContext>();
+
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-
             services.AddMvc();
+            services.AddTransient<DoctorsService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,19 +54,17 @@ namespace BloodPlus
             }
             //else
             //{
-            //    app.UseExceptionHandler("/Home/Error");
+            //app.UseExceptionHandler();
             //}
 
-            app.UseStaticFiles();
+            //app.UseStaticFiles();
 
             app.UseAuthentication();
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+            app.UseMvc();
 
-            app.UseMvc(routes =>
-            {
-                //routes.MapRoute(
-                //    name: "default",
-                //    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+
+
         }
     }
 }

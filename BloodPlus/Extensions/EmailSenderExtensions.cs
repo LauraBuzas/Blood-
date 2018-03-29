@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using BloodPlus.Services;
+using BloodPlus.Services2;
 
-namespace BloodPlus.Services
+namespace BloodPlus.Services2
 {
     public static class EmailSenderExtensions
     {
