@@ -17,8 +17,9 @@ namespace BloodPlus.Mappers
                 Id = applicationUser.Id,
                 FirstName = viewModel.FirstName,
                 LastName = viewModel.LastName,
-                Speciality=viewModel.Speciality,
-                Ward=viewModel.Ward
+                Speciality = viewModel.Speciality,
+                Ward = viewModel.Ward,
+                HospitalId = viewModel.HospitalId
             };
         }
 
@@ -30,6 +31,8 @@ namespace BloodPlus.Mappers
                 FirstName = doctor.FirstName,
                 LastName = doctor.LastName,
                 Email = applicationUser.Email,
+                Speciality=doctor.Speciality,
+                Ward=doctor.Ward,
                 Password = "zsdsdas"
             };
         }

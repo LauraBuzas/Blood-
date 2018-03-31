@@ -19,5 +19,7 @@ namespace BloodPlus.ModelViews.AccountViewModels
         [Required]
         public string Ward { get; set; }
 
+
+        public int HospitalId { get; set; }
     }
 }
