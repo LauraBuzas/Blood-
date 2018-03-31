@@ -1,0 +1,17 @@
+.btn-group{
+    position: absolute !important;
+    left:0;
+}
+
+.react-bs-table{
+   
+}
+
+.row{
+    margin-left: 0px !important;
+}
+
+.tableArea{
+    margin:10%;
+    /* margin-right:10%; */
+}

@@ -36,12 +36,12 @@ namespace DatabaseAccess.Data.Migrations
             migrationBuilder.AddPrimaryKey("PK_Doctors", "Doctors","Id");
 
 
-            migrationBuilder.AlterColumn<int>(
-                name: "Id",
-                table: "Doctors",
-                nullable: false,
-                oldClrType: typeof(string))
-                .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+            //migrationBuilder.AlterColumn<int>(
+            //    name: "Id",
+            //    table: "Doctors",
+            //    nullable: false,
+            //    oldClrType: typeof(string))
+            //    .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
         }
     }
 }

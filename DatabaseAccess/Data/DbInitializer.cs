@@ -20,22 +20,83 @@ namespace DatabaseAccess.Data
             }
 
             await Seed(userManager, roleManager);
+            await SeedHospitalAdmin(context, userManager);
+            await SeedHospitals(context, userManager);
+            await SeedDoctors(context, userManager);
 
-            await SeedDoctors(context,userManager);
         }
 
-        private static async Task SeedDoctors(ApplicationDbContext context, UserManager<ApplicationUser>userManager)
+       
+        public static async Task Seed(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        {
+
+            await userManager.CreateAsync(new ApplicationUser { Email = "god@iss.com", UserName = "God" }, "Password123.");
+            await userManager.CreateAsync(new ApplicationUser { Email = "hospitalAdmin@admin.com", UserName = "HospitalAdmin" }, "Password123.");
+            await userManager.CreateAsync(new ApplicationUser { Email = "doctor1@spital.com", UserName = "Doctor1"}, "Password123.");
+
+      
+            await roleManager.CreateAsync(new IdentityRole { Name = "God"});
+            await roleManager.CreateAsync(new IdentityRole { Name = "DonationCenterAdmin"});
+            await roleManager.CreateAsync(new IdentityRole { Name = "HospitalAdmin"});
+            await roleManager.CreateAsync(new IdentityRole { Name = "DonationCenterDoctor"});
+            await roleManager.CreateAsync(new IdentityRole { Name = "HospitalDoctor"});
+            await roleManager.CreateAsync(new IdentityRole { Name = "Donator"});
+
+            var createdUser =await userManager.FindByEmailAsync("god@iss.com");
+            var createdDoctor = await userManager.FindByEmailAsync("doctor1@spital.com");
+            var createdHospitalAdmin = await userManager.FindByEmailAsync("hospitalAdmin@admin.com");
+
+            var role1 = await roleManager.FindByNameAsync("God");
+            var role2 = await roleManager.FindByNameAsync("DonationCenterAdmin");
+            //await userManager.AddToRoleAsync(createdUser, role2.Name);
+            var role3 = await roleManager.FindByNameAsync("HospitalAdmin");
+            //await userManager.AddToRoleAsync(createdUser, role3.Name);
+            var role4 = await roleManager.FindByNameAsync("DonationCenterDoctor");
+            //await userManager.AddToRoleAsync(createdUser, role4.Name);
+            var role5 = await roleManager.FindByNameAsync("HospitalDoctor");
+            //await userManager.AddToRoleAsync(createdUser, role5.Name); 
+            var role6 = await roleManager.FindByNameAsync("Donator");
+            //await userManager.AddToRoleAsync(createdUser, role6.Name);
+            await userManager.AddToRolesAsync(createdUser, new List<string> { role1.Name, role2.Name, role3.Name, role4.Name, role5.Name, role6.Name });
+            await userManager.AddToRoleAsync(createdDoctor, role5.Name);
+            await userManager.AddToRoleAsync(createdHospitalAdmin, role3.Name);
+
+        }
+
+        private static async Task SeedHospitals(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        {
+            Hospital hospital1 = new Hospital()
+            {
+                Name="Hospital1",
+            };
+
+            var createdHospitalAdmin = await userManager.FindByEmailAsync("hospitalAdmin@admin.com");
+            hospital1.HospitalAdminId = createdHospitalAdmin.Id;
+            context.Hospitals.Add(hospital1);
+            context.SaveChanges();
+        }
+
+        private static async Task SeedHospitalAdmin(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        {
+            HospitalAdmin hospitalAdmin = new HospitalAdmin();
+            var createdHospitalAdmin = await userManager.FindByEmailAsync("hospitalAdmin@admin.com");
+            hospitalAdmin.Id = createdHospitalAdmin.Id;
+            context.HospitalAdmins.Add(hospitalAdmin);
+            context.SaveChanges();
+        }
+
+        private static async Task SeedDoctors(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             Doctor doctor1 = new Doctor()
             {
                 FirstName = "Vasile",
                 LastName = "Ionescu",
                 Speciality = "Surgery",
-                Ward = "Ward 1"
+                Ward = "Ward 1",
+                HospitalId=1
             };
 
             var createdUser = await userManager.FindByEmailAsync("doctor1@spital.com");
-
             doctor1.Id = createdUser.Id;
 
             //Doctor doctor2 = new Doctor()
@@ -60,39 +121,9 @@ namespace DatabaseAccess.Data
 
         }
 
-        public static async Task Seed(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
-        {
-
-            await userManager.CreateAsync(new ApplicationUser { Email = "god@iss.com", UserName = "God" }, "Password123.");
-            await userManager.CreateAsync(new ApplicationUser { Email = "doctor1@spital.com", UserName = "johnica"}, "Password123.");
-
-            await roleManager.CreateAsync(new IdentityRole { Name = "God"});
-            await roleManager.CreateAsync(new IdentityRole { Name = "DonationCenterAdmin"});
-            await roleManager.CreateAsync(new IdentityRole { Name = "HospitalAdmin"});
-            await roleManager.CreateAsync(new IdentityRole { Name = "DonationCenterDoctor"});
-            await roleManager.CreateAsync(new IdentityRole { Name = "HospitalDoctor"});
-            await roleManager.CreateAsync(new IdentityRole { Name = "Donator"});
-
-            var createdUser =await userManager.FindByEmailAsync("god@iss.com");
-            var createdDoctor = await userManager.FindByEmailAsync("doctor1@spital.com");
 
 
-            var role1 = await roleManager.FindByNameAsync("God");
-            var role2 = await roleManager.FindByNameAsync("DonationCenterAdmin");
-            //await userManager.AddToRoleAsync(createdUser, role2.Name);
-            var role3 = await roleManager.FindByNameAsync("HospitalAdmin");
-            //await userManager.AddToRoleAsync(createdUser, role3.Name);
-            var role4 = await roleManager.FindByNameAsync("DonationCenterDoctor");
-            //await userManager.AddToRoleAsync(createdUser, role4.Name);
-            var role5 = await roleManager.FindByNameAsync("HospitalDoctor");
-            //await userManager.AddToRoleAsync(createdUser, role5.Name); 
-            var role6 = await roleManager.FindByNameAsync("Donator");
-            //await userManager.AddToRoleAsync(createdUser, role6.Name);
-            await userManager.AddToRolesAsync(createdUser, new List<string> { role1.Name, role2.Name, role3.Name, role4.Name, role5.Name, role6.Name });
-            await userManager.AddToRoleAsync(createdDoctor, role5.Name);
-        }
 
-       
 
 
     }

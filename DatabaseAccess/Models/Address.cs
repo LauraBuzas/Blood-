@@ -29,5 +29,7 @@ namespace DatabaseAccess.Models
 
         public int Floor { get; set; }
 
+        //public Donor Donor { get; set; }
+
     }
 }
