@@ -4,7 +4,7 @@ import './App.css';
 
 import './css/Management.css'
 import {AdminDoctor} from './Components/AdminDoctor/AdminDoctor'
-import { HBox, VBox } from 'react-stylesheet/lib/Box';
+import { HBox, VBox } from 'react-stylesheet/lib/Box'
 import './css/TextField.css';
 //import './css/Menu.css';
 

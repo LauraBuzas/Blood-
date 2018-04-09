@@ -39,5 +39,17 @@ namespace Services
                 return doctor;
             }
         }
+
+        public void DeleteDoctor(string email)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                ApplicationUser user=uow.ApplicationUserRepository.GetByFunc(u => u.Email == email);
+                Doctor doctor = uow.DoctorRepository.GetByFunc(d => d.Id == user.Id);
+                uow.DoctorRepository.Delete(doctor);
+                uow.ApplicationUserRepository.Delete(user);
+                uow.Save();
+            }
+        }
     }
 }
