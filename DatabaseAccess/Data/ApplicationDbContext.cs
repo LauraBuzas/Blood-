@@ -64,6 +64,7 @@ namespace DatabaseAccess.Data
                                               .WithOne()
                                               .HasForeignKey<HospitalAdmin>(h => h.Id));
 
+
             //One to one Hospital-HospitalAdmin
             builder.Entity<HospitalAdmin>()
                .HasOne(ha => ha.Hospital)
@@ -71,7 +72,16 @@ namespace DatabaseAccess.Data
                .HasForeignKey<Hospital>(h => h.HospitalAdminId)
                .OnDelete(DeleteBehavior.Restrict);
 
-            //One to one Hospital-HospitalAdmin
+            //One to one Employee-ApplicationUser
+            //builder.Entity<Employee>(em => em.HasOne<ApplicationUser>()
+            //                                 .WithOne()
+            //                                 .HasForeignKey<Employee>(e => e.Id));
+
+            //builder.Entity<CenterAdmin>(ca => ca.HasOne<ApplicationUser>()
+            //                                .WithOne()
+            //                                .HasForeignKey<CenterAdmin>(c => c.Id));
+
+            //one to one center-centerAdmin
             //builder.Entity<CenterAdmin>()
             //   .HasOne(ca => ca.Center)
             //   .WithOne(c => c.CenterAdmin)

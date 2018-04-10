@@ -14,6 +14,7 @@ namespace DatabaseAccess.UOW
 
         private IRepository<Doctor> _DoctorRepository;
         private IRepository<HospitalAdmin> _HospitalAdminRepository;
+        private IRepository<CenterAdmin> _CenterAdminRepository;
         private IRepository<ApplicationUser> _ApplicationUserRepository;
 
         public UnitOfWork()
@@ -48,6 +49,16 @@ namespace DatabaseAccess.UOW
                 if (_ApplicationUserRepository == null)
                     _ApplicationUserRepository = new GenericRepository<ApplicationUser>(context);
                 return _ApplicationUserRepository;
+            }
+        }
+
+        public IRepository<CenterAdmin> CenterAdminRepository
+        {
+            get
+            {
+                if (_CenterAdminRepository == null)
+                    _CenterAdminRepository = new GenericRepository<CenterAdmin>(context);
+                return _CenterAdminRepository;
             }
         }
 

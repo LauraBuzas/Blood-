@@ -2,8 +2,8 @@ import * as React from 'react'
 import { IDoctorGet } from '../../Models/IDoctorGet';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {Helmet} from 'react-helmet'
-import './AdminDoctor.css'
-import { AdminDoctorService } from '../../Services/AdminDoctorService';
+import './HospitalAdmin.css'
+import { HospitalAdminService } from '../../Services/HospitalAdminService';
 import Cookies from 'universal-cookie';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
@@ -14,19 +14,18 @@ import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
 
 
 
-export interface AdminDoctorProps{
-
+export interface HospitalAdminProps{
 }
-interface AdminDoctorState
+interface HospitalAdminState
 {
     doctors:IDoctorGet[]
     message:string;
 }
 
-export class AdminDoctor extends React.Component<AdminDoctorProps,AdminDoctorState>
+export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAdminState>
 {
 
-    constructor(props: AdminDoctorProps) {
+    constructor(props: HospitalAdminProps) {
        
         super(props);
 
@@ -42,7 +41,7 @@ export class AdminDoctor extends React.Component<AdminDoctorProps,AdminDoctorSta
         
     
        
-        AdminDoctorService.getDoctors().then((doctors:IDoctorGet[]) => {
+        HospitalAdminService.getDoctors().then((doctors:IDoctorGet[]) => {
             this.setState({
                 doctors: doctors
             });    
@@ -62,7 +61,7 @@ export class AdminDoctor extends React.Component<AdminDoctorProps,AdminDoctorSta
        
 
         
-        AdminDoctorService.addDoctor(row).then((doctor:IDoctorGet) => {
+        HospitalAdminService.addDoctor(row).then((doctor:IDoctorGet) => {
             let newDoctors:IDoctorGet[];
             newDoctors=this.state.doctors;
             newDoctors.push(doctor);
@@ -94,7 +93,7 @@ export class AdminDoctor extends React.Component<AdminDoctorProps,AdminDoctorSta
     handleDeleteRow=(row)=>
     {
         let doctor:IDoctorDelete={email:row[0]}
-        AdminDoctorService.deleteDoctor(doctor).then(() => {
+        HospitalAdminService.deleteDoctor(doctor).then(() => {
             let newDoctors:IDoctorGet[];
             newDoctors = this.state.doctors.filter((d) => {
                 return d.email !== row;

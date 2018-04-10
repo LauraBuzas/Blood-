@@ -1,14 +1,15 @@
 import axios from 'axios';
-import { IDoctorGet } from '../Models/IDoctorGet';
+import { IEmployeeGet } from '../Models/IEmployeeGet';
 import Cookies from 'universal-cookie';
 import { Session } from 'inspector';
-import { IDoctorDelete } from '../Models/IDoctorDelete';
-export class AdminDoctorService {
-    private static rootDoctors: string = 'http://localhost:51401/doctors';
-    private static rootRegisterDoctors: string = 'http://localhost:51401/account/register/doctor';
+import { IEmployeeDelete } from '../Models/IEmployeeDelete';
+
+export class CenterAdminService {
+    private static rootEmployees: string = 'http://localhost:51401/employees';
+    private static rootRegisterEmployees: string = 'http://localhost:51401/account/register/employee';
 
 
-    public static getDoctors(): Promise<IDoctorGet[]> {
+    public static getEmployees(): Promise<IEmployeeGet[]> {
       
 
         const cookies = new Cookies();
@@ -18,7 +19,7 @@ export class AdminDoctorService {
 
         return new Promise((resolve, reject) => {
             axios(
-                this.rootDoctors,
+                this.rootEmployees,
                 {
                     method:'GET',
                     headers:{
@@ -28,22 +29,22 @@ export class AdminDoctorService {
                     withCredentials:true
                 }
             ).then((response: any) => {
-                let doctors = response.data.map(this.toDoctor);
-                resolve(doctors);
+                let employees = response.data.map(this.toEmployee);
+                resolve(employees);
             },
                 (error: any) => {
                     reject(error);
                 });
         });
     }
-    public static addDoctor(doctor:IDoctorGet): Promise<IDoctorGet> {
+    public static addEmployee(employee:IEmployeeGet): Promise<IEmployeeGet> {
         const cookies = new Cookies();
-        doctor.hospitalId=cookies.get("HospitalId");
-        doctor.confirmPassword=doctor.password;
+        employee.centerId=cookies.get("CenterId");
+        employee.confirmPassword=employee.password;
         return new Promise((resolve, reject) => {
-            axios.post(this.rootRegisterDoctors,doctor,{withCredentials:true}).then((response: any) => {
-                let doctor = this.toDoctor(response.data);
-                resolve(doctor);
+            axios.post(this.rootRegisterEmployees,employee,{withCredentials:true}).then((response: any) => {
+                let employee = this.toEmployee(response.data);
+                resolve(employee);
             },
                 (error: any) => {
                     reject(error);
@@ -51,11 +52,11 @@ export class AdminDoctorService {
         });
     }
 
-    public static deleteDoctor(doctor:IDoctorDelete):Promise<any>
+    public static deleteEmployee(employee:IEmployeeDelete):Promise<any>
     {
         return new Promise((resolve, reject) => {
             axios(
-                this.rootDoctors,
+                this.rootEmployees,
                 {
                     method:'DELETE',
                     headers:{
@@ -63,11 +64,10 @@ export class AdminDoctorService {
                         'Content-Type':'application/json'
                     },
                     withCredentials:true,
-                    data:doctor
+                    data:employee
                 }
             ).then((response: any) => {
-                // let doctor = this.toDoctor(response.data);
-                // resolve(doctor);
+                
             },
                 (error: any) => {
                     reject(error);
@@ -76,14 +76,12 @@ export class AdminDoctorService {
 
     }
 
-    private static toDoctor(response: any): IDoctorGet {
+    private static toEmployee(response: any): IEmployeeGet {
         return {
             lastname:response.lastName,
             firstname:response.firstName,
             email:response.email,
             password:response.password,
-            speciality:response.speciality,
-            ward:response.ward,
             confirmPassword:response.password
         };
     }

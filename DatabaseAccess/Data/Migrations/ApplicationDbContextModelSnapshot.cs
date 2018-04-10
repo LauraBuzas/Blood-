@@ -4,8 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
 namespace DatabaseAccess.Data.Migrations
@@ -105,27 +103,11 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.Property<double>("AvailableQuantity");
 
-                    b.Property<string>("CenterAdminId");
-
                     b.Property<string>("CenterName");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CenterAdminId")
-                        .IsUnique()
-                        .HasFilter("[CenterAdminId] IS NOT NULL");
-
                     b.ToTable("Centers");
-                });
-
-            modelBuilder.Entity("DatabaseAccess.Models.CenterAdmin", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CenterAdmins");
                 });
 
             modelBuilder.Entity("DatabaseAccess.Models.Doctor", b =>
@@ -155,9 +137,8 @@ namespace DatabaseAccess.Data.Migrations
 
             modelBuilder.Entity("DatabaseAccess.Models.Donor", b =>
                 {
-                    b.Property<string>("Id");
-
-                    b.Property<int>("AddressId");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("CNP")
                         .IsRequired();
@@ -175,9 +156,6 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId")
-                        .IsUnique();
-
                     b.ToTable("Donors");
                 });
 
@@ -188,15 +166,11 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.Property<int>("Age");
 
-                    b.Property<int>("CenterId");
-
                     b.Property<string>("FirstName");
 
                     b.Property<string>("LastName");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CenterId");
 
                     b.ToTable("Employees");
                 });
@@ -375,13 +349,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("DatabaseAccess.Models.Center", b =>
-                {
-                    b.HasOne("DatabaseAccess.Models.CenterAdmin", "CenterAdmin")
-                        .WithOne("Center")
-                        .HasForeignKey("DatabaseAccess.Models.Center", "CenterAdminId");
-                });
-
             modelBuilder.Entity("DatabaseAccess.Models.Doctor", b =>
                 {
                     b.HasOne("DatabaseAccess.Models.Hospital", "Hospital")
@@ -392,27 +359,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.HasOne("DatabaseAccess.Models.ApplicationUser")
                         .WithOne()
                         .HasForeignKey("DatabaseAccess.Models.Doctor", "Id")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DatabaseAccess.Models.Donor", b =>
-                {
-                    b.HasOne("DatabaseAccess.Models.Address", "Address")
-                        .WithOne()
-                        .HasForeignKey("DatabaseAccess.Models.Donor", "AddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("DatabaseAccess.Models.ApplicationUser")
-                        .WithOne()
-                        .HasForeignKey("DatabaseAccess.Models.Donor", "Id")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DatabaseAccess.Models.Employee", b =>
-                {
-                    b.HasOne("DatabaseAccess.Models.Center", "Center")
-                        .WithMany("Employees")
-                        .HasForeignKey("CenterId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
