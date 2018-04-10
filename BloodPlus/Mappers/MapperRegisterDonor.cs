@@ -18,8 +18,8 @@ namespace BloodPlus.Mappers
                 LastName = viewModel.LastName,
                 Address = viewModel.Address,
                 CNP = viewModel.CNP,
-                Email = viewModel.CNP,
-                PhoneNumber = viewModel.PhoneNumber
+                //Email = viewModel.CNP,
+                //PhoneNumber = viewModel.PhoneNumber
             };
         }
     }
