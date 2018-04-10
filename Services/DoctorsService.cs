@@ -1,5 +1,6 @@
 ﻿using DatabaseAccess.Models;
 using DatabaseAccess.UOW;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,21 @@ namespace Services
          {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                return uow.DoctorRepository.GetAll().Where(d=>d.HospitalId==HospitlId).ToList();
+                return uow.DoctorRepository.GetAll()
+                    .Where(d=>d.HospitalId==HospitlId)
+                    .ToList();
             }
          }
+
+        public ApplicationUser GetUserForDoctor(string doctorId)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.ApplicationUserRepository
+                    .GetByFunc(a => a.Id == doctorId);
+                    
+            }
+        }
 
         public Doctor AddDoctor(Doctor doctor)
         {

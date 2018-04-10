@@ -52,17 +52,17 @@ namespace BloodPlus.Controllers
         [TempData]
         public string ErrorMessage { get; set; }
 
-        //[HttpGet("login")]
-        //[AllowAnonymous]
-        //public async Task<IActionResult> Login(string returnUrl = null)
-        //{
-        //    // Clear the existing external cookie to ensure a clean login process
-        //    await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+        [HttpGet("login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(string returnUrl = null)
+        {
+            // Clear the existing external cookie to ensure a clean login process
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-        //    ViewData["ReturnUrl"] = returnUrl;
-        //    return View();
-        //}
-     
+            ViewData["ReturnUrl"] = returnUrl;
+            return Ok();
+        }
+
         private void SetCookie(string key,string value)
         {
             Response.Cookies.Append(key, value);
@@ -476,7 +476,6 @@ namespace BloodPlus.Controllers
                     {
                         _doctorsService.AddDoctor(doctorDb);
 
-
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                         //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                         //await _emailSender.SendEmailConfirmationAsync(doctorModel.Email, callbackUrl);
@@ -485,7 +484,7 @@ namespace BloodPlus.Controllers
                         _logger.LogInformation("User created a new account with password.");
 
                         //return RedirectToLocal(returnUrl);
-                        return Ok();
+                        return Ok(doctorModel);
                     }catch(Exception ex)
                     {
                         return BadRequest(ex.Message);
@@ -496,7 +495,7 @@ namespace BloodPlus.Controllers
 
 
             // If we got this far, something failed, redisplay form
-            return BadRequest("Something went wrong");
+            return BadRequest("Something failed in register doctor");
 
         }
 
