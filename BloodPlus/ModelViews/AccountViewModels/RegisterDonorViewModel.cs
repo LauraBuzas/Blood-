@@ -1,16 +1,14 @@
-﻿using System;
+﻿using DatabaseAccess.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DatabaseAccess.Models
+namespace BloodPlus.ModelViews.AccountViewModels
 {
-    public class Donor
+    public class RegisterDonorViewModel : RegisterViewModel
     {
-
-        public string Id { get; set; }
-
         [Required]
         public string CNP { get; set; }
 
@@ -19,12 +17,12 @@ namespace DatabaseAccess.Models
 
         [Required]
         public string LastName { get; set; }
-        
 
+        public string PhoneNumber { get; set; }
+
+        [Required]
         public Address Address { get; set; }
-
-        public int AddressId { get; set; }
-
+        
 
     }
 }

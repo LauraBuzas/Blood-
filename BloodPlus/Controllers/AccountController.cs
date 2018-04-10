@@ -26,7 +26,9 @@ namespace BloodPlus.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly DoctorsService _doctorsService;
+        private readonly DonorService _donorsService;
         private readonly HospitalAdminService _hospitalAdminService;
+        private readonly EmployeeService _employeeService;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -34,6 +36,7 @@ namespace BloodPlus.Controllers
             IEmailSender emailSender,
             ILogger<AccountController> logger,
             DoctorsService doctorsService,
+            DonorService donorService,
             HospitalAdminService hospitalAdminService)
         {
 
@@ -43,6 +46,7 @@ namespace BloodPlus.Controllers
             _logger = logger;
             _doctorsService = doctorsService;
             _hospitalAdminService=hospitalAdminService;
+            _donorsService = donorService;
         }
 
         [TempData]
@@ -489,47 +493,114 @@ namespace BloodPlus.Controllers
                 AddErrors(result);
             }
 
+
             // If we got this far, something failed, redisplay form
             return BadRequest("Something failed in register doctor");
 
         }
 
-        //[HttpPost("register/doctor")]
-        //[Authorize(Roles = "Admin")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> RegisterDonationCenterDoctor([FromBody] RegisterDoctorViewModel doctorModel)
+        //[HttpPost("register/employee")]
+        //[Authorize(Roles = "DonationCenterAdmin")]
+        ////[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> RegisterEmployee([FromBody] RegisterEmployeeViewModel employeeModel)
         //{
         //    //ViewData["ReturnUrl"] = returnUrl;
         //    if (ModelState.IsValid)
         //    {
-        //        var user = new ApplicationUser { UserName = doctorModel.Email, Email = doctorModel.Email };
-        //        var result = await _userManager.CreateAsync(user, doctorModel.Password);
+        //        var user = new ApplicationUser { UserName = employeeModel.Email, Email = employeeModel.Email };
+        //        var result = await _userManager.CreateAsync(user, employeeModel.Password);
 
         //        if (result.Succeeded)
         //        {
         //            _logger.LogInformation("User created a new account with password.");
 
-        //            var createdDoctor = await _userManager.FindByEmailAsync(doctorModel.Email);
+        //            var createdDoctor = await _userManager.FindByEmailAsync(employeeModel.Email);
+        //            await _userManager.AddToRoleAsync(createdDoctor, "HospitalDoctor");
+        //            var employeeDb = Mappers.MapperRegisterDoctor.ToDoctor(doctorModel, createdDoctor);
+        //            try
+        //            {
+        //                _employeeService.AddEmployee(employeeDb);
 
 
+        //                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        //                //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+        //                //await _emailSender.SendEmailConfirmationAsync(doctorModel.Email, callbackUrl);
 
-        //            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-        //            var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
-        //            await _emailSender.SendEmailConfirmationAsync(doctorModel.Email, callbackUrl);
+        //                await _signInManager.SignInAsync(user, isPersistent: false);
+        //                _logger.LogInformation("User created a new account with password.");
 
-        //            await _signInManager.SignInAsync(user, isPersistent: false);
-        //            _logger.LogInformation("User created a new account with password.");
-
-        //            //return RedirectToLocal(returnUrl);
-        //            return Ok();
+        //                //return RedirectToLocal(returnUrl);
+        //                return Ok();
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                return BadRequest(ex.Message);
+        //            }
         //        }
         //        AddErrors(result);
         //    }
 
-            // If we got this far, something failed, redisplay form
-        //    return BadRequest();
+        //    // If we got this far, something failed, redisplay form
+        //    return BadRequest("Something went wrong");
 
         //}
+
+        [HttpPost("register/donor")]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RegisterDonor([FromBody] RegisterDonorViewModel donorModel)
+        {
+            //ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = donorModel.Email, Email = donorModel.Email };
+                var result = await _userManager.CreateAsync(user, donorModel.Password);
+
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("User created a new account with password.");
+
+                    var createdDonor = await _userManager.FindByEmailAsync(donorModel.Email);
+
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+                    await _emailSender.SendEmailConfirmationAsync(donorModel.Email, callbackUrl);
+                    var donorDb = Mappers.MapperRegisterDonor.ToDonor(donorModel, createdDonor);
+
+
+                    try
+                    {
+                        _donorsService.AddDonor(donorDb);
+
+
+                        var codeResult = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+                        //await _emailSender.SendEmailConfirmationAsync(doctorModel.Email, callbackUrl);
+
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        _logger.LogInformation("User created a new account with password.");
+
+                        //return RedirectToLocal(returnUrl);
+                        return Ok();
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    _logger.LogInformation("User created a new account with password.");
+
+                    //return RedirectToLocal(returnUrl);
+                    return Ok();
+                }
+                AddErrors(result);
+            }
+
+            //If we got this far, something failed, redisplay form
+            return BadRequest("Something went wrong");
+
+        }
 
         //[HttpGet]
         //[AllowAnonymous]
