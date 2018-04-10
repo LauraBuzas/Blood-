@@ -95,6 +95,15 @@ namespace DatabaseAccess.Data
                                              .WithOne()
                                              .HasForeignKey<Donor>(d => d.Id));
 
+            //One to one Employee-ApplicationUser
+            builder.Entity<Employee>(emp => emp.HasOne<ApplicationUser>()
+                                            .WithOne()
+                                            .HasForeignKey<Employee>(e => e.Id));
+
+
+            builder.Entity<CenterAdmin>(ca => ca.HasOne<ApplicationUser>()
+                                  .WithOne()
+                                  .HasForeignKey<CenterAdmin>(c => c.Id));
 
         }
     }

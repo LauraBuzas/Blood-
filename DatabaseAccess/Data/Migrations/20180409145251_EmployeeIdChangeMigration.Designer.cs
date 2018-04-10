@@ -11,9 +11,10 @@ using System;
 namespace DatabaseAccess.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180409145251_EmployeeIdChangeMigration")]
+    partial class EmployeeIdChangeMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,7 +121,8 @@ namespace DatabaseAccess.Data.Migrations
 
             modelBuilder.Entity("DatabaseAccess.Models.CenterAdmin", b =>
                 {
-                    b.Property<string>("Id");
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.HasKey("Id");
 
@@ -182,7 +184,8 @@ namespace DatabaseAccess.Data.Migrations
 
             modelBuilder.Entity("DatabaseAccess.Models.Employee", b =>
                 {
-                    b.Property<string>("Id");
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("Age");
 
@@ -342,14 +345,6 @@ namespace DatabaseAccess.Data.Migrations
                         .HasForeignKey("DatabaseAccess.Models.Center", "CenterAdminId");
                 });
 
-            modelBuilder.Entity("DatabaseAccess.Models.CenterAdmin", b =>
-                {
-                    b.HasOne("DatabaseAccess.Models.ApplicationUser")
-                        .WithOne()
-                        .HasForeignKey("DatabaseAccess.Models.CenterAdmin", "Id")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("DatabaseAccess.Models.Doctor", b =>
                 {
                     b.HasOne("DatabaseAccess.Models.Hospital", "Hospital")
@@ -381,11 +376,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.HasOne("DatabaseAccess.Models.Center", "Center")
                         .WithMany("Employees")
                         .HasForeignKey("CenterId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("DatabaseAccess.Models.ApplicationUser")
-                        .WithOne()
-                        .HasForeignKey("DatabaseAccess.Models.Employee", "Id")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
