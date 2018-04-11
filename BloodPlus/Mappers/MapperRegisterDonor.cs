@@ -16,10 +16,19 @@ namespace BloodPlus.Mappers
                 Id = applicationUser.Id,
                 FirstName = viewModel.FirstName,
                 LastName = viewModel.LastName,
-                Address = viewModel.Address,
                 CNP = viewModel.CNP,
-                //Email = viewModel.CNP,
-                //PhoneNumber = viewModel.PhoneNumber
+                
+            };
+        }
+
+        public static Address ToAddress(RegisterDonorViewModel viewModel)
+        {
+            return new Address
+            {
+                City=viewModel.City,
+                County = viewModel.County,
+                Street = viewModel.Street,
+                Number = viewModel.Number
             };
         }
     }

@@ -111,6 +111,26 @@ namespace DatabaseAccess.Data
                                   .WithOne()
                                   .HasForeignKey<CenterAdmin>(c => c.Id));
 
+            //One to many Doctor-Patients
+            builder.Entity<Doctor>()
+                .HasMany(d => d.Patients)
+                .WithOne(p => p.Doctor)
+                .HasForeignKey(p => p.IdDoctor);
+
+            //One to many Doctor-Requests
+            builder.Entity<Doctor>()
+                .HasMany(d => d.Requests)
+                .WithOne(r => r.Doctor)
+                .HasForeignKey(r => r.IdDoctor);
+
+            //One to one Request-Patient
+            builder.Entity<Request>()
+                .HasOne(r => r.Patient)
+                .WithOne(p => p.Request)
+                .HasForeignKey<Request>(r => r.IdPatient);
+
+
+
         }
     }
 }

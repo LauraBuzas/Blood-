@@ -8,18 +8,15 @@ namespace Services
 {
     public class DonorService
     {
-        //public List<Donor> GetDoctors(int HospitlId)
-        //{
-        //    using (UnitOfWork uow = new UnitOfWork())
-        //    {
-        //        return uow.DonorRepository.GetAll().Where(d => d.HospitalId == HospitlId).ToList();
-        //    }
-        //}
 
-        public Donor AddDonor(Donor donor)
+        public Donor AddDonor(Donor donor, Address address)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
+                uow.AddressRepository.Add(address);
+                uow.Save();
+
+                donor.Address = address;
                 uow.DonorRepository.Add(donor);
                 uow.Save();
                 return donor;

@@ -20,6 +20,11 @@ export class SignUp extends React.Component {
                     <HBox>
                         <TextField text="First Name" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
                         <TextField text="Last Name" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
+                        <TextField text="City" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
+                        <TextField text="County" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
+                        <TextField text="Street" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
+                        <TextField text="Number" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
+
                     </HBox>
                     <TextField text="E-mail" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
                     <TextField text="Username" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />

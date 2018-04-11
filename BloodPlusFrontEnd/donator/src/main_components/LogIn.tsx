@@ -4,15 +4,16 @@ import { TextField } from '../utils/TextField';
 import update from 'react-addons-update';
 import '../css/Button.css';
 import { IUserRegister } from './../Models/IUserRegister';
-import { AccountService } from '../services/AccountServices';
+import { AccountService } from '../Services/AccountServices';
 import '../css/Login.css';
+import { IUserLogin } from '../Models/IUserLogin';
 
 export interface LoginProps {
     isLoggedInFunct: any
 }
 
 interface LoginState {
-    userRegistered: IUserRegister
+    userRegistered: IUserLogin
     message: string
 }
 
@@ -28,8 +29,6 @@ export class LogIn extends React.Component<LoginProps, LoginState>
                     {
                         username: '',
                         email: '',
-                        firstName: '',
-                        lastName: '',
                         password: ''
                     }
             }
