@@ -23,7 +23,7 @@ namespace BloodPlus.Controllers
             this.employeeService = employeeService;
         }
 
-        [Authorize(Roles = "CenterAdmin")]
+        [Authorize(Roles = "DonationCenterAdmin")]
         [HttpGet]
         public IActionResult GetEmployees()
         {
@@ -38,7 +38,7 @@ namespace BloodPlus.Controllers
             return Ok(employeesView);
         }
 
-        [Authorize(Roles = "CenterAdmin")]
+        [Authorize(Roles = "DonationCenterAdmin")]
         [HttpDelete]
         public IActionResult DeleteEmployeeByEmail([FromBody] EmployeeDeleteViewModel employeeDelete)
         {

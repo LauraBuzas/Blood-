@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {Helmet} from 'react-helmet'
-import './HospitalAdmin.css'
+import '../HospitalAdmin/HospitalAdmin.css'
 import { CenterAdminService } from '../../Services/CenterAdminService';
 import Cookies from 'universal-cookie';
 import { confirmAlert } from 'react-confirm-alert'; // Import

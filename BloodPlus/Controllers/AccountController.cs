@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
+﻿using BloodPlus.ModelViews.AccountViewModels;
+using BloodPlus.Services2;
+using DatabaseAccess.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using DatabaseAccess.Models;
-using BloodPlus.ModelViews.AccountViewModels;
-using BloodPlus.Services2;
 using Services;
+using System;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace BloodPlus.Controllers
 {
@@ -27,7 +23,7 @@ namespace BloodPlus.Controllers
         private readonly ILogger _logger;
         private readonly DoctorsService _doctorsService;
         private readonly DonorService _donorsService;
-        private readonly HospitalAdminService _hospitalAdminService;
+        private readonly AdminService _adminService;
         private readonly EmployeeService _employeeService;
 
         public AccountController(
@@ -37,7 +33,8 @@ namespace BloodPlus.Controllers
             ILogger<AccountController> logger,
             DoctorsService doctorsService,
             DonorService donorService,
-            HospitalAdminService hospitalAdminService)
+            AdminService adminService,
+            EmployeeService employeeService)
         {
 
             _userManager = userManager;
@@ -45,8 +42,9 @@ namespace BloodPlus.Controllers
             _emailSender = emailSender;
             _logger = logger;
             _doctorsService = doctorsService;
-            _hospitalAdminService=hospitalAdminService;
+            _adminService=adminService;
             _donorsService = donorService;
+            _employeeService = employeeService;
         }
 
         [TempData]
@@ -88,8 +86,13 @@ namespace BloodPlus.Controllers
                     var roles=_userManager.GetRolesAsync(user).Result.ToList();
                     if(roles.Any(s=>s== "HospitalAdmin"))
                     {
-                        var hospitalId = _hospitalAdminService.GetHospitalIdForHospitalAdmin(user.Id);
+                        var hospitalId = _adminService.GetHospitalIdForHospitalAdmin(user.Id);
                         SetCookie("HospitalId", hospitalId.ToString());
+                    }
+                    if (roles.Any(s => s == "DonationCenterAdmin"))
+                    {
+                        var centerId = _adminService.GetCenterIdForCenterAdmin(user.Id);
+                        SetCookie("CenterId", centerId.ToString());
                     }
                     return Ok();
                 }
@@ -499,51 +502,50 @@ namespace BloodPlus.Controllers
 
         }
 
-        //[HttpPost("register/employee")]
-        //[Authorize(Roles = "DonationCenterAdmin")]
-        ////[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> RegisterEmployee([FromBody] RegisterEmployeeViewModel employeeModel)
-        //{
-        //    //ViewData["ReturnUrl"] = returnUrl;
-        //    if (ModelState.IsValid)
-        //    {
-        //        var user = new ApplicationUser { UserName = employeeModel.Email, Email = employeeModel.Email };
-        //        var result = await _userManager.CreateAsync(user, employeeModel.Password);
+        [HttpPost("register/employee")]
+        [Authorize(Roles = "DonationCenterAdmin")]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> RegisterEmployee([FromBody] RegisterEmployeeViewModel employeeModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = employeeModel.Email, Email = employeeModel.Email };
+                var result = await _userManager.CreateAsync(user, employeeModel.Password);
 
-        //        if (result.Succeeded)
-        //        {
-        //            _logger.LogInformation("User created a new account with password.");
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("User created a new account with password.");
 
-        //            var createdDoctor = await _userManager.FindByEmailAsync(employeeModel.Email);
-        //            await _userManager.AddToRoleAsync(createdDoctor, "HospitalDoctor");
-        //            var employeeDb = Mappers.MapperRegisterDoctor.ToDoctor(doctorModel, createdDoctor);
-        //            try
-        //            {
-        //                _employeeService.AddEmployee(employeeDb);
+                    var createdEmployee = await _userManager.FindByEmailAsync(employeeModel.Email);
+                    await _userManager.AddToRoleAsync(createdEmployee, "DonationCenterDoctor");
+                    var employeeDb = Mappers.MapperRegisterEmployee.ToEmployeeDb(employeeModel, createdEmployee);
+                    try
+                    {
+                        _employeeService.AddEmployee(employeeDb);
 
 
-        //                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-        //                //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
-        //                //await _emailSender.SendEmailConfirmationAsync(doctorModel.Email, callbackUrl);
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+                        //await _emailSender.SendEmailConfirmationAsync(doctorModel.Email, callbackUrl);
 
-        //                await _signInManager.SignInAsync(user, isPersistent: false);
-        //                _logger.LogInformation("User created a new account with password.");
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        _logger.LogInformation("User created a new account with password.");
 
-        //                //return RedirectToLocal(returnUrl);
-        //                return Ok();
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                return BadRequest(ex.Message);
-        //            }
-        //        }
-        //        AddErrors(result);
-        //    }
+                        //return RedirectToLocal(returnUrl);
+                        return Ok(employeeModel);
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                }
+                AddErrors(result);
+            }
 
-        //    // If we got this far, something failed, redisplay form
-        //    return BadRequest("Something went wrong");
+            // If we got this far, something failed, redisplay form
+            return BadRequest("Register employee failed");
 
-        //}
+        }
 
         [HttpPost("register/donor")]
         [AllowAnonymous]

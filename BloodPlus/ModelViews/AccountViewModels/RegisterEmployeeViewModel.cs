@@ -14,6 +14,9 @@ namespace BloodPlus.ModelViews.AccountViewModels
         public String LastName { get; set; }
         [Required]
         public String FirstName { get; set; }
+
+        [Required]
+        public int CenterId { get; set; }
        
     }
 

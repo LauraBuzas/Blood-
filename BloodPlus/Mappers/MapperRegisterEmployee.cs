@@ -21,5 +21,20 @@ namespace BloodPlus.Mappers
 
             };
         }
+
+        public static Employee ToEmployeeDb(RegisterEmployeeViewModel employee, ApplicationUser applicationUser)
+        {
+            return new Employee
+            {
+
+                Id=applicationUser.Id,
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                CenterId=employee.CenterId
+
+            };
+        }
+
+
     }
 }

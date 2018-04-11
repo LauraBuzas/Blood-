@@ -14,8 +14,8 @@ export class CenterAdminService {
 
         const cookies = new Cookies();
         cookies.set('.AspNetCore.Identity.Application',
-'CfDJ8Om1XNJeLMtJh84tqTlDYqJ1h9lhpEM6Y9Td5MKM8U6vZV1p6r6l0taadc8tZhc4z0I3BjPwwPBPgXU8nq0H9TGD0r08JSQUBEw4lLfE-VT6xwSLVF_c1EYrNvyhOoFO2TURk5o7B14tIPjcVXgRSq4KLkJ9eiB0SCSD6yb1eM1EEAMNICQFOceXDrimQ2QLz88E-xYlkRzqSwPTgrhsXSyNWdbUdA06pkxmSs8azlbILyGLA3Kju8TLqmb_66o8qITGCJ4XVFEjck5YNOmoX-vebxmsGEg7LvqJYppuPPA04Z1_GwIyMq0Q8N_NV3jKNZgfWI8BYMShyLyd2D9AmwynB74gbkIClhxACNOeCYmUPiQyzI3iMPqsv026KCwtEyMnBw6PC7OpURZPVHnkDycM6qBQeHIt_zYglNJJm-0nGEHdXx7Vy4R5frBVwGvhIHXVRgEyvd3PCY5PjED4wSAiOZh3gtvfRVGB8NFg9YzOIQC4vOfbZTi_JAxRHHrtr7xsrIMhpGzMzY8NonwaLhwqtOn5RMXCmyYi8A5F1VZp8tpwzGz-WcjfyMfcouSHVljDtPXpOiXX16Bd6A3IdL1L7mWqBzdOAFAzLJsAmJl9du5knjo83cgrigdwPhvXw-YtbupbP152TRmEgU7lzpxek6noszXEFg7id8FSJy7mIuTKhya-FmMstUjlVGnPoBdXX_z1vuidYahlkNJD70c','localhost','/','Session',true,false);
-         cookies.set('HospitalId','1','localhost','/','Session',true,false);
+'CfDJ8OuumZhDdt1BqP6v0ohxX3zaaoxz1bcKmrVhZDVe6WcNwTHCggMGBoKR-iy2pBv3kNNr7l8LyyGA58qPS2Jbu6LzqY8MjCnlHxZyAg6WV3Icl0W7OJyUZWUOYgQWX1wPxSxMWFAUsOW99hBknqSpaXXKioluEt1C3ZJNe5ec0pZkAxGLpyc5Xz1YMHyB6KWRwJK2lq7qwpMb-vJLCLJtlm3Z43LhhtcJfNIjOWQcuk-oM9ygiOnl8xAMkf6qloJNQV7rTyYtIiXeHgrM2XZV9Zhh_VV7lj7i7YpYhqTrWiENJeI8U5mGrdy0RECujOo5QNxW4d3GUa2AahWPGjVQAgD8qhnTAsWOHwl8d1tpr8xgwLh49STF5M51mFx-cPQm-bKtoSriVJmTG-RBug2YbfUH_K-fB0pVo_YAuu76ZTnS0w_LDA6m8mWROoOU-f7OST96KveYUZxWvgD8cW_xVtCSx6uWbQCe7llcGE5TNCjcQlJQWQy4wTmcU6BJ5OO421nLg3E8bXsUSPsuYNQWptNVCqOmcQKKWsIE1nF1M1oRnSZ9GcW2ZCBucHae3PBxbDuU5KxLO-E2kxWnOyAgMJcy9lFoeATXLE6ns0KhNu5Z6iu2n7dVgmNrt5lY6E6k-LRRhr2gYovyr2H1Q_3Z5kmlSo-Ch56uW6mILmFmimQYoHMF4iIROPxj7568ygSCJvFRc1poTeYnsYZ9y-lQp3w','localhost','/','Session',true,false);
+         cookies.set('CenterId','1','localhost','/','Session',true,false);
 
         return new Promise((resolve, reject) => {
             axios(
