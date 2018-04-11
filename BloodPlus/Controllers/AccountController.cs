@@ -554,7 +554,7 @@ namespace BloodPlus.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = donorModel.Email, Email = donorModel.Email };
+                var user = new ApplicationUser { UserName = donorModel.Username, Email = donorModel.Email };
                 var result = await _userManager.CreateAsync(user, donorModel.Password);
 
                 if (result.Succeeded)
@@ -562,7 +562,7 @@ namespace BloodPlus.Controllers
                     _logger.LogInformation("User created a new account with password.");
 
                     var createdDonor = await _userManager.FindByEmailAsync(donorModel.Email);
-                    await _userManager.AddToRoleAsync(createdDonor, "Donator");
+                    await _userManager.AddToRoleAsync(createdDonor, "Donor");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);

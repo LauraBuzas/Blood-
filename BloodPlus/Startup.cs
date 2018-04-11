@@ -43,7 +43,6 @@ namespace BloodPlus
             services.AddTransient<AdminService>();
             services.AddTransient<EmployeeService>();
             services.AddTransient<DonorService>();
-            services.AddTransient<HospitalAdminService>();
 
         }
 
