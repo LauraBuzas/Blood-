@@ -16,6 +16,7 @@ namespace DatabaseAccess.UOW
         private IRepository<Employee> _EmployeeRepository;
         private IRepository<Donor> _DonorRepository;
         private IRepository<HospitalAdmin> _HospitalAdminRepository;
+        private IRepository<CenterAdmin> _CenterAdminRepository;
         private IRepository<Address> _AddressRepository;
         private IRepository<ApplicationUser> _ApplicationUserRepository;
 
@@ -81,6 +82,16 @@ namespace DatabaseAccess.UOW
                 if (_ApplicationUserRepository == null)
                     _ApplicationUserRepository = new GenericRepository<ApplicationUser>(context);
                 return _ApplicationUserRepository;
+            }
+        }
+
+        public IRepository<CenterAdmin> CenterAdminRepository
+        {
+            get
+            {
+                if (_CenterAdminRepository == null)
+                    _CenterAdminRepository = new GenericRepository<CenterAdmin>(context);
+                return _CenterAdminRepository;
             }
         }
 

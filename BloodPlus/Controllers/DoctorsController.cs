@@ -38,6 +38,24 @@ namespace BloodPlus.Controllers
             return Ok(doctorsView);
         }
 
+        [Authorize(Roles = "HospitalAdmin")]
+        [HttpDelete]
+        public IActionResult DeleteDoctorByEmail([FromBody] DoctorDeleteModelView doctorDelete)
+        {
+            try
+            {
+      
+                doctorsService.DeleteDoctor(doctorDelete.Email);
+         
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Can't delete doctor with email "+doctorDelete.Email);
+            }
+        }
+
+
 
     }
 }

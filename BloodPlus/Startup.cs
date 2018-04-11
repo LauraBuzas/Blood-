@@ -40,6 +40,8 @@ namespace BloodPlus
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddMvc();
             services.AddTransient<DoctorsService>();
+            services.AddTransient<AdminService>();
+            services.AddTransient<EmployeeService>();
             services.AddTransient<DonorService>();
             services.AddTransient<HospitalAdminService>();
 

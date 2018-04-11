@@ -1,7 +1,6 @@
 ﻿using DatabaseAccess.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,6 +22,9 @@ namespace DatabaseAccess.Data
             await SeedHospitalAdmin(context, userManager);
             await SeedHospitals(context, userManager);
             await SeedDoctors(context, userManager);
+            await SeedCenterAdmin(context, userManager);
+            await SeedCenters(context, userManager);
+            await SeedEmployees(context, userManager);
 
         }
 
@@ -33,8 +35,10 @@ namespace DatabaseAccess.Data
             await userManager.CreateAsync(new ApplicationUser { Email = "god@iss.com", UserName = "God" }, "Password123.");
             await userManager.CreateAsync(new ApplicationUser { Email = "hospitalAdmin@admin.com", UserName = "HospitalAdmin" }, "Password123.");
             await userManager.CreateAsync(new ApplicationUser { Email = "doctor1@spital.com", UserName = "Doctor1"}, "Password123.");
+            await userManager.CreateAsync(new ApplicationUser { Email = "centerAdmin@admin.com", UserName = "CenterAdmin" }, "Password123.");
+            await userManager.CreateAsync(new ApplicationUser { Email = "employee1@center.com", UserName = "Employee1" }, "Password123.");
 
-      
+
             await roleManager.CreateAsync(new IdentityRole { Name = "God"});
             await roleManager.CreateAsync(new IdentityRole { Name = "DonationCenterAdmin"});
             await roleManager.CreateAsync(new IdentityRole { Name = "HospitalAdmin"});
@@ -45,6 +49,8 @@ namespace DatabaseAccess.Data
             var createdUser =await userManager.FindByEmailAsync("god@iss.com");
             var createdDoctor = await userManager.FindByEmailAsync("doctor1@spital.com");
             var createdHospitalAdmin = await userManager.FindByEmailAsync("hospitalAdmin@admin.com");
+            var createdCenterAdmin = await userManager.FindByEmailAsync("centerAdmin@admin.com");
+            var createdEmployee = await userManager.FindByEmailAsync("employee1@center.com");
 
             var role1 = await roleManager.FindByNameAsync("God");
             var role2 = await roleManager.FindByNameAsync("DonationCenterAdmin");
@@ -60,6 +66,8 @@ namespace DatabaseAccess.Data
             await userManager.AddToRolesAsync(createdUser, new List<string> { role1.Name, role2.Name, role3.Name, role4.Name, role5.Name, role6.Name });
             await userManager.AddToRoleAsync(createdDoctor, role5.Name);
             await userManager.AddToRoleAsync(createdHospitalAdmin, role3.Name);
+            await userManager.AddToRoleAsync(createdCenterAdmin, role2.Name);
+            await userManager.AddToRoleAsync(createdEmployee, role4.Name);
 
         }
 
@@ -75,6 +83,27 @@ namespace DatabaseAccess.Data
             context.Hospitals.Add(hospital1);
             context.SaveChanges();
         }
+        private static async Task SeedCenterAdmin(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        {
+            CenterAdmin centerAdmin = new CenterAdmin();
+            var createdCenterAdmin = await userManager.FindByEmailAsync("centerAdmin@admin.com");
+            centerAdmin.Id = createdCenterAdmin.Id;
+            context.CenterAdmins.Add(centerAdmin);
+            context.SaveChanges();
+        }
+
+        private static async Task SeedCenters(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        {
+            Center center1 = new Center()
+            {
+                CenterName = "Center1"
+            };
+
+            var createdCenterAdmin = await userManager.FindByEmailAsync("centerAdmin@admin.com");
+            center1.CenterAdminId = createdCenterAdmin.Id;
+            context.Centers.Add(center1);
+            context.SaveChanges();
+        }
 
         private static async Task SeedHospitalAdmin(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
@@ -82,6 +111,23 @@ namespace DatabaseAccess.Data
             var createdHospitalAdmin = await userManager.FindByEmailAsync("hospitalAdmin@admin.com");
             hospitalAdmin.Id = createdHospitalAdmin.Id;
             context.HospitalAdmins.Add(hospitalAdmin);
+            context.SaveChanges();
+        }
+
+        private static async Task SeedEmployees(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        {
+            Employee employee = new Employee()
+            {
+                FirstName = "Vasile",
+                LastName = "Ionescu",
+                CenterId = 1
+               
+            };
+
+            var createdUser = await userManager.FindByEmailAsync("employee1@center.com");
+            employee.Id = createdUser.Id;
+        
+            context.Employee.Add(employee);
             context.SaveChanges();
         }
 

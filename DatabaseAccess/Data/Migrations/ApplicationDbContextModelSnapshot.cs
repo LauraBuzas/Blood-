@@ -5,8 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
 namespace DatabaseAccess.Data.Migrations
@@ -106,15 +104,9 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.Property<double>("AvailableQuantity");
 
-                    b.Property<string>("CenterAdminId");
-
                     b.Property<string>("CenterName");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CenterAdminId")
-                        .IsUnique()
-                        .HasFilter("[CenterAdminId] IS NOT NULL");
 
                     b.ToTable("Centers");
                 });
@@ -155,9 +147,8 @@ namespace DatabaseAccess.Data.Migrations
 
             modelBuilder.Entity("DatabaseAccess.Models.Donor", b =>
                 {
-                    b.Property<string>("Id");
-
-                    b.Property<int>("AddressId");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("CNP")
                         .IsRequired();
@@ -170,9 +161,6 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId")
-                        .IsUnique();
-
                     b.ToTable("Donors");
                 });
 
@@ -182,15 +170,11 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.Property<int>("Age");
 
-                    b.Property<int>("CenterId");
-
                     b.Property<string>("FirstName");
 
                     b.Property<string>("LastName");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CenterId");
 
                     b.ToTable("Employees");
                 });
