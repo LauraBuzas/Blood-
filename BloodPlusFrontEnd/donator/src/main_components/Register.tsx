@@ -1,5 +1,4 @@
 import * as React from 'react';
-import './Register.css';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { IUserRegister } from '../Models/IUserRegister';
 import { AccountService } from '../services/AccountServices';

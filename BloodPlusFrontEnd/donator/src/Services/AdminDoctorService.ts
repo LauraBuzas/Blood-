@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { IDoctorGet } from '../Models/IDoctorGet';
 import Cookies from 'universal-cookie';
+
+
 export class AdminDoctorService {
     private static rootDoctors: string = 'http://localhost:55978/doctors';
     private static rootRegisterDoctors: string = 'http://localhost:55978/account/register/doctor';

@@ -3,7 +3,7 @@ import { IDoctorGet } from '../../Models/IDoctorGet';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {Helmet} from 'react-helmet'
 import './AdminDoctor.css'
-import { AdminDoctorService } from '../../Services/AdminDoctorService';
+import { AdminDoctorService } from '../../services/AdminDoctorService';
 import Cookies from 'universal-cookie';
 
 export interface AdminDoctorProps{
