@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+
 using DatabaseAccess.Models;
 
 namespace DatabaseAccess.Data
@@ -29,6 +30,11 @@ namespace DatabaseAccess.Data
 
         public DbSet<HospitalAdmin> HospitalAdmins { get; set; }
 
+        public DbSet<CenterAdmin> CenterAdmins { get; set; }
+        public DbSet<Patient> Patients { get; set; }
+
+        public DbSet<Request> Requests { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -44,14 +50,20 @@ namespace DatabaseAccess.Data
             builder.Entity<Center>().ToTable("Centers");
             builder.Entity<Employee>().ToTable("Employees");
             builder.Entity<HospitalAdmin>().ToTable("HospitalAdmins");
+            builder.Entity<Patient>().ToTable("Patients");
+            builder.Entity<Request>().ToTable("Requests");
+            builder.Entity<CenterAdmin>().ToTable("CenterAdmins");
 
+            //One to one Doctor-ApplicationUser
             builder.Entity<Doctor>(doc => doc.HasOne<ApplicationUser>()
                                              .WithOne()
                                              .HasForeignKey<Doctor>(d => d.Id));
 
+
             builder.Entity<HospitalAdmin>(ha=>ha.HasOne<ApplicationUser>()
                                               .WithOne()
                                               .HasForeignKey<HospitalAdmin>(h => h.Id));
+
             //One to one Hospital-HospitalAdmin
             builder.Entity<HospitalAdmin>()
                .HasOne(ha => ha.Hospital)
@@ -59,11 +71,36 @@ namespace DatabaseAccess.Data
                .HasForeignKey<Hospital>(h => h.HospitalAdminId)
                .OnDelete(DeleteBehavior.Restrict);
 
+            //One to one Hospital-HospitalAdmin
+            //builder.Entity<CenterAdmin>()
+            //   .HasOne(ca => ca.Center)
+            //   .WithOne(c => c.CenterAdmin)
+            //   .HasForeignKey<Center>(c => c.CenterAdminId)
+            //   .OnDelete(DeleteBehavior.Restrict);
+
             //One to many Hospital-Doctor
             builder.Entity<Hospital>()
                 .HasMany(h => h.Doctors)
                 .WithOne(d => d.Hospital)
                 .HasForeignKey(d => d.HospitalId);
+
+            //One to many Center-Employee
+            builder.Entity<Center>()
+                .HasMany(c => c.Employees)
+                .WithOne(e => e.Center)
+                .HasForeignKey(c => c.CenterId);
+
+            //One to one Donor-Address
+            builder.Entity<Donor>()
+                .HasOne(d => d.Address)
+                .WithOne()
+                .HasForeignKey<Donor>(d => d.AddressId);
+
+            //One to one Donor-ApplicationUser
+            builder.Entity<Donor>(doc => doc.HasOne<ApplicationUser>()
+                                             .WithOne()
+                                             .HasForeignKey<Donor>(d => d.Id));
+
 
         }
     }
