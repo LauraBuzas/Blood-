@@ -88,13 +88,17 @@ namespace BloodPlus.Controllers
                     {
                         var hospitalId = _adminService.GetHospitalIdForHospitalAdmin(user.Id);
                         SetCookie("HospitalId", hospitalId.ToString());
+
+                        Response.Cookies.Append("HospitalId", "1", new Microsoft.AspNetCore.Http.CookieOptions { HttpOnly = false });
+
+                        var cookies = Request.Cookies["HospitalId"];
                     }
                     if (roles.Any(s => s == "DonationCenterAdmin"))
                     {
                         var centerId = _adminService.GetCenterIdForCenterAdmin(user.Id);
                         SetCookie("CenterId", centerId.ToString());
                     }
-                    return Ok();
+                    return Ok(roles);
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -483,7 +487,7 @@ namespace BloodPlus.Controllers
                         //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                         //await _emailSender.SendEmailConfirmationAsync(doctorModel.Email, callbackUrl);
 
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        //await _signInManager.SignInAsync(user, isPersistent: false);
                         _logger.LogInformation("User created a new account with password.");
 
                         //return RedirectToLocal(returnUrl);

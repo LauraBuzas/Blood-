@@ -3,6 +3,7 @@ import { IDoctorGet } from '../../Models/IDoctorGet';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {Helmet} from 'react-helmet'
 import './HospitalAdmin.css'
+import '../../css/Management.css'
 import { HospitalAdminService } from '../../Services/HospitalAdminService';
 import Cookies from 'universal-cookie';
 import { confirmAlert } from 'react-confirm-alert'; // Import
@@ -149,7 +150,7 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
        
           
         return(
-            <div>
+            <div className="tableArea">
                 <Helmet>
                     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
                 </Helmet>

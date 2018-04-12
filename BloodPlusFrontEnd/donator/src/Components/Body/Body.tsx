@@ -3,6 +3,7 @@ import {Route} from 'react-router-dom';
 import { HospitalAdmin } from '../HospitalAdmin/HospitalAdmin';
 import { CenterAdmin } from '../CenterAdmin/CenterAdmin';
 import { Register } from '../../main_components/Register';
+import { LogIn } from '../../main_components/LogIn';
 
 export interface BodyProps{
 } 

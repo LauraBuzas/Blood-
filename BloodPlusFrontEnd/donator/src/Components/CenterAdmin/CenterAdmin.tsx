@@ -2,6 +2,7 @@ import * as React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {Helmet} from 'react-helmet'
 import '../HospitalAdmin/HospitalAdmin.css'
+import '../../css/Management.css'
 import { CenterAdminService } from '../../Services/CenterAdminService';
 import Cookies from 'universal-cookie';
 import { confirmAlert } from 'react-confirm-alert'; // Import
@@ -145,7 +146,7 @@ export class CenterAdmin extends React.Component<CenterAdminProps,CenterAdminSta
        
           
         return(
-            <div>
+            <div className="tableArea">
                 <Helmet>
                     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
                 </Helmet>
