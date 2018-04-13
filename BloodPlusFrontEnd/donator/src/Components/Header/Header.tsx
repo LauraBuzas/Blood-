@@ -5,12 +5,17 @@ import './Header.css'
 import App from '../../App';
 import { withRouter } from 'react-router-dom'
 import { INode } from '../../Models/INode';
+import { AccountService } from '../../Services/AccountServices';
+import Alert from 'react-s-alert';
+import { Redirect } from 'react-router';
+
 export interface HeaderProps{}
 
 export interface HeaderState
 {
     nodes:Array<INode>;
     registered:boolean;
+    message:string;
 }
 
 export class Header extends React.Component<HeaderProps,HeaderState>
@@ -31,7 +36,8 @@ export class Header extends React.Component<HeaderProps,HeaderState>
                 {
                     title:"Sign Up",
                     link:"/signUp"
-                }]
+                }],
+            message:''
         };
     }
 
@@ -49,15 +55,32 @@ export class Header extends React.Component<HeaderProps,HeaderState>
 
     logout()
     {
-        // AccountService.logoutUser();
-    //    this.setState({registered:false})
+        AccountService.logoutUser().then(()=>{
+            this.setState({registered:false})
+            
+
+        },
+        (error) => {
+            this.setState({
+                message: "Error logout.Please try again"
+                
+            });
+            Alert.error(this.state.message, {
+                position: 'top-right',
+                effect: 'jelly'
+              });
+        });
+    
+
+    
+     
     }
 
     render()
     {
         if(!this.state.registered)
         {
-            return(<App/>)
+            return <Redirect to="/"/>
         }
         
         return(

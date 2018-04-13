@@ -65,6 +65,11 @@ namespace BloodPlus.Controllers
         {
             Response.Cookies.Append(key, value);
         }
+        private void RemoveCookie(string key)
+        {
+            Response.Cookies.Delete(key);
+           
+        }
 
         [HttpPost("login")]
         [AllowAnonymous]
@@ -276,14 +281,16 @@ namespace BloodPlus.Controllers
             return View(model);
         }
 
-        //[HttpPost]
+        [HttpPost("logout")]
         //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Logout()
-        //{
-        //    await _signInManager.SignOutAsync();
-        //    _logger.LogInformation("User logged out.");
-        //    return RedirectToAction(nameof(HomeController.Index), "Home");
-        //}
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            RemoveCookie("HospitalId");
+            RemoveCookie("CenterId");
+            _logger.LogInformation("User logged out.");
+            return Ok();
+        }
 
         [HttpPost]
         [AllowAnonymous]
@@ -532,7 +539,7 @@ namespace BloodPlus.Controllers
                         //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                         //await _emailSender.SendEmailConfirmationAsync(doctorModel.Email, callbackUrl);
 
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        //await _signInManager.SignInAsync(user, isPersistent: false);
                         _logger.LogInformation("User created a new account with password.");
 
                         //return RedirectToLocal(returnUrl);

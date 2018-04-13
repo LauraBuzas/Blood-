@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { IUserGet } from './../Models/IUserGet';
 import Cookies from 'universal-cookie';
+
+
 export class AccountService {
     private static root: string = "http://localhost:51401/account";
 
@@ -48,4 +50,33 @@ export class AccountService {
         //         });
         // });
     }
+
+
+    public static logoutUser(): Promise<any> {
+
+        return new Promise((resolve, reject) => {
+            axios(
+                this.root+'/logout',
+                {
+                    method:'POST',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                        'Access-Control-Allow-Credentials':true
+                    },
+                    withCredentials:true,
+                    maxRedirects:0,
+                  
+                }
+            ).then((response: any) => {
+            
+            },
+                (error: any) => {
+                    reject(error);
+                })
+        });
+    }
+
+
+
 }
