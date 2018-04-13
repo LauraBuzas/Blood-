@@ -10,6 +10,8 @@ import './css/TextField.css';
 
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Header } from './Components/Header/Header';
+import { LogIn } from './main_components/LogIn';
+import { SignUp } from './main_components/SignUp';
 
 // import "react-bootstrap-table/min.css";
 export class App extends React.Component {
@@ -43,6 +45,8 @@ export class App extends React.Component {
       <AdminDoctor/>
       </div>
       </div>
+
+      
       </Router>
     );
   }
