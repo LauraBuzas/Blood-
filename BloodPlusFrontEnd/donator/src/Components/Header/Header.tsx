@@ -30,12 +30,16 @@ export class Header extends React.Component<HeaderProps,HeaderState>
             registered:true,
             nodes:[
                 {
-                    title:"Home",
+                    title:"Acasă",
                     link:'/'
                 },
                 {
-                    title:"Sign Up",
-                    link:"/signUp"
+                    title:"Cont nou",
+                    link:"/register"
+                },
+                {
+                    title:"Conectează-te",
+                    link:"/logIn"
                 }],
             message:''
         };

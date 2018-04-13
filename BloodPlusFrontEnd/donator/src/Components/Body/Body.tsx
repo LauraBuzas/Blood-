@@ -4,6 +4,7 @@ import { HospitalAdmin } from '../HospitalAdmin/HospitalAdmin';
 import { CenterAdmin } from '../CenterAdmin/CenterAdmin';
 import { Register } from '../../main_components/Register';
 import { LogIn } from '../../main_components/LogIn';
+import { SignUp } from '../../main_components/SignUp';
 
 export interface BodyProps{
 } 
@@ -23,13 +24,15 @@ export class Body extends React.Component<BodyProps,BodyState>
     {
         const HospitalAdminComponent=()=>{return <HospitalAdmin/>}
         const CenterAdminComponent=()=>{return <CenterAdmin/>}
-        const LoginAndRegisterComponent=()=>{return <Register/>}
+        const LoginComponent=()=>{return <Register/>}
+        const RegisterComponent=()=>{return <SignUp/>}
        
         return(
            <div>
                 <Route path ="/hospital/admin" exact={true} render={HospitalAdminComponent}/>
                 <Route path ="/center/admin" exact={true} render={CenterAdminComponent}/>
-                <Route path="/signUp" exact={true} render={LoginAndRegisterComponent}/>
+                <Route path="/login" exact={true} render={LoginComponent}/>
+                <Route path="/register" exact={true} render={RegisterComponent}/>
               
            </div> 
         )
