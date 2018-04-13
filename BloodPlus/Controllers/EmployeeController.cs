@@ -55,8 +55,12 @@ namespace BloodPlus.Controllers
             }
         }
 
+        //[Authorize(Roles = "DonationCenterDoctor")]
+        //[HttpPost("Transfusion")]
+        //public IActionResult AddTransfusion([FromBody])
+        //{
 
-
+        //}
 
 
     }
