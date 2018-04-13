@@ -89,12 +89,13 @@ export class LogIn extends React.Component<LoginProps, LoginState>
         
         return (
             <div>
-                <VBox className="vboxLogin">
-                    <TextField text="Username" type="text" onChangeFunction={(event) => this.handleUsernameChange(event)} />
-                    <TextField text="Password" type="password" onChangeFunction={(event) => this.handlePasswordChange(event)} />
-                    <button className="buttonLogIn" onClick={(event) => this.loginUser(event)}>Log in</button>
-                </VBox>
-
+                <HBox className="hboxPosition">
+                    <VBox className="vboxPosition">
+                        <TextField text="Nume utilizator" type="text" onChangeFunction={(event) => this.handleUsernameChange(event)} />
+                        <TextField text="Parolă" type="password" onChangeFunction={(event) => this.handlePasswordChange(event)} />
+                        <button className="buttonLogIn" onClick={(event) => this.loginUser(event)}>Log in</button>
+                    </VBox>
+                </HBox>
                 <Alert stack={true} timeout={3000} />
             </div>
         );
