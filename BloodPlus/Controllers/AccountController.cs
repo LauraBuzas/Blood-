@@ -10,9 +10,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using BloodPlus.Models;
-using BloodPlus.Models.AccountViewModels;
-using BloodPlus.Services;
+using DatabaseAccess.Models;
+using BloodPlus.ModelViews.AccountViewModels;
+using BloodPlus.Services2;
+using Services;
 
 namespace BloodPlus.Controllers
 {
@@ -24,17 +25,24 @@ namespace BloodPlus.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly DoctorsService _doctorsService;
+        private readonly HospitalAdminService _hospitalAdminService;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            DoctorsService doctorsService,
+            HospitalAdminService hospitalAdminService)
         {
+
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _doctorsService = doctorsService;
+            _hospitalAdminService=hospitalAdminService;
         }
 
         [TempData]
@@ -48,39 +56,54 @@ namespace BloodPlus.Controllers
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ViewData["ReturnUrl"] = returnUrl;
-            return View();
+            return Ok();
         }
 
-        [HttpPost("loginba")]
+        private void SetCookie(string key,string value)
+        {
+            Response.Cookies.Append(key, value);
+        }
+
+        [HttpPost("login")]
         [AllowAnonymous]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([FromBody]LoginViewModel model)
         {
+            
             //ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
+                
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    var user = await _userManager.FindByNameAsync(model.Username);
+                    var roles=_userManager.GetRolesAsync(user).Result.ToList();
+                    if(roles.Any(s=>s== "HospitalAdmin"))
+                    {
+                        var hospitalId = _hospitalAdminService.GetHospitalIdForHospitalAdmin(user.Id);
+                        SetCookie("HospitalId", hospitalId.ToString());
+                    }
                     return Ok();
                 }
                 if (result.RequiresTwoFactor)
                 {
                     //return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
+                   
                     return Ok();
                 }
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning("User account locked out.");
-                    return RedirectToAction(nameof(Lockout));
+                    return Lockout();
                 }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return View(model);
+                    return BadRequest();
                 }
             }
 
@@ -202,7 +225,7 @@ namespace BloodPlus.Controllers
         [AllowAnonymous]
         public IActionResult Lockout()
         {
-            return View();
+            return Forbid();
         }
 
         [HttpGet]
@@ -330,22 +353,24 @@ namespace BloodPlus.Controllers
             return View(nameof(ExternalLogin), model);
         }
 
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public async Task<IActionResult> ConfirmEmail(string userId, string code)
-        //{
-        //    if (userId == null || code == null)
-        //    {
-        //        return RedirectToAction(nameof(HomeController.Index), "Home");
-        //    }
-        //    var user = await _userManager.FindByIdAsync(userId);
-        //    if (user == null)
-        //    {
-        //        throw new ApplicationException($"Unable to load user with ID '{userId}'.");
-        //    }
-        //    var result = await _userManager.ConfirmEmailAsync(user, code);
-        //    return View(result.Succeeded ? "ConfirmEmail" : "Error");
-        //}
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(string userId, string code)
+        {
+            if (userId == null || code == null)
+            {
+                //return RedirectToAction(nameof(HomeController.Index), "Home");
+                return BadRequest();
+            }
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                throw new ApplicationException($"Unable to load user with ID '{userId}'.");
+            }
+            var result = await _userManager.ConfirmEmailAsync(user, code);
+            //return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            return Ok();
+        }
 
         [HttpGet]
         [AllowAnonymous]
@@ -413,30 +438,112 @@ namespace BloodPlus.Controllers
             if (user == null)
             {
                 // Don't reveal that the user does not exist
-                return RedirectToAction(nameof(ResetPasswordConfirmation));
+                //return RedirectToAction(nameof(ResetPasswordConfirmation));
             }
             var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
             if (result.Succeeded)
             {
-                return RedirectToAction(nameof(ResetPasswordConfirmation));
+                //return RedirectToAction(nameof(ResetPasswordConfirmation));
             }
             AddErrors(result);
-            return View();
+            return BadRequest();
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult ResetPasswordConfirmation()
+
+        [HttpPost("register/doctor")]
+        [Authorize(Roles ="HospitalAdmin")]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> RegisterDoctor([FromBody] RegisterDoctorViewModel doctorModel)
         {
-            return View();
+            //ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = doctorModel.Email, Email = doctorModel.Email };
+                var result = await _userManager.CreateAsync(user, doctorModel.Password);
+                
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("User created a new account with password.");
+
+                    var createdDoctor = await _userManager.FindByEmailAsync(doctorModel.Email);
+                    await _userManager.AddToRoleAsync(createdDoctor, "HospitalDoctor");
+                    var doctorDb = Mappers.MapperRegisterDoctor.ToDoctor(doctorModel, createdDoctor);
+                    try
+                    {
+                        _doctorsService.AddDoctor(doctorDb);
+
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+                        //await _emailSender.SendEmailConfirmationAsync(doctorModel.Email, callbackUrl);
+
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        _logger.LogInformation("User created a new account with password.");
+
+                        //return RedirectToLocal(returnUrl);
+                        return Ok(doctorModel);
+                    }catch(Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return BadRequest("Something failed in register doctor");
+
         }
 
+        //[HttpPost("register/doctor")]
+        //[Authorize(Roles = "Admin")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> RegisterDonationCenterDoctor([FromBody] RegisterDoctorViewModel doctorModel)
+        //{
+        //    //ViewData["ReturnUrl"] = returnUrl;
+        //    if (ModelState.IsValid)
+        //    {
+        //        var user = new ApplicationUser { UserName = doctorModel.Email, Email = doctorModel.Email };
+        //        var result = await _userManager.CreateAsync(user, doctorModel.Password);
 
-        [HttpGet]
-        public IActionResult AccessDenied()
-        {
-            return View();
-        }
+        //        if (result.Succeeded)
+        //        {
+        //            _logger.LogInformation("User created a new account with password.");
+
+        //            var createdDoctor = await _userManager.FindByEmailAsync(doctorModel.Email);
+
+
+
+        //            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        //            var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+        //            await _emailSender.SendEmailConfirmationAsync(doctorModel.Email, callbackUrl);
+
+        //            await _signInManager.SignInAsync(user, isPersistent: false);
+        //            _logger.LogInformation("User created a new account with password.");
+
+        //            //return RedirectToLocal(returnUrl);
+        //            return Ok();
+        //        }
+        //        AddErrors(result);
+        //    }
+
+            // If we got this far, something failed, redisplay form
+        //    return BadRequest();
+
+        //}
+
+        //[HttpGet]
+        //[AllowAnonymous]
+        //public IActionResult ResetPasswordConfirmation()
+        //{
+        //    return View();
+        //}
+
+
+        //[HttpGet]
+        //public IActionResult AccessDenied()
+        //{
+        //    return View();
+        //}
 
         #region Helpers
 

@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20180324102858_DoctorExtendsUserMigration.cs" />
+    <Compile Remove="Data\Migrations\20180324105116_DoctorExtendsUserMigration.cs" />
+    <Compile Remove="Data\Migrations\20180324105316_DoctorExtendsUserMigration.cs" />
+    <Compile Remove="Data\Migrations\20180324110308_DoctorChangeIdMigration.cs" />
+    <Compile Remove="Data\Migrations\20180326155327_HospitalDoctorOneToManyRelation.cs" />
+    <Compile Remove="Data\Migrations\20180326160709_HospitalDoctorOneToManyRelation.cs" />
+    <Compile Remove="Data\Migrations\20180326210309_CenterOneToOneCenterAdmin.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.identity.entityframeworkcore\2.0.1\lib\netstandard2.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore\2.0.1\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

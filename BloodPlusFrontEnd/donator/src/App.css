@@ -1,5 +1,15 @@
+*{
+  margin:0;
+  padding:0;
+}
+
 .App {
   text-align: center;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  /* background-color: #2ca2aa; */
+  /* background: linear-gradient(bottom, #801515, #ffffff); */
 }
 
 .App-logo {
@@ -25,4 +35,9 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+
+.bm-burger-button {
+  position: sticky!important;
 }
