@@ -63,14 +63,14 @@ namespace BloodPlus.Controllers
 
         //}
 
-        [Authorize(Roles = "DonationCenterAdmin")]
+        [Authorize(Roles = "DonationCenterDoctor")]
         [HttpPost("blood-bag")]
-        public IActionResult AddBloodBag([FromBody] string cnp)
+        public IActionResult AddBloodBag([FromBody] CNPViewModel cnpViewModel)
         {
             try
             {
                 var centerId = int.Parse(Request.Cookies["CenterId"]);
-                employeeService.DonateBlood(cnp,centerId);
+                employeeService.DonateBlood(cnpViewModel.CNP,centerId);
                 return Ok("Blood bag registered");
             }
             catch(Exception ex)
@@ -79,7 +79,7 @@ namespace BloodPlus.Controllers
             }
         }
 
-        [Authorize(Roles = "DonationCenterAdmin")]
+        [Authorize(Roles = "DonationCenterDoctor")]
         [HttpPost("analysis")]
         public IActionResult FillAnalysis([FromBody] MedicalAnalysisViewModel analysisViewModel)
         {

@@ -94,6 +94,16 @@ namespace BloodPlus.Controllers
                         var centerId = _adminService.GetCenterIdForCenterAdmin(user.Id);
                         SetCookie("CenterId", centerId.ToString());
                     }
+                    if (roles.Any(s => s == "DonationCenterDoctor"))
+                    {
+                        var centerId = _employeeService.GetCenterIdForCenterDoctor(user.Id);
+                        SetCookie("CenterId", centerId.ToString());
+                    }
+                    if (roles.Any(s => s == "Donor"))
+                    {
+                        //var centerId = _employeeService.GetCenterIdForCenterDoctor(user.Id);
+                        SetCookie("UserId", user.Id);
+                    }
                     return Ok();
                 }
                 if (result.RequiresTwoFactor)

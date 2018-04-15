@@ -33,5 +33,9 @@ namespace Services
             }
         }
 
+        public object GetCenterIdForCenterDoctor(string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

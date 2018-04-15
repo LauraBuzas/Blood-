@@ -50,6 +50,19 @@ namespace Services
             }
         }
 
+        public int GetCenterIdForCenterDoctor(String CenterDoctorId)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.EmployeeRepository.GetAll()
+                    .Include(ca => ca.Center)
+                    .Where(ca => ca.Id == CenterDoctorId)
+                    .FirstOrDefault()
+                    .Center
+                    .Id;
+            }
+        }
+
         public void DonateBlood(string donorCnp, int centerId)
         {
             using (UnitOfWork uow = new UnitOfWork())

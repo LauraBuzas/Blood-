@@ -25,7 +25,7 @@ namespace BloodPlus.Controllers
         {
             try
             {
-                var id = Request.Cookies["Id"];
+                var id = Request.Cookies["UserId"];
                 var analyses = donorService.GetMedicalAnalyses(id)
                                             .Select(ma => MapperMedicalAnalysis.ToMedicalAnalysisViewModel(ma))
                                             .ToList();
