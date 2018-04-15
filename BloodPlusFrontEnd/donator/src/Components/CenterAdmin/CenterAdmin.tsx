@@ -159,10 +159,10 @@ export class CenterAdmin extends React.Component<CenterAdminProps,CenterAdminSta
                                 deleteRow={true}
                                 options={option}
                                 >
-                <TableHeaderColumn dataField='firstname'>First Name</TableHeaderColumn>
-                <TableHeaderColumn dataField='lastname'>Last name</TableHeaderColumn>
-                <TableHeaderColumn dataField='email' isKey={true}>Email</TableHeaderColumn>
-                <TableHeaderColumn dataField='password'>Password</TableHeaderColumn>
+                <TableHeaderColumn dataField='Prenume'>First Name</TableHeaderColumn>
+                <TableHeaderColumn dataField='Nume'>Last name</TableHeaderColumn>
+                <TableHeaderColumn dataField='Email' isKey={true}>Email</TableHeaderColumn>
+                <TableHeaderColumn dataField='Parola'>Password</TableHeaderColumn>
                 </BootstrapTable>
         
                <Alert stack={true} timeout={3000} />
