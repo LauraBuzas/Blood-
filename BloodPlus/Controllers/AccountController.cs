@@ -554,7 +554,7 @@ namespace BloodPlus.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = donorModel.Username, Email = donorModel.Email };
+                var user = new ApplicationUser { UserName = donorModel.Email, Email = donorModel.Email };
                 var result = await _userManager.CreateAsync(user, donorModel.Password);
 
                 if (result.Succeeded)

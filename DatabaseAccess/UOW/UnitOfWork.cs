@@ -19,6 +19,9 @@ namespace DatabaseAccess.UOW
         private IRepository<CenterAdmin> _CenterAdminRepository;
         private IRepository<Address> _AddressRepository;
         private IRepository<ApplicationUser> _ApplicationUserRepository;
+        private IRepository<BloodBag> _BloodBagRepository;
+        private IRepository<MedicalAnalysis> _MedicalAnalysisRepository;
+        private IRepository<Center> _CenterRepository;
 
         public UnitOfWork()
         {
@@ -52,6 +55,26 @@ namespace DatabaseAccess.UOW
                 if (_DonorRepository == null)
                     _DonorRepository = new GenericRepository<Donor>(context);
                 return _DonorRepository;
+            }
+        }
+
+        public IRepository<MedicalAnalysis> MedicalAnalysisRepository
+        {
+            get
+            {
+                if (_MedicalAnalysisRepository == null)
+                    _MedicalAnalysisRepository = new GenericRepository<MedicalAnalysis>(context);
+                return _MedicalAnalysisRepository;
+            }
+        }
+
+        public IRepository<BloodBag> BloodBagRepository
+        {
+            get
+            {
+                if (_BloodBagRepository == null)
+                    _BloodBagRepository = new GenericRepository<BloodBag>(context);
+                return _BloodBagRepository;
             }
         }
 
@@ -92,6 +115,16 @@ namespace DatabaseAccess.UOW
                 if (_CenterAdminRepository == null)
                     _CenterAdminRepository = new GenericRepository<CenterAdmin>(context);
                 return _CenterAdminRepository;
+            }
+        }
+
+        public IRepository<Center> CenterRepository
+        {
+            get
+            {
+                if (_CenterRepository == null)
+                    _CenterRepository = new GenericRepository<Center>(context);
+                return _CenterRepository;
             }
         }
 

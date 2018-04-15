@@ -21,6 +21,7 @@ export class SignUp extends React.Component {
                         <HBox className="hboxTwoEntities">
                             <TextField text="Nume" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
                             <TextField text="Prenume" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
+                            <TextField text="CNP" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
                             <TextField text="Oras" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
                             <TextField text="Judet" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
                             <TextField text="Strada" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />

@@ -12,9 +12,10 @@ using System;
 namespace DatabaseAccess.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180414113147_OneToOneAnalysisBloodBag")]
+    partial class OneToOneAnalysisBloodBag
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,13 +105,9 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CenterId");
-
                     b.Property<int>("Status");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CenterId");
 
                     b.ToTable("BloodBags");
                 });
@@ -247,8 +244,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<bool>("ALTLevel");
 
                     b.Property<int>("BloodBagId");
-
-                    b.Property<DateTime>("DateAndTime");
 
                     b.Property<string>("DonorId");
 
@@ -436,14 +431,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("DatabaseAccess.Models.BloodBag", b =>
-                {
-                    b.HasOne("DatabaseAccess.Models.Center", "Center")
-                        .WithMany("BloodBags")
-                        .HasForeignKey("CenterId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DatabaseAccess.Models.Center", b =>

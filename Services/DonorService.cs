@@ -1,7 +1,9 @@
 ﻿using DatabaseAccess.Models;
 using DatabaseAccess.UOW;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Services
@@ -20,6 +22,14 @@ namespace Services
                 uow.DonorRepository.Add(donor);
                 uow.Save();
                 return donor;
+            }
+        }
+
+        public List<MedicalAnalysis> GetMedicalAnalyses(string id)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.DonorRepository.GetAll().Include(d => d.MedicalAnalysis).Where(d => d.Id == id).FirstOrDefault().MedicalAnalysis;
             }
         }
 

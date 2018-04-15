@@ -6,6 +6,6 @@ namespace DatabaseAccess.Models
 {
     public enum BloodBagStatus
     {
-        Waiting, Rejected, Accepted;
+        Waiting, Rejected, Accepted
     }
 }

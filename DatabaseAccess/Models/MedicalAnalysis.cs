@@ -18,7 +18,17 @@ namespace DatabaseAccess.Models
 
         public bool HTLV { get; set; }
 
-        public float ALTLevel { get; set; }
+        public bool ALTLevel { get; set; }
+
+        public BloodBag BloodBag { get; set; }
+
+        public int BloodBagId { get; set; }
+
+        public Donor Donor { get; set; }
+
+        public string DonorId { get; set; }
+
+        public DateTime DateAndTime { get; set; }
 
     }
 }

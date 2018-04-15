@@ -8,7 +8,10 @@ namespace DatabaseAccess.Models
 {
     public class Donor
     {
-
+        public Donor()
+        {
+            MedicalAnalysis = new List<MedicalAnalysis>();
+        }
         public string Id { get; set; }
 
         [Required]
@@ -25,6 +28,9 @@ namespace DatabaseAccess.Models
 
         public int AddressId { get; set; }
 
+        public List<MedicalAnalysis> MedicalAnalysis { get; set; }
+
+        
 
     }
 }
