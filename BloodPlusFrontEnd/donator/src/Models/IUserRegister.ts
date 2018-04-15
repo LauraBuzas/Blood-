@@ -1,5 +1,4 @@
 export interface IUserRegister {
-    username: string;
     firstName: string;
     lastName: string;
     email: string;

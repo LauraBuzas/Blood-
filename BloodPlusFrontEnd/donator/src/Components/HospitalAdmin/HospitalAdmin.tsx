@@ -49,7 +49,7 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
         },
             (error) => {
                 this.setState({
-                    message: "Error getting doctors"
+                    message: "A apărut o eroare la aducerea datelor despre doctori"
                     
                 });
                 Alert.error(this.state.message, {
@@ -72,7 +72,7 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
         },
             (error) => {
                 this.setState({
-                    message: "Error adding doctor"
+                    message: "A apărut o eroare la adăugarea doctorului"
                 });
                 Alert.error(this.state.message, {
                     position: 'top-right',
@@ -87,8 +87,6 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
     
     onSelectRow = {
         mode: 'checkbox',
-        // clickToSelect: true,
-        // onSelect: this.onRowSelect,
     };
 
     handleDeleteRow=(row)=>
@@ -106,7 +104,7 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
         },
             (error) => {
                 this.setState({
-                    message: "Error deleting doctor"
+                    message: "A apărut o eroare la ștergerea doctorului"
                 });
                 Alert.error(this.state.message, {
                     position: 'top-right',
@@ -122,15 +120,15 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
         const dropRowKeysStr = dropRowKeys.join(',');
         console.log('aici')
         confirmAlert({
-            title: 'Confirm to submit',
-            message: 'Are you sure you want to delete doctor with email '+dropRowKeysStr+' ?',
+            title: 'Confirmă ștergerea',
+            message: 'Ești sigur că vrei să ștergi doctorul cu email-ul '+dropRowKeysStr+' ?',
             buttons: [
               {
-                label: 'Yes',
+                label: 'Da',
                 onClick: () => next()
               },
               {
-                label: 'No',
+                label: 'Nu',
                 onClick: () => alert('Click No')
               }
             ]
@@ -164,12 +162,12 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
                                 deleteRow={true}
                                 options={option}
                                 >
-                <TableHeaderColumn dataField='firstname'>First Name</TableHeaderColumn>
-                <TableHeaderColumn dataField='lastname'>Last name</TableHeaderColumn>
-                <TableHeaderColumn dataField='speciality'>Speciality</TableHeaderColumn>
-                <TableHeaderColumn dataField='ward'>Ward</TableHeaderColumn>
+                <TableHeaderColumn dataField='firstname'>Prenume</TableHeaderColumn>
+                <TableHeaderColumn dataField='lastname'>Nume</TableHeaderColumn>
+                <TableHeaderColumn dataField='speciality'>Specializare</TableHeaderColumn>
+                <TableHeaderColumn dataField='ward'>Secție</TableHeaderColumn>
                 <TableHeaderColumn dataField='email' isKey={true}>Email</TableHeaderColumn>
-                <TableHeaderColumn dataField='password'>Password</TableHeaderColumn>
+                <TableHeaderColumn dataField='password'>Parolă</TableHeaderColumn>
                 </BootstrapTable>
         
                <Alert stack={true} timeout={3000} />

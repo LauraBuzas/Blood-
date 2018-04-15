@@ -4,12 +4,17 @@ import { IUserRegister } from '../Models/IUserRegister';
 import { AccountService } from '../Services/AccountServices';
 import { LogIn } from './LogIn';
 
-export interface RegisterProps { }
+export interface RegisterProps 
+{
+    setRole:any;
+}
+
 
 interface RegisterState {
     userRegistered: IUserRegister
     message: string
-    isRegistered: boolean
+    
+   
 }
 
 export class Register extends React.Component<RegisterProps, RegisterState>
@@ -19,11 +24,10 @@ export class Register extends React.Component<RegisterProps, RegisterState>
 
         this.state =
             {
-                isRegistered: false,
                 message: '',
                 userRegistered:
                     {
-                        username: '',
+                        
                         email: '',
                         firstName: '',
                         lastName: '',
@@ -32,18 +36,9 @@ export class Register extends React.Component<RegisterProps, RegisterState>
             }
     };
 
-    loginUser(event: any) {
-        event.preventDefault();
-        let user = {
-            username: this.state.userRegistered.username,
-            password: this.state.userRegistered.password
-        }
-        AccountService.loginUser(user).then((resp) => console.log(resp.json()));
-    }
-
     render() {
         return (
-            <LogIn isLoggedInFunct={(event) => { this.loginUser(event) }} />
+            <LogIn setRole={this.props.setRole}   />
         );
     }
 }

@@ -47,7 +47,7 @@ export class CenterAdmin extends React.Component<CenterAdminProps,CenterAdminSta
         },
             (error) => {
                 this.setState({
-                    message: "Error getting employees"
+                    message: "A apărut o eroare la aducerea datelor despre angajați"
                     
                 });
                 Alert.error(this.state.message, {
@@ -70,7 +70,7 @@ export class CenterAdmin extends React.Component<CenterAdminProps,CenterAdminSta
         },
             (error) => {
                 this.setState({
-                    message: "Error adding employee"
+                    message: "A apărut o eroare la adăugarea angajatului"
                 });
                 Alert.error(this.state.message, {
                     position: 'top-right',
@@ -102,7 +102,7 @@ export class CenterAdmin extends React.Component<CenterAdminProps,CenterAdminSta
         },
             (error) => {
                 this.setState({
-                    message: "Error deleting employee"
+                    message: "A apărut o eroare la ștergerea angajatului"
                 });
                 Alert.error(this.state.message, {
                     position: 'top-right',
@@ -118,15 +118,15 @@ export class CenterAdmin extends React.Component<CenterAdminProps,CenterAdminSta
         const dropRowKeysStr = dropRowKeys.join(',');
        
         confirmAlert({
-            title: 'Confirm to submit',
-            message: 'Are you sure you want to delete employee with email '+dropRowKeysStr+' ?',
+            title: 'Confirmă ștergerea',
+            message: 'Ești sigur că vrei să ștergi angajatul cu  email-ul '+dropRowKeysStr+' ?',
             buttons: [
               {
-                label: 'Yes',
+                label: 'Da',
                 onClick: () => next()
               },
               {
-                label: 'No',
+                label: 'Nu',
                 onClick: () => alert('Click No')
               }
             ]
@@ -160,10 +160,10 @@ export class CenterAdmin extends React.Component<CenterAdminProps,CenterAdminSta
                                 deleteRow={true}
                                 options={option}
                                 >
-                <TableHeaderColumn dataField='firstname'>First Name</TableHeaderColumn>
-                <TableHeaderColumn dataField='lastname'>Last name</TableHeaderColumn>
+                <TableHeaderColumn dataField='firstname'>Prenume</TableHeaderColumn>
+                <TableHeaderColumn dataField='lastname'>Nume</TableHeaderColumn>
                 <TableHeaderColumn dataField='email' isKey={true}>Email</TableHeaderColumn>
-                <TableHeaderColumn dataField='password'>Password</TableHeaderColumn>
+                <TableHeaderColumn dataField='password'>Parolă</TableHeaderColumn>
                 </BootstrapTable>
         
                <Alert stack={true} timeout={3000} />

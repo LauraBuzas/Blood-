@@ -7,10 +7,9 @@ import { IUserRegister } from './../Models/IUserRegister';
 import { AccountService } from '../Services/AccountServices';
 import { Redirect } from 'react-router';
 import Alert from 'react-s-alert';
-//import '../css/Login.css';
 
 export interface LoginProps {
-    isLoggedInFunct: any
+    setRole:any
 }
 
 interface LoginState {
@@ -29,7 +28,6 @@ export class LogIn extends React.Component<LoginProps, LoginState>
                 message: '',
                 userRegistered:
                     {
-                        username: '',
                         email: '',
                         firstName: '',
                         lastName: '',
@@ -39,9 +37,9 @@ export class LogIn extends React.Component<LoginProps, LoginState>
             }
     }
 
-    handleUsernameChange(event: any) {
+    handleEmailChange(event: any) {
         this.setState({
-            userRegistered: update(this.state.userRegistered, { username: { $set: event.target.value } })
+            userRegistered: update(this.state.userRegistered, { email: { $set: event.target.value } })
         });
     }
 
@@ -54,13 +52,15 @@ export class LogIn extends React.Component<LoginProps, LoginState>
     loginUser(event: any) {
         event.preventDefault();
         let user = {
-            username: this.state.userRegistered.username,
+            email: this.state.userRegistered.email,
             password: this.state.userRegistered.password
         }
         AccountService.loginUser(user).then((resp) => {
+            
             console.log(resp);
             this.setState({role:resp.data[0]});
-           
+            this.props.setRole(this.state.role);
+            
 
         },
             (error) => {
@@ -86,12 +86,17 @@ export class LogIn extends React.Component<LoginProps, LoginState>
         {
             return <Redirect to="/center/admin"/>
         }
+
+        if(this.state.role=="HospitalDoctor")
+        {
+            return <Redirect to="/request"/>
+        }
         
         return (
             <div>
                 <HBox className="hboxPosition">
                     <VBox className="vboxPosition">
-                        <TextField text="Nume utilizator" type="text" onChangeFunction={(event) => this.handleUsernameChange(event)} />
+                        <TextField text="Email" type="text" onChangeFunction={(event) => this.handleEmailChange(event)} />
                         <TextField text="Parolă" type="password" onChangeFunction={(event) => this.handlePasswordChange(event)} />
                         <button className="buttonLogIn" onClick={(event) => this.loginUser(event)}>Log in</button>
                     </VBox>
