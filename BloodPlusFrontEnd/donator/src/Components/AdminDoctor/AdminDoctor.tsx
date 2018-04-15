@@ -11,8 +11,9 @@ export interface AdminDoctorProps{
 }
 interface AdminDoctorState
 {
-    doctors:IDoctorGet[]
+    doctors:IDoctorGet[];
     message:string;
+
 }
 
 export class AdminDoctor extends React.Component<AdminDoctorProps,AdminDoctorState>
@@ -26,7 +27,10 @@ export class AdminDoctor extends React.Component<AdminDoctorProps,AdminDoctorSta
         {
             message:'',
             doctors:[]
+
         };
+   
+
     }
 
 
@@ -94,6 +98,7 @@ export class AdminDoctor extends React.Component<AdminDoctorProps,AdminDoctorSta
                 <Helmet>
                     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
                 </Helmet>
+
                 <BootstrapTable data={ this.state.doctors} 
                                 stripped={true}
                                 hover={true}

@@ -4,6 +4,8 @@ import './App.css';
 import {elastic as Menu} from 'react-burger-menu'
 import './css/Menu.css'
 import {AdminDoctor} from './Components/AdminDoctor/AdminDoctor'
+import {HomePage} from './Components/HomePage/HomePage';
+import {Footer} from './Components/Footer/Footer';
 
 // import "react-bootstrap-table/min.css";
 export class App extends React.Component {
@@ -29,7 +31,8 @@ export class App extends React.Component {
        </Menu>
       </div>
       <div>
-      <AdminDoctor/>
+      <HomePage />
+      <Footer />
       </div>
       </div>
     );
