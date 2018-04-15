@@ -9,7 +9,7 @@ namespace DatabaseAccess.Models
     public class Donor
     {
 
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
         public string CNP { get; set; }
@@ -25,6 +25,9 @@ namespace DatabaseAccess.Models
 
         public string PhoneNumber { get; set; }
 
+        public Address Address { get; set; }
+
+        public int AddressId { get; set; }
 
 
     }

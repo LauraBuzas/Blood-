@@ -1,0 +1,9 @@
+.hboxPosition {
+    float : right;
+    padding-top : 100px;
+    padding-right : 500px
+}
+
+.vboxPosition {
+    width : 410px;
+}

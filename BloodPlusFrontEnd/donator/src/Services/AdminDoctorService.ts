@@ -1,8 +1,11 @@
 import axios from 'axios';
 import { IDoctorGet } from '../Models/IDoctorGet';
 import Cookies from 'universal-cookie';
+
+
 export class AdminDoctorService {
     private static rootDoctors: string = 'http://localhost:55978/doctors';
+    private static rootRegisterDoctors: string = 'http://localhost:55978/account/register/doctor';
 
 
     public static getDoctors(): Promise<IDoctorGet[]> {
@@ -22,24 +25,30 @@ export class AdminDoctorService {
                 });
         });
     }
-    // public static addMessage(message:any,id: number): Promise<IMessage> {
-    //     return new Promise((resolve, reject) => {
-    //         axios.post(this.root+"/match/" + id,message).then((response: any) => {
-    //             let message = this.toMessage(response.data);
-    //             resolve(message);
-    //         },
-    //             (error: any) => {
-    //                 reject(error);
-    //             })
-    //     });
-    // }
+    public static addDoctor(doctor:IDoctorGet): Promise<IDoctorGet> {
+        const cookies = new Cookies();
+        doctor.hospitalId=cookies.get("HospitalId");
+        doctor.confirmPassword=doctor.password;
+        return new Promise((resolve, reject) => {
+            axios.post(this.rootRegisterDoctors,doctor,{withCredentials:true}).then((response: any) => {
+                let doctor = this.toDoctor(response.data);
+                resolve(doctor);
+            },
+                (error: any) => {
+                    reject(error);
+                })
+        });
+    }
 
     private static toDoctor(response: any): IDoctorGet {
         return {
             lastname:response.lastName,
             firstname:response.firstName,
             email:response.email,
-            password:response.password
+            password:response.password,
+            speciality:response.speciality,
+            ward:response.ward,
+            confirmPassword:response.password
         };
     }
 }

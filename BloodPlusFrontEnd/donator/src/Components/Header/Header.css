@@ -1,0 +1,30 @@
+.hangouts-header{
+    height:60px;
+    background: #ffffff;
+    color: black;
+    display: flex;
+    box-shadow: #461212;
+    justify-content: space-between;
+    align-items: center;
+    /* background-blend-mode: soft-light; */
+}
+
+.hangouts-nodes{
+    display:flex;
+    flex: 0 0 500px;
+    text-transform: uppercase;
+    font-size: large;
+    font-weight: bold;
+    align-content: center;
+    cursor:pointer;
+}
+
+.hangouts-nodes a{
+    color: black;
+    text-decoration: none !important;
+    padding: 20px 40px;
+}
+
+.hangous-nodes a:hover{
+    color:rgb(165, 37, 37) !important;
+}

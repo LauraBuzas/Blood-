@@ -3,7 +3,7 @@ import { IDoctorGet } from '../../Models/IDoctorGet';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {Helmet} from 'react-helmet'
 import './AdminDoctor.css'
-import { AdminDoctorService } from '../../Services/AdminDoctorService';
+import { AdminDoctorService } from '../../services/AdminDoctorService';
 import Cookies from 'universal-cookie';
 
 export interface AdminDoctorProps{
@@ -40,8 +40,7 @@ export class AdminDoctor extends React.Component<AdminDoctorProps,AdminDoctorSta
          cookies.set('HospitalId','1', 
          { path: '/' });
 
-
-
+       
         AdminDoctorService.getDoctors().then((doctors:IDoctorGet[]) => {
             this.setState({
                 doctors: doctors
@@ -79,16 +78,34 @@ export class AdminDoctor extends React.Component<AdminDoctorProps,AdminDoctorSta
         // this.setState({
         //     doctors:doctors
         // })}
-    
+        AdminDoctorService.addDoctor(row).then((doctor:IDoctorGet) => {
+            let newDoctors:IDoctorGet[];
+            newDoctors=this.state.doctors;
+            newDoctors.push(doctor);
+            this.setState({
+                doctors: newDoctors
+            });    
+        },
+            (error) => {
+                this.setState({
+                    message: "Error adding doctor"
+                });
+                errorCallback(this.state.message);
+            });
+          
         
-      }
+    }
+      onSelectRow = {
+        mode: 'checkbox',
+        // clickToSelect: true,
+        // onSelect: this.onRowSelect,
+    };
 
     render()
     {
-        // const option = {
-        //     onAddRow: this.handleAddRowWithASyncError
-        //     // onAddRow: this.handleAddRowWithSyncError
-        //   };
+        const option = {
+            onAddRow: this.handleAddRowWithASyncError     
+          };
         return(
             <div>
                 <Helmet>
@@ -99,12 +116,15 @@ export class AdminDoctor extends React.Component<AdminDoctorProps,AdminDoctorSta
                                 hover={true}
                                 search={ true }
                                 exportCSV={true}
-                                deleteRow={true}
                                 insertRow={ true }
-                                // options={option}
+                                selectRow={this.onSelectRow}
+                                deleteRow={true}
+                                options={option}
                                 >
                 <TableHeaderColumn dataField='firstname'>First Name</TableHeaderColumn>
                 <TableHeaderColumn dataField='lastname'>Last name</TableHeaderColumn>
+                <TableHeaderColumn dataField='speciality'>Speciality</TableHeaderColumn>
+                <TableHeaderColumn dataField='ward'>Ward</TableHeaderColumn>
                 <TableHeaderColumn dataField='email' isKey={true}>Email</TableHeaderColumn>
                 <TableHeaderColumn dataField='password'>Password</TableHeaderColumn>
                 </BootstrapTable>
