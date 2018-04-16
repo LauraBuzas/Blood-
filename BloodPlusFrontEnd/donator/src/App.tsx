@@ -1,22 +1,59 @@
 import * as React from 'react';
 import './App.css';
-//import { elastic as Menu } from 'react-burger-menu'
-
 import './css/Management.css'
 import {AdminDoctor} from './Components/AdminDoctor/AdminDoctor'
 import {HomePage} from './Components/HomePage/HomePage';
 import {Footer} from './Components/Footer/Footer';
 import { HBox, VBox } from 'react-stylesheet/lib/Box';
 import './css/TextField.css';
-//import './css/Menu.css';
-
+import Alert from 'react-s-alert';
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Header } from './Components/Header/Header';
-import { LogIn } from './main_components/LogIn';
-import { SignUp } from './main_components/SignUp';
+import { CenterAdmin } from './Components/CenterAdmin/CenterAdmin';
+import { Body } from './Components/Body/Body';
+import { AccountService } from './Services/AccountServices';
 
-// import "react-bootstrap-table/min.css";
-export class App extends React.Component {
+export interface AppProps
+{
+
+}
+interface AppState
+{
+  role:string;
+  isLoggedIn:boolean;
+}
+
+export class App extends React.Component<AppProps,AppState> {
+  constructor(props:AppProps)
+  {
+        super(props);
+        this.state=
+        {
+          role:'Guest',
+          isLoggedIn:false
+        }
+        this.setRoleInApp=this.setRoleInApp.bind(this);
+  }
+
+  setRoleInApp(event:any)
+  {
+    this.setState({role:event,isLoggedIn:true});
+  }
+
+  logout()
+  {
+      AccountService.logoutUser().then(()=>{
+          this.setState({isLoggedIn:false})
+          this.setState({role:"Guest"})
+      },
+      (error) => {
+          Alert.error("Eroare la logout. Vă rugăm, reîncercați", {
+              position: 'top-right',
+              effect: 'jelly'
+            });
+      });
+   
+  }
 
   render() {
 
@@ -45,13 +82,16 @@ export class App extends React.Component {
        {/* <div>
       
       </div> */}
-      <Header />
+      {/* <Header />
       <HomePage />
-      <Footer />
+      <Footer /> */}
       {/* <div className="tableArea">
       <AdminDoctor/> 
       </div>
       */}
+      {this.state.role? <Header isLoggedIn={this.state.isLoggedIn} role={this.state.role} logOut={this.logout.bind(this)} />:null}
+
+      <Body setRole={(event) => this.setRoleInApp(event)}  />  
       </div>
 
       
