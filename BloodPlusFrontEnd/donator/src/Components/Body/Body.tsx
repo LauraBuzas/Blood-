@@ -6,7 +6,8 @@ import { Register } from '../../main_components/Register';
 import { LogIn } from '../../main_components/LogIn';
 import { SignUp } from '../../main_components/SignUp';
 import { DoctorRequest } from '../DoctorRequest/DoctorRequest';
-
+import { HomePage } from '../HomePage/HomePage';
+import "../../css/Body.css";
 export interface BodyProps{
     setRole:any;
 } 
@@ -31,15 +32,16 @@ export class Body extends React.Component<BodyProps,BodyState>
         const LoginComponent=()=>{return <Register setRole={this.props.setRole} />}
         const RegisterComponent=()=>{return <SignUp/>}
         const DoctorRequestCompoent=()=>{return <DoctorRequest/>}
-       
+        const HomeComponent = () => {return <HomePage/>}
+
         return(
-           <div>
+           <div id="body">
                 <Route path ="/hospital/admin" exact={true} render={HospitalAdminComponent}/>
                 <Route path ="/center/admin" exact={true} render={CenterAdminComponent}/>
                 <Route path="/login" exact={true} render={LoginComponent}/>
                 <Route path="/register" exact={true} render={RegisterComponent}/>
                 <Route path="/request" exact={true} render={DoctorRequestCompoent}/>
-              
+                <Route path="/" exact={true} render={HomeComponent}/>
            </div> 
         )
     }

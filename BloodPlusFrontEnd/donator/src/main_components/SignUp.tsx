@@ -15,7 +15,7 @@ export class SignUp extends React.Component {
 
     render() {
         return (
-            <div>
+            
                 <HBox className="hboxPosition">
                     <VBox className="vboxPosition">
                         <HBox className="hboxTwoEntities">
@@ -32,10 +32,10 @@ export class SignUp extends React.Component {
                         <TextField text="Nume utilizator" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
                         <TextField text="Parolă" type="password" onChangeFunction={this.handleUsernameChange.bind(this)} />
                         <TextField text="Confirmare Parolă" type="password" onChangeFunction={this.handleUsernameChange.bind(this)} />
-                        <button className="buttonSignUp">Sign up</button>
+                        <button className="buttonSignUp">Inregistreaza-te</button>
                     </VBox>
                 </HBox>
-            </div>
+            
         );
     }
 }

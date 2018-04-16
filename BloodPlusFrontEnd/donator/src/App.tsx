@@ -1,7 +1,9 @@
 import * as React from 'react';
 import './App.css';
 import './css/Management.css'
-import { HBox, VBox } from 'react-stylesheet/lib/Box'
+import {HomePage} from './Components/HomePage/HomePage';
+import {Footer} from './Components/Footer/Footer';
+import { HBox, VBox } from 'react-stylesheet/lib/Box';
 import './css/TextField.css';
 import Alert from 'react-s-alert';
 import { BrowserRouter as Router } from 'react-router-dom'
@@ -57,11 +59,16 @@ export class App extends React.Component<AppProps,AppState> {
     return (
       <Router>
       <div className="App">
-      {this.state.role? <Header isLoggedIn={this.state.isLoggedIn} role={this.state.role} logOut={this.logout.bind(this)} />:null}
-
-      <Body setRole={(event) => this.setRoleInApp(event)}  />  
+        {this.state.role? 
+          <Header 
+            isLoggedIn={this.state.isLoggedIn} 
+            role={this.state.role} 
+            logOut={this.logout.bind(this)} 
+          /> : null
+        }
+        <Body setRole={(event) => this.setRoleInApp(event)}  />  
+        <Footer/>
       </div>
-
       
       </Router>
     );
