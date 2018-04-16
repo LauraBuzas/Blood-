@@ -8,6 +8,7 @@ namespace DatabaseAccess.Models
         public Center()
         {
             Employees = new List<Employee>();
+            BloodBags = new List<BloodBag>();
         }
 
         public int Id { get; set; }
@@ -21,5 +22,7 @@ namespace DatabaseAccess.Models
 
         public string CenterAdminId { get; set; }
 
+
+        public List<BloodBag> BloodBags { get; set; }
     }
 }

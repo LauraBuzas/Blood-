@@ -7,13 +7,15 @@ import { IUserRegister } from './../Models/IUserRegister';
 import { AccountService } from '../Services/AccountServices';
 import { Redirect } from 'react-router';
 import Alert from 'react-s-alert';
+import '../css/Login.css';
+import { IUserLogin } from '../Models/IUserLogin';
 
 export interface LoginProps {
     setRole:any
 }
 
 interface LoginState {
-    userRegistered: IUserRegister
+    userRegistered: IUserLogin
     message: string
     role:string
 }
@@ -29,8 +31,6 @@ export class LogIn extends React.Component<LoginProps, LoginState>
                 userRegistered:
                     {
                         email: '',
-                        firstName: '',
-                        lastName: '',
                         password: ''
                     },
                 role:''

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BloodPlus.Mappers;
 using BloodPlus.ModelViews;
 using BloodPlus.ModelViews.AccountViewModels;
 using DatabaseAccess.Models;
@@ -55,9 +56,44 @@ namespace BloodPlus.Controllers
             }
         }
 
+        //[Authorize(Roles = "DonationCenterDoctor")]
+        //[HttpPost("Transfusion")]
+        //public IActionResult AddTransfusion([FromBody])
+        //{
 
+        //}
 
+        [Authorize(Roles = "DonationCenterDoctor")]
+        [HttpPost("blood-bag")]
+        public IActionResult AddBloodBag([FromBody] CNPViewModel cnpViewModel)
+        {
+            try
+            {
+                var centerId = int.Parse(Request.Cookies["CenterId"]);
+                employeeService.DonateBlood(cnpViewModel.CNP,centerId);
+                return Ok("Blood bag registered");
+            }
+            catch(Exception ex)
+            {
+                return Ok(ex.Message);
+            }
+        }
 
+        [Authorize(Roles = "DonationCenterDoctor")]
+        [HttpPost("analysis")]
+        public IActionResult FillAnalysis([FromBody] MedicalAnalysisViewModel analysisViewModel)
+        {
+            try
+            {
+                var analysis = MapperMedicalAnalysis.ToMedicalAnalysis(analysisViewModel);
+                employeeService.FillAnalysis(analysis, analysisViewModel.CNP);
 
+                return Ok("Analysis updated");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

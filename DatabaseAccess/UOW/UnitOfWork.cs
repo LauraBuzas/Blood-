@@ -17,7 +17,11 @@ namespace DatabaseAccess.UOW
         private IRepository<Donor> _DonorRepository;
         private IRepository<HospitalAdmin> _HospitalAdminRepository;
         private IRepository<CenterAdmin> _CenterAdminRepository;
+        private IRepository<Address> _AddressRepository;
         private IRepository<ApplicationUser> _ApplicationUserRepository;
+        private IRepository<BloodBag> _BloodBagRepository;
+        private IRepository<MedicalAnalysis> _MedicalAnalysisRepository;
+        private IRepository<Center> _CenterRepository;
 
         public UnitOfWork()
         {
@@ -54,6 +58,26 @@ namespace DatabaseAccess.UOW
             }
         }
 
+        public IRepository<MedicalAnalysis> MedicalAnalysisRepository
+        {
+            get
+            {
+                if (_MedicalAnalysisRepository == null)
+                    _MedicalAnalysisRepository = new GenericRepository<MedicalAnalysis>(context);
+                return _MedicalAnalysisRepository;
+            }
+        }
+
+        public IRepository<BloodBag> BloodBagRepository
+        {
+            get
+            {
+                if (_BloodBagRepository == null)
+                    _BloodBagRepository = new GenericRepository<BloodBag>(context);
+                return _BloodBagRepository;
+            }
+        }
+
         public IRepository<HospitalAdmin> HospitalAdminRepository
         {
             get
@@ -61,6 +85,16 @@ namespace DatabaseAccess.UOW
                 if (_HospitalAdminRepository == null)
                     _HospitalAdminRepository = new GenericRepository<HospitalAdmin>(context);
                 return _HospitalAdminRepository;
+            }
+        }
+
+        public IRepository<Address> AddressRepository
+        {
+            get
+            {
+                if (_AddressRepository == null)
+                    _AddressRepository = new GenericRepository<Address>(context);
+                return _AddressRepository;
             }
         }
 
@@ -81,6 +115,16 @@ namespace DatabaseAccess.UOW
                 if (_CenterAdminRepository == null)
                     _CenterAdminRepository = new GenericRepository<CenterAdmin>(context);
                 return _CenterAdminRepository;
+            }
+        }
+
+        public IRepository<Center> CenterRepository
+        {
+            get
+            {
+                if (_CenterRepository == null)
+                    _CenterRepository = new GenericRepository<Center>(context);
+                return _CenterRepository;
             }
         }
 

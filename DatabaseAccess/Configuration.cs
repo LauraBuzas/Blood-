@@ -11,7 +11,7 @@ namespace DatabaseAccess
         {
             get
             {
-                return "Data Source=localhost\\SQLEXPRESS;Initial Catalog=BloodPlus2;Integrated Security=True;";
+                return "Data Source=i3-PC\\SQLEXPRESS;Initial Catalog=BloodPlus;Integrated Security=True;";
             }
         }
     }

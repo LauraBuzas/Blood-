@@ -44,7 +44,7 @@ namespace DatabaseAccess.Data
             await roleManager.CreateAsync(new IdentityRole { Name = "HospitalAdmin"});
             await roleManager.CreateAsync(new IdentityRole { Name = "DonationCenterDoctor"});
             await roleManager.CreateAsync(new IdentityRole { Name = "HospitalDoctor"});
-            await roleManager.CreateAsync(new IdentityRole { Name = "Donator"});
+            await roleManager.CreateAsync(new IdentityRole { Name = "Donor"});
 
             var createdUser =await userManager.FindByEmailAsync("god@iss.com");
             var createdDoctor = await userManager.FindByEmailAsync("doctor1@spital.com");
@@ -61,7 +61,7 @@ namespace DatabaseAccess.Data
             //await userManager.AddToRoleAsync(createdUser, role4.Name);
             var role5 = await roleManager.FindByNameAsync("HospitalDoctor");
             //await userManager.AddToRoleAsync(createdUser, role5.Name); 
-            var role6 = await roleManager.FindByNameAsync("Donator");
+            var role6 = await roleManager.FindByNameAsync("Donor");
             //await userManager.AddToRoleAsync(createdUser, role6.Name);
             await userManager.AddToRolesAsync(createdUser, new List<string> { role1.Name, role2.Name, role3.Name, role4.Name, role5.Name, role6.Name });
             await userManager.AddToRoleAsync(createdDoctor, role5.Name);

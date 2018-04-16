@@ -103,6 +103,16 @@ namespace BloodPlus.Controllers
                         var centerId = _adminService.GetCenterIdForCenterAdmin(user.Id);
                         SetCookie("CenterId", centerId.ToString());
                     }
+                    if (roles.Any(s => s == "DonationCenterDoctor"))
+                    {
+                        var centerId = _employeeService.GetCenterIdForCenterDoctor(user.Id);
+                        SetCookie("CenterId", centerId.ToString());
+                    }
+                    if (roles.Any(s => s == "Donor"))
+                    {
+                        //var centerId = _employeeService.GetCenterIdForCenterDoctor(user.Id);
+                        SetCookie("UserId", user.Id);
+                    }
                     return Ok(roles);
                 }
                 if (result.RequiresTwoFactor)
@@ -255,7 +265,7 @@ namespace BloodPlus.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Register([FromBody]RegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
@@ -560,10 +570,9 @@ namespace BloodPlus.Controllers
 
         [HttpPost("register/donor")]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> RegisterDonor([FromBody] RegisterDonorViewModel donorModel)
         {
-            //ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = donorModel.Email, Email = donorModel.Email };
@@ -574,16 +583,17 @@ namespace BloodPlus.Controllers
                     _logger.LogInformation("User created a new account with password.");
 
                     var createdDonor = await _userManager.FindByEmailAsync(donorModel.Email);
+                    await _userManager.AddToRoleAsync(createdDonor, "Donor");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
-                    await _emailSender.SendEmailConfirmationAsync(donorModel.Email, callbackUrl);
+                    //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+                    //await _emailSender.SendEmailConfirmationAsync(donorModel.Email, callbackUrl);
                     var donorDb = Mappers.MapperRegisterDonor.ToDonor(donorModel, createdDonor);
-
+                    var addressDb = Mappers.MapperRegisterDonor.ToAddress(donorModel);
 
                     try
                     {
-                        _donorsService.AddDonor(donorDb);
+                        _donorsService.AddDonor(donorDb,addressDb);
 
 
                         var codeResult = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -601,11 +611,7 @@ namespace BloodPlus.Controllers
                         return BadRequest(ex.Message);
                     }
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation("User created a new account with password.");
-
-                    //return RedirectToLocal(returnUrl);
-                    return Ok();
+                   
                 }
                 AddErrors(result);
             }

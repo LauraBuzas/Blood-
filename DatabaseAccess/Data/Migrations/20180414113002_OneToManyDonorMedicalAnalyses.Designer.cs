@@ -12,9 +12,10 @@ using System;
 namespace DatabaseAccess.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180414113002_OneToManyDonorMedicalAnalyses")]
+    partial class OneToManyDonorMedicalAnalyses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,13 +105,9 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CenterId");
-
                     b.Property<int>("Status");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CenterId");
 
                     b.ToTable("BloodBags");
                 });
@@ -246,10 +243,6 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.Property<bool>("ALTLevel");
 
-                    b.Property<int>("BloodBagId");
-
-                    b.Property<DateTime>("DateAndTime");
-
                     b.Property<string>("DonorId");
 
                     b.Property<bool>("HIV");
@@ -263,9 +256,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<bool>("Sifilis");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BloodBagId")
-                        .IsUnique();
 
                     b.HasIndex("DonorId");
 
@@ -438,14 +428,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("DatabaseAccess.Models.BloodBag", b =>
-                {
-                    b.HasOne("DatabaseAccess.Models.Center", "Center")
-                        .WithMany("BloodBags")
-                        .HasForeignKey("CenterId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("DatabaseAccess.Models.Center", b =>
                 {
                     b.HasOne("DatabaseAccess.Models.CenterAdmin", "CenterAdmin")
@@ -518,11 +500,6 @@ namespace DatabaseAccess.Data.Migrations
 
             modelBuilder.Entity("DatabaseAccess.Models.MedicalAnalysis", b =>
                 {
-                    b.HasOne("DatabaseAccess.Models.BloodBag", "BloodBag")
-                        .WithOne("Analysis")
-                        .HasForeignKey("DatabaseAccess.Models.MedicalAnalysis", "BloodBagId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("DatabaseAccess.Models.Donor", "Donor")
                         .WithMany("MedicalAnalysis")
                         .HasForeignKey("DonorId");

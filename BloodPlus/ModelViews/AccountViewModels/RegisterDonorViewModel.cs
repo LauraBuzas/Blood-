@@ -18,11 +18,20 @@ namespace BloodPlus.ModelViews.AccountViewModels
         [Required]
         public string LastName { get; set; }
 
-        public string PhoneNumber { get; set; }
+        //public string PhoneNumber { get; set; }
 
         [Required]
-        public Address Address { get; set; }
-        
+        public string City { get; set; }
+
+        [Required]
+        public string County { get; set; }
+
+        [Required]
+        public string Street { get; set; }
+
+        [Required]
+        public int Number { get; set; }
+
 
     }
 }

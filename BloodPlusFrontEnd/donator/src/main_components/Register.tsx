@@ -31,7 +31,11 @@ export class Register extends React.Component<RegisterProps, RegisterState>
                         email: '',
                         firstName: '',
                         lastName: '',
-                        password: ''
+                        password: '',
+                        city:'',
+                        county:'',
+                        number:-1,
+                        street:''
                     }
             }
     };

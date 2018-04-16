@@ -12,9 +12,10 @@ using System;
 namespace DatabaseAccess.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180411172528_RequestDoctorPatientRelations")]
+    partial class RequestDoctorPatientRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,22 +98,6 @@ namespace DatabaseAccess.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("DatabaseAccess.Models.BloodBag", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("CenterId");
-
-                    b.Property<int>("Status");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CenterId");
-
-                    b.ToTable("BloodBags");
                 });
 
             modelBuilder.Entity("DatabaseAccess.Models.Center", b =>
@@ -237,39 +222,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("HospitalAdmins");
-                });
-
-            modelBuilder.Entity("DatabaseAccess.Models.MedicalAnalysis", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("ALTLevel");
-
-                    b.Property<int>("BloodBagId");
-
-                    b.Property<DateTime>("DateAndTime");
-
-                    b.Property<string>("DonorId");
-
-                    b.Property<bool>("HIV");
-
-                    b.Property<bool>("HTLV");
-
-                    b.Property<bool>("HepatitisB");
-
-                    b.Property<bool>("HepatitisC");
-
-                    b.Property<bool>("Sifilis");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BloodBagId")
-                        .IsUnique();
-
-                    b.HasIndex("DonorId");
-
-                    b.ToTable("MedicalAnalyses");
                 });
 
             modelBuilder.Entity("DatabaseAccess.Models.Patient", b =>
@@ -438,14 +390,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("DatabaseAccess.Models.BloodBag", b =>
-                {
-                    b.HasOne("DatabaseAccess.Models.Center", "Center")
-                        .WithMany("BloodBags")
-                        .HasForeignKey("CenterId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("DatabaseAccess.Models.Center", b =>
                 {
                     b.HasOne("DatabaseAccess.Models.CenterAdmin", "CenterAdmin")
@@ -514,18 +458,6 @@ namespace DatabaseAccess.Data.Migrations
                         .WithOne()
                         .HasForeignKey("DatabaseAccess.Models.HospitalAdmin", "Id")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DatabaseAccess.Models.MedicalAnalysis", b =>
-                {
-                    b.HasOne("DatabaseAccess.Models.BloodBag", "BloodBag")
-                        .WithOne("Analysis")
-                        .HasForeignKey("DatabaseAccess.Models.MedicalAnalysis", "BloodBagId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("DatabaseAccess.Models.Donor", "Donor")
-                        .WithMany("MedicalAnalysis")
-                        .HasForeignKey("DonorId");
                 });
 
             modelBuilder.Entity("DatabaseAccess.Models.Patient", b =>
