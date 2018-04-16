@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { IUserRegister } from '../Models/IUserRegister';
-import { AccountService } from '../services/AccountServices';
+import { AccountService } from '../Services/AccountServices';
 import { LogIn } from './LogIn';
 
 export interface RegisterProps { }
@@ -27,7 +27,11 @@ export class Register extends React.Component<RegisterProps, RegisterState>
                         email: '',
                         firstName: '',
                         lastName: '',
-                        password: ''
+                        password: '',
+                        city:'',
+                        county:'',
+                        number:-1,
+                        street:''
                     }
             }
     };

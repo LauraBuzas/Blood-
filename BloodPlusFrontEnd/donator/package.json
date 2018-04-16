@@ -7,9 +7,12 @@
     "axios": "^0.18.0",
     "react": "^16.2.0",
     "react-addons-update": "^15.6.2",
+    "react-alert": "^4.0.2",
+    "react-alert-template-basic": "^1.0.0",
     "react-bootstrap": "^0.32.1",
     "react-bootstrap-table": "^4.3.1",
     "react-burger-menu": "^2.3.0",
+    "react-confirm-alert": "^2.0.2",
     "react-dom": "^16.2.0",
     "react-helmet": "^5.2.0",
     "react-message-box": "^1.0.6",
@@ -17,8 +20,8 @@
     "react-s-alert": "^1.4.1",
     "react-scripts": "1.1.1",
     "react-scripts-ts": "2.8.0",
-    "react-stylesheet": "^2.2.2",
-    "universal-cookie": "^2.1.2"
+    "universal-cookie": "^2.1.2",
+    "react-stylesheet": "^2.2.2"
   },
   "scripts": {
     "start": "react-scripts-ts start",

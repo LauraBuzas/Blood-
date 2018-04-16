@@ -29,8 +29,8 @@ export class Header extends React.Component<HeaderProps,HeaderState>
                     link:'/'
                 },
                 {
-                    title:"Profile",
-                    link:"/"
+                    title:"Sign Up",
+                    link:"/signUp"
                 }]
         };
     }

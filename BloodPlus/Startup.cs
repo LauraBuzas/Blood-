@@ -40,7 +40,9 @@ namespace BloodPlus
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddMvc();
             services.AddTransient<DoctorsService>();
-            services.AddTransient<HospitalAdminService>();
+            services.AddTransient<AdminService>();
+            services.AddTransient<EmployeeService>();
+            services.AddTransient<DonorService>();
 
         }
 
@@ -61,6 +63,7 @@ namespace BloodPlus
             //app.UseStaticFiles();
 
             app.UseAuthentication();
+            
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials());
             app.UseMvc();
 
