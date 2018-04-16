@@ -3,6 +3,7 @@ import { IDoctorGet } from '../../Models/IDoctorGet';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {Helmet} from 'react-helmet'
 import './HospitalAdmin.css'
+import '../../css/Management.css'
 import { HospitalAdminService } from '../../Services/HospitalAdminService';
 import Cookies from 'universal-cookie';
 import { confirmAlert } from 'react-confirm-alert'; // Import
@@ -48,7 +49,7 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
         },
             (error) => {
                 this.setState({
-                    message: "Error getting doctors"
+                    message: "A apărut o eroare la aducerea datelor despre doctori"
                     
                 });
                 Alert.error(this.state.message, {
@@ -71,7 +72,7 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
         },
             (error) => {
                 this.setState({
-                    message: "Error adding doctor"
+                    message: "A apărut o eroare la adăugarea doctorului"
                 });
                 Alert.error(this.state.message, {
                     position: 'top-right',
@@ -86,8 +87,6 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
     
     onSelectRow = {
         mode: 'checkbox',
-        // clickToSelect: true,
-        // onSelect: this.onRowSelect,
     };
 
     handleDeleteRow=(row)=>
@@ -105,7 +104,7 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
         },
             (error) => {
                 this.setState({
-                    message: "Error deleting doctor"
+                    message: "A apărut o eroare la ștergerea doctorului"
                 });
                 Alert.error(this.state.message, {
                     position: 'top-right',
@@ -121,15 +120,15 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
         const dropRowKeysStr = dropRowKeys.join(',');
         console.log('aici')
         confirmAlert({
-            title: 'Confirm to submit',
-            message: 'Are you sure you want to delete doctor with email '+dropRowKeysStr+' ?',
+            title: 'Confirmă ștergerea',
+            message: 'Ești sigur că vrei să ștergi doctorul cu email-ul '+dropRowKeysStr+' ?',
             buttons: [
               {
-                label: 'Yes',
+                label: 'Da',
                 onClick: () => next()
               },
               {
-                label: 'No',
+                label: 'Nu',
                 onClick: () => alert('Click No')
               }
             ]
@@ -149,7 +148,7 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
        
           
         return(
-            <div>
+            <div className="tableArea">
                 <Helmet>
                     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
                 </Helmet>
@@ -163,12 +162,12 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
                                 deleteRow={true}
                                 options={option}
                                 >
-                <TableHeaderColumn dataField='Prenume'>First Name</TableHeaderColumn>
-                <TableHeaderColumn dataField='Nume'>Last name</TableHeaderColumn>
-                <TableHeaderColumn dataField='Specializare'>Speciality</TableHeaderColumn>
-                <TableHeaderColumn dataField='Sectie'>Ward</TableHeaderColumn>
-                <TableHeaderColumn dataField='Email' isKey={true}>Email</TableHeaderColumn>
-                <TableHeaderColumn dataField='Parola'>Password</TableHeaderColumn>
+                <TableHeaderColumn dataField='firstname'>Prenume</TableHeaderColumn>
+                <TableHeaderColumn dataField='lastname'>Nume</TableHeaderColumn>
+                <TableHeaderColumn dataField='speciality'>Specializare</TableHeaderColumn>
+                <TableHeaderColumn dataField='ward'>Secție</TableHeaderColumn>
+                <TableHeaderColumn dataField='email' isKey={true}>Email</TableHeaderColumn>
+                <TableHeaderColumn dataField='password'>Parolă</TableHeaderColumn>
                 </BootstrapTable>
         
                <Alert stack={true} timeout={3000} />

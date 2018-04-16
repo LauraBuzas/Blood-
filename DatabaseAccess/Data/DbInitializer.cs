@@ -32,10 +32,10 @@ namespace DatabaseAccess.Data
         public static async Task Seed(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
 
-            await userManager.CreateAsync(new ApplicationUser { Email = "god@iss.com", UserName = "God" }, "Password123.");
-            await userManager.CreateAsync(new ApplicationUser { Email = "hospitalAdmin@admin.com", UserName = "HospitalAdmin" }, "Password123.");
-            await userManager.CreateAsync(new ApplicationUser { Email = "doctor1@spital.com", UserName = "Doctor1"}, "Password123.");
-            await userManager.CreateAsync(new ApplicationUser { Email = "centerAdmin@admin.com", UserName = "CenterAdmin" }, "Password123.");
+            await userManager.CreateAsync(new ApplicationUser { Email = "god@iss.com", UserName = "god@iss.com" }, "Password123.");
+            await userManager.CreateAsync(new ApplicationUser { Email = "hospitalAdmin@admin.com", UserName = "hospitalAdmin@admin.com" }, "Password123.");
+            await userManager.CreateAsync(new ApplicationUser { Email = "doctor1@spital.com", UserName = "doctor1@spital.com" }, "Password123.");
+            await userManager.CreateAsync(new ApplicationUser { Email = "centerAdmin@admin.com", UserName = "centerAdmin@admin.com" }, "Password123.");
             await userManager.CreateAsync(new ApplicationUser { Email = "employee1@center.com", UserName = "Employee1" }, "Password123.");
 
 

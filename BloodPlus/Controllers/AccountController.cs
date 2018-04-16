@@ -65,6 +65,11 @@ namespace BloodPlus.Controllers
         {
             Response.Cookies.Append(key, value);
         }
+        private void RemoveCookie(string key)
+        {
+            Response.Cookies.Delete(key);
+           
+        }
 
         [HttpPost("login")]
         [AllowAnonymous]
@@ -77,17 +82,21 @@ namespace BloodPlus.Controllers
             {
                 
                 // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
+                // To enable password failures to trigger account lockoumodelt, set lockoutOnFailure: true
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    var user = await _userManager.FindByNameAsync(model.Username);
+                    var user = await _userManager.FindByNameAsync(model.Email);
                     var roles=_userManager.GetRolesAsync(user).Result.ToList();
                     if(roles.Any(s=>s== "HospitalAdmin"))
                     {
                         var hospitalId = _adminService.GetHospitalIdForHospitalAdmin(user.Id);
                         SetCookie("HospitalId", hospitalId.ToString());
+
+                        Response.Cookies.Append("HospitalId", "1", new Microsoft.AspNetCore.Http.CookieOptions { HttpOnly = false });
+
+                        var cookies = Request.Cookies["HospitalId"];
                     }
                     if (roles.Any(s => s == "DonationCenterAdmin"))
                     {
@@ -104,7 +113,7 @@ namespace BloodPlus.Controllers
                         //var centerId = _employeeService.GetCenterIdForCenterDoctor(user.Id);
                         SetCookie("UserId", user.Id);
                     }
-                    return Ok();
+                    return Ok(roles);
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -282,14 +291,16 @@ namespace BloodPlus.Controllers
             return View(model);
         }
 
-        //[HttpPost]
+        [HttpPost("logout")]
         //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Logout()
-        //{
-        //    await _signInManager.SignOutAsync();
-        //    _logger.LogInformation("User logged out.");
-        //    return RedirectToAction(nameof(HomeController.Index), "Home");
-        //}
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            RemoveCookie("HospitalId");
+            RemoveCookie("CenterId");
+            _logger.LogInformation("User logged out.");
+            return Ok();
+        }
 
         [HttpPost]
         [AllowAnonymous]
@@ -493,7 +504,7 @@ namespace BloodPlus.Controllers
                         //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                         //await _emailSender.SendEmailConfirmationAsync(doctorModel.Email, callbackUrl);
 
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        //await _signInManager.SignInAsync(user, isPersistent: false);
                         _logger.LogInformation("User created a new account with password.");
 
                         //return RedirectToLocal(returnUrl);
@@ -538,7 +549,7 @@ namespace BloodPlus.Controllers
                         //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                         //await _emailSender.SendEmailConfirmationAsync(doctorModel.Email, callbackUrl);
 
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        //await _signInManager.SignInAsync(user, isPersistent: false);
                         _logger.LogInformation("User created a new account with password.");
 
                         //return RedirectToLocal(returnUrl);

@@ -12,6 +12,7 @@ using DatabaseAccess.Data;
 using DatabaseAccess.Models;
 using BloodPlus.Services2;
 using Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace BloodPlus
 {
@@ -33,6 +34,35 @@ namespace BloodPlus
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = false;
+            });
+            
+
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //        .AddCookie(options =>
+            //        {
+            //            options.LoginPath = "/";
+            //            options.CookieHttpOnly = false;
+                        
+
+
+            //        });
+
+            //services.AddAuthentication(options =>
+            //      {
+            //          options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+            //          options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
+
+
+            //      });
+
+            //services.AddSession(options =>
+            //{
+            //    options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Lax;
+            //});
 
             services.AddTransient<ApplicationDbContext>();
 
@@ -66,6 +96,8 @@ namespace BloodPlus
             
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials());
             app.UseMvc();
+
+            //app.UseCookieAuthentication(new CookieAuthenticationOptions { CookieHttpOnly = false });
 
 
 
