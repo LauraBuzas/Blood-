@@ -4,10 +4,8 @@ import './App.css';
 
 import './css/Management.css'
 import {AdminDoctor} from './Components/AdminDoctor/AdminDoctor'
-<<<<<<< HEAD
 import {HomePage} from './Components/HomePage/HomePage';
 import {Footer} from './Components/Footer/Footer';
-=======
 import { HBox, VBox } from 'react-stylesheet/lib/Box';
 import './css/TextField.css';
 //import './css/Menu.css';
@@ -16,7 +14,6 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { Header } from './Components/Header/Header';
 import { LogIn } from './main_components/LogIn';
 import { SignUp } from './main_components/SignUp';
->>>>>>> development
 
 // import "react-bootstrap-table/min.css";
 export class App extends React.Component {
@@ -40,22 +37,21 @@ export class App extends React.Component {
         <a id="contact"className="menu-item" href="/contact">Contact</a>
         <a className="menu-item"href="">Settings</a>
        </Menu>
-<<<<<<< HEAD
       </div>
       <div>
-      <HomePage />
-      <Footer />
-=======
+      
         */}
        
        {/* <div>
       
       </div> */}
       <Header />
-      <div className="tableArea">
-      <AdminDoctor/>
->>>>>>> development
+      <HomePage />
+      <Footer />
+      {/* <div className="tableArea">
+      <AdminDoctor/> 
       </div>
+      */}
       </div>
 
       
