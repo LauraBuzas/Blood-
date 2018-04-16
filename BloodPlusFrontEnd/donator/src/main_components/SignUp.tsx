@@ -15,7 +15,7 @@ export class SignUp extends React.Component {
 
     render() {
         return (
-            <div>
+            
                 <HBox className="hboxPosition">
                     <VBox className="vboxPosition">
                         <HBox className="hboxTwoEntities">
@@ -35,7 +35,7 @@ export class SignUp extends React.Component {
                         <button className="buttonSignUp">Sign up</button>
                     </VBox>
                 </HBox>
-            </div>
+            
         );
     }
 }

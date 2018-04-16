@@ -7,7 +7,7 @@ import { IUserRegister } from './../Models/IUserRegister';
 import { AccountService } from '../Services/AccountServices';
 import { Redirect } from 'react-router';
 import Alert from 'react-s-alert';
-import '../css/LogIn.css';
+import '../css/SignUp.css';
 import { IUserLogin } from '../Models/IUserLogin';
 
 export interface LoginProps {
@@ -93,7 +93,7 @@ export class LogIn extends React.Component<LoginProps, LoginState>
         }
         
         return (
-            <div>
+            <div id="login-div">
                 <HBox className="hboxPosition">
                     <VBox className="vboxPosition">
                         <TextField text="Email" type="text" onChangeFunction={(event) => this.handleEmailChange(event)} />

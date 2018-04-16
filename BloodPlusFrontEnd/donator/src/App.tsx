@@ -1,7 +1,6 @@
 import * as React from 'react';
 import './App.css';
 import './css/Management.css'
-import {AdminDoctor} from './Components/AdminDoctor/AdminDoctor'
 import {HomePage} from './Components/HomePage/HomePage';
 import {Footer} from './Components/Footer/Footer';
 import { HBox, VBox } from 'react-stylesheet/lib/Box';
@@ -92,8 +91,9 @@ export class App extends React.Component<AppProps,AppState> {
       {this.state.role? <Header isLoggedIn={this.state.isLoggedIn} role={this.state.role} logOut={this.logout.bind(this)} />:null}
 
       <Body setRole={(event) => this.setRoleInApp(event)}  />  
+      <Footer/>
       </div>
-
+      
       
       </Router>
     );
