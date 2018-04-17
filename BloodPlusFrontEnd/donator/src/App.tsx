@@ -4,7 +4,7 @@ import './App.css';
 
 import './css/Management.css'
 import {AdminDoctor} from './Components/AdminDoctor/AdminDoctor'
-import { HBox, VBox } from 'react-stylesheet/lib/Box';
+//import { HBox, VBox } from 'react-stylesheet/lib/Box';
 import './css/TextField.css';
 //import './css/Menu.css';
 
@@ -12,6 +12,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { Header } from './Components/Header/Header';
 import { LogIn } from './main_components/LogIn';
 import { SignUp } from './main_components/SignUp';
+import { EmployeeProfile } from './Components/EmployeeProfile/EmployeeProfile';
 
 // import "react-bootstrap-table/min.css";
 export class App extends React.Component {
@@ -41,8 +42,11 @@ export class App extends React.Component {
       
       </div> */}
       <Header />
-      <div className="tableArea">
+      {/*<div className="tableArea">
       <AdminDoctor/>
+    </div>*/}
+      <div>
+      <EmployeeProfile/>
       </div>
       </div>
 
