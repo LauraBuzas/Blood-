@@ -44,6 +44,10 @@ var nodesDoctor=[
         link:'/'
     },
     {
+        title:"Profile",
+        link:'/doctor/profile'
+    },
+    {
         title:"Cere sânge",
         link:"/request"
     }]

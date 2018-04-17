@@ -92,7 +92,7 @@ export class DoctorProfile extends React.Component<DoctorProfileProps,DoctorProf
     render(){
         const {isLoading}=this.state;
         return(
-            <div>
+            <div className="main">
                 <div className="separation"></div>
                 <div>
                 <h1 className="title">Profil doctor</h1>

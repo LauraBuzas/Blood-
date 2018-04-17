@@ -8,6 +8,7 @@ import { SignUp } from '../../main_components/SignUp';
 import { DoctorRequest } from '../DoctorRequest/DoctorRequest';
 import { HomePage } from '../HomePage/HomePage';
 import "../../css/Body.css";
+import { DoctorProfile } from '../DoctorProfile/DoctorProfile';
 export interface BodyProps{
     setRole:any;
 } 
@@ -33,6 +34,7 @@ export class Body extends React.Component<BodyProps,BodyState>
         const RegisterComponent=()=>{return <SignUp/>}
         const DoctorRequestCompoent=()=>{return <DoctorRequest/>}
         const HomeComponent = () => {return <HomePage/>}
+        const DoctorProfileComponent = () => {return <DoctorProfile/>}
 
         return(
            <div id="body">
@@ -41,6 +43,7 @@ export class Body extends React.Component<BodyProps,BodyState>
                 <Route path="/login" exact={true} render={LoginComponent}/>
                 <Route path="/register" exact={true} render={RegisterComponent}/>
                 <Route path="/request" exact={true} render={DoctorRequestCompoent}/>
+                <Route path="/doctor/profile" exact={true} render={DoctorProfileComponent}/>
                 <Route path="/" exact={true} render={HomeComponent}/>
            </div> 
         )
