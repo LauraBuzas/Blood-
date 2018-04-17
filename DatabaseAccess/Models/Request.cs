@@ -12,24 +12,26 @@ namespace DatabaseAccess.Models
         public int Id { get; set; }
 
         //Grupa
-        public string BloodType { get; set; }
+        public BloodTypes BloodType { get; set; }
 
+        public RhTypes Rh { get; set; }
 
-        //public int IdPatient { get; set;}
+        public Patient Patient { get; set; }
 
-        [Required]
-        public int EmergencyLevel { get; set; }
-
-        //[Required]
-        //public int IdHospital { get; set; }
+        public int IdPatient { get; set; }
 
         [Required]
-        public string Status { get; set; }
+        public EmergencyLevel EmergencyLevel { get; set; }
+
+        [Required]
+        public RequestStatus Status { get; set; }
 
         [Required]
         public int RequestedQuantity { get; set; }
 
-        //public int IdDoctor { get; set; }
- 
+        public Doctor Doctor { get; set; }
+
+        public string IdDoctor { get; set; }
+
     }
 }

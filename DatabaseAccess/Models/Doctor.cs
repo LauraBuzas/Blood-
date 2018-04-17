@@ -8,6 +8,12 @@ namespace DatabaseAccess.Models
 {
     public class Doctor
     {
+        public Doctor()
+        {
+            Patients = new List<Patient>();
+            Requests = new List<Request>();
+        }
+
         public string Id { get; set; }
 
         [Required]
@@ -25,8 +31,11 @@ namespace DatabaseAccess.Models
         public Hospital Hospital { get; set; }
         public int HospitalId { get; set; }
 
-        //public ApplicationUser User { get; set; }
-        //public string UserID { get; set; }
+        public List<Patient> Patients { get; set; }
+
+        public List<Request> Requests { get; set; }
+
+
 
     }
 }
