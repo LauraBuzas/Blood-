@@ -64,7 +64,20 @@ var nodesCenterAdmin=[
         {
             title:"Conturi",
             link:"/center/admin"
-        }]
+        },
+    ]
+
+var nodesEmployee=[
+    {
+        title:"Acasă",
+        link:'/'
+    },
+    {
+        title:"Profil",
+        link:"/employee/profile"
+    }
+
+]
 
 export class Header extends React.Component<HeaderProps,HeaderState>
 {
@@ -104,7 +117,9 @@ export class Header extends React.Component<HeaderProps,HeaderState>
             currentNodes=nodesHospitalAdmin;
         if(this.props.role=="DonationCenterAdmin")
             currentNodes=nodesCenterAdmin;
-
+        if(this.props.role=="DonationCenterDoctor")
+            currentNodes=nodesEmployee;
+        
         return this.renderHeader(this.props.isLoggedIn,currentNodes);
     }
 
