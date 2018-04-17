@@ -1,0 +1,86 @@
+.main{
+    width:100%;
+    height:100%;
+}
+input{
+  height: 50px;
+  border: none;
+  /* color: rgb(236, 227, 227); */
+  color:transparent;
+  display: inline-block; 
+  font-family: 'lato', sans-serif;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.10em;
+  border-radius: 25px;
+  cursor: pointer;
+  padding-left:50%;
+  position: relative;
+}
+.separation{
+    width: 100%;
+    height: 3px;
+    font-family: 'lato', sans-serif;
+    font-size: 10px;
+    /* margin-top: 20;
+    margin-bottom: 20; */
+    /* Safari 5.1+, Chrome 10+ */
+    background: -webkit-linear-gradient(left, rgba(0,0,0,0), hsl(0, 98%, 68%), rgba(0,0,0,0));
+    /* Firefox 3.6+ */
+    background: -moz-linear-gradient(left, rgba(0,0,0,0), hsl(0, 98%, 68%), rgba(0,0,0,0));
+}
+.separation2{
+    width:100%;
+    height: 2px;
+    background: -webkit-linear-gradient(left, rgba(0,0,0,0), hsl(0, 98%, 68%), rgba(0,0,0,0));
+    /* Firefox 3.6+ */
+    background: -moz-linear-gradient(left, rgba(0,0,0,0), hsl(0, 98%, 68%), rgba(0,0,0,0));
+}
+.title{
+    font-family: 'lato', sans-serif;
+    font-size: 20px;
+}
+.mainTitles{
+    font-family: 'lato', sans-serif;
+    font-size: 13px;
+}
+.VBox1{
+    width: 30%;
+}
+.VBox2{
+    width: 35%;
+    padding-left:10%;
+    padding-top:3%;
+}
+.VBox3{
+    width: 35%;
+    padding-left:10%;
+    padding-top:3%;
+}
+.avatar{
+    padding-top: 15%;
+    padding-left:40%;
+}
+.buttonDiv{
+    padding-left: 70%;
+    position: relative;
+}
+.button{
+    height: 50px;
+    width: 65px;
+    /* padding: 12px 80px; */
+    border: none;
+    color: rgb(236, 227, 227);
+    display: inline-block;
+    background: #f70606c7;
+    font-family: 'lato', sans-serif;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.10em;
+    border-radius: 22px;
+}
+.HBoxButtons{
+    padding-left: 60%;
+}
+
+

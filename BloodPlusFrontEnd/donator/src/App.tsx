@@ -12,7 +12,8 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { Header } from './Components/Header/Header';
 import { LogIn } from './main_components/LogIn';
 import { SignUp } from './main_components/SignUp';
-
+import { Register } from './main_components/Register';
+import { DoctorProfile } from './Components/DoctorProfile/DoctorProfile';
 // import "react-bootstrap-table/min.css";
 export class App extends React.Component {
 
@@ -41,10 +42,11 @@ export class App extends React.Component {
       
       </div> */}
       <Header />
-      <div className="tableArea">
-      <AdminDoctor/>
+      {/* <div className="tableArea"> */}
+      <DoctorProfile/>
+      {/* <SignUp/> */}
       </div>
-      </div>
+      {/* </div> */}
 
       
       </Router>
