@@ -5,34 +5,80 @@ import './Header.css'
 import App from '../../App';
 import { withRouter } from 'react-router-dom'
 import { INode } from '../../Models/INode';
-export interface HeaderProps{}
+import { AccountService } from '../../Services/AccountServices';
+import Alert from 'react-s-alert';
+import { Redirect } from 'react-router';
+
+export interface HeaderProps
+{
+    role:string;
+    isLoggedIn:boolean;
+    logOut:any;
+}
 
 export interface HeaderState
 {
     nodes:Array<INode>;
     registered:boolean;
+    message:string;
+    role:string;
 }
+
+var nodesGuest=[
+    {
+        title:"Acasă",
+        link:'/'
+    },
+    {
+        title:"Cont nou",
+        link:"/register"
+    },
+    {
+        title:"Conectează-te",
+        link:"/logIn"
+    }]
+
+var nodesDoctor=[
+    {
+        title:"Acasă",
+        link:'/'
+    },
+    {
+        title:"Cere sânge",
+        link:"/request"
+    }]
+var nodesHospitalAdmin=[
+    {
+        title:"Acasă",
+        link:'/'
+    },
+    {
+        title:"Conturi",
+        link:"/hospital/admin"
+    }]
+var nodesCenterAdmin=[
+        {
+            title:"Acasă",
+            link:'/'
+        },
+        {
+            title:"Conturi",
+            link:"/center/admin"
+        }]
 
 export class Header extends React.Component<HeaderProps,HeaderState>
 {
-    
-
     constructor(props:HeaderProps)
     {
         super(props);
         this.state=
         {
-            registered:true,
-            nodes:[
-                {
-                    title:"Home",
-                    link:'/'
-                },
-                {
-                    title:"Profile",
-                    link:"/"
-                }]
+            registered:this.props.isLoggedIn,
+            nodes:nodesGuest,
+            message:'',
+            role:this.props.role
         };
+
     }
 
     renderNode(node:any, index:number):JSX.Element
@@ -47,29 +93,35 @@ export class Header extends React.Component<HeaderProps,HeaderState>
         )
     }
 
-    logout()
-    {
-        // AccountService.logoutUser();
-    //    this.setState({registered:false})
-    }
+   
 
     render()
     {
-        if(!this.state.registered)
-        {
-            return(<App/>)
-        }
-        
-        return(
-            <div className="hangouts-header">
+        var currentNodes=nodesGuest;
+        if(this.props.role=="HospitalDoctor")
+            currentNodes=nodesDoctor;
+        if(this.props.role=="HospitalAdmin")
+            currentNodes=nodesHospitalAdmin;
+        if(this.props.role=="DonationCenterAdmin")
+            currentNodes=nodesCenterAdmin;
+
+        return this.renderHeader(this.props.isLoggedIn,currentNodes);
+    }
+
+    renderHeader(isRegistered:boolean, currentNodes)
+    {
+            return( 
+                <div className="hangouts-header">
                 <div className="hangouts-nodes">
-                    {this.state.nodes.map(this.renderNode.bind(this))}
-                    <Link onClick={this.logout.bind(this)} to="/">
-                    <span>Log Out</span>
-                    </Link>
-                    {/* <div style={{align:"right"}}><a onClick={this.logout.bind(this)} >Logout</a></div> */}
+                    {currentNodes.map(this.renderNode.bind(this))}
+                    {isRegistered?
+                        <Link onClick={this.props.logOut} to="/">
+                            <span>Log Out</span>
+                        </Link>
+                        : <Redirect to="/"/>
+                    }
+                   
                 </div>
-            </div>
-        )
+                </div>)
     }
 }

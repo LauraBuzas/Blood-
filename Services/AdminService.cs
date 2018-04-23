@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Services
 {
-    public class HospitalAdminService
+    public class AdminService
     {
         public int GetHospitalIdForHospitalAdmin(String HospitalAdminId)
         {
@@ -18,6 +18,19 @@ namespace Services
                     .Where(ha => ha.Id == HospitalAdminId)       
                     .FirstOrDefault()
                     .Hospital
+                    .Id;
+            }
+        }
+
+        public int GetCenterIdForCenterAdmin(String CenterAdminId)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.CenterAdminRepository.GetAll()
+                    .Include(ca => ca.Center)
+                    .Where(ca => ca.Id == CenterAdminId)
+                    .FirstOrDefault()
+                    .Center
                     .Id;
             }
         }
