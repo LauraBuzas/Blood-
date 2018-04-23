@@ -2,9 +2,9 @@ import * as React from 'react'
 import './DoctorRequest.css'
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
-import { ISelection } from '../../Models/ISelection';
+import { ISelection } from '../../../Models/ISelection';
 import { RadioGroup, RadioButton } from 'react-radio-buttons';
-import '../../css/Button.css'
+import '../../../css/Button.css'
 export interface DoctorRequestProps{}
 
 interface DoctorRequestState

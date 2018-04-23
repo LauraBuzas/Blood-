@@ -8,7 +8,7 @@ import './css/TextField.css';
 import Alert from 'react-s-alert';
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Header } from './Components/Header/Header';
-import { CenterAdmin } from './Components/CenterAdmin/CenterAdmin';
+import { CenterAdmin } from './Components/MedicalCenter/CenterAdmin/CenterAdmin';
 import { Body } from './Components/Body/Body';
 import { AccountService } from './Services/AccountServices';
 
@@ -58,17 +58,17 @@ export class App extends React.Component<AppProps,AppState> {
 
     return (
       <Router>
-      <div className="App">
-        {this.state.role? 
-          <Header 
-            isLoggedIn={this.state.isLoggedIn} 
-            role={this.state.role} 
-            logOut={this.logout.bind(this)} 
-          /> : null
-        }
-        <Body setRole={(event) => this.setRoleInApp(event)}  />  
-        <Footer/>
-      </div>
+        <div className="App">
+          {this.state.role? 
+            <Header 
+              isLoggedIn={this.state.isLoggedIn} 
+              role={this.state.role} 
+              logOut={this.logout.bind(this)} 
+            /> : null
+          }
+          <Body setRole={(event) => this.setRoleInApp(event)}  />  
+          <Footer/>
+        </div>
       
       </Router>
     );

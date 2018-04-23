@@ -3,6 +3,12 @@ import './footer.css';
 import {Link, Router} from 'react-router-dom';
 
 export class Footer extends React.Component {
+    //calculates the margin necessary to placa the footer at the bottom of the page
+    placeAtBottom() {
+        // console.log(window.outerHeight);
+        // console.log(window.innerHeight);
+    }
+
     scrollUp() { // scroll animation
         let scroll = window.setInterval(function() {
             var pos = window.pageYOffset;
@@ -17,6 +23,7 @@ export class Footer extends React.Component {
     }
 
     render() {
+        this.placeAtBottom();
         return(
             <div id="footer">
                 <button onClick={this.scrollUp} className="footer-button up-button" id="up-button">

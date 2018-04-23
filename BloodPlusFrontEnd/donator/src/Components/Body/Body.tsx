@@ -1,29 +1,30 @@
 import * as React from 'react';
 import {Route} from 'react-router-dom';
-import { HospitalAdmin } from '../HospitalAdmin/HospitalAdmin';
-import { CenterAdmin } from '../CenterAdmin/CenterAdmin';
+import { HospitalAdmin } from '../Doctor/HospitalAdmin/HospitalAdmin';
+import { CenterAdmin } from '../MedicalCenter/CenterAdmin/CenterAdmin';
 import { Register } from '../../main_components/Register';
 import { LogIn } from '../../main_components/LogIn';
 import { SignUp } from '../../main_components/SignUp';
-import { DoctorRequest } from '../DoctorRequest/DoctorRequest';
+import { DoctorRequest } from '../Doctor/DoctorRequest/DoctorRequest';
 import { HomePage } from '../HomePage/HomePage';
 import "../../css/Body.css";
 export interface BodyProps{
     setRole:any;
 } 
-interface BodyState{} 
+interface BodyState{
+    // height: Number;
+} 
 
 export class Body extends React.Component<BodyProps,BodyState>
 {
     constructor(props:BodyProps)
     {
         super(props);
-        this.state={};
+        // this.state = {
+        //     height: 0
+        // };
         
     }
- 
-  
-    
 
     render()
     {
@@ -33,7 +34,12 @@ export class Body extends React.Component<BodyProps,BodyState>
         const RegisterComponent=()=>{return <SignUp/>}
         const DoctorRequestCompoent=()=>{return <DoctorRequest/>}
         const HomeComponent = () => {return <HomePage/>}
-
+        // console.log("body height: " + this.state.height);
+        // let newHeight = parseInt(document.getElementById("body").style.height);
+        // if (newHeight) {
+        //     this.setState({height: newHeight });
+        // }
+        
         return(
            <div id="body">
                 <Route path ="/hospital/admin" exact={true} render={HospitalAdminComponent}/>
