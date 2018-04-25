@@ -1,17 +1,17 @@
 import * as React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {Helmet} from 'react-helmet'
-import '../HospitalAdmin/HospitalAdmin.css'
-import '../../css/Management.css'
-import { CenterAdminService } from '../../Services/CenterAdminService';
+import '../../Doctor/HospitalAdmin/HospitalAdmin.css'
+import '../../../css/Management.css'
+import { CenterAdminService } from '../../../Services/CenterAdminService';
 import Cookies from 'universal-cookie';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
-import { IEmployeeGet } from '../../Models/IEmployeeGet';
-import { IEmployeeDelete } from '../../Models/IEmployeeDelete';
+import { IEmployeeGet } from '../../../Models/IEmployeeGet';
+import { IEmployeeDelete } from '../../../Models/IEmployeeDelete';
 
 
 

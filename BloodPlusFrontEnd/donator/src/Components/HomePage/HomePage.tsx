@@ -12,6 +12,7 @@ export class HomePage extends React.Component {
         return (
             <div className="homePage">
                 <Carousel 
+                        className="main-carousel"
                         infiniteLoop={true}
                         autoPlay={true}
                         dynamicHeight={true}
@@ -21,13 +22,13 @@ export class HomePage extends React.Component {
 
                     <CarouselPage 
                                 image="assets/homePage/carousel/carousel1.jpg" 
-                                legend="Dati mai jos pentru a afla cum puteti dona" type="register"/>
+                                legend="Dati mai jos pentru a afla cum puteti dona"/>
                     <CarouselPage 
                                 image="assets/homePage/carousel/carousel2.jpg" 
-                                legend="Donati acum" type="info"/>
+                                legend="Donati acum"/>
                     <CarouselPage 
                                 image="assets/homePage/carousel/carousel3.jpg" 
-                                legend="Peste un miliard de oameni doneaza in fiecare zi" type="info"/>
+                                legend="Peste un miliard de oameni doneaza in fiecare zi"/>
                 </Carousel>
                 
                 <div id="welcome-container">
