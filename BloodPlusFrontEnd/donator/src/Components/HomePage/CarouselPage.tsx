@@ -6,7 +6,6 @@ import './home-page.css';
 export interface CarouselPageProps {
     image: string;
     legend: string;
-    type: string;
 }
 
 export class CarouselPage extends React.Component<CarouselPageProps, any> {
@@ -20,9 +19,8 @@ export class CarouselPage extends React.Component<CarouselPageProps, any> {
         return (
             <div>   
                 <img src={this.props.image} alt="image not found"/>
-                { this.props.type === "register" ? 
-                    <input type="button" id="register-button" value="Inscrie-te acum!" /> : null
-                }
+                
+                <input type="button" id="register-button" value="Vreau sa donez!" /> : null
                 <p className="legend">{ this.props.legend }</p>
             </div>
         );
