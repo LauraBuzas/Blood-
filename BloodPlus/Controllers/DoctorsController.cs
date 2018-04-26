@@ -1,13 +1,10 @@
-﻿using DatabaseAccess.Models;
+﻿using BloodPlus.ModelViews;
+using DatabaseAccess.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authorization;
-using BloodPlus.ModelViews;
 
 namespace BloodPlus.Controllers
 {
@@ -17,10 +14,12 @@ namespace BloodPlus.Controllers
     public class DoctorsController : Controller
     {
         DoctorsService doctorsService;
+        PatientService patientService;
 
-        public DoctorsController(DoctorsService doctorsService)
+        public DoctorsController(DoctorsService doctorsService,PatientService patientService)
         {
             this.doctorsService = doctorsService;
+            this.patientService = patientService;
         }
 
         [Authorize(Roles = "HospitalAdmin")]
@@ -52,6 +51,38 @@ namespace BloodPlus.Controllers
             catch (Exception ex)
             {
                 return BadRequest("Can't delete doctor with email "+doctorDelete.Email);
+            }
+        }
+
+        public IActionResult AddDoctorRequest([FromBody] DoctorRequestViewModel doctorRequest)
+        {
+            try
+            {
+                Patient patient = new Patient();
+                if (doctorRequest.Patient.LastName == null)
+                {
+                    patient = patientService.GetPatientByCNP(doctorRequest.Patient.CNP);
+                    patient.Status = PatientStatus.INTERNAT;
+                }
+                else
+                {
+                    patient = Mappers.MapperAddPatient.ToPatientDb(doctorRequest.Patient);
+                    patient.Status = PatientStatus.INTERNAT;
+                    patientService.AddPatient(patient);
+                }
+
+                var id = Request.Cookies["UserId"];
+                Doctor doctor = doctorsService.GetDoctorById(id);
+                doctor.Patients.Add(patient);
+
+                Request request = Mappers.MapperDoctorRequest.ToDoctorRequestDb(doctorRequest);
+                doctorsService.AddRequest(request);
+                request.Patient = patient;
+                return Ok(request);
+
+            }catch(Exception ex)
+            {
+                return BadRequest("Can't add request");
             }
         }
 

@@ -12,9 +12,10 @@ using System;
 namespace DatabaseAccess.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180426160115_OneToManyPatientRequest")]
+    partial class OneToManyPatientRequest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -292,8 +293,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<string>("LastName")
                         .IsRequired();
 
-                    b.Property<int>("Status");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
@@ -313,8 +312,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<int>("EmergencyLevel");
 
                     b.Property<int>("IdPatient");
-
-                    b.Property<int>("ReceivedQuantity");
 
                     b.Property<int>("RequestedQuantity");
 
