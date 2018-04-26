@@ -31,7 +31,7 @@ export class Body extends React.Component<BodyProps,BodyState>
         const CenterAdminComponent=()=>{return <CenterAdmin/>}
         const LoginComponent=()=>{return <Register setRole={this.props.setRole} />}
         const RegisterComponent=()=>{return <SignUp/>}
-        const DoctorRequestCompoent=()=>{return <DoctorRequest/>}
+        const DoctorRequestComponent=()=>{return <DoctorRequest/>}
         const HomeComponent = () => {return <HomePage/>}
       
         

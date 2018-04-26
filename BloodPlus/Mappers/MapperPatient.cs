@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BloodPlus.Mappers
 {
-    public class MapperAddPatient
+    public class MapperPatient
     {
         public static Address ToAddressDb(PatientAddViewModel patientAddViewModel)
         {
@@ -32,6 +32,17 @@ namespace BloodPlus.Mappers
                 CNP = patientAddViewModel.CNP
             };
             return patient;
+        }
+
+        public static PatientGetViewModel ToPatientGet(Patient patient)
+        {
+
+            PatientGetViewModel patientViewModel = new PatientGetViewModel()
+            {
+                FullName= patient.LastName+" "+patient.FirstName,
+                CNP = patient.CNP
+            };
+            return patientViewModel;
         }
 
     }

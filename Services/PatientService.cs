@@ -2,6 +2,7 @@
 using DatabaseAccess.UOW;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Services
@@ -26,6 +27,14 @@ namespace Services
                 patient.IdAddress = address.Id;
                 uow.PatientRepository.Add(patient);
                 uow.Save();
+            }
+        }
+
+        public List<Patient> GetHospitalizedPatientsForDoctor(string idDoctor)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.PatientRepository.GetAll().Where(p => p.IdDoctor == idDoctor && p.Status==PatientStatus.INTERNAT).ToList();
             }
         }
     }

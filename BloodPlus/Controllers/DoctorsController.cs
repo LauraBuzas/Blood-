@@ -68,8 +68,8 @@ namespace BloodPlus.Controllers
                 }
                 else
                 {
-                    Address address = Mappers.MapperAddPatient.ToAddressDb(doctorRequest.Patient);
-                    patient = Mappers.MapperAddPatient.ToPatientDb(doctorRequest.Patient);
+                    Address address = Mappers.MapperPatient.ToAddressDb(doctorRequest.Patient);
+                    patient = Mappers.MapperPatient.ToPatientDb(doctorRequest.Patient);
                     patient.Status = PatientStatus.INTERNAT;
                     var id = Request.Cookies["UserId"];
                     Doctor doctor = doctorsService.GetDoctorById(id);
@@ -85,6 +85,28 @@ namespace BloodPlus.Controllers
             }catch(Exception ex)
             {
                 return BadRequest("Can't add request");
+            }
+        }
+
+        [Authorize(Roles = "HospitalDoctor")]
+        [HttpGet("hospitalized")]
+        public IActionResult GetHospitalizedPatients()
+        {
+            try
+            {
+                var id= Request.Cookies["UserId"];
+                var patients = patientService.GetHospitalizedPatientsForDoctor(id);
+                List<PatientGetViewModel> patientsReturned = new List<PatientGetViewModel>();
+                foreach(var patient in patients)
+                {
+                    patientsReturned.Add(Mappers.MapperPatient.ToPatientGet(patient));
+                }
+
+                return Ok(patientsReturned);
+
+            }catch(Exception ex)
+            {
+                return BadRequest("Can't get hospitalized patients");
             }
         }
 

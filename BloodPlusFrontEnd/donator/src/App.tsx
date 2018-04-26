@@ -11,6 +11,7 @@ import { Header } from './Components/Header/Header';
 import { CenterAdmin } from './Components/MedicalCenter/CenterAdmin/CenterAdmin';
 import { Body } from './Components/Body/Body';
 import { AccountService } from './Services/AccountServices';
+import {ModalDoctorRequest} from './Components/Modal/ModalDoctorRequest';
 
 export interface AppProps
 {
@@ -59,7 +60,7 @@ export class App extends React.Component<AppProps,AppState> {
     return (
       <Router>
         <div className="App">
-          {this.state.role? 
+          {/* {this.state.role? 
             <Header 
               isLoggedIn={this.state.isLoggedIn} 
               role={this.state.role} 
@@ -67,7 +68,12 @@ export class App extends React.Component<AppProps,AppState> {
             /> : null
           }
           <Body setRole={(event) => this.setRoleInApp(event)}  />  
-          <Footer/>
+          <Footer/> */}
+
+      <ModalDoctorRequest/>
+
+
+
         </div>
       
       </Router>
