@@ -9,9 +9,9 @@ namespace BloodPlus.Mappers
 {
     public class MapperAddPatient
     {
-        public static Patient ToPatientDb(PatientAddViewModel patientAddViewModel)
+        public static Address ToAddressDb(PatientAddViewModel patientAddViewModel)
         {
-            Address address = new Address()
+            return new Address()
             {
                 Number = patientAddViewModel.Number,
                 Street = patientAddViewModel.Street,
@@ -21,9 +21,12 @@ namespace BloodPlus.Mappers
                 Unit = patientAddViewModel.Unit,
                 ApartmentNumber = patientAddViewModel.ApartmentNumber
             };
+        }
+        public static Patient ToPatientDb(PatientAddViewModel patientAddViewModel)
+        {
+            
             Patient patient = new Patient()
             {
-                Address = address,
                 LastName = patientAddViewModel.LastName,
                 FirstName = patientAddViewModel.FirstName,
                 CNP = patientAddViewModel.CNP

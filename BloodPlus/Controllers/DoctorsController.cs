@@ -54,6 +54,8 @@ namespace BloodPlus.Controllers
             }
         }
 
+        [Authorize(Roles = "HospitalDoctor")]
+        [HttpPost("addRequest")]
         public IActionResult AddDoctorRequest([FromBody] DoctorRequestViewModel doctorRequest)
         {
             try
@@ -66,18 +68,18 @@ namespace BloodPlus.Controllers
                 }
                 else
                 {
+                    Address address = Mappers.MapperAddPatient.ToAddressDb(doctorRequest.Patient);
                     patient = Mappers.MapperAddPatient.ToPatientDb(doctorRequest.Patient);
                     patient.Status = PatientStatus.INTERNAT;
-                    patientService.AddPatient(patient);
+                    var id = Request.Cookies["UserId"];
+                    Doctor doctor = doctorsService.GetDoctorById(id);
+                    patient.IdDoctor = doctor.Id;
+                    patientService.AddPatient(patient,address);
                 }
 
-                var id = Request.Cookies["UserId"];
-                Doctor doctor = doctorsService.GetDoctorById(id);
-                doctor.Patients.Add(patient);
-
                 Request request = Mappers.MapperDoctorRequest.ToDoctorRequestDb(doctorRequest);
-                doctorsService.AddRequest(request);
-                request.Patient = patient;
+                request.IdPatient = patient.Id;
+                doctorsService.AddRequest(request);          
                 return Ok(request);
 
             }catch(Exception ex)

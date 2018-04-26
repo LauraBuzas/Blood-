@@ -17,10 +17,13 @@ namespace Services
             }
         }
 
-        public void AddPatient(Patient patient)
+        public void AddPatient(Patient patient,Address address)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
+                uow.AddressRepository.Add(address);
+                uow.Save();
+                patient.IdAddress = address.Id;
                 uow.PatientRepository.Add(patient);
                 uow.Save();
             }
