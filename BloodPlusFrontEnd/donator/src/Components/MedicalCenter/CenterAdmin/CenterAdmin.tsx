@@ -1,55 +1,53 @@
 import * as React from 'react'
-import { IDoctorGet } from '../../Models/IDoctorGet';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {Helmet} from 'react-helmet'
-import './HospitalAdmin.css'
-import '../../css/Management.css'
-import { HospitalAdminService } from '../../Services/HospitalAdminService';
+import '../../Doctor/HospitalAdmin/HospitalAdmin.css'
+import '../../../css/Management.css'
+import { CenterAdminService } from '../../../Services/CenterAdminService';
 import Cookies from 'universal-cookie';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
-import { IDoctorDelete } from '../../Models/IDoctorDelete';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
+import { IEmployeeGet } from '../../../Models/IEmployeeGet';
+import { IEmployeeDelete } from '../../../Models/IEmployeeDelete';
 
 
 
-export interface HospitalAdminProps{
+export interface CenterAdminProps{
 }
-interface HospitalAdminState
+interface CenterAdminState
 {
-    doctors:IDoctorGet[]
+    employees:IEmployeeGet[]
     message:string;
 }
 
-export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAdminState>
+export class CenterAdmin extends React.Component<CenterAdminProps,CenterAdminState>
 {
 
-    constructor(props: HospitalAdminProps) {
+    constructor(props: CenterAdminProps) {
        
         super(props);
 
         this.state = 
         {
             message:'',
-            doctors:[]
+            employees:[]
         };
     }
 
 
     componentDidMount() {
         
-    
-       
-        HospitalAdminService.getDoctors().then((doctors:IDoctorGet[]) => {
+        CenterAdminService.getEmployees().then((employees:IEmployeeGet[]) => {
             this.setState({
-                doctors: doctors
+                employees: employees
             });    
         },
             (error) => {
                 this.setState({
-                    message: "A apărut o eroare la aducerea datelor despre doctori"
+                    message: "A apărut o eroare la aducerea datelor despre angajați"
                     
                 });
                 Alert.error(this.state.message, {
@@ -62,17 +60,17 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
        
 
         
-        HospitalAdminService.addDoctor(row).then((doctor:IDoctorGet) => {
-            let newDoctors:IDoctorGet[];
-            newDoctors=this.state.doctors;
-            newDoctors.push(doctor);
+        CenterAdminService.addEmployee(row).then((employee:IEmployeeGet) => {
+            let newEmployees:IEmployeeGet[];
+            newEmployees=this.state.employees;
+            newEmployees.push(employee);
             this.setState({
-                doctors: newDoctors
-            });    
+                employees: newEmployees
+            });
         },
             (error) => {
                 this.setState({
-                    message: "A apărut o eroare la adăugarea doctorului"
+                    message: "A apărut o eroare la adăugarea angajatului"
                 });
                 Alert.error(this.state.message, {
                     position: 'top-right',
@@ -91,20 +89,20 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
 
     handleDeleteRow=(row)=>
     {
-        let doctor:IDoctorDelete={email:row[0]}
-        HospitalAdminService.deleteDoctor(doctor).then(() => {
-            let newDoctors:IDoctorGet[];
-            newDoctors = this.state.doctors.filter((d) => {
+        let employee:IEmployeeDelete={email:row[0]}
+        CenterAdminService.deleteEmployee(employee).then(() => {
+            let newEmployees:IEmployeeGet[];
+            newEmployees = this.state.employees.filter((d) => {
                 return d.email !== row;
               });
             
             this.setState({
-                doctors: newDoctors
+                employees: newEmployees
             });    
         },
             (error) => {
                 this.setState({
-                    message: "A apărut o eroare la ștergerea doctorului"
+                    message: "A apărut o eroare la ștergerea angajatului"
                 });
                 Alert.error(this.state.message, {
                     position: 'top-right',
@@ -118,10 +116,10 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
 
     handleConfirmDelete = (next, dropRowKeys) => {
         const dropRowKeysStr = dropRowKeys.join(',');
-        console.log('aici')
+       
         confirmAlert({
             title: 'Confirmă ștergerea',
-            message: 'Ești sigur că vrei să ștergi doctorul cu email-ul '+dropRowKeysStr+' ?',
+            message: 'Ești sigur că vrei să ștergi angajatul cu  email-ul '+dropRowKeysStr+' ?',
             buttons: [
               {
                 label: 'Da',
@@ -150,10 +148,9 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
         return(
             <div className="tableArea">
                 <Helmet>
-                    <meta charSet="utf-8" />
-                    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" type="text/css"/>
+                    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
                 </Helmet>
-                <BootstrapTable data={ this.state.doctors} 
+                <BootstrapTable data={ this.state.employees} 
                                 stripped={true}
                                 hover={true}
                                 search={ true }
@@ -165,8 +162,6 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
                                 >
                 <TableHeaderColumn dataField='firstname'>Prenume</TableHeaderColumn>
                 <TableHeaderColumn dataField='lastname'>Nume</TableHeaderColumn>
-                <TableHeaderColumn dataField='speciality'>Specializare</TableHeaderColumn>
-                <TableHeaderColumn dataField='ward'>Secție</TableHeaderColumn>
                 <TableHeaderColumn dataField='email' isKey={true}>Email</TableHeaderColumn>
                 <TableHeaderColumn dataField='password'>Parolă</TableHeaderColumn>
                 </BootstrapTable>

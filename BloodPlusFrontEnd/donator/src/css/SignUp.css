@@ -1,9 +1,15 @@
 .hboxPosition {
-    float : right;
-    padding-top : 30px;
-    padding-right : 500px
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: auto;
 }
 
 .vboxPosition {
     width : 410px;
+}
+
+#login-div {
+    margin: 0 auto;
+    margin-bottom: 201px;
 }
