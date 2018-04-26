@@ -12,7 +12,6 @@ namespace DatabaseAccess.Models
 
         public DateTime ExpirationDateAndTime { get; set; }
 
-        //please check if blood type matters when it comes to Plasma
         public BloodTypes BloodType { get; set; }
     }
 }
