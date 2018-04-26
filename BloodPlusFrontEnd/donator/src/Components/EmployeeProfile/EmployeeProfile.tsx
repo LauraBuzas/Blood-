@@ -70,13 +70,13 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
         
     }
 
-    handleLastNameChange(evemt:any){
+    handleLastNameChange(event:any){
 
     }
-    handleFirstNameChange(evemt:any){
+    handleFirstNameChange(event:any){
 
     }
-    handleAgeChange(evemt:any){
+    handleAgeChange(event:any){
 
     }
 
