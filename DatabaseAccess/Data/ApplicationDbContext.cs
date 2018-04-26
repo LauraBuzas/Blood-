@@ -40,6 +40,12 @@ namespace DatabaseAccess.Data
 
         public DbSet<MedicalAnalysis> MedicalAnalyses { get; set; }
 
+        public DbSet<Plasma> Plasmas { get; set; }
+
+        public DbSet<Thrombocyte> Thrombocytes { get; set; }
+
+        public DbSet<RedBloodCell> RedBloodCells { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -61,6 +67,9 @@ namespace DatabaseAccess.Data
             builder.Entity<CenterAdmin>().ToTable("CenterAdmins");
             builder.Entity<BloodBag>().ToTable("BloodBags");
             builder.Entity<MedicalAnalysis>().ToTable("MedicalAnalyses");
+            builder.Entity<Plasma>().ToTable("Plasmas");
+            builder.Entity<Thrombocyte>().ToTable("Thrombocytes");
+            builder.Entity<RedBloodCell>().ToTable("RedBloodCells");
 
             //One to one Doctor-ApplicationUser
             builder.Entity<Doctor>(doc => doc.HasOne<ApplicationUser>()
