@@ -70,7 +70,7 @@ export class ModalDoctorRequest extends React.Component<ModalDoctorRequestProps,
                     firstname:null,
                     lastname:null,
                     city:null,
-                    apartment:null,
+                    apartmentNumber:null,
                     county:null,
                     nr:null,
                     unit:null
@@ -189,7 +189,7 @@ export class ModalDoctorRequest extends React.Component<ModalDoctorRequestProps,
     handleApartmentChange(event)
     {
         var fakePatient=this.state.patient;
-        fakePatient.apartment=event.target.value;
+        fakePatient.apartmentNumber=event.target.value;
         this.setState({patient:fakePatient})
     }
     handleCityChange(event)

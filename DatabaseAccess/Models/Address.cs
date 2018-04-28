@@ -24,7 +24,7 @@ namespace DatabaseAccess.Models
 
         public int ApartmentNumber { get; set; }
 
-        public int Unit { get; set; }
+        public string Unit { get; set; }
 
         public int Floor { get; set; }
 

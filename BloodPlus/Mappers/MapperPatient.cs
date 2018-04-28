@@ -17,12 +17,11 @@ namespace BloodPlus.Mappers
                 Street = patientAddViewModel.Street,
                 City = patientAddViewModel.City,
                 County = patientAddViewModel.County,
+                Unit=patientAddViewModel.Unit
             };
 
             if (patientAddViewModel.Floor != null)
                 address.Floor = int.Parse(patientAddViewModel.Floor);
-            if (patientAddViewModel.Floor != null)
-                address.Unit = int.Parse(patientAddViewModel.Unit);
             if (patientAddViewModel.Floor != null)
                 address.ApartmentNumber = int.Parse(patientAddViewModel.ApartmentNumber);
             return address;
