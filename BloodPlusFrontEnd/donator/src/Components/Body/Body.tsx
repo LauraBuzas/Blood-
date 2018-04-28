@@ -7,7 +7,9 @@ import { LogIn } from '../../main_components/LogIn';
 import { SignUp } from '../../main_components/SignUp';
 import { DoctorRequest } from '../Doctor/DoctorRequest/DoctorRequest';
 import { HomePage } from '../HomePage/HomePage';
+
 import "../../css/Body.css";
+import { EmployeeProfile } from '../EmployeeProfile/EmployeeProfile';
 export interface BodyProps{
     setRole:any;
 } 
@@ -33,6 +35,7 @@ export class Body extends React.Component<BodyProps,BodyState>
         const LoginComponent=()=>{return <Register setRole={this.props.setRole} />}
         const RegisterComponent=()=>{return <SignUp/>}
         const DoctorRequestCompoent=()=>{return <DoctorRequest/>}
+        const EmployeeProfileComponent=()=>{return <EmployeeProfile/>}
         const HomeComponent = () => {return <HomePage/>}
         // console.log("body height: " + this.state.height);
         // let newHeight = parseInt(document.getElementById("body").style.height);
@@ -47,6 +50,7 @@ export class Body extends React.Component<BodyProps,BodyState>
                 <Route path="/login" exact={true} render={LoginComponent}/>
                 <Route path="/register" exact={true} render={RegisterComponent}/>
                 <Route path="/request" exact={true} render={DoctorRequestCompoent}/>
+                <Route path="/employee/profile" exact={true} render={EmployeeProfileComponent}/>
                 <Route path="/" exact={true} render={HomeComponent}/>
            </div> 
         )
