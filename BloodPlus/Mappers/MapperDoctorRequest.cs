@@ -18,7 +18,21 @@ namespace BloodPlus.Mappers
                 Rh = (RhTypes)Enum.Parse(typeof(RhTypes), requestViewModel.Rh.ToUpper()),
                 Status = RequestStatus.Waiting,
                 RequestedQuantity = requestViewModel.RequestedQuantity,
-                Component = (ComponentType)Enum.Parse(typeof(ComponentType), requestViewModel.Component.ToUpper()),
+                Component = (ComponentType)Enum.Parse(typeof(ComponentType), requestViewModel.Component.ToUpper())
+            };
+
+        }
+
+        public static DoctorRequestViewModel ToDoctorRequestViewModel(Request request)
+        {
+            return new DoctorRequestViewModel()
+            {
+                BloodType = request.BloodType.ToString(),
+                EmergencyLevel = request.EmergencyLevel.ToString(),
+                Rh = request.Rh.ToString(),
+                Status = request.Status.ToString(),
+                RequestedQuantity = request.RequestedQuantity,
+                Component = request.Component.ToString()
             };
 
         }

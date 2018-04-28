@@ -79,7 +79,6 @@ var nodesEmployee=[
 
 ]
 
-        }]
 var nodesDonor=[
     {
         title:"Acasă",

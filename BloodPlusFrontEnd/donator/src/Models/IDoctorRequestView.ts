@@ -1,3 +1,5 @@
+import { IPatient } from "./IPatient";
+
 export interface IDoctorRequestView{
     patient: IPatient,
     requestedQuantity: number,

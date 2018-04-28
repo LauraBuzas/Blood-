@@ -11,7 +11,9 @@ import "../../css/Body.css";
 import { Donor } from '../Donor/Donor';
 import { ModalDoctorRequest } from '../Modal/ModalDoctorRequest';
 
+
 import { EmployeeProfile } from '../EmployeeProfile/EmployeeProfile';
+import { DoctorRequest } from '../Doctor/DoctorRequest/DoctorRequest';
 export interface BodyProps{
     setRole:any;
 } 
@@ -39,8 +41,7 @@ export class Body extends React.Component<BodyProps,BodyState>
         // if (newHeight) {
         //     this.setState({height: newHeight });
         // }
-        
-        const DoctorRequestComponent=()=>{return <ModalDoctorRequest/>}
+        const DoctorRequestComponent=()=>{return <DoctorRequest/>}
         const DonorComponent=()=>{return <Donor/>}
        
         return(
@@ -49,7 +50,7 @@ export class Body extends React.Component<BodyProps,BodyState>
                 <Route path ="/center/admin" exact={true} render={CenterAdminComponent}/>
                 <Route path="/login" exact={true} render={LoginComponent}/>
                 <Route path="/register" exact={true} render={RegisterComponent}/>
-                <Route path="/request" exact={true} render={DoctorRequestCompoent}/>
+                <Route path="/request" exact={true} render={DoctorRequestComponent}/>
                 <Route path="/employee/profile" exact={true} render={EmployeeProfileComponent}/>
                 <Route path="/analyses" exact={true} render={DonorComponent}/>              
                 <Route path="/" exact={true} render={HomeComponent}/>

@@ -29,6 +29,29 @@ export class DoctorService {
         });
     }
 
+    public static getRequests(): Promise<any>{
+        return new Promise((resolve,reject) =>{
+            axios(
+                this.rootDoctors+'/requests',
+                {
+                    method:'GET',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json'
+                    },
+                    withCredentials:true
+                }
+            ).then((response: any) => {
+                let requests = response.data.map(this.toRequestGet);
+                resolve(requests);
+              
+            },
+                (error: any) => {
+                    reject(error);
+                });
+        });
+    }
+
     public static addRequest(request:IDoctorRequest): Promise<any> {
 
 
@@ -60,6 +83,13 @@ export class DoctorService {
         return {
             fullname:response.fullName,
             CNP:response.cnp
+        }; 
+    }
+
+    private static toRequestGet(response: any): IPatient {
+        return {
+            fullname:response.fullName,
+            CNP:response.cnp
         };
-}
+    }
 }
