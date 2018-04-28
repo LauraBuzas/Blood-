@@ -7,7 +7,7 @@ export interface IPatientAdd
     county?:string,
     street?:string,
     nr?:number,
-    apartment?:number,
+    apartmentNumber?:number,
     unit?:number,
     floor?:number
 }
