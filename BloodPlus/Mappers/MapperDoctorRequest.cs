@@ -17,7 +17,8 @@ namespace BloodPlus.Mappers
                 EmergencyLevel = (EmergencyLevel)Enum.Parse(typeof(EmergencyLevel), requestViewModel.EmergencyLevel.ToUpper()),
                 Rh = (RhTypes)Enum.Parse(typeof(RhTypes), requestViewModel.Rh.ToUpper()),
                 Status = RequestStatus.Waiting,
-                RequestedQuantity = requestViewModel.RequestedQuantity       
+                RequestedQuantity = requestViewModel.RequestedQuantity,
+                Component = (ComponentType)Enum.Parse(typeof(ComponentType), requestViewModel.Component.ToUpper()),
             };
 
         }

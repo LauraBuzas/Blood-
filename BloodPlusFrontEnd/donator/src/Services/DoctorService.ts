@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { IPatient } from '../Models/IPatient';
+import { IDoctorRequest } from '../Models/IDoctorRequest';
 
 
 export class DoctorService {
@@ -27,11 +28,38 @@ export class DoctorService {
                 });
         });
     }
+
+    public static addRequest(request:IDoctorRequest): Promise<any> {
+
+
+        return new Promise((resolve, reject) => {
+            axios(
+                this.rootDoctors+'/addRequest',
+                {
+                    method:'POST',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                        'Access-Control-Allow-Credentials':true
+                    },
+                    withCredentials:true,
+                    maxRedirects:0,
+                    data:request
+                }
+            ).then((response: any) => {
+                resolve(response);
+            },
+                (error: any) => {
+                    reject(error);
+                });
+        });
   
+ 
+    }
     private static toPatientGet(response: any): IPatient {
         return {
             fullname:response.fullName,
-            CNP:response.CNP
+            CNP:response.cnp
         };
-    }
+}
 }

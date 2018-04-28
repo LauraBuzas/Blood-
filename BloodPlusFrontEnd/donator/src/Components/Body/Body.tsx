@@ -5,11 +5,10 @@ import { CenterAdmin } from '../MedicalCenter/CenterAdmin/CenterAdmin';
 import { Register } from '../../main_components/Register';
 import { LogIn } from '../../main_components/LogIn';
 import { SignUp } from '../../main_components/SignUp';
-import { DoctorRequest } from '../Doctor/DoctorRequest/DoctorRequest';
 import { HomePage } from '../HomePage/HomePage';
 import "../../css/Body.css";
-
 import { Donor } from '../Donor/Donor';
+import { ModalDoctorRequest } from '../Modal/ModalDoctorRequest';
 
 export interface BodyProps{
     setRole:any;
@@ -31,11 +30,8 @@ export class Body extends React.Component<BodyProps,BodyState>
         const CenterAdminComponent=()=>{return <CenterAdmin/>}
         const LoginComponent=()=>{return <Register setRole={this.props.setRole} />}
         const RegisterComponent=()=>{return <SignUp/>}
-        const DoctorRequestComponent=()=>{return <DoctorRequest/>}
-        const HomeComponent = () => {return <HomePage/>}
-      
-        
-     
+        const DoctorRequestComponent=()=>{return <ModalDoctorRequest/>}
+        const HomeComponent = () => {return <HomePage/>}    
         const DonorComponent=()=>{return <Donor/>}
        
         return(
@@ -45,9 +41,7 @@ export class Body extends React.Component<BodyProps,BodyState>
                 <Route path="/login" exact={true} render={LoginComponent}/>
                 <Route path="/register" exact={true} render={RegisterComponent}/>
                 <Route path="/request" exact={true} render={DoctorRequestComponent}/>
-                <Route path="/analyses" exact={true} render={DonorComponent}/>
-              
-               
+                <Route path="/analyses" exact={true} render={DonorComponent}/>              
                 <Route path="/" exact={true} render={HomeComponent}/>
            </div> 
         )

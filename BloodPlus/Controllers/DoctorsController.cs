@@ -58,6 +58,9 @@ namespace BloodPlus.Controllers
         [HttpPost("addRequest")]
         public IActionResult AddDoctorRequest([FromBody] DoctorRequestViewModel doctorRequest)
         {
+            if (!ModelState.IsValid)
+                return BadRequest("Can't add request");
+
             try
             {
                 Patient patient = new Patient();

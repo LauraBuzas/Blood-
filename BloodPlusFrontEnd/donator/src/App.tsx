@@ -60,7 +60,7 @@ export class App extends React.Component<AppProps,AppState> {
     return (
       <Router>
         <div className="App">
-          {/* {this.state.role? 
+          {this.state.role? 
             <Header 
               isLoggedIn={this.state.isLoggedIn} 
               role={this.state.role} 
@@ -68,12 +68,7 @@ export class App extends React.Component<AppProps,AppState> {
             /> : null
           }
           <Body setRole={(event) => this.setRoleInApp(event)}  />  
-          <Footer/> */}
-
-      <ModalDoctorRequest/>
-
-
-
+          {/* <Footer/> */}
         </div>
       
       </Router>

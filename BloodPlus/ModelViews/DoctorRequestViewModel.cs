@@ -13,14 +13,15 @@ namespace BloodPlus.ModelViews
         [Required]
         public string BloodType { get; set; }
 
-        [Required]
         public string Rh { get; set; }
 
         [Required]
         public string EmergencyLevel { get; set; }
+       
+        public string Status { get; set; }
 
         [Required]
-        public string Status { get; set; }
+        public string Component { get; set; }
 
         [Required]
         public int RequestedQuantity { get; set; }

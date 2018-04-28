@@ -16,7 +16,7 @@
 .buttonSendRequest
 {
   height: 40px;
-  width: 90px;
+  width: 130px;
   padding: 10px 10px 10px 10px;
   border: none;
   color: rgb(236, 227, 227);
@@ -27,4 +27,13 @@
   font-size: 13px;
   letter-spacing: 0.10em;
   border-radius: 25px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+.invisibleHr
+{
+  width:600px;
+  visibility: hidden;
+
 }

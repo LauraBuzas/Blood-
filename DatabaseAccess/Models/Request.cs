@@ -28,6 +28,9 @@ namespace DatabaseAccess.Models
         [Required]
         public int RequestedQuantity { get; set; }
 
+        [Required]
+        public ComponentType Component { get; set; }
+
         public int ReceivedQuantity { get; set; }
 
 
