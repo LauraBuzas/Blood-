@@ -11,7 +11,7 @@ import { Header } from './Components/Header/Header';
 import { CenterAdmin } from './Components/MedicalCenter/CenterAdmin/CenterAdmin';
 import { Body } from './Components/Body/Body';
 import { AccountService } from './Services/AccountServices';
-import { DoctorRequest } from './Components/Doctor/DoctorRequest/DoctorRequest';
+import {ModalDoctorRequest} from './Components/Modal/ModalDoctorRequest';
 
 export interface AppProps
 {

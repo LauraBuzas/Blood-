@@ -94,9 +94,8 @@ namespace BloodPlus.Controllers
                         var hospitalId = _adminService.GetHospitalIdForHospitalAdmin(user.Id);
                         SetCookie("HospitalId", hospitalId.ToString());
 
-                        Response.Cookies.Append("HospitalId", "1", new Microsoft.AspNetCore.Http.CookieOptions { HttpOnly = false });
-
-                        var cookies = Request.Cookies["HospitalId"];
+                        //Response.Cookies.Append("HospitalId", "1", new Microsoft.AspNetCore.Http.CookieOptions { HttpOnly = false });
+                        //var cookies = Request.Cookies["HospitalId"];
                     }
                     if (roles.Any(s => s == "DonationCenterAdmin"))
                     {
@@ -110,9 +109,14 @@ namespace BloodPlus.Controllers
                     }
                     if (roles.Any(s => s == "Donor"))
                     {
-                        //var centerId = _employeeService.GetCenterIdForCenterDoctor(user.Id);
                         SetCookie("UserId", user.Id);
                     }
+                    if (roles.Any(s => s == "HospitalDoctor"))
+                    {
+                        SetCookie("UserId", user.Id);
+                    }
+
+
                     return Ok(roles);
                 }
                 if (result.RequiresTwoFactor)

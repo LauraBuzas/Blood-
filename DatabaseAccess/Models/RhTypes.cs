@@ -6,6 +6,6 @@ namespace DatabaseAccess.Models
 {
     public enum RhTypes
     {
-        positive,negative
+        POZITIV,NEGATIV
     }
 }

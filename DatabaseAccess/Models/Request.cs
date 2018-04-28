@@ -11,7 +11,6 @@ namespace DatabaseAccess.Models
     {
         public int Id { get; set; }
 
-        //Grupa
         public BloodTypes BloodType { get; set; }
 
         public RhTypes Rh { get; set; }
@@ -29,9 +28,11 @@ namespace DatabaseAccess.Models
         [Required]
         public int RequestedQuantity { get; set; }
 
-        public Doctor Doctor { get; set; }
+        [Required]
+        public ComponentType Component { get; set; }
 
-        public string IdDoctor { get; set; }
+        public int ReceivedQuantity { get; set; }
+
 
     }
 }
