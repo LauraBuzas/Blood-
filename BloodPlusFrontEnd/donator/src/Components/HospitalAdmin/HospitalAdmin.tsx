@@ -1,15 +1,14 @@
 import * as React from 'react'
-import { IDoctorGet } from '../../../Models/IDoctorGet';
+import { IDoctorGet } from '../../Models/IDoctorGet';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {Helmet} from 'react-helmet'
 import './HospitalAdmin.css'
-
-import '../../../css/Management.css'
-import { HospitalAdminService } from '../../../Services/HospitalAdminService';
+import '../../css/Management.css'
+import { HospitalAdminService } from '../../Services/HospitalAdminService';
 import Cookies from 'universal-cookie';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
-import { IDoctorDelete } from '../../../Models/IDoctorDelete';
+import { IDoctorDelete } from '../../Models/IDoctorDelete';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
@@ -150,10 +149,10 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
           
         return(
             <div className="tableArea">
-                <Helmet>
+                {/* <Helmet>
                     <meta charSet="utf-8" />
                     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" type="text/css"/>
-                </Helmet>
+                </Helmet> */}
                 <BootstrapTable data={ this.state.doctors} 
                                 stripped={true}
                                 hover={true}

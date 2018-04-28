@@ -12,9 +12,10 @@ using System;
 namespace DatabaseAccess.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180426161022_AddReceivedQuantityOnDoctorRequest")]
+    partial class AddReceivedQuantityOnDoctorRequest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,7 +42,7 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<string>("Street")
                         .IsRequired();
 
-                    b.Property<string>("Unit");
+                    b.Property<int>("Unit");
 
                     b.HasKey("Id");
 
@@ -309,10 +310,6 @@ namespace DatabaseAccess.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("BloodType");
-
-                    b.Property<int>("Component");
-
-                    b.Property<DateTime>("DateOfRequest");
 
                     b.Property<int>("EmergencyLevel");
 
