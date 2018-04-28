@@ -16,6 +16,7 @@
   .react-bs-table table {
     margin-bottom: 0;
     table-layout: fixed;
+    font-size: 18px;
   }
   
   .react-bs-table table td,

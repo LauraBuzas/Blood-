@@ -13,13 +13,16 @@ import Alert from 'react-s-alert';
 import { DoctorService } from '../../../Services/DoctorService';
 import { Button1 } from '../../../utils/Button1';
 import { ModalDoctorRequest } from '../../Modal/ModalDoctorRequest';
+import {ModalDoctorRequestView} from '../DoctorRequest/Modal/ModalDoctorRequestView';
 export interface DoctorRequestProps{}
 
 interface DoctorRequestState
 {
     requests: IDoctorRequestView[],
     message: string,
-    addRequest: boolean
+    addRequest: boolean,
+    showDetails: boolean,
+    currentRow: IDoctorRequestView
 }
 
 export class DoctorRequest extends React.Component<DoctorRequestProps,DoctorRequestState>
@@ -33,15 +36,19 @@ export class DoctorRequest extends React.Component<DoctorRequestProps,DoctorRequ
         {
             requests:[],
             message:"",
-            addRequest:false
+            addRequest:false,
+            showDetails:false,
+            currentRow:undefined
         }
+        this.closeDetails=this.closeDetails.bind(this);
         
     }
 
     componentDidMount() {
-        
-    
-       
+        this.getRequests();
+    }
+
+    getRequests(){
         DoctorService.getRequests().then((requests:IDoctorRequestView[]) => {
             this.setState({
                 requests:requests
@@ -65,10 +72,26 @@ export class DoctorRequest extends React.Component<DoctorRequestProps,DoctorRequ
 
     closeModal(){
         this.setState({addRequest:false});
+        this.getRequests();
     }
-   
+
+    onSelectRow(row){
+        var currentRequest=this.state.requests.findIndex(r=>r.id==row.id);
+        this.setState({currentRow:this.state.requests[currentRequest],showDetails:true});
+    }
+    
+    closeDetails(){
+        this.setState({showDetails:false});
+    }
+    
     render()
     {
+        const selectRowProp = {
+            clickToSelect: true,           
+          };
+          const options = {
+            onRowClick: this.onSelectRow.bind(this)
+          };
        
         return(
             <div className="container-requests">  
@@ -86,16 +109,21 @@ export class DoctorRequest extends React.Component<DoctorRequestProps,DoctorRequ
                                 stripped={true}
                                 hover={true}
                                 search={ true }
-                                // selectRow={this.onSelectRow}
+                                selectRow={selectRowProp}
+                                options={options}
                             >
-                    <TableHeaderColumn isKey={true} dataField='patient'>Pacient</TableHeaderColumn>
+                    <TableHeaderColumn isKey={true} dataField='id'>Id Request</TableHeaderColumn>
+                    <TableHeaderColumn dataField='CNP'>CNP Pacient</TableHeaderColumn>
+                    <TableHeaderColumn dataField='fullName'>Nume</TableHeaderColumn>
                     <TableHeaderColumn dataField='requestedQuantity'>Cantitate Ceruta</TableHeaderColumn>
                     <TableHeaderColumn dataField='currentQuantity'>Cantitate Curenta</TableHeaderColumn>
                     <TableHeaderColumn dataField='requestedComponent'>Componenta Ceruta</TableHeaderColumn>
                     <TableHeaderColumn dataField='emergencyLevel'>Grad de Urgenta</TableHeaderColumn>
                 </BootstrapTable>
+
                 </div>
-                <Alert stack={true} timeout={3000} />
+                <Alert stack={true} timeout={3000}/>
+                {this.state.showDetails?<ModalDoctorRequestView row={this.state.currentRow} onClose={this.closeDetails}/>:null}
             </div>
         )
     }

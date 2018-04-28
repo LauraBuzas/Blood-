@@ -96,10 +96,10 @@ export class DoctorService {
             requestedComponent: response.component,
             rh: response.rh,
             dateOfRequest: response.dateOfRequest,
-            patient: {
-                CNP: response.patient.cnp,
-                fullname: response.patient.firstName + " " + response.patient.lastName
-            }
+            CNP: response.patient.cnp,
+            fullName: response.patient.firstName + " " + response.patient.lastName,
+            id:response.id
+            
         };
     }
 }

@@ -84,6 +84,7 @@ namespace Services
                                                    .Patients
                                                    .Select(patient => patient.Requests)
                                                    .SelectMany(request => request)
+                                                   .OrderByDescending(r=>r.EmergencyLevel)
                                                    .ToList();
                 return requests;
             }

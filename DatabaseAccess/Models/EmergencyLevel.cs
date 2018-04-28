@@ -6,6 +6,6 @@ namespace DatabaseAccess.Models
 {
     public enum EmergencyLevel
     {
-        SCĂZUT,MEDIU,RIDICAT,CRITIC
+        SCAZUT,MEDIU,RIDICAT,CRITIC
     }
 }

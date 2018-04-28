@@ -1,12 +1,14 @@
 import { IPatient } from "./IPatient";
 
 export interface IDoctorRequestView{
-    patient: IPatient,
+    CNP: string,
+    fullName: string,
     requestedQuantity: number,
     currentQuantity: number,
     emergencyLevel: string,
     requestedComponent: string,
     bloodType: string,
     rh: string,
-    dateOfRequest: Date
+    dateOfRequest: string,
+    id:number
 }

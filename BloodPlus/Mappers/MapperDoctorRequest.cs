@@ -25,7 +25,7 @@ namespace BloodPlus.Mappers
 
         public static DoctorRequestViewModel ToDoctorRequestViewModel(Request request)
         {
-            return new DoctorRequestViewModel()
+            var requestViewModel = new DoctorRequestViewModel()
             {
                 BloodType = request.BloodType.ToString(),
                 EmergencyLevel = request.EmergencyLevel.ToString(),
@@ -33,8 +33,30 @@ namespace BloodPlus.Mappers
                 Rh = request.Rh.ToString(),
                 Status = request.Status.ToString(),
                 RequestedQuantity = request.RequestedQuantity,
-                Component = request.Component.ToString()
+                dateOfRequest = request.DateOfRequest,
+                currentQuantity= request.ReceivedQuantity,
+                id=request.Id
             };
+
+            switch (request.Component)
+            {
+                case ComponentType.BloodBag:
+                    requestViewModel.Component = "Sange neseparat";
+                    break;
+                case ComponentType.Thrombocyte:
+                    requestViewModel.Component = "Trombocite";
+                    break;
+                case ComponentType.Plasma:
+                    requestViewModel.Component = "Plasma";
+                    break;
+                case ComponentType.RedBloodCells:
+                    requestViewModel.Component = "Celule rosii";
+                    break;
+                default:
+                    break;
+            }
+
+            return requestViewModel;
 
         }
     }
