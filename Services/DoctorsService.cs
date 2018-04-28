@@ -64,6 +64,7 @@ namespace Services
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
+                request.DateOfRequest = DateTime.Now;
                 uow.DoctorRequestRepository.Add(request);
                 uow.Save();
             }
