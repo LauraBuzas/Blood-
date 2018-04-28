@@ -75,7 +75,9 @@ namespace Services
             {
                 var requests = uow.DoctorRepository.GetAll()
                                                    .Include(doctor => doctor.Patients)
-                                                   .ThenInclude(patient => patient.Requests)
+                                                   .ThenInclude(patient => patient.Address)
+                                                   .Include(doctor => doctor.Patients)
+                                                   .ThenInclude(patient=>patient.Requests)
                                                    .Where(doctor => doctor.Id == id)
                                                    .FirstOrDefault()
                                                    .Patients

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { IPatient } from '../Models/IPatient';
 import { IDoctorRequest } from '../Models/IDoctorRequest';
+import { IDoctorRequestView } from '../Models/IDoctorRequestView';
 
 
 export class DoctorService {
@@ -86,10 +87,19 @@ export class DoctorService {
         }; 
     }
 
-    private static toRequestGet(response: any): IPatient {
+    private static toRequestGet(response: any): IDoctorRequestView {
         return {
-            fullname:response.fullName,
-            CNP:response.cnp
+            bloodType: response.bloodType,
+            requestedQuantity: response.requestedQuantity,
+            currentQuantity: response.currentQuantity,
+            emergencyLevel: response.emergencyLevel,
+            requestedComponent: response.component,
+            rh: response.rh,
+            dateOfRequest: response.dateOfRequest,
+            patient: {
+                CNP: response.patient.cnp,
+                fullname: response.patient.firstName + " " + response.patient.lastName
+            }
         };
     }
 }

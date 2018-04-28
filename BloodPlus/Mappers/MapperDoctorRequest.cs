@@ -29,6 +29,7 @@ namespace BloodPlus.Mappers
             {
                 BloodType = request.BloodType.ToString(),
                 EmergencyLevel = request.EmergencyLevel.ToString(),
+                Patient =MapperPatient.ToPatientAdd(request.Patient),
                 Rh = request.Rh.ToString(),
                 Status = request.Status.ToString(),
                 RequestedQuantity = request.RequestedQuantity,
