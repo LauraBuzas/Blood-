@@ -248,7 +248,7 @@ export class ModalDoctorRequest extends React.Component<ModalDoctorRequestProps,
             patient:this.state.patient,
             bloodType:this.state.selectedGroup.value,
             emergencyLevel:this.state.selectedLevel.label,
-            reguestedQuantity:this.state.quantity,
+            requestedQuantity:this.state.quantity,
             rh:this.state.rh,
             component:this.state.selectedComponent.value
         }
