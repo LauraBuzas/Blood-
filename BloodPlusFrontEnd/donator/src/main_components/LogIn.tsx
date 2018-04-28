@@ -91,6 +91,11 @@ export class LogIn extends React.Component<LoginProps, LoginState>
         {
             return <Redirect to="/request"/>
         }
+
+        if(this.state.role=="DonationCenterDoctor")
+        {
+            return <Redirect to="/employee/profile"/>
+        }
         
         return (
             <div id="login-div">
