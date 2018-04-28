@@ -8,6 +8,10 @@ namespace BloodPlus.ModelViews.AccountViewModels
 {
     public class RegisterViewModel
     {
+        //[Required]
+        //[Display(Name = "Username")]
+        //public string Username { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

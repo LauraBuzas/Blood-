@@ -31,9 +31,21 @@ namespace DatabaseAccess.Data
         public DbSet<HospitalAdmin> HospitalAdmins { get; set; }
 
         public DbSet<CenterAdmin> CenterAdmins { get; set; }
+
         public DbSet<Patient> Patients { get; set; }
 
         public DbSet<Request> Requests { get; set; }
+
+        public DbSet<BloodBag> BloodBags { get; set; }
+
+        public DbSet<MedicalAnalysis> MedicalAnalyses { get; set; }
+
+        public DbSet<Plasma> Plasmas { get; set; }
+
+        public DbSet<Thrombocyte> Thrombocytes { get; set; }
+
+        public DbSet<RedBloodCell> RedBloodCells { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -53,6 +65,11 @@ namespace DatabaseAccess.Data
             builder.Entity<Patient>().ToTable("Patients");
             builder.Entity<Request>().ToTable("Requests");
             builder.Entity<CenterAdmin>().ToTable("CenterAdmins");
+            builder.Entity<BloodBag>().ToTable("BloodBags");
+            builder.Entity<MedicalAnalysis>().ToTable("MedicalAnalyses");
+            builder.Entity<Plasma>().ToTable("Plasmas");
+            builder.Entity<Thrombocyte>().ToTable("Thrombocytes");
+            builder.Entity<RedBloodCell>().ToTable("RedBloodCells");
 
             //One to one Doctor-ApplicationUser
             builder.Entity<Doctor>(doc => doc.HasOne<ApplicationUser>()
@@ -64,6 +81,7 @@ namespace DatabaseAccess.Data
                                               .WithOne()
                                               .HasForeignKey<HospitalAdmin>(h => h.Id));
 
+
             //One to one Hospital-HospitalAdmin
             builder.Entity<HospitalAdmin>()
                .HasOne(ha => ha.Hospital)
@@ -71,7 +89,16 @@ namespace DatabaseAccess.Data
                .HasForeignKey<Hospital>(h => h.HospitalAdminId)
                .OnDelete(DeleteBehavior.Restrict);
 
-            //One to one Hospital-HospitalAdmin
+            //One to one Employee-ApplicationUser
+            //builder.Entity<Employee>(em => em.HasOne<ApplicationUser>()
+            //                                 .WithOne()
+            //                                 .HasForeignKey<Employee>(e => e.Id));
+
+            //builder.Entity<CenterAdmin>(ca => ca.HasOne<ApplicationUser>()
+            //                                .WithOne()
+            //                                .HasForeignKey<CenterAdmin>(c => c.Id));
+
+            //one to one center-centerAdmin
             //builder.Entity<CenterAdmin>()
             //   .HasOne(ca => ca.Center)
             //   .WithOne(c => c.CenterAdmin)
@@ -96,10 +123,56 @@ namespace DatabaseAccess.Data
                 .WithOne()
                 .HasForeignKey<Donor>(d => d.AddressId);
 
+            //One to many Donor-Analyses
+            builder.Entity<Donor>()
+                .HasMany(d => d.MedicalAnalysis)
+                .WithOne(ma => ma.Donor)
+                .HasForeignKey(ma => ma.DonorId);
+
             //One to one Donor-ApplicationUser
             builder.Entity<Donor>(doc => doc.HasOne<ApplicationUser>()
                                              .WithOne()
                                              .HasForeignKey<Donor>(d => d.Id));
+
+            //One to one Employee-ApplicationUser
+            builder.Entity<Employee>(emp => emp.HasOne<ApplicationUser>()
+                                            .WithOne()
+                                            .HasForeignKey<Employee>(e => e.Id));
+
+
+            builder.Entity<CenterAdmin>(ca => ca.HasOne<ApplicationUser>()
+                                  .WithOne()
+                                  .HasForeignKey<CenterAdmin>(c => c.Id));
+
+            //One to many Doctor-Patients
+            builder.Entity<Doctor>()
+                .HasMany(d => d.Patients)
+                .WithOne(p => p.Doctor)
+                .HasForeignKey(p => p.IdDoctor);
+
+            //One to many Doctor-Requests
+            builder.Entity<Doctor>()
+                .HasMany(d => d.Requests)
+                .WithOne(r => r.Doctor)
+                .HasForeignKey(r => r.IdDoctor);
+
+            //One to one Request-Patient
+            builder.Entity<Request>()
+                .HasOne(r => r.Patient)
+                .WithOne(p => p.Request)
+                .HasForeignKey<Request>(r => r.IdPatient);
+
+            //One to one Analysis-BloodBag
+            builder.Entity<MedicalAnalysis>()
+                .HasOne(ma => ma.BloodBag)
+                .WithOne(b => b.Analysis)
+                .HasForeignKey<MedicalAnalysis>(ma => ma.BloodBagId);
+
+            //One to many Center-BloodBag
+            builder.Entity<Center>()
+                .HasMany(c => c.BloodBags)
+                .WithOne(b => b.Center)
+                .HasForeignKey(b => b.CenterId);
 
 
         }

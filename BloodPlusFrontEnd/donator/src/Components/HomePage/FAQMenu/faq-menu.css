@@ -1,0 +1,16 @@
+#faq-menu {
+    background-image: linear-gradient(-90deg, #30DDDD 0%, #08BDBD 10%,#08BDBD 90%, #30DDDD 100%);
+    padding: 80px;
+    font-family: 'Roboto' ,sans-serif;
+}
+
+
+
+@media (max-width: 700px) {
+    #faq-menu {
+        padding-left: 20px;
+    }
+}
+
+
+
