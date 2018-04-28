@@ -11,17 +11,23 @@ namespace BloodPlus.Mappers
     {
         public static Address ToAddressDb(PatientAddViewModel patientAddViewModel)
         {
-            return new Address()
+            Address address= new Address()
             {
                 Number = int.Parse(patientAddViewModel.Nr),
                 Street = patientAddViewModel.Street,
                 City = patientAddViewModel.City,
-                Floor = int.Parse(patientAddViewModel.Floor),
                 County = patientAddViewModel.County,
-                Unit = int.Parse(patientAddViewModel.Unit),
-                ApartmentNumber = int.Parse(patientAddViewModel.ApartmentNumber)
             };
+
+            if (patientAddViewModel.Floor != null)
+                address.Floor = int.Parse(patientAddViewModel.Floor);
+            if (patientAddViewModel.Floor != null)
+                address.Unit = int.Parse(patientAddViewModel.Unit);
+            if (patientAddViewModel.Floor != null)
+                address.ApartmentNumber = int.Parse(patientAddViewModel.ApartmentNumber);
+            return address;
         }
+
         public static Patient ToPatientDb(PatientAddViewModel patientAddViewModel)
         {
             

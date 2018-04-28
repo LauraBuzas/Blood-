@@ -73,6 +73,7 @@ export class ModalDoctorRequest extends React.Component<ModalDoctorRequestProps,
                     apartment:null,
                     county:null,
                     nr:null,
+                    unit:null
                 },
                 quantity:0,
                 rh:null,
@@ -202,6 +203,12 @@ export class ModalDoctorRequest extends React.Component<ModalDoctorRequestProps,
         fakePatient.county=event.target.value;
         this.setState({patient:fakePatient})
     }
+    handleUnitChange(event)
+    {
+        var fakePatient=this.state.patient;
+        fakePatient.unit=event.target.value;
+        this.setState({patient:fakePatient})
+    }
     handleChangeQuantity(event)
     {
         this.setState({quantity:event.target.value});
@@ -288,7 +295,8 @@ renderPatient()
             <TextField text="Stradă" type="text" onChangeFunction={(event) => this.handleStreetChange(event)}/>
             <TextField text="Număr" type="text" onChangeFunction={(event) => this.handleNumberChange(event)}/>
             <TextField text="Etaj" type="text" onChangeFunction={(event) => this.handleFloorChange(event)}/>
-            <TextField text="Apartament" type="text" onChangeFunction={(event) => this.handleApartmentChange(event)}/>        
+            <TextField text="Apartament" type="text" onChangeFunction={(event) => this.handleApartmentChange(event)}/>
+            <TextField text="Scară" type="text" onChangeFunction={(event) => this.handleUnitChange(event)}/>               
           </div>
         </div>
     )
