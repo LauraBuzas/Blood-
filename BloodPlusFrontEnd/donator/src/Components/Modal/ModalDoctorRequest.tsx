@@ -146,9 +146,8 @@ export class ModalDoctorRequest extends React.Component<ModalDoctorRequestProps,
     }
 
     handleChangeRh=(newRh)=>
-    {
-     
-        this.setState({rh:newRh})
+    {     
+        this.setState({rh:newRh}) 
     }
 
 
@@ -413,9 +412,9 @@ componentWillMount()
         
         {this.state.selectedComponent.value!="Plasma"?
         
-            <RadioGroup size={1} onChange={ this.handleChangeRh } horizontal>
-                <RadioButton size={1} value="0" iconInnerSize={7} iconSize={17} pointColor="#f70606c7">RH Negativ</RadioButton>
-                <RadioButton value="1" iconInnerSize={7} iconSize={17} pointColor="#f70606c7">RH Pozitiv</RadioButton>   
+            <RadioGroup onChange={ this.handleChangeRh } horizontal>
+                <RadioButton value="NEGATIV" iconInnerSize={7} iconSize={17} pointColor="#f70606c7">RH Negativ</RadioButton>
+                <RadioButton value="POZITIV" iconInnerSize={7} iconSize={17} pointColor="#f70606c7">RH Pozitiv</RadioButton>   
             </RadioGroup>
         :null}
 
