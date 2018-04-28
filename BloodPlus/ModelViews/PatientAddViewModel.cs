@@ -21,18 +21,17 @@ namespace BloodPlus.ModelViews
         public string City { get; set; }
 
       
-        public string Country { get; set; }
+        public string County { get; set; }
 
        
         public string Street { get; set; }
 
-       
-        public int Number { get; set; }
+        public string Nr { get; set; }
 
-        public int ApartmentNumber { get; set; }
+        public string ApartmentNumber { get; set; }
 
-        public int Unit { get; set; }
+        public string Unit { get; set; }
 
-        public int Floor { get; set; }
+        public string Floor { get; set; }
     }
 }

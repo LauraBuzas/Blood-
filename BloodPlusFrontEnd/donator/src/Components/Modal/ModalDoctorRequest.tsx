@@ -36,6 +36,7 @@ interface ModalDoctorRequestState
     patient:IPatientAdd,
     quantity:number,
     rh:string
+    errors:string[]
 }
 export class ModalDoctorRequest extends React.Component<ModalDoctorRequestProps,ModalDoctorRequestState>
 {
@@ -70,11 +71,12 @@ export class ModalDoctorRequest extends React.Component<ModalDoctorRequestProps,
                     lastname:null,
                     city:null,
                     apartment:null,
-                    country:null,
+                    county:null,
                     nr:null,
                 },
                 quantity:0,
-                rh:''
+                rh:null,
+                errors:[]
             }
         this.handleChangeGroup=this.handleChangeGroup.bind(this);
         this.handleChangeComponent=this.handleChangeComponent.bind(this);
@@ -113,7 +115,7 @@ export class ModalDoctorRequest extends React.Component<ModalDoctorRequestProps,
     }
     else
     {
-        this.setState({selectedGroup:{value:undefined,label:''}})
+        this.setState({selectedComponent:{value:undefined,label:''}})
     }
   }
 
@@ -148,11 +150,90 @@ export class ModalDoctorRequest extends React.Component<ModalDoctorRequestProps,
         this.setState({rh:newRh})
     }
 
+
+    handleFirstNameChange(event)
+    {
+        var fakePatient=this.state.patient;
+        fakePatient.firstname=event.target.value;
+        this.setState({patient:fakePatient})
+
+    }
+
+    handleLastNameChange(event)
+    {
+        var fakePatient=this.state.patient;
+        fakePatient.lastname=event.target.value;
+        this.setState({patient:fakePatient})
+    }
+
+    handleStreetChange(event)
+    {
+        var fakePatient=this.state.patient;
+        fakePatient.street=event.target.value;
+        this.setState({patient:fakePatient})
+    }
+    handleNumberChange(event)
+    {
+        var fakePatient=this.state.patient;
+        fakePatient.nr=event.target.value;
+        this.setState({patient:fakePatient})
+    }
+    handleFloorChange(event)
+    {
+        var fakePatient=this.state.patient;
+        fakePatient.floor=event.target.value;
+        this.setState({patient:fakePatient})
+    }
+    handleApartmentChange(event)
+    {
+        var fakePatient=this.state.patient;
+        fakePatient.apartment=event.target.value;
+        this.setState({patient:fakePatient})
+    }
+    handleCityChange(event)
+    {
+        var fakePatient=this.state.patient;
+        fakePatient.city=event.target.value;
+        this.setState({patient:fakePatient})
+    }
+    handleCountyChange(event)
+    {
+        var fakePatient=this.state.patient;
+        fakePatient.county=event.target.value;
+        this.setState({patient:fakePatient})
+    }
+    handleChangeQuantity(event)
+    {
+        this.setState({quantity:event.target.value});
+    }
+
+    validateRequest(errors:string[],request:IDoctorRequest)
+    {
+        if(this.state.addPatient && (this.state.patient.firstname==null || this.state.patient.lastname==null || this.state.patient.street==null || this.state.patient.nr==null || this.state.patient.city==null || this.state.patient.county==null))
+            errors.push("Completați toate datele pacientului")
+        if(this.state.selectedGroup.value==undefined)
+            errors.push("Alegeți grupa de sânge")
+        if(this.state.selectedLevel.value==undefined)
+            errors.push("Selectați gradul de urgență al cererii")
+        if(this.state.selectedComponent.value==undefined)
+             errors.push("Selectați componenta necesară pacientului")
+        if(this.state.rh==null && this.state.selectedComponent.value!="Plasma")
+            errors.push("Selectați Rh-ul pacientului")
+        if(this.state.quantity==0)
+            errors.push("Adăugați cantitatea de sânge necesară")
+        return errors;
+    }
+
     sendRequest(event)
     {
+        var errors=[]
         let newPatient:IPatientAdd
         newPatient=this.state.patient;
-        newPatient.CNP=this.state.selectedPacient.value;
+
+        if(this.state.selectedPacient!=null)
+            newPatient.CNP=this.state.selectedPacient.value;
+        else errors.push("Alegeți un pacient")
+
         this.setState({patient:newPatient})
 
         let request:IDoctorRequest
@@ -166,74 +247,30 @@ export class ModalDoctorRequest extends React.Component<ModalDoctorRequestProps,
             component:this.state.selectedComponent.value
         }
 
-        DoctorService.addRequest(request).then((request:any) => {
-           console.log(request);
-        },
-            (error) => {
-                Alert.error("A apărut o eroare la trimitere request", {
+        var allErrors=this.validateRequest(errors,request);
+        if(allErrors.length==0)
+        { 
+            DoctorService.addRequest(request).then((request:any) => {
+            console.log(request);
+            },
+                (error) => {
+                    Alert.error("A apărut o eroare la trimitere request", {
+                        position: 'top-right',
+                        effect: 'jelly'
+                    });
+                });
+        }
+        else
+        {
+            allErrors.forEach(element => {
+                Alert.error(element, {
                     position: 'top-right',
                     effect: 'jelly'
-                  });
-            });
+                });       
+            })
+        }
 
         
-    }
-
-
-    handleFirstNameChange(event)
-    {
-        var fakePatient=this.state.patient;
-        fakePatient.firstname=event.value;
-        this.setState({patient:fakePatient})
-
-    }
-
-    handleLastNameChange(event)
-    {
-        var fakePatient=this.state.patient;
-        fakePatient.lastname=event.value;
-        this.setState({patient:fakePatient})
-    }
-
-    handleStreetChange(event)
-    {
-        var fakePatient=this.state.patient;
-        fakePatient.street=event.value;
-        this.setState({patient:fakePatient})
-    }
-    handleNumberChange(event)
-    {
-        var fakePatient=this.state.patient;
-        fakePatient.nr=event.value;
-        this.setState({patient:fakePatient})
-    }
-    handleFloorChange(event)
-    {
-        var fakePatient=this.state.patient;
-        fakePatient.floor=event.value;
-        this.setState({patient:fakePatient})
-    }
-    handleApartmentChange(event)
-    {
-        var fakePatient=this.state.patient;
-        fakePatient.apartment=event.value;
-        this.setState({patient:fakePatient})
-    }
-    handleCityChange(event)
-    {
-        var fakePatient=this.state.patient;
-        fakePatient.city=event.value;
-        this.setState({patient:fakePatient})
-    }
-    handleCountryChange(event)
-    {
-        var fakePatient=this.state.patient;
-        fakePatient.country=event.value;
-        this.setState({patient:fakePatient})
-    }
-    handleChangeQuantity(event)
-    {
-        this.setState({quantity:event.target.value});
     }
 
 renderPatient()
@@ -245,7 +282,7 @@ renderPatient()
             <TextField text="Nume" type="text" onChangeFunction={(event) => this.handleFirstNameChange(event)} />
             <TextField text="Prenume" type="text" onChangeFunction={(event) => this.handleLastNameChange(event)}/>
             <TextField text="Oraș" type="text" onChangeFunction={(event) => this.handleCityChange(event)}/>
-            <TextField text="Țara" type="text" onChangeFunction={(event) => this.handleCountryChange(event)}/>
+            <TextField text="Județ" type="text" onChangeFunction={(event) => this.handleCountyChange(event)}/>
           </div>        
           <div className="hboxWithSpace">
             <TextField text="Stradă" type="text" onChangeFunction={(event) => this.handleStreetChange(event)}/>
@@ -366,20 +403,31 @@ componentWillMount()
                 
         />
         
-
-        <RadioGroup size={1} onChange={ this.handleChangeRh } horizontal>
-            <RadioButton size={1} value="0" iconInnerSize={7} iconSize={17} pointColor="#f70606c7">RH Negativ</RadioButton>
-            <RadioButton value="1" iconInnerSize={7} iconSize={17} pointColor="#f70606c7">RH Pozitiv</RadioButton>   
-        </RadioGroup>
+        {this.state.selectedComponent.value!="Plasma"?
+        
+            <RadioGroup size={1} onChange={ this.handleChangeRh } horizontal>
+                <RadioButton size={1} value="0" iconInnerSize={7} iconSize={17} pointColor="#f70606c7">RH Negativ</RadioButton>
+                <RadioButton value="1" iconInnerSize={7} iconSize={17} pointColor="#f70606c7">RH Pozitiv</RadioButton>   
+            </RadioGroup>
+        :null}
 
         <div className="hboxWithSpace">
             <input type="number" className="input-cantitate" placeholder="Cantitatea ceruta..." min="1" onChange={(event)=>this.handleChangeQuantity(event)}/>
             <button className="buttonSendRequest" onClick={(event) => this.sendRequest(event)}>Trimite</button>
         </div>
-
+        {/* {this.state.errors!=[]?
+                this.state.errors.forEach(element => {
+                   <div>{element}</div>
+                })
+               :null      
+        }
+        */}
+        
+        <Alert stack={true} timeout={5000} />
         </div>
-        <Alert/>
 
+        
+        
         </Modal>
       </div>
     );

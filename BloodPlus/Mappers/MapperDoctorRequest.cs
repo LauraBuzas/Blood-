@@ -18,7 +18,7 @@ namespace BloodPlus.Mappers
                 Rh = (RhTypes)Enum.Parse(typeof(RhTypes), requestViewModel.Rh.ToUpper()),
                 Status = RequestStatus.Waiting,
                 RequestedQuantity = requestViewModel.RequestedQuantity,
-                Component = (ComponentType)Enum.Parse(typeof(ComponentType), requestViewModel.Component.ToUpper()),
+                Component = (ComponentType)Enum.Parse(typeof(ComponentType), requestViewModel.Component),
             };
 
         }

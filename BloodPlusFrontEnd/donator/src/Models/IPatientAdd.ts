@@ -4,7 +4,7 @@ export interface IPatientAdd
     lastname?:string,
     firstname?:string,
     city?:string,
-    country?:string,
+    county?:string,
     street?:string,
     nr?:number,
     apartment?:number,
