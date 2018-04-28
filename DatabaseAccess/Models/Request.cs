@@ -33,6 +33,8 @@ namespace DatabaseAccess.Models
 
         public int ReceivedQuantity { get; set; }
 
+        public DateTime DateOfRequest { get; set; }
+
 
     }
 }

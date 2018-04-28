@@ -147,9 +147,8 @@ export class ModalDoctorRequest extends React.Component<ModalDoctorRequestProps,
     }
 
     handleChangeRh=(newRh)=>
-    {
-     
-        this.setState({rh:newRh})
+    {     
+        this.setState({rh:newRh}) 
     }
 
 
@@ -250,7 +249,7 @@ export class ModalDoctorRequest extends React.Component<ModalDoctorRequestProps,
             patient:this.state.patient,
             bloodType:this.state.selectedGroup.value,
             emergencyLevel:this.state.selectedLevel.label,
-            reguestedQuantity:this.state.quantity,
+            requestedQuantity:this.state.quantity,
             rh:this.state.rh,
             component:this.state.selectedComponent.value
         }
@@ -414,9 +413,9 @@ componentWillMount()
         
         {this.state.selectedComponent.value!="Plasma"?
         
-            <RadioGroup size={1} onChange={ this.handleChangeRh } horizontal>
-                <RadioButton size={1} value="0" iconInnerSize={7} iconSize={17} pointColor="#f70606c7">RH Negativ</RadioButton>
-                <RadioButton value="1" iconInnerSize={7} iconSize={17} pointColor="#f70606c7">RH Pozitiv</RadioButton>   
+            <RadioGroup onChange={ this.handleChangeRh } horizontal>
+                <RadioButton value="NEGATIV" iconInnerSize={7} iconSize={17} pointColor="#f70606c7">RH Negativ</RadioButton>
+                <RadioButton value="POZITIV" iconInnerSize={7} iconSize={17} pointColor="#f70606c7">RH Pozitiv</RadioButton>   
             </RadioGroup>
         :null}
 

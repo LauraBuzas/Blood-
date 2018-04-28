@@ -6,6 +6,6 @@ export interface IDoctorRequest
     bloodType:string,
     rh:string,
     emergencyLevel:string,
-    reguestedQuantity:number,
+    requestedQuantity:number,
     component:string
 }
