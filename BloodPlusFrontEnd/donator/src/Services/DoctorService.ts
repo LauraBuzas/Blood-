@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { IPatient } from '../Models/IPatient';
 import { IDoctorRequest } from '../Models/IDoctorRequest';
+import { IDoctorRequestView } from '../Models/IDoctorRequestView';
 
 
 export class DoctorService {
@@ -21,6 +22,29 @@ export class DoctorService {
             ).then((response: any) => {
                 let patients = response.data.map(this.toPatientGet);
                 resolve(patients);
+              
+            },
+                (error: any) => {
+                    reject(error);
+                });
+        });
+    }
+
+    public static getRequests(): Promise<any>{
+        return new Promise((resolve,reject) =>{
+            axios(
+                this.rootDoctors+'/requests',
+                {
+                    method:'GET',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json'
+                    },
+                    withCredentials:true
+                }
+            ).then((response: any) => {
+                let requests = response.data.map(this.toRequestGet);
+                resolve(requests);
               
             },
                 (error: any) => {
@@ -60,6 +84,22 @@ export class DoctorService {
         return {
             fullname:response.fullName,
             CNP:response.cnp
+        }; 
+    }
+
+    private static toRequestGet(response: any): IDoctorRequestView {
+        return {
+            bloodType: response.bloodType,
+            requestedQuantity: response.requestedQuantity,
+            currentQuantity: response.currentQuantity,
+            emergencyLevel: response.emergencyLevel,
+            requestedComponent: response.component,
+            rh: response.rh,
+            dateOfRequest: response.dateOfRequest,
+            CNP: response.patient.cnp,
+            fullName: response.patient.firstName + " " + response.patient.lastName,
+            id:response.id
+            
         };
-}
+    }
 }

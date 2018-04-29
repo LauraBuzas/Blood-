@@ -50,5 +50,18 @@ namespace BloodPlus.Mappers
             return patientViewModel;
         }
 
+        public static PatientAddViewModel ToPatientAdd(Patient patient)
+        {
+
+            PatientAddViewModel patientViewModel = new PatientAddViewModel()
+            {
+               CNP=patient.CNP,
+               FirstName=patient.FirstName,
+               LastName = patient.LastName
+
+            };
+            return patientViewModel;
+        }
+
     }
 }

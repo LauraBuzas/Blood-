@@ -25,5 +25,12 @@ namespace BloodPlus.ModelViews
 
         [Required]
         public int RequestedQuantity { get; set; }
+
+        public DateTime dateOfRequest { get; set; }
+
+        public int currentQuantity { get; set; }
+
+        public int id { get; set; }
+
     }
 }

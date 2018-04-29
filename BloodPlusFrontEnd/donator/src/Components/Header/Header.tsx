@@ -64,16 +64,7 @@ var nodesCenterAdmin=[
         {
             title:"Conturi",
             link:"/center/admin"
-        }]
-var nodesDonor=[
-    {
-        title:"Acasă",
-        link:'/'
-    },
-    {
-        title:"Analizele mele",
-        link:"/analyses"
-    }]
+<<<<<<<<< Temporary merge branch 1
         },
     ]
 
@@ -89,6 +80,15 @@ var nodesEmployee=[
 
 ]
 
+var nodesDonor=[
+    {
+        title:"Acasă",
+        link:'/'
+    },
+    {
+        title:"Analizele mele",
+        link:"/analyses"
+    }]
 export class Header extends React.Component<HeaderProps,HeaderState>
 {
     constructor(props:HeaderProps)

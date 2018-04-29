@@ -18,8 +18,45 @@ namespace BloodPlus.Mappers
                 Rh = (RhTypes)Enum.Parse(typeof(RhTypes), requestViewModel.Rh.ToUpper()),
                 Status = RequestStatus.Waiting,
                 RequestedQuantity = requestViewModel.RequestedQuantity,
-                Component = (ComponentType)Enum.Parse(typeof(ComponentType), requestViewModel.Component),
+                Component = (ComponentType)Enum.Parse(typeof(ComponentType), requestViewModel.Component)
             };
+
+        }
+
+        public static DoctorRequestViewModel ToDoctorRequestViewModel(Request request)
+        {
+            var requestViewModel = new DoctorRequestViewModel()
+            {
+                BloodType = request.BloodType.ToString(),
+                EmergencyLevel = request.EmergencyLevel.ToString(),
+                Patient =MapperPatient.ToPatientAdd(request.Patient),
+                Rh = request.Rh.ToString(),
+                Status = request.Status.ToString(),
+                RequestedQuantity = request.RequestedQuantity,
+                dateOfRequest = request.DateOfRequest,
+                currentQuantity= request.ReceivedQuantity,
+                id=request.Id
+            };
+
+            switch (request.Component)
+            {
+                case ComponentType.BloodBag:
+                    requestViewModel.Component = "Sange neseparat";
+                    break;
+                case ComponentType.Thrombocyte:
+                    requestViewModel.Component = "Trombocite";
+                    break;
+                case ComponentType.Plasma:
+                    requestViewModel.Component = "Plasma";
+                    break;
+                case ComponentType.RedBloodCells:
+                    requestViewModel.Component = "Celule rosii";
+                    break;
+                default:
+                    break;
+            }
+
+            return requestViewModel;
 
         }
     }

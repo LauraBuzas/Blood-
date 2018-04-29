@@ -11,7 +11,9 @@ import "../../css/Body.css";
 import { Donor } from '../Donor/Donor';
 import { ModalDoctorRequest } from '../Modal/ModalDoctorRequest';
 
+
 import { EmployeeProfile } from '../EmployeeProfile/EmployeeProfile';
+import { DoctorRequest } from '../Doctor/DoctorRequest/DoctorRequest';
 export interface BodyProps{
     setRole:any;
 } 
@@ -32,9 +34,8 @@ export class Body extends React.Component<BodyProps,BodyState>
         const CenterAdminComponent=()=>{return <CenterAdmin/>}
         const LoginComponent=()=>{return <Register setRole={this.props.setRole} />}
         const RegisterComponent=()=>{return <SignUp/>}
-        const DoctorRequestComponent=()=>{return <ModalDoctorRequest/>}
-         
-        const DonorComponent=()=>{return <Donor/>}
+<<<<<<<<< Temporary merge branch 1
+        const DoctorRequestCompoent=()=>{return <DoctorRequest/>}
         const EmployeeProfileComponent=()=>{return <EmployeeProfile/>}
         const HomeComponent = () => {return <HomePage/>}
         // console.log("body height: " + this.state.height);
@@ -42,7 +43,9 @@ export class Body extends React.Component<BodyProps,BodyState>
         // if (newHeight) {
         //     this.setState({height: newHeight });
         // }
-        
+        const DoctorRequestComponent=()=>{return <DoctorRequest/>}
+        const DonorComponent=()=>{return <Donor/>}
+       
         return(
            <div id="body">
                 <Route path ="/hospital/admin" exact={true} render={HospitalAdminComponent}/>
@@ -50,9 +53,8 @@ export class Body extends React.Component<BodyProps,BodyState>
                 <Route path="/login" exact={true} render={LoginComponent}/>
                 <Route path="/register" exact={true} render={RegisterComponent}/>
                 <Route path="/request" exact={true} render={DoctorRequestComponent}/>
-                <Route path="/analyses" exact={true} render={DonorComponent}/>              
-
                 <Route path="/employee/profile" exact={true} render={EmployeeProfileComponent}/>
+                <Route path="/analyses" exact={true} render={DonorComponent}/>              
                 <Route path="/" exact={true} render={HomeComponent}/>
            </div> 
         )

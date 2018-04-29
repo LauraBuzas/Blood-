@@ -69,5 +69,25 @@ namespace Services
                 uow.Save();
             }
         }
+
+        public List<Request> GetRequests(string id)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var requests = uow.DoctorRepository.GetAll()
+                                                   .Include(doctor => doctor.Patients)
+                                                   .ThenInclude(patient => patient.Address)
+                                                   .Include(doctor => doctor.Patients)
+                                                   .ThenInclude(patient=>patient.Requests)
+                                                   .Where(doctor => doctor.Id == id)
+                                                   .FirstOrDefault()
+                                                   .Patients
+                                                   .Select(patient => patient.Requests)
+                                                   .SelectMany(request => request)
+                                                   .OrderByDescending(r=>r.EmergencyLevel)
+                                                   .ToList();
+                return requests;
+            }
+        }
     }
 }

@@ -4,8 +4,8 @@ using System.Text;
 
 namespace DatabaseAccess.Models
 {
-    public enum EmergencyLevel
+    public enum BloodBagStage
     {
-        SCAZUT,MEDIU,RIDICAT,CRITIC
+        Sampling, Qualification, Separation
     }
 }

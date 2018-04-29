@@ -1,10 +1,12 @@
-﻿using BloodPlus.ModelViews;
+﻿using BloodPlus.Mappers;
+using BloodPlus.ModelViews;
 using DatabaseAccess.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BloodPlus.Controllers
 {
@@ -110,6 +112,26 @@ namespace BloodPlus.Controllers
             }catch(Exception ex)
             {
                 return BadRequest("Can't get hospitalized patients");
+            }
+        }
+
+        [Authorize(Roles = "HospitalDoctor")]
+        [HttpGet("requests")]
+        public IActionResult GetRequests()
+        {
+            try
+            {
+                var id = Request.Cookies["UserId"];
+                var requests = doctorsService.GetRequests(id);
+                List<DoctorRequestViewModel> requestsReturned = requests.Select(r => MapperDoctorRequest.ToDoctorRequestViewModel(r)).ToList();
+               
+
+                return Ok(requestsReturned);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Can't get doctor requests");
             }
         }
 

@@ -89,17 +89,18 @@ export class LogIn extends React.Component<LoginProps, LoginState>
         {
             return <Redirect to="/request"/>
         }
-        if(this.state.role=="Donor")
-        {
-            return <Redirect to="/"/>
-        }
-        
-        
+<<<<<<<<< Temporary merge branch 1
 
         if(this.state.role=="DonationCenterDoctor")
         {
             return <Redirect to="/employee/profile"/>
         }
+        
+        if(this.state.role=="Donor")
+        {
+            return <Redirect to="/"/>
+        }
+        
         
         return (
             <div id="login-div">

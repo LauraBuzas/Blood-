@@ -22,7 +22,7 @@ const styles = {
 
 export interface ModalDoctorRequestProps
 {
-
+    onClose:any
 }
 interface ModalDoctorRequestState
 {
@@ -61,7 +61,7 @@ export class ModalDoctorRequest extends React.Component<ModalDoctorRequestProps,
                     label:''
                 },
                 selectedPacient:undefined,
-                open: false,
+                open: true,
                 optionsPatients:[],
                 addPatient:false,
                 patient:
@@ -91,6 +91,7 @@ export class ModalDoctorRequest extends React.Component<ModalDoctorRequestProps,
 
   onCloseModal = () => {
     this.setState({ open: false });
+    this.props.onClose();
   };
 
   handleChangePacient = (selectedPacient) => {
@@ -349,7 +350,7 @@ componentWillMount()
 
     return (
       <div style={styles}>
-        <button onClick={this.onOpenModal}>Open modal</button>
+        
         <Modal open={open} onClose={this.onCloseModal} large>
           <div className="vboxWithSpace">
           <h2>Cerere sânge</h2>
