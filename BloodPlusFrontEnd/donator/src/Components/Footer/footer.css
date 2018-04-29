@@ -1,10 +1,10 @@
 #footer {
     padding: 10px;
-    background-color: #333333;
+    background-color: #3b4754;
     font-size: 18px;
     text-align: left;
     color: white;
-    margin-top: 20px;
+    height: 120px;
 }
 
 .footer-button {
@@ -19,7 +19,7 @@
     background-color: rgba(0,0,0,0.5);
     border: none;
     color: white;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .footer-button:focus {
@@ -29,18 +29,16 @@
 .up-button {
     height: 30px;
     width: 30px;
-    font-size: 25px;
-    background-color: #6666FF;
+    font-size: 30px;
+    background-color: #98c4ea;
 }
 
-
-
-.footer-button:hover {
-    background-color: #888888;
+.up-button div {
+    margin: auto;
 }
 
 .up-button:hover {
-    background-color: #33AAAA;
+    background-color: #88c3ea;
 }
 
 #copyright-text {
