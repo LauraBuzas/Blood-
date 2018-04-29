@@ -74,6 +74,7 @@ namespace Services
                 BloodBag bloodBag = new BloodBag
                 {
                     Status = BloodBagStatus.Waiting,
+                    Stage = BloodBagStage.Sampling,
                     CenterId=centerId
                 };
                 uow.BloodBagRepository.Add(bloodBag);

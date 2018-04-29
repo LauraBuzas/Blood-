@@ -30,5 +30,10 @@ namespace DatabaseAccess.Models
 
         public DateTime DateAndTime { get; set; }
 
+        public bool RejectedOtherCauses { get; set; }
+
+        public string Observations { get; set; }
+
+
     }
 }

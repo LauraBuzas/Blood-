@@ -11,7 +11,6 @@ namespace DatabaseAccess.Models
         public Doctor()
         {
             Patients = new List<Patient>();
-            Requests = new List<Request>();
         }
 
         public string Id { get; set; }
@@ -32,10 +31,6 @@ namespace DatabaseAccess.Models
         public int HospitalId { get; set; }
 
         public List<Patient> Patients { get; set; }
-
-        public List<Request> Requests { get; set; }
-
-
 
     }
 }

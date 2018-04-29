@@ -56,8 +56,6 @@ export class LogIn extends React.Component<LoginProps, LoginState>
             password: this.state.userRegistered.password
         }
         AccountService.loginUser(user).then((resp) => {
-            
-            console.log(resp);
             this.setState({role:resp.data[0]});
             this.props.setRole(this.state.role);
             
@@ -91,11 +89,18 @@ export class LogIn extends React.Component<LoginProps, LoginState>
         {
             return <Redirect to="/request"/>
         }
+<<<<<<<<< Temporary merge branch 1
 
         if(this.state.role=="DonationCenterDoctor")
         {
             return <Redirect to="/employee/profile"/>
         }
+        
+        if(this.state.role=="Donor")
+        {
+            return <Redirect to="/"/>
+        }
+        
         
         return (
             <div id="login-div">
