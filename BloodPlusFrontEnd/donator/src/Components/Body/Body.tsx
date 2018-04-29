@@ -34,7 +34,6 @@ export class Body extends React.Component<BodyProps,BodyState>
         const CenterAdminComponent=()=>{return <CenterAdmin/>}
         const LoginComponent=()=>{return <Register setRole={this.props.setRole} />}
         const RegisterComponent=()=>{return <SignUp/>}
-<<<<<<<<< Temporary merge branch 1
         const DoctorRequestCompoent=()=>{return <DoctorRequest/>}
         const EmployeeProfileComponent=()=>{return <EmployeeProfile/>}
         const HomeComponent = () => {return <HomePage/>}

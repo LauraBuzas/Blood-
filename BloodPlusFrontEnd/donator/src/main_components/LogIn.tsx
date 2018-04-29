@@ -89,7 +89,6 @@ export class LogIn extends React.Component<LoginProps, LoginState>
         {
             return <Redirect to="/request"/>
         }
-<<<<<<<<< Temporary merge branch 1
 
         if(this.state.role=="DonationCenterDoctor")
         {
