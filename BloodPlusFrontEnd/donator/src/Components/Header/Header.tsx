@@ -64,6 +64,7 @@ var nodesCenterAdmin=[
         {
             title:"Conturi",
             link:"/center/admin"
+<<<<<<<<< Temporary merge branch 1
         },
     ]
 
