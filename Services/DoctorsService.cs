@@ -51,5 +51,23 @@ namespace Services
                 uow.Save();
             }
         }
+
+        public Doctor GetDoctorById(string id)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+               return uow.DoctorRepository.GetByFunc(d => d.Id == id);
+            }
+        }
+
+        public void AddRequest(Request request)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                request.DateOfRequest = DateTime.Now;
+                uow.DoctorRequestRepository.Add(request);
+                uow.Save();
+            }
+        }
     }
 }

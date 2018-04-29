@@ -12,9 +12,10 @@ using System;
 namespace DatabaseAccess.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180428154834_AddressChangeUnitFromIntToString")]
+    partial class AddressChangeUnitFromIntToString
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -311,8 +312,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<int>("BloodType");
 
                     b.Property<int>("Component");
-
-                    b.Property<DateTime>("DateOfRequest");
 
                     b.Property<int>("EmergencyLevel");
 

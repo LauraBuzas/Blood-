@@ -4,8 +4,8 @@ using System.Text;
 
 namespace DatabaseAccess.Models
 {
-    public enum EmergencyLevel
+    public enum PatientStatus
     {
-        SCĂZUT,MEDIU,RIDICAT,CRITIC
+        INTERNAT, EXTERNAT, DECEDAT
     }
 }

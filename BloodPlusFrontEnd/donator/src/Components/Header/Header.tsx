@@ -44,7 +44,7 @@ var nodesDoctor=[
         link:'/'
     },
     {
-        title:"Cere sânge",
+        title:"Cereri de sânge",
         link:"/request"
     }]
 var nodesHospitalAdmin=[
@@ -64,6 +64,16 @@ var nodesCenterAdmin=[
         {
             title:"Conturi",
             link:"/center/admin"
+        }]
+var nodesDonor=[
+    {
+        title:"Acasă",
+        link:'/'
+    },
+    {
+        title:"Analizele mele",
+        link:"/analyses"
+    }]
         },
     ]
 
@@ -117,6 +127,9 @@ export class Header extends React.Component<HeaderProps,HeaderState>
             currentNodes=nodesHospitalAdmin;
         if(this.props.role=="DonationCenterAdmin")
             currentNodes=nodesCenterAdmin;
+        if(this.props.role=="Donor")
+            currentNodes=nodesDonor;
+
         if(this.props.role=="DonationCenterDoctor")
             currentNodes=nodesEmployee;
         
