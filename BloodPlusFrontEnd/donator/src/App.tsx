@@ -3,7 +3,7 @@ import './App.css';
 import './css/Management.css'
 import {HomePage} from './Components/HomePage/HomePage';
 import {Footer} from './Components/Footer/Footer';
-import { HBox, VBox } from 'react-stylesheet/lib/Box';
+import { HBox, VBox } from 'react-stylesheet';
 import './css/TextField.css';
 import Alert from 'react-s-alert';
 import { BrowserRouter as Router } from 'react-router-dom'
