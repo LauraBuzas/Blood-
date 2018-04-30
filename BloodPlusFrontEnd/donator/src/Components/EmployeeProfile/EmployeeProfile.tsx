@@ -1,20 +1,26 @@
 import * as React from 'react';
 import './EmployeeProfile.css';
+import { IEmployeeGet } from '../../Models/IEmployeeGet';
 import {IEmployeeProfile} from '../../Models/IEmployeeProfile';
+import Alert from 'react-s-alert';
 import {TextField} from '../../utils/TextField';
 //import {Button1} from '../../utils/Button1';
 import {HBox,VBox} from '../../../node_modules/react-stylesheet';
 //import {Avatar} from '../../../node_modules/react-avatar';
 import Avatar from 'react-avatar';
+import { EmployeeProfileService } from '../../Services/EmployeeProfileService';
 //import * as ReactBootstrap from 'react-bootstrap';
 
 export interface EmployeeProfileProps{
 
 }
 interface EmployeeProfileState{
-    firstName:string;
-    lastName:string;
-    age:number;
+    employee: IEmployeeGet;
+    message:string;
+
+    //firstName:string;
+    //lastName:string;
+    //age:number;
 }
 
 export class EmployeeProfile extends React.Component<EmployeeProfileProps,EmployeeProfileState>
@@ -24,9 +30,17 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
 
         this.state=
         {
-            firstName:'',
-            lastName:'',
-            age:0,
+            employee:{
+                email:'',
+                password:'',
+                firstname:'',
+                lastname:'',
+                confirmPassword:'',
+                centerId:0
+
+            },
+            message:'',
+            
         };
     }
 
@@ -53,10 +67,10 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
                             <h3 className='title'>Informații profil</h3>
                             <div className="separation">
                             </div>
-                            <TextField text="Nume" type="text" onChangeFunction={this.handleLastNameChange.bind(this)}/>
-                            <TextField text="Prenume" type="text" onChangeFunction={this.handleFirstNameChange.bind(this)}/>
-                            <TextField text="Varsta" type="number" onChangeFunction={this.handleAgeChange.bind(this)}/>
-                                                      
+                            <TextField text="Nume" type="text" value={this.state.employee.lastname} onChangeFunction={this.handleLastNameChange.bind(this)}/>
+                            <TextField text="Prenume" type="text" value={this.state.employee.firstname} onChangeFunction={this.handleFirstNameChange.bind(this)}/>
+                            <TextField text="Email" type="text" value={this.state.employee.email} onChangeFunction={null}/>  
+                            <TextField text="Centru" type="number"  onChangeFunction={null}/>                        
                             <button    className="btnSaveChanges"  onClick={(event) => alert("Not implemented yet :)")}>
                             Salvează modificările
                             </button>
@@ -70,15 +84,35 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
         
     }
 
-    handleLastNameChange(event:any){
+    componentDidMount() {
+        
+    
+        
+        console.log(this.state.employee.firstname);
+        EmployeeProfileService.getEmployee().then((employee:IEmployeeGet) => {
+            this.setState({
+                employee: employee
+            });    
+        },
+            (error) => {
+                this.setState({
+                    message: "A apărut o eroare la aducerea datelor despre angajat"
+                    
+                });
+                Alert.error(this.state.message, {
+                    position: 'top-right',
+                    effect: 'jelly'
+                  });
+            });
+    }
 
+    handleLastNameChange(event:any){
+        console.log(this.state.employee.lastname);
     }
     handleFirstNameChange(event:any){
 
     }
-    handleAgeChange(event:any){
-
-    }
+    
 
 
 }

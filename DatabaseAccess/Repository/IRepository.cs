@@ -11,6 +11,8 @@ namespace DatabaseAccess.Repository
 
             TEntity GetById(int id);
 
+            TEntity GetById(string id); //pusa de mine AC
+
             TEntity GetByFunc(Func<TEntity, bool> func);
 
             void Add(TEntity entity);
