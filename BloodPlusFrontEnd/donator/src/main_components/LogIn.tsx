@@ -97,7 +97,7 @@ export class LogIn extends React.Component<LoginProps, LoginState>
         
         if(this.state.role=="Donor")
         {
-            return <Redirect to="/"/>
+            return <Redirect to="/analyses"/>
         }
         
         
