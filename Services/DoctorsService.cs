@@ -39,5 +39,55 @@ namespace Services
                 return doctor;
             }
         }
+
+        public void DeleteDoctor(string email)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                ApplicationUser user=uow.ApplicationUserRepository.GetByFunc(u => u.Email == email);
+                Doctor doctor = uow.DoctorRepository.GetByFunc(d => d.Id == user.Id);
+                uow.DoctorRepository.Delete(doctor);
+                uow.ApplicationUserRepository.Delete(user);
+                uow.Save();
+            }
+        }
+
+        public Doctor GetDoctorById(string id)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+               return uow.DoctorRepository.GetByFunc(d => d.Id == id);
+            }
+        }
+
+        public void AddRequest(Request request)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                request.DateOfRequest = DateTime.Now;
+                uow.DoctorRequestRepository.Add(request);
+                uow.Save();
+            }
+        }
+
+        public List<Request> GetRequests(string id)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var requests = uow.DoctorRepository.GetAll()
+                                                   .Include(doctor => doctor.Patients)
+                                                   .ThenInclude(patient => patient.Address)
+                                                   .Include(doctor => doctor.Patients)
+                                                   .ThenInclude(patient=>patient.Requests)
+                                                   .Where(doctor => doctor.Id == id)
+                                                   .FirstOrDefault()
+                                                   .Patients
+                                                   .Select(patient => patient.Requests)
+                                                   .SelectMany(request => request)
+                                                   .OrderByDescending(r=>r.EmergencyLevel)
+                                                   .ToList();
+                return requests;
+            }
+        }
     }
 }

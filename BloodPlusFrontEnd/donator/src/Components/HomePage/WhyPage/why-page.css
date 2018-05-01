@@ -1,0 +1,51 @@
+#why-page {
+    background-color: #98c4ea;
+    font-size: 40px;
+    color: white;
+    margin: 0;
+}
+
+#why-logo {
+    color: #991111;
+    padding: 0;
+    margin: 0;
+}
+
+.middle, .outer {
+    padding-left: 10px;
+    padding-right: 10px;
+
+}
+
+.middle {
+    border-left: 4px solid white;
+    border-right: 4px solid white;
+}
+
+table {
+    font-size: 30px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-family: 'Merriweather Sans', sans-serif;
+}
+
+p {
+    margin: 0;
+}
+
+i {
+    size: 50px;
+    display: block;
+}
+
+@media (max-width: 800px) {
+    table {
+        font-size: 15px;
+    }
+
+    #why-page {
+        font-size: 20px;
+    }
+}

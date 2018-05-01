@@ -1,0 +1,54 @@
+#footer {
+    padding: 10px;
+    background-color: #3b4754;
+    font-size: 18px;
+    text-align: left;
+    color: white;
+    height: 120px;
+}
+
+.footer-button {
+    float: right;
+    width: 60px;
+    height: 30px;
+    text-align: center;
+    
+    text-decoration: none;
+    margin-right: 10px;
+    margin-top: 10px;
+    background-color: rgba(0,0,0,0.5);
+    border: none;
+    color: white;
+    font-size: 20px;
+}
+
+.footer-button:focus {
+    outline: none;
+}
+
+.up-button {
+    height: 30px;
+    width: 30px;
+    font-size: 30px;
+    background-color: #98c4ea;
+}
+
+.up-button div {
+    margin: auto;
+}
+
+.up-button:hover {
+    background-color: #88c3ea;
+}
+
+#copyright-text {
+    box-sizing: border-box;
+    margin: 10px 0;
+    width: 600px;
+    color: white;
+}
+
+#contact-title {
+    font-size: 24px;
+    color: #DDDDDD;
+}

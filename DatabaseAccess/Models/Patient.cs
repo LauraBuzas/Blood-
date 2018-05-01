@@ -9,7 +9,10 @@ namespace DatabaseAccess.Models
 {
     public class Patient
     {
-      
+        public Patient()
+        {
+            Requests = new List<Request>();
+        }
 
         public int Id { get; set; }
 
@@ -22,14 +25,19 @@ namespace DatabaseAccess.Models
         [Required]
         public string FirstName { get; set; }
 
-        /*
-        //CodA
+        public Address Address { get; set; }
+
         public int IdAddress { get; set; }
 
-        //CodD
-        public int IdDoctor { get; set; }
-        */
-  
+        public Doctor Doctor { get; set; }
+
+        public string IdDoctor { get; set; }
+
+        public List<Request> Requests { get; set; }
+
+        public PatientStatus Status { get; set; }
+
+
 
     }
 }

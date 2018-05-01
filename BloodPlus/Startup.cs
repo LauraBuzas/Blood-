@@ -12,6 +12,7 @@ using DatabaseAccess.Data;
 using DatabaseAccess.Models;
 using BloodPlus.Services2;
 using Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace BloodPlus
 {
@@ -34,13 +35,45 @@ namespace BloodPlus
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = false;
+            });
+            
+
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //        .AddCookie(options =>
+            //        {
+            //            options.LoginPath = "/";
+            //            options.CookieHttpOnly = false;
+                        
+
+
+            //        });
+
+            //services.AddAuthentication(options =>
+            //      {
+            //          options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+            //          options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
+
+
+            //      });
+
+            //services.AddSession(options =>
+            //{
+            //    options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Lax;
+            //});
+
             services.AddTransient<ApplicationDbContext>();
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddMvc();
             services.AddTransient<DoctorsService>();
-            services.AddTransient<HospitalAdminService>();
+            services.AddTransient<AdminService>();
+            services.AddTransient<EmployeeService>();
+            services.AddTransient<DonorService>();
+            services.AddTransient<PatientService>();
 
         }
 
@@ -61,8 +94,11 @@ namespace BloodPlus
             //app.UseStaticFiles();
 
             app.UseAuthentication();
+            
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials());
             app.UseMvc();
+
+            //app.UseCookieAuthentication(new CookieAuthenticationOptions { CookieHttpOnly = false });
 
 
 

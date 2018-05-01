@@ -1,0 +1,75 @@
+.homePage {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-carousel {
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+img {
+    object-fit: cover;
+
+}
+
+#register-button {
+    position: absolute;
+    right: 30px;
+    top: 10%;
+    z-index: 1;
+    width: 150px;
+    height: 40px;  
+    background-color: #ff3e30;
+    text-transform: uppercase;
+    border-radius: 25px;
+    color: white;
+    border: none;
+}
+
+#register-button:focus {
+    outline: 0;
+}
+
+#welcome-title {
+    font-family: 'Roboto', sans-serif;
+}
+
+#logo-text {
+    color: #991111
+}
+
+#welcome-container {
+    margin-top: 50px;
+}
+
+#logo, #blood-description {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    display: inline-block;
+    margin: 20px;
+}
+
+
+
+#blood-description {
+    /* background-color: rgba(99,11,11,0.2 ); */
+}
+
+p {
+    text-align: justify;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    padding: 20px;
+}
+
+.indent {
+    margin-right: 5px;
+    border-left: 5px solid #991111;
+}
+
+
