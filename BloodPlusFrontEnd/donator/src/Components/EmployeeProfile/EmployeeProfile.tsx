@@ -10,6 +10,7 @@ import {HBox,VBox} from '../../../node_modules/react-stylesheet';
 import Avatar from 'react-avatar';
 import { EmployeeProfileService } from '../../Services/EmployeeProfileService';
 //import * as ReactBootstrap from 'react-bootstrap';
+import update from 'react-addons-update';
 
 export interface EmployeeProfileProps{
 
@@ -17,6 +18,7 @@ export interface EmployeeProfileProps{
 interface EmployeeProfileState{
     employee: IEmployeeGet;
     message:string;
+    centerName:string;
 
     //firstName:string;
     //lastName:string;
@@ -40,6 +42,8 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
 
             },
             message:'',
+            centerName:'',
+            
             
         };
     }
@@ -67,10 +71,10 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
                             <h3 className='title'>Informații profil</h3>
                             <div className="separation">
                             </div>
-                            <TextField text="Nume" type="text" value={this.state.employee.lastname} onChangeFunction={this.handleLastNameChange.bind(this)}/>
-                            <TextField text="Prenume" type="text" value={this.state.employee.firstname} onChangeFunction={this.handleFirstNameChange.bind(this)}/>
-                            <TextField text="Email" type="text" value={this.state.employee.email} onChangeFunction={null}/>  
-                            <TextField text="Centru" type="number"  onChangeFunction={null}/>                        
+                            <TextField text="Nume" type="text" value={this.state.employee.lastname} onChangeFunction={(event) =>this.handleLastNameChange(event)}/>
+                            <TextField text="Prenume" type="text" value={this.state.employee.firstname} onChangeFunction={(event) =>this.handleFirstNameChange(event)}/>
+                            <TextField text="Email" type="text" value={this.state.employee.email} onChangeFunction={(event) =>this.handleEmailChange(event)}/>  
+                            <TextField text="Centru" type="text"  value ={this.state.centerName} onChangeFunction={(event)=>this.handleCenterChange(event)}/>                        
                             <button    className="btnSaveChanges"  onClick={(event) => alert("Not implemented yet :)")}>
                             Salvează modificările
                             </button>
@@ -92,6 +96,7 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
         EmployeeProfileService.getEmployee().then((employee:IEmployeeGet) => {
             this.setState({
                 employee: employee
+                
             });    
         },
             (error) => {
@@ -104,13 +109,49 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
                     effect: 'jelly'
                   });
             });
+
+        EmployeeProfileService.getCenterName().then((name:any) => {
+            this.setState({
+                centerName:name
+            });
+        },
+        (error) => {
+            this.setState({
+                message: "A apărut o eroare la aducerea numelui centrului"
+                
+            });
+            Alert.error(this.state.message, {
+                position: 'top-right',
+                effect: 'jelly'
+              });
+        });
     }
+
+    
 
     handleLastNameChange(event:any){
-        console.log(this.state.employee.lastname);
+        this.setState({
+            employee: update(this.state.employee, { lastname:{$set: event.target.value}})
+        });
     }
-    handleFirstNameChange(event:any){
 
+    handleFirstNameChange(event:any){
+        this.setState({
+            employee: update(this.state.employee, { firstname:{$set: event.target.value}})
+        });
+    }
+    
+    handleEmailChange(event:any){
+        this.setState({
+            employee: update(this.state.employee, { email:{$set: event.target.value}})
+        });
+    }
+
+    handleCenterChange(event:any){
+        Alert.error("Nu se poate modifica centrul", {
+            position: 'top-right',
+            effect: 'jelly'
+          });
     }
     
 

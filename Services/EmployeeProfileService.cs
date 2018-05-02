@@ -16,5 +16,26 @@ namespace Services
                 return uow.EmployeeRepository.GetById(idEmployee);
             }
         }
+
+        public ApplicationUser GetUserForEmployee(string employeeId)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.ApplicationUserRepository
+                    .GetByFunc(a => a.Id == employeeId);
+
+            }
+        }
+
+        public String GetNameForCenter(int id)
+        {
+            using(UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.CenterRepository.GetByFunc(a => a.Id == id).CenterName;
+
+            }
+        }
+
+        
     }
 }

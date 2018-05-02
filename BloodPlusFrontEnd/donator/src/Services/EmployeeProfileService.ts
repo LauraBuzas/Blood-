@@ -11,7 +11,7 @@ export class EmployeeProfileService {
     public static getEmployee(): Promise<IEmployeeGet> {
         return new Promise((resolve, reject) => {
             axios(
-                this.rootEmployeeProfile,
+                this.rootEmployeeProfile+"/employee",
                 {
                     method:'GET',
                     headers:{
@@ -21,13 +21,14 @@ export class EmployeeProfileService {
                     withCredentials:true
                 }
             ).then((response: any) => {
-                //let employee = response.data.map(this.toEmployee);
+               // let employee = response.data.map(this.toEmployee);
                 let employee={
                     lastname:response.data.lastName,
                     firstname:response.data.firstName,
                     email:response.data.email,
                     password:response.data.password,
-                    confirmPassword:response.data.password
+                    confirmPassword:response.data.password,
+                    centerId:response.data.centerId
                 }
                 resolve(employee);
             },
@@ -43,7 +44,31 @@ export class EmployeeProfileService {
             firstname:response.firstName,
             email:response.email,
             password:response.password,
-            confirmPassword:response.password
+            confirmPassword:response.password,
+            centerId:response.centerId
         };
+    }
+
+    public static getCenterName():Promise<string>{
+        return new Promise((resolve, reject) => {
+            axios(
+                this.rootEmployeeProfile+"/name" , //+"/ceva" aici?
+                {
+                    method:'GET',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json'
+                    },
+                    withCredentials:true
+                }
+            ).then((response: any) => {
+                let centerName = response.data;
+                
+                resolve(centerName);
+            },
+                (error: any) => {
+                    reject(error);
+                });
+        });
     }
 }
