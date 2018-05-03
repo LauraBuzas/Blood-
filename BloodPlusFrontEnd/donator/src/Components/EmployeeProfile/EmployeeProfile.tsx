@@ -75,14 +75,14 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
                             <TextField text="Prenume" type="text" value={this.state.employee.firstname} onChangeFunction={(event) =>this.handleFirstNameChange(event)}/>
                             <TextField text="Email" type="text" value={this.state.employee.email} onChangeFunction={(event) =>this.handleEmailChange(event)}/>  
                             <TextField text="Centru" type="text"  value ={this.state.centerName} onChangeFunction={(event)=>this.handleCenterChange(event)}/>                        
-                            <button    className="btnSaveChanges"  onClick={(event) => alert("Not implemented yet :)")}>
+                            <button    className="btnSaveChanges"  onClick={(event) => this.handleSave(event)}>
                             Salvează modificările
                             </button>
                             
                         </VBox>
                     </HBox>
                 </div>
-
+                <Alert stack={true} timeout={2000} />
             </div>
     )
         
@@ -152,6 +152,20 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
             position: 'top-right',
             effect: 'jelly'
           });
+    }
+
+    handleSave(event:any){
+        var completed = true;
+        if(this.state.employee.firstname == "" || this.state.employee.lastname == "" || this.state.employee.email == "")
+            completed = false;
+        if(!completed){
+            Alert.error("Completati toate campurile", {
+                position: 'top-right',
+                effect: 'jelly'
+              });
+        }else{
+            EmployeeProfileService.saveProfileChanges(this.state.employee);
+        }
     }
     
 

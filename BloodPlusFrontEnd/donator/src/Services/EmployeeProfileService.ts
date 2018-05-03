@@ -3,6 +3,7 @@ import { IEmployeeGet } from '../Models/IEmployeeGet';
 import Cookies from 'universal-cookie';
 import { Session } from 'inspector';
 import { IEmployeeDelete } from '../Models/IEmployeeDelete';
+import { IEmployeeProfile } from '../Models/IEmployeeProfile';
 
 export class EmployeeProfileService {
     private static rootEmployeeProfile: string = 'http://localhost:50272/employee/profile';
@@ -70,5 +71,35 @@ export class EmployeeProfileService {
                     reject(error);
                 });
         });
+    }
+
+    public static saveProfileChanges(employee:IEmployeeGet): Promise<any> {
+        // const cookies = new Cookies();
+        // doctor.hospitalId=cookies.get("HospitalId");
+        // doctor.confirmPassword=doctor.password;
+
+        return new Promise((resolve, reject) => {
+            axios(
+                this.rootEmployeeProfile + "/changes",
+                {
+                    method:'POST',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                        'Access-Control-Allow-Credentials':true
+                    },
+                    withCredentials:true,
+                    maxRedirects:0,
+                    data:employee
+                }
+            ).then((response: any) => {
+                let employee = this.toEmployee(response.data);
+                resolve(employee);
+            },
+                (error: any) => {
+                    reject(error);
+                });
+        });
+
     }
 }

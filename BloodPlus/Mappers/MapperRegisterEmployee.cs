@@ -1,4 +1,5 @@
-﻿using BloodPlus.ModelViews.AccountViewModels;
+﻿using BloodPlus.ModelViews;
+using BloodPlus.ModelViews.AccountViewModels;
 using DatabaseAccess.Models;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,20 @@ namespace BloodPlus.Mappers
 
             };
         }
+
+        public static Employee ToEmployee2(EmployeeGetModelView employee, ApplicationUser user)
+        {
+            return new Employee
+            {
+                Id = user.Id,
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                
+                
+
+            };
+        }
+
 
 
     }

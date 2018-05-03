@@ -59,5 +59,29 @@ namespace BloodPlus.Controllers
             }
         }
 
+        [Authorize(Roles = "DonationCenterDoctor")]
+        [HttpPost("changes")]
+        public IActionResult SaveProfileChanges([FromBody] EmployeeGetModelView emplMofified)
+        {
+            try
+            {
+                var id = Request.Cookies["CenterDoctorId"];
+                var employee = employeeProfileService.GetCenterEmployee(id);
+                var user = employeeProfileService.GetUserForEmployee(employee.Id);
+                var empUpdated= Mappers.MapperRegisterEmployee.ToEmployee2(emplMofified,user);
+                empUpdated.CenterId = employee.CenterId;
+                empUpdated.Center = employee.Center;
+
+                employeeProfileService.UpdateEmployee(empUpdated);
+                employeeProfileService.UpdateEmployeeEmail(empUpdated.Id, emplMofified.Email);
+                return Ok();
+
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

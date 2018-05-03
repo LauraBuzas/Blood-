@@ -36,6 +36,28 @@ namespace Services
             }
         }
 
+        public void UpdateEmployee(Employee e)
+        {
+            using(UnitOfWork uow = new UnitOfWork())
+            {
+                uow.EmployeeRepository.Update(e);
+                uow.Save();
+                
+            }
+        }
+
+        public void UpdateEmployeeEmail(String userId, String email)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                uow.ApplicationUserRepository.GetByFunc(a => a.Id == userId).Email = email;
+                uow.ApplicationUserRepository.GetByFunc(a => a.Id == userId).UserName = email;
+                uow.ApplicationUserRepository.GetByFunc(a => a.Id == userId).NormalizedEmail = email.ToUpper();
+                uow.ApplicationUserRepository.GetByFunc(a => a.Id == userId).NormalizedUserName = email.ToUpper();
+                uow.Save();
+            }
+        }
+
         
     }
 }
