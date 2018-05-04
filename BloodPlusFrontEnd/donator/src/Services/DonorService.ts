@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 export class DonorService {
-    private static rootDonors: string = 'http://localhost:51401/donors';
+    private static rootDonors: string = 'http://localhost:50272/donors';
 
     public static getNextDonation(): Promise<any> {
         return new Promise((resolve, reject) => {
