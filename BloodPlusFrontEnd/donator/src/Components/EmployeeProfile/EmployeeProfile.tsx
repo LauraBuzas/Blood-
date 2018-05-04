@@ -63,9 +63,9 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
                     <HBox>
                         <div className="avatar">
                             <Avatar name="mircea bravo" size={200} src='https://cdn3.iconfinder.com/data/icons/medicalicons/PNG_256x256/doctor_assistant.png'/>
-                            <button className='btnUploadImage' onClick={(event) => alert("Not implemented yet :)")}>
+                            {/* <button className='btnUploadImage' onClick={(event) => alert("Not implemented yet :)")}>
                             Încarcă<br/>altă imagine
-                            </button>
+                            </button> */}
                         </div >
                         <VBox>
                             <h3 className='title'>Informații profil</h3>
