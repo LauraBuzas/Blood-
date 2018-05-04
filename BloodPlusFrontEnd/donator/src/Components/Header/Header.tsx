@@ -45,7 +45,7 @@ var nodesDoctor=[
     },
     {
         title:"Profil",
-        link:'/doctor/profile'
+        link:"/doctor/profile"
     },
     {
         title:"Cere sânge",

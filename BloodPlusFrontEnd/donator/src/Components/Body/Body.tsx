@@ -61,6 +61,7 @@ export class Body extends React.Component<BodyProps,BodyState>
                 <Route path="/analyses" exact={true} render={DonorComponent}/>              
                 <Route path="/" exact={true} render={HomeComponent}/>
                 <Route path="/donor/profile" exact={true} render={DonorProfileComponent}/>
+                <Route path="/doctor/profile" exact={true} render={DoctorProfileComponent}/>
                 <div id="push">
                     {/* for footer */}
                 </div>
