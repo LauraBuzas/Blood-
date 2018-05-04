@@ -24,12 +24,10 @@ namespace DatabaseAccess.Models
 
         public int ApartmentNumber { get; set; }
 
-        //scara
-        public int Unit { get; set; }
+        public string Unit { get; set; }
 
         public int Floor { get; set; }
 
-        //public Donor Donor { get; set; }
 
     }
 }

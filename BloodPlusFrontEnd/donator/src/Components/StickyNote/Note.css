@@ -1,0 +1,84 @@
+.sticky-notes,.note{
+list-style:none;
+}
+
+.sticky-notes{
+overflow:hidden;
+padding:3em;
+}
+
+.sticky-notes .note a{
+text-decoration:none;
+color:#000;
+background:#ffc;
+display:block;
+height:10em;
+width:10em;
+padding:1em;
+}
+
+.sticky-notes .note{
+margin:1em;
+float:left;
+}
+
+.sticky-notes .note h2{
+font-size:medium;
+font-weight:bold;
+padding-bottom:10px;
+}
+
+.sticky-notes .note p{
+font-family:"Reenie Beanie",arial,sans-serif;
+font-size:medium;
+}
+
+.sticky-notes .note .link-note{
+text-decoration:none;
+color:#000;
+background:rgb(245, 165, 128);
+display:block;
+height:10em;
+width:10em;
+padding:1em;
+/* Firefox */
+-moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
+/* Safari+Chrome */
+-webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+/* Opera */
+box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+}
+
+.sticky-notes .note .link-note{
+-webkit-transform:rotate(-6deg);
+-o-transform:rotate(-6deg);
+-moz-transform:rotate(-6deg);
+}
+
+.sticky-notes .note .link-note:hover,.sticky-notes .note .link-note:focus{
+-moz-box-shadow:10px 10px 7px rgba(0,0,0,.7);
+-webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
+box-shadow:10px 10px 7px rgba(0,0,0,.7);
+-webkit-transform: scale(1.25);
+-moz-transform: scale(1.25);
+-o-transform: scale(1.25);
+position:relative;
+z-index:5;
+}
+
+
+.sticky-notes .note .link-note{
+text-decoration:none;
+color:#000;
+background:rgb(245, 154, 112);
+display:block;
+height:10em;
+width:10em;
+padding:1em;
+-moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
+-webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+-moz-transition:-moz-transform .15s linear;
+-o-transition:-o-transform .15s linear;
+-webkit-transition:-webkit-transform .15s linear;
+}

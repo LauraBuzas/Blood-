@@ -11,6 +11,7 @@ namespace DatabaseAccess.Models
         public MedicalAnalysis Analysis { get; set; }
 
         public BloodBagStatus Status { get; set; }
+        public BloodBagStage Stage { get; set; }
 
         public Center Center { get; set; }
         public int CenterId { get; set; }
