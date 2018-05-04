@@ -9,6 +9,7 @@ import { DoctorRequest } from '../DoctorRequest/DoctorRequest';
 import { HomePage } from '../HomePage/HomePage';
 import "../../css/Body.css";
 import { DoctorProfile } from '../DoctorProfile/DoctorProfile';
+import { DonorProfile } from '../DonorProfile/DonorProfile';
 export interface BodyProps{
     setRole:any;
 } 
@@ -35,6 +36,7 @@ export class Body extends React.Component<BodyProps,BodyState>
         const DoctorRequestCompoent=()=>{return <DoctorRequest/>}
         const HomeComponent = () => {return <HomePage/>}
         const DoctorProfileComponent = () => {return <DoctorProfile/>}
+        const DonorProfileComponent = () =>{return <DonorProfile/>}
 
         return(
            <div id="body">
@@ -45,6 +47,7 @@ export class Body extends React.Component<BodyProps,BodyState>
                 <Route path="/request" exact={true} render={DoctorRequestCompoent}/>
                 <Route path="/doctor/profile" exact={true} render={DoctorProfileComponent}/>
                 <Route path="/" exact={true} render={HomeComponent}/>
+                <Route path="/donor/profile" exact={true} render={DonorProfileComponent}/>
            </div> 
         )
     }

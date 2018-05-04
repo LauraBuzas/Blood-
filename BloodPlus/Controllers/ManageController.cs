@@ -17,7 +17,9 @@ using BloodPlus.Services2;
 namespace BloodPlus.Controllers
 {
     [Authorize]
-    [Route("[controller]/[action]")]
+  
+    [Produces("application/json")]
+    [Route("manage")]
     public class ManageController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -148,13 +150,15 @@ namespace BloodPlus.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
-        {
+        [Authorize(Roles ="HospitalDoctor")]
+        [HttpPost("change")]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword([FromBody]ChangePasswordViewModel model)
+        { 
             if (!ModelState.IsValid)
             {
-                return View(model);
+                //return View(model);
+                return Ok("Invalid model!");
             }
 
             var user = await _userManager.GetUserAsync(User);
@@ -167,7 +171,8 @@ namespace BloodPlus.Controllers
             if (!changePasswordResult.Succeeded)
             {
                 AddErrors(changePasswordResult);
-                return View(model);
+                //return View(model);
+                return Ok("Invalid password!");
             }
 
             await _signInManager.SignInAsync(user, isPersistent: false);

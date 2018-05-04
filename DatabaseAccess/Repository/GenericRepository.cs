@@ -44,6 +44,11 @@ namespace DatabaseAccess.Repository
             return dbset.Find(id);
         }
 
+        public TEntity GetById(string id)
+        {
+            return dbset.Find(id);
+        }
+
         public TEntity GetByFunc(Func<TEntity, bool> func)
         {
             return dbset.AsQueryable().Where(x => func(x)).FirstOrDefault();

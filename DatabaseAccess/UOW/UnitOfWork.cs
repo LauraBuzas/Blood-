@@ -22,6 +22,7 @@ namespace DatabaseAccess.UOW
         private IRepository<BloodBag> _BloodBagRepository;
         private IRepository<MedicalAnalysis> _MedicalAnalysisRepository;
         private IRepository<Center> _CenterRepository;
+        private IRepository<Hospital> _HospitalRepository;
 
         public UnitOfWork()
         {
@@ -125,6 +126,16 @@ namespace DatabaseAccess.UOW
                 if (_CenterRepository == null)
                     _CenterRepository = new GenericRepository<Center>(context);
                 return _CenterRepository;
+            }
+        }
+
+        public IRepository<Hospital> HospitalRepository
+        {
+            get
+            {
+                if (_HospitalRepository == null)
+                    _HospitalRepository = new GenericRepository<Hospital>(context);
+                return _HospitalRepository;
             }
         }
 

@@ -44,7 +44,7 @@ var nodesDoctor=[
         link:'/'
     },
     {
-        title:"Profile",
+        title:"Profil",
         link:'/doctor/profile'
     },
     {
@@ -69,7 +69,15 @@ var nodesCenterAdmin=[
             title:"Conturi",
             link:"/center/admin"
         }]
-
+var nodesDonor=[
+    {
+        title:"Acasă",
+        link:'/'
+    },
+    {
+        title:"Profil",
+        link:'/doctor/profile'
+    }]
 export class Header extends React.Component<HeaderProps,HeaderState>
 {
     constructor(props:HeaderProps)
