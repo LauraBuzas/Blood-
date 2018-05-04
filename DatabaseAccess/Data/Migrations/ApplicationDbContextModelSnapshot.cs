@@ -41,7 +41,7 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<string>("Street")
                         .IsRequired();
 
-                    b.Property<int>("Unit");
+                    b.Property<string>("Unit");
 
                     b.HasKey("Id");
 
@@ -260,6 +260,10 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.Property<bool>("HepatitisC");
 
+                    b.Property<string>("Observations");
+
+                    b.Property<bool>("RejectedOtherCauses");
+
                     b.Property<bool>("Sifilis");
 
                     b.HasKey("Id");
@@ -292,6 +296,8 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<string>("LastName")
                         .IsRequired();
 
+                    b.Property<int>("Status");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
@@ -301,6 +307,40 @@ namespace DatabaseAccess.Data.Migrations
                     b.ToTable("Patients");
                 });
 
+            modelBuilder.Entity("DatabaseAccess.Models.Plasma", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("BloodType");
+
+                    b.Property<DateTime>("ExpirationDateAndTime");
+
+                    b.Property<DateTime>("SeparationDateAndTime");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Plasmas");
+                });
+
+            modelBuilder.Entity("DatabaseAccess.Models.RedBloodCell", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("BloodType");
+
+                    b.Property<DateTime>("ExpirationDateAndTime");
+
+                    b.Property<int>("RhType");
+
+                    b.Property<DateTime>("SeparationDateAndTime");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RedBloodCells");
+                });
+
             modelBuilder.Entity("DatabaseAccess.Models.Request", b =>
                 {
                     b.Property<int>("Id")
@@ -308,11 +348,15 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.Property<int>("BloodType");
 
+                    b.Property<int>("Component");
+
+                    b.Property<DateTime>("DateOfRequest");
+
                     b.Property<int>("EmergencyLevel");
 
-                    b.Property<string>("IdDoctor");
-
                     b.Property<int>("IdPatient");
+
+                    b.Property<int>("ReceivedQuantity");
 
                     b.Property<int>("RequestedQuantity");
 
@@ -322,12 +366,27 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdDoctor");
-
-                    b.HasIndex("IdPatient")
-                        .IsUnique();
+                    b.HasIndex("IdPatient");
 
                     b.ToTable("Requests");
+                });
+
+            modelBuilder.Entity("DatabaseAccess.Models.Thrombocyte", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("BloodType");
+
+                    b.Property<DateTime>("ExpirationDateAndTime");
+
+                    b.Property<int>("RhType");
+
+                    b.Property<DateTime>("SeparationDateAndTime");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Thrombocytes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -541,13 +600,9 @@ namespace DatabaseAccess.Data.Migrations
 
             modelBuilder.Entity("DatabaseAccess.Models.Request", b =>
                 {
-                    b.HasOne("DatabaseAccess.Models.Doctor", "Doctor")
-                        .WithMany("Requests")
-                        .HasForeignKey("IdDoctor");
-
                     b.HasOne("DatabaseAccess.Models.Patient", "Patient")
-                        .WithOne("Request")
-                        .HasForeignKey("DatabaseAccess.Models.Request", "IdPatient")
+                        .WithMany("Requests")
+                        .HasForeignKey("IdPatient")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

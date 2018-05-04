@@ -1,5 +1,5 @@
 export interface ISelection
 {
-    value:number,
+    value:string,
     label:string
 }

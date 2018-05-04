@@ -32,6 +32,9 @@ namespace BloodPlus.ModelViews
         [Required]
         public DateTime DateAndTime { get; set; }
 
-
+        [Required]
+        public bool RejectedOtherCauses { get; set; }
+        
+        public string Observations { get; set; }
     }
 }

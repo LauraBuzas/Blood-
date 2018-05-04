@@ -1,0 +1,46 @@
+#container {
+    margin: 20px;
+    width: 200px;
+    height: 200px;
+    position: relative;
+  }
+
+  .hboxWithSpace
+{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.infoLabel{
+    display: block !important;
+   
+}
+
+.emergencyLevel{
+    display: inline-block !important;
+    width:47%;
+    margin-left:7px;
+}
+
+.emergencyLabel{
+    display: inline-block !important;
+    width:47%;
+    
+    margin-right: 8px;
+}
+
+.labels{
+    width: 45%;
+}
+
+.label{
+    height: 40px;
+    margin-top: 5px;
+    font-size: 100% !important;
+    line-height: 2 !important;
+}
+
+.label-default{
+    background-color: #c4a773 !important;
+}

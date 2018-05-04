@@ -27,7 +27,7 @@ export class Footer extends React.Component {
         return(
             <div id="footer">
                 <button onClick={this.scrollUp} className="footer-button up-button" id="up-button">
-                    <i className="fa fa-angle-double-up"></i>
+                    <div><i className="fa fa-angle-double-up" /></div>
                 </button>
                 
                 <a href="/" className="footer-button" id="up-button">

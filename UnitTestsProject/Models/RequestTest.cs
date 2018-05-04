@@ -14,7 +14,7 @@ namespace UnitTestsProject.Models
             Request req = new Request();
             req.Id = 23;
             req.BloodType = BloodTypes.AB4;
-            req.EmergencyLevel = EmergencyLevel.High;
+            req.EmergencyLevel = EmergencyLevel.RIDICAT;
             req.RequestedQuantity = 5;
 
             Assert.IsTrue(req.Id == 23);
