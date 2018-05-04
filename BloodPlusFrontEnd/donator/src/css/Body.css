@@ -1,4 +1,11 @@
 #body {
-    display: flex;
-    /* height: 100%; */
+    display: block;
+    min-height: 100%;
+    margin-bottom: -120px;
+    /* for footer do not change */
+}
+
+#push {
+    width: 100%;
+    height: 120px;
 }

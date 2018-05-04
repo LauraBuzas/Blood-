@@ -1,14 +1,19 @@
 import * as React from 'react';
 import {Route} from 'react-router-dom';
-import { HospitalAdmin } from '../HospitalAdmin/HospitalAdmin';
-import { CenterAdmin } from '../CenterAdmin/CenterAdmin';
+import { HospitalAdmin } from '../Doctor/HospitalAdmin/HospitalAdmin';
+import { CenterAdmin } from '../MedicalCenter/CenterAdmin/CenterAdmin';
 import { Register } from '../../main_components/Register';
 import { LogIn } from '../../main_components/LogIn';
 import { SignUp } from '../../main_components/SignUp';
-import { DoctorRequest } from '../DoctorRequest/DoctorRequest';
 import { HomePage } from '../HomePage/HomePage';
+
 import "../../css/Body.css";
-import { DoctorProfile } from '../DoctorProfile/DoctorProfile';
+import { Donor } from '../Donor/Donor';
+import { ModalDoctorRequest } from '../Modal/ModalDoctorRequest';
+
+
+import { EmployeeProfile } from '../EmployeeProfile/EmployeeProfile';
+import { DoctorRequest } from '../Doctor/DoctorRequest/DoctorRequest';
 export interface BodyProps{
     setRole:any;
 } 
@@ -22,9 +27,6 @@ export class Body extends React.Component<BodyProps,BodyState>
         this.state={};
         
     }
- 
-  
-    
 
     render()
     {
@@ -33,18 +35,29 @@ export class Body extends React.Component<BodyProps,BodyState>
         const LoginComponent=()=>{return <Register setRole={this.props.setRole} />}
         const RegisterComponent=()=>{return <SignUp/>}
         const DoctorRequestCompoent=()=>{return <DoctorRequest/>}
+        const EmployeeProfileComponent=()=>{return <EmployeeProfile/>}
         const HomeComponent = () => {return <HomePage/>}
-        const DoctorProfileComponent = () => {return <DoctorProfile/>}
-
+        // console.log("body height: " + this.state.height);
+        // let newHeight = parseInt(document.getElementById("body").style.height);
+        // if (newHeight) {
+        //     this.setState({height: newHeight });
+        // }
+        const DoctorRequestComponent=()=>{return <DoctorRequest/>}
+        const DonorComponent=()=>{return <Donor/>}
+       
         return(
            <div id="body">
                 <Route path ="/hospital/admin" exact={true} render={HospitalAdminComponent}/>
                 <Route path ="/center/admin" exact={true} render={CenterAdminComponent}/>
                 <Route path="/login" exact={true} render={LoginComponent}/>
                 <Route path="/register" exact={true} render={RegisterComponent}/>
-                <Route path="/request" exact={true} render={DoctorRequestCompoent}/>
-                <Route path="/doctor/profile" exact={true} render={DoctorProfileComponent}/>
+                <Route path="/request" exact={true} render={DoctorRequestComponent}/>
+                <Route path="/employee/profile" exact={true} render={EmployeeProfileComponent}/>
+                <Route path="/analyses" exact={true} render={DonorComponent}/>              
                 <Route path="/" exact={true} render={HomeComponent}/>
+                <div id="push">
+                    {/* for footer */}
+                </div>
            </div> 
         )
     }

@@ -18,7 +18,7 @@ namespace Services
                 uow.AddressRepository.Add(address);
                 uow.Save();
 
-                donor.Address = address;
+                donor.AddressId = address.Id;
                 uow.DonorRepository.Add(donor);
                 uow.Save();
                 return donor;

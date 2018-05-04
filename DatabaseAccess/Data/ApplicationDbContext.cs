@@ -40,6 +40,12 @@ namespace DatabaseAccess.Data
 
         public DbSet<MedicalAnalysis> MedicalAnalyses { get; set; }
 
+        public DbSet<Plasma> Plasmas { get; set; }
+
+        public DbSet<Thrombocyte> Thrombocytes { get; set; }
+
+        public DbSet<RedBloodCell> RedBloodCells { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -61,6 +67,9 @@ namespace DatabaseAccess.Data
             builder.Entity<CenterAdmin>().ToTable("CenterAdmins");
             builder.Entity<BloodBag>().ToTable("BloodBags");
             builder.Entity<MedicalAnalysis>().ToTable("MedicalAnalyses");
+            builder.Entity<Plasma>().ToTable("Plasmas");
+            builder.Entity<Thrombocyte>().ToTable("Thrombocytes");
+            builder.Entity<RedBloodCell>().ToTable("RedBloodCells");
 
             //One to one Doctor-ApplicationUser
             builder.Entity<Doctor>(doc => doc.HasOne<ApplicationUser>()
@@ -141,17 +150,25 @@ namespace DatabaseAccess.Data
                 .WithOne(p => p.Doctor)
                 .HasForeignKey(p => p.IdDoctor);
 
+
+            //One to many Patient-Requests
+            builder.Entity<Patient>()
+                .HasMany(p => p.Requests)
+                .WithOne(r => r.Patient)
+                .HasForeignKey(p => p.IdPatient);
+
+
             //One to many Doctor-Requests
-            builder.Entity<Doctor>()
-                .HasMany(d => d.Requests)
-                .WithOne(r => r.Doctor)
-                .HasForeignKey(r => r.IdDoctor);
+            //builder.Entity<Doctor>()
+            //    .HasMany(d => d.Requests)
+            //    .WithOne(r => r.Doctor)
+            //    .HasForeignKey(r => r.IdDoctor);
 
             //One to one Request-Patient
-            builder.Entity<Request>()
-                .HasOne(r => r.Patient)
-                .WithOne(p => p.Request)
-                .HasForeignKey<Request>(r => r.IdPatient);
+            //builder.Entity<Request>()
+            //    .HasOne(r => r.Patient)
+            //    .WithOne(p => p.Request)
+            //    .HasForeignKey<Request>(r => r.IdPatient);
 
             //One to one Analysis-BloodBag
             builder.Entity<MedicalAnalysis>()

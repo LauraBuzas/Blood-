@@ -22,6 +22,8 @@ namespace DatabaseAccess.UOW
         private IRepository<BloodBag> _BloodBagRepository;
         private IRepository<MedicalAnalysis> _MedicalAnalysisRepository;
         private IRepository<Center> _CenterRepository;
+        private IRepository<Patient> _PatientRepository;
+        private IRepository<Request> _DoctorRequestRepository;
 
         public UnitOfWork()
         {
@@ -45,6 +47,16 @@ namespace DatabaseAccess.UOW
                 if (_EmployeeRepository == null)
                     _EmployeeRepository = new GenericRepository<Employee>(context);
                 return _EmployeeRepository;
+            }
+        }
+
+        public IRepository<Patient> PatientRepository
+        {
+            get
+            {
+                if (_PatientRepository == null)
+                    _PatientRepository = new GenericRepository<Patient>(context);
+                return _PatientRepository;
             }
         }
 
@@ -95,6 +107,16 @@ namespace DatabaseAccess.UOW
                 if (_AddressRepository == null)
                     _AddressRepository = new GenericRepository<Address>(context);
                 return _AddressRepository;
+            }
+        }
+
+        public IRepository<Request> DoctorRequestRepository
+        {
+            get
+            {
+                if (_DoctorRequestRepository == null)
+                    _DoctorRequestRepository = new GenericRepository<Request>(context);
+                return _DoctorRequestRepository;
             }
         }
 

@@ -9,7 +9,10 @@ namespace DatabaseAccess.Models
 {
     public class Patient
     {
-      
+        public Patient()
+        {
+            Requests = new List<Request>();
+        }
 
         public int Id { get; set; }
 
@@ -30,7 +33,9 @@ namespace DatabaseAccess.Models
 
         public string IdDoctor { get; set; }
 
-        public Request Request { get; set; }
+        public List<Request> Requests { get; set; }
+
+        public PatientStatus Status { get; set; }
 
 
 
