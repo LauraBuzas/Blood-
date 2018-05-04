@@ -16,5 +16,8 @@ namespace DatabaseAccess.Models
         public BloodTypes BloodType { get; set; }
 
         public RhTypes RhType { get; set; }
+
+        public Center Center { get; set; }
+        public int CenterId { get; set; }
     }
 }

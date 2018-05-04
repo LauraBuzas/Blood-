@@ -12,9 +12,10 @@ using System;
 namespace DatabaseAccess.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180504141436_PatientAddressMigration")]
+    partial class PatientAddressMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -325,15 +326,11 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.Property<int>("BloodType");
 
-                    b.Property<int>("CenterId");
-
                     b.Property<DateTime>("ExpirationDateAndTime");
 
                     b.Property<DateTime>("SeparationDateAndTime");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CenterId");
 
                     b.ToTable("Plasmas");
                 });
@@ -345,8 +342,6 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.Property<int>("BloodType");
 
-                    b.Property<int>("CenterId");
-
                     b.Property<DateTime>("ExpirationDateAndTime");
 
                     b.Property<int>("RhType");
@@ -354,8 +349,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<DateTime>("SeparationDateAndTime");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CenterId");
 
                     b.ToTable("RedBloodCells");
                 });
@@ -397,8 +390,6 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.Property<int>("BloodType");
 
-                    b.Property<int>("CenterId");
-
                     b.Property<DateTime>("ExpirationDateAndTime");
 
                     b.Property<int>("RhType");
@@ -406,8 +397,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<DateTime>("SeparationDateAndTime");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CenterId");
 
                     b.ToTable("Thrombocytes");
                 });
@@ -632,35 +621,11 @@ namespace DatabaseAccess.Data.Migrations
                         .HasForeignKey("IdDoctor");
                 });
 
-            modelBuilder.Entity("DatabaseAccess.Models.Plasma", b =>
-                {
-                    b.HasOne("DatabaseAccess.Models.Center", "Center")
-                        .WithMany("Plasmas")
-                        .HasForeignKey("CenterId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DatabaseAccess.Models.RedBloodCell", b =>
-                {
-                    b.HasOne("DatabaseAccess.Models.Center", "Center")
-                        .WithMany("RedBloodCells")
-                        .HasForeignKey("CenterId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("DatabaseAccess.Models.Request", b =>
                 {
                     b.HasOne("DatabaseAccess.Models.Patient", "Patient")
                         .WithMany("Requests")
                         .HasForeignKey("IdPatient")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DatabaseAccess.Models.Thrombocyte", b =>
-                {
-                    b.HasOne("DatabaseAccess.Models.Center", "Center")
-                        .WithMany("Thrombocytes")
-                        .HasForeignKey("CenterId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

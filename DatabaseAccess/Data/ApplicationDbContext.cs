@@ -157,19 +157,6 @@ namespace DatabaseAccess.Data
                 .WithOne(r => r.Patient)
                 .HasForeignKey(p => p.IdPatient);
 
-
-            //One to many Doctor-Requests
-            //builder.Entity<Doctor>()
-            //    .HasMany(d => d.Requests)
-            //    .WithOne(r => r.Doctor)
-            //    .HasForeignKey(r => r.IdDoctor);
-
-            //One to one Request-Patient
-            //builder.Entity<Request>()
-            //    .HasOne(r => r.Patient)
-            //    .WithOne(p => p.Request)
-            //    .HasForeignKey<Request>(r => r.IdPatient);
-
             //One to one Analysis-BloodBag
             builder.Entity<MedicalAnalysis>()
                 .HasOne(ma => ma.BloodBag)
@@ -181,6 +168,43 @@ namespace DatabaseAccess.Data
                 .HasMany(c => c.BloodBags)
                 .WithOne(b => b.Center)
                 .HasForeignKey(b => b.CenterId);
+
+            //One to many Center-Plasmas
+            builder.Entity<Center>()
+               .HasMany(c => c.Plasmas)
+               .WithOne(b => b.Center)
+               .HasForeignKey(b => b.CenterId);
+
+            //One to many Center-Thrombocytes
+            builder.Entity<Center>()
+              .HasMany(c => c.Thrombocytes)
+              .WithOne(b => b.Center)
+              .HasForeignKey(b => b.CenterId);
+
+            //One to many Center-RedBloodCells
+            builder.Entity<Center>()
+               .HasMany(c => c.RedBloodCells)
+               .WithOne(b => b.Center)
+               .HasForeignKey(b => b.CenterId);
+
+            //One to one Hospital-Address
+            builder.Entity<Hospital>()
+                .HasOne(h => h.Address)
+                .WithOne()
+                .HasForeignKey<Hospital>(h => h.IdAddress);
+
+            //One to one Center-Address
+            builder.Entity<Center>()
+                .HasOne(c => c.Address)
+                .WithOne()
+                .HasForeignKey<Center>(c => c.IdAddress);
+
+            //one to one Patient-Address
+            builder.Entity<Patient>()
+             .HasOne(c => c.Address)
+             .WithOne()
+             .HasForeignKey<Patient>(c => c.IdAddress);
+
 
 
         }

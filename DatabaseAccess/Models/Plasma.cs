@@ -13,5 +13,7 @@ namespace DatabaseAccess.Models
         public DateTime ExpirationDateAndTime { get; set; }
 
         public BloodTypes BloodType { get; set; }
+        public Center Center { get; set; }
+        public int CenterId { get; set; }
     }
 }
