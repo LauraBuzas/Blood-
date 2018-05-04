@@ -39,6 +39,15 @@ namespace BloodPlus.Controllers
             return Ok(employeesView);
         }
 
+
+        [HttpGet("requests")]
+        public IActionResult GetRequests()
+        {
+            var centerId = Request.Cookies["CenterId"];
+            List<Request> requests = employeeService.GetRequests(int.Parse(centerId));
+            return Ok(requests);
+        }
+
         [Authorize(Roles = "DonationCenterAdmin")]
         [HttpDelete]
         public IActionResult DeleteEmployeeByEmail([FromBody] EmployeeDeleteViewModel employeeDelete)
@@ -95,5 +104,7 @@ namespace BloodPlus.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
     }
 }
