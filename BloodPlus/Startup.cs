@@ -74,6 +74,8 @@ namespace BloodPlus
             services.AddTransient<EmployeeService>();
             services.AddTransient<DonorService>();
             services.AddTransient<EmployeeProfileService>();
+            services.AddTransient<DoctorProfileService>();
+            services.AddTransient<PatientService>();
 
         }
 

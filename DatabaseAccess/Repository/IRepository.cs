@@ -11,7 +11,7 @@ namespace DatabaseAccess.Repository
 
             TEntity GetById(int id);
 
-            TEntity GetById(string id); //pusa de mine AC
+            TEntity GetById(string id);
 
             TEntity GetByFunc(Func<TEntity, bool> func);
 
