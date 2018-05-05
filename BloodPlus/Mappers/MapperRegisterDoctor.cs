@@ -23,6 +23,20 @@ namespace BloodPlus.Mappers
             };
         }
 
+        public static Doctor ToDoctor(DoctorGetModelView viewModel, ApplicationUser applicationUser,Hospital hospital)
+        {
+            return new Doctor
+            {
+                Id = applicationUser.Id,
+                FirstName = viewModel.FirstName,
+                LastName = viewModel.LastName,
+                Speciality = viewModel.Speciality,
+                Ward = viewModel.Ward,
+                HospitalId = hospital.Id,
+                Hospital=hospital
+            };
+        }
+
         public static DoctorGetModelView ToDoctorGet(Doctor doctor, ApplicationUser applicationUser)
         {
             return new DoctorGetModelView
@@ -33,7 +47,20 @@ namespace BloodPlus.Mappers
                 Email = applicationUser.Email,
                 Speciality=doctor.Speciality,
                 Ward=doctor.Ward,
-                Password = "zsdsdas"
+                Password = "Password"
+            };
+        }
+
+        public static DoctorGetModelView ToDoctorProfileGet(Doctor doctor, ApplicationUser applicationUser)
+        {
+            return new DoctorGetModelView
+            {
+
+                FirstName = doctor.FirstName,
+                LastName = doctor.LastName,
+                Email = applicationUser.Email,
+                Speciality = doctor.Speciality,
+                Ward = doctor.Ward,
             };
         }
     }
