@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿
 namespace DatabaseAccess
 {
     public static class Configuration
@@ -11,7 +7,7 @@ namespace DatabaseAccess
         {
             get
             {
-                return "Data Source=DESKTOP-02E53VM\\SQLEXPRESS01;Initial Catalog=BloodPlus;Integrated Security=True;";
+                return "Data Source=DESKTOP-KBM8R90\\SQLEXPRESS;Initial Catalog=BloodPlus;Integrated Security=True;";
             }
         }
     }
