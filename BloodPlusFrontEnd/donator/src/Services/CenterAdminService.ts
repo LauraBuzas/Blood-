@@ -5,8 +5,13 @@ import { Session } from 'inspector';
 import { IEmployeeDelete } from '../Models/IEmployeeDelete';
 
 export class CenterAdminService {
+<<<<<<< HEAD
     private static rootEmployees: string = 'http://localhost:65063/employees';
     private static rootRegisterEmployees: string = 'http://localhost:65063/account/register/employee';
+=======
+    private static rootEmployees: string = 'http://localhost:57738/employees';
+    private static rootRegisterEmployees: string = 'http://localhost:57738/account/register/employee';
+>>>>>>> development
 
 
     public static getEmployees(): Promise<IEmployeeGet[]> {

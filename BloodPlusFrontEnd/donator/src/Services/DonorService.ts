@@ -3,7 +3,11 @@ import Cookies from 'universal-cookie';
 import { IDonorTestGet } from '../Models/IDonorTestGet';
 
 export class DonorService {
+<<<<<<< HEAD
     private static rootDonors: string = 'http://localhost:65063/donors';
+=======
+    private static rootDonors: string = 'http://localhost:57738/donors';
+>>>>>>> development
 
     public static getNextDonation(): Promise<any> {
         return new Promise((resolve, reject) => {

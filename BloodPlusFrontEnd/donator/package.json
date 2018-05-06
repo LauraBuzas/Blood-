@@ -6,6 +6,8 @@
     "@types/react-router-dom": "^4.2.3",
     "axios": "^0.18.0",
     "font-awesome": "^4.7.0",
+    "material-ui": "^0.20.0",
+    "material-ui-password-field": "^1.4.2",
     "mdbreact": "^4.2.0",
     "progressbar.js": "^1.0.1",
     "react": "^16.2.0",
