@@ -4,11 +4,9 @@ import Cookies from 'universal-cookie';
 
 
 export class AccountService {
-<<<<<<< HEAD
-    private static root: string = "http://localhost:65063/account";
-=======
-    private static root: string = "http://localhost:57738/account";
->>>>>>> development
+
+    private static root: string = "http://localhost:50272/account";
+
 
     public static loginUser(user: any): Promise<any> {
 
