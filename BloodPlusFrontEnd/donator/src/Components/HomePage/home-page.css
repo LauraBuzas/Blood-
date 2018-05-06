@@ -23,13 +23,11 @@ img {
     z-index: 1;
     width: 150px;
     height: 40px;  
-    background-color: #990000;
+    background-color: #ff3e30;
+    text-transform: uppercase;
+    border-radius: 25px;
     color: white;
     border: none;
-}
-
-#register-button:hover {
-    background-color: #995555;
 }
 
 #register-button:focus {

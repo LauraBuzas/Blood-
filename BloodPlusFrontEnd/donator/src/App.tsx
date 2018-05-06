@@ -3,7 +3,7 @@ import './App.css';
 import './css/Management.css'
 import {HomePage} from './Components/HomePage/HomePage';
 import {Footer} from './Components/Footer/Footer';
-import { HBox, VBox } from 'react-stylesheet/lib/Box';
+import { HBox, VBox } from 'react-stylesheet';
 import './css/TextField.css';
 import Alert from 'react-s-alert';
 import { BrowserRouter as Router } from 'react-router-dom'
@@ -11,6 +11,9 @@ import { Header } from './Components/Header/Header';
 import { CenterAdmin } from './Components/MedicalCenter/CenterAdmin/CenterAdmin';
 import { Body } from './Components/Body/Body';
 import { AccountService } from './Services/AccountServices';
+import {ModalDoctorRequest} from './Components/Modal/ModalDoctorRequest';
+import { DoctorRequest } from './Components/Doctor/DoctorRequest/DoctorRequest';
+
 
 export interface AppProps
 {
@@ -68,6 +71,7 @@ export class App extends React.Component<AppProps,AppState> {
           }
           <Body setRole={(event) => this.setRoleInApp(event)}  />  
           <Footer/>
+          
         </div>
       
       </Router>
