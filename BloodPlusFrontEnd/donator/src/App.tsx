@@ -72,7 +72,7 @@ export class App extends React.Component<AppProps,AppState> {
           <Footer/>
           
         </div>
-      
+          
       </Router>
     );
   }
