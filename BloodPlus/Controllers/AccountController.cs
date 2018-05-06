@@ -22,6 +22,7 @@ namespace BloodPlus.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly DoctorsService _doctorsService;
+        //private readonly DoctorProfileService _doctorService;
         private readonly DonorService _donorsService;
         private readonly AdminService _adminService;
         private readonly EmployeeService _employeeService;
@@ -105,7 +106,12 @@ namespace BloodPlus.Controllers
                     if (roles.Any(s => s == "DonationCenterDoctor"))
                     {
                         var centerId = _employeeService.GetCenterIdForCenterDoctor(user.Id);
-                        SetCookie("CenterId", centerId.ToString());
+                        SetCookie("CenterDoctorId", user.Id); //CenterId
+                    }
+                    if (roles.Any(s => s == "HospitalDoctor"))
+                    {
+                        //var centerId = _doctorService.(user.Id);
+                        SetCookie("DoctorId", user.Id);
                     }
                     if (roles.Any(s => s == "Donor"))
                     {

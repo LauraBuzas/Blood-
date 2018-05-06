@@ -5,7 +5,7 @@
 
 .question {
     width: 100%;
-    max-width: 600px;;
+    max-width: 800px;;
     font-size: 20px;
     background-color: transparent;
     color: #000055;
@@ -36,7 +36,7 @@
 
 .answer-hidden, .answer-visible {
     box-sizing: border-box;
-    background-color: #20CDCD;
+    background-color: white;
     margin: 0 auto;
     width: 100%;
     max-width: 800px;
@@ -45,9 +45,9 @@
 }
 
 .answer-hidden {
-    height: 0;
+    max-height: 0;
 }
 
 .answer-visible {
-    height: 200px;
+    max-height: 500px;
 }
