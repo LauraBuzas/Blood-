@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Services
 {
@@ -36,6 +35,19 @@ namespace Services
         public object GetCenterIdForCenterDoctor(string id)
         {
             throw new NotImplementedException();
+        }
+
+        public void AddRegistrationForDonation(String donorName)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var registration = new DonorRegistrationForDonation();
+                registration.DonorName = donorName;
+                registration.RegistrationDate = DateTime.Now;
+
+                uow.DonorRegistrationForDonationRepository.Add(registration);
+                uow.Save();
+            }
         }
     }
 }

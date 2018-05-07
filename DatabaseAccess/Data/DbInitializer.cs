@@ -165,11 +165,5 @@ namespace DatabaseAccess.Data
             context.SaveChanges();
 
         }
-
-
-
-
-
-
     }
 }
