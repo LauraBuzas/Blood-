@@ -11,7 +11,9 @@ namespace DatabaseAccess
         {
             get
             {
-                return "Data Source=DESKTOP-02E53VM\\SQLEXPRESS01;Initial Catalog=BloodPlus;Integrated Security=True;";
+
+                return "Data Source=DESKTOP-DH0N1BE\\SQLEXPRESS;Initial Catalog=BloodPlus;Integrated Security=True;";
+
             }
         }
     }

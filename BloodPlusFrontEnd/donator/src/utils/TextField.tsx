@@ -3,8 +3,10 @@ import * as React from 'react';
 export interface TextFieldProps {
     text: string,
     type: string,
-    value?: string,
-    onChangeFunction: any
+
+    onChangeFunction: any,
+    value?:string
+
 }
 
 interface TextFieldState { }
