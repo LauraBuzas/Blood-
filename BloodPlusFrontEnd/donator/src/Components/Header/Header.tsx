@@ -89,6 +89,10 @@ var nodesDonor=[
         link:'/'
     },
     {
+        title:"Profil",
+        link:'/donor/profile'
+    },
+    {
         title:"Analizele mele",
         link:"/analyses"
     }]
