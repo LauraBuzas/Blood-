@@ -1,5 +1,8 @@
 export interface IEmployeeProfile{
-    firstName:string
-    lastName:string 
-    age:number
+    email:string,
+    password:string,
+    firstname:string,
+    lastname:string,
+    confirmPassword:string,
+    centerId?:string
 }

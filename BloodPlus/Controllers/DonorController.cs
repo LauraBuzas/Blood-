@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using BloodPlus.Mappers;
+using BloodPlus.ModelViews;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Services;
@@ -63,6 +62,25 @@ namespace BloodPlus.Controllers
             catch(Exception ex)
             {
                 return BadRequest("Nu putem determina urmatoarea data la care poti sa donezi");
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost("registerForDonation")]
+        public IActionResult AddRegistration([FromBody] DonorsRegisterForDonationModelView donorsRegisterForDonation)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Numele nu este valid!");
+            }
+
+            try
+            {
+                donorService.AddRegistrationForDonation(donorsRegisterForDonation.DonorName);
+                return Ok();
+            } catch(Exception exception)
+            {
+                return BadRequest(exception.Message);
             }
         }
 

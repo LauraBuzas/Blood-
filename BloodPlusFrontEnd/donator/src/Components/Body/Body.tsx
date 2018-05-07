@@ -9,6 +9,8 @@ import { HomePage } from '../HomePage/HomePage';
 
 import "../../css/Body.css";
 import { DonorProfilePage } from '../Donor/DonorProfile/DonorProfile';
+import { DoctorProfile } from '../DoctorProfile/DoctorProfile';
+import { DonorProfile } from '../DonorProfile/DonorProfile';
 import { ModalDoctorRequest } from '../Modal/ModalDoctorRequest';
 
 
@@ -37,6 +39,9 @@ export class Body extends React.Component<BodyProps,BodyState>
         const DoctorRequestCompoent=()=>{return <DoctorRequest/>}
         const EmployeeProfileComponent=()=>{return <EmployeeProfile/>}
         const HomeComponent = () => {return <HomePage/>}
+        const DoctorProfileComponent = () => {return <DoctorProfile/>}
+        const DonorProfileComponent = () =>{return <DonorProfile/>}
+
         // console.log("body height: " + this.state.height);
         // let newHeight = parseInt(document.getElementById("body").style.height);
         // if (newHeight) {
@@ -55,7 +60,9 @@ export class Body extends React.Component<BodyProps,BodyState>
                 <Route path="/request" exact={true} render={DoctorRequestComponent}/>
                 <Route path="/employee/profile" exact={true} render={EmployeeProfileComponent}/>
                 <Route path="/analyses" exact={true} render={DonorComponent}/>              
-                
+                <Route path="/" exact={true} render={HomeComponent}/>
+                <Route path="/donor/profile" exact={true} render={DonorProfileComponent}/>
+                <Route path="/doctor/profile" exact={true} render={DoctorProfileComponent}/>
                 <div id="push">
                     {/* for footer */}
                 </div>
