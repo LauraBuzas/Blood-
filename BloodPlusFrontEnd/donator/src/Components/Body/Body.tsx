@@ -8,9 +8,9 @@ import { SignUp } from '../../main_components/SignUp';
 import { HomePage } from '../HomePage/HomePage';
 
 import "../../css/Body.css";
+import { DonorProfilePage } from '../Donor/DonorProfile/DonorProfile';
 import { DoctorProfile } from '../DoctorProfile/DoctorProfile';
 import { DonorProfile } from '../DonorProfile/DonorProfile';
-import { Donor } from '../Donor/Donor';
 import { ModalDoctorRequest } from '../Modal/ModalDoctorRequest';
 
 
@@ -48,12 +48,13 @@ export class Body extends React.Component<BodyProps,BodyState>
         //     this.setState({height: newHeight });
         // }
         const DoctorRequestComponent=()=>{return <DoctorRequest/>}
-        const DonorComponent=()=>{return <Donor/>}
+        const DonorComponent=()=>{return <DonorProfilePage/>}
        
         return(
            <div id="body">
-                <Route path ="/hospital/admin" exact={true} render={HospitalAdminComponent}/>
-                <Route path ="/center/admin" exact={true} render={CenterAdminComponent}/>
+                <Route path="/" exact={true} render={HomeComponent}/>
+                <Route path="/hospital/admin" exact={true} render={HospitalAdminComponent}/>
+                <Route path="/center/admin" exact={true} render={CenterAdminComponent}/>
                 <Route path="/login" exact={true} render={LoginComponent}/>
                 <Route path="/register" exact={true} render={RegisterComponent}/>
                 <Route path="/request" exact={true} render={DoctorRequestComponent}/>
