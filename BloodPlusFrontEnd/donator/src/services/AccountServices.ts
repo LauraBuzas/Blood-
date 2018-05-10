@@ -4,7 +4,9 @@ import Cookies from 'universal-cookie';
 
 
 export class AccountService {
-    private static root: string = "http://localhost:57738/account";
+
+    private static root: string = "http://localhost:50272/account";
+
 
     public static loginUser(user: any): Promise<any> {
 
@@ -70,7 +72,6 @@ export class AccountService {
                 }
             ).then((response: any) => {
                 resolve(response);
-            
             },
                 (error: any) => {
                     reject(error);

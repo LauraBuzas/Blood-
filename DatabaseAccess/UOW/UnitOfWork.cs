@@ -2,9 +2,6 @@
 using DatabaseAccess.Models;
 using DatabaseAccess.Repository;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DatabaseAccess.UOW
 {
@@ -25,6 +22,7 @@ namespace DatabaseAccess.UOW
         private IRepository<Hospital> _HospitalRepository;
         private IRepository<Patient> _PatientRepository;
         private IRepository<Request> _DoctorRequestRepository;
+        private IRepository<DonorRegistrationForDonation> _DonorRegistrationForDonationRepository;
 
         public UnitOfWork()
         {
@@ -158,6 +156,18 @@ namespace DatabaseAccess.UOW
                 if (_HospitalRepository == null)
                     _HospitalRepository = new GenericRepository<Hospital>(context);
                 return _HospitalRepository;
+            }
+        }
+
+        public IRepository<DonorRegistrationForDonation> DonorRegistrationForDonationRepository
+        {
+            get
+            {
+                if(_DonorRegistrationForDonationRepository == null) 
+                {
+                    _DonorRegistrationForDonationRepository = new GenericRepository<DonorRegistrationForDonation>(context);
+                }
+                return _DonorRegistrationForDonationRepository;
             }
         }
 
