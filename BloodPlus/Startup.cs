@@ -76,7 +76,7 @@ namespace BloodPlus
             services.AddTransient<EmployeeProfileService>();
             services.AddTransient<DoctorProfileService>();
             services.AddTransient<PatientService>();
-
+            services.AddTransient<DonorProfileService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

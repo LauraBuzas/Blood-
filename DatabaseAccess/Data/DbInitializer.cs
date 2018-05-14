@@ -38,7 +38,6 @@ namespace DatabaseAccess.Data
             await userManager.CreateAsync(new ApplicationUser { Email = "centerAdmin@admin.com", UserName = "centerAdmin@admin.com" }, "Password123.");
             await userManager.CreateAsync(new ApplicationUser { Email = "employee1@center.com", UserName = "Employee1" }, "Password123.");
 
-
             await roleManager.CreateAsync(new IdentityRole { Name = "God"});
             await roleManager.CreateAsync(new IdentityRole { Name = "DonationCenterAdmin"});
             await roleManager.CreateAsync(new IdentityRole { Name = "HospitalAdmin"});
@@ -129,6 +128,7 @@ namespace DatabaseAccess.Data
             context.Employee.Add(employee);
             context.SaveChanges();
         }
+
 
         private static async Task SeedDoctors(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
