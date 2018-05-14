@@ -68,6 +68,7 @@ namespace BloodPlus
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+			
             services.AddMvc();
             services.AddTransient<DoctorsService>();
             services.AddTransient<AdminService>();

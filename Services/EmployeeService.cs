@@ -111,7 +111,49 @@ namespace Services
 
         }
 
-        public void CopyAnalysisDetailsToDb(UnitOfWork uow, MedicalAnalysis dbAnalysis, MedicalAnalysis analysis)
+
+		public List<BloodBag> GetBloodBags(int centerId) {
+			using (UnitOfWork uow = new UnitOfWork()) {
+				return uow.BloodBagRepository
+					.GetAll()
+					.Include(bb => bb.Analysis.Donor)
+					.Where(bb => bb.Stage == BloodBagStage.Qualification && bb.CenterId == centerId)
+					.ToList();
+				
+			}
+		}
+
+		public List<Thrombocyte> GetThrombocytesStock(int centerId) {
+			using (UnitOfWork uow = new UnitOfWork()) {
+				return uow.ThrombocyteRepository
+					.GetAll()
+					.Where(t => t.CenterId == centerId)
+					.ToList();
+
+			}
+		}
+
+		public List<RedBloodCell> GetRedBloodCellsStock(int centerId) {
+			using (UnitOfWork uow = new UnitOfWork()) {
+				return uow.RedBloodCellRepository
+					.GetAll()
+					.Where(rbc => rbc.CenterId == centerId)
+					.ToList();
+
+			}
+		}
+
+		public List<Plasma> GetPlasmaStock(int centerId) {
+			using (UnitOfWork uow = new UnitOfWork()) {
+				return uow.PlasmaRepository
+					.GetAll()
+					.Where(p => p.CenterId == centerId)
+					.ToList();
+
+			}
+		}
+
+		public void CopyAnalysisDetailsToDb(UnitOfWork uow, MedicalAnalysis dbAnalysis, MedicalAnalysis analysis)
         {
             dbAnalysis.ALTLevel = analysis.ALTLevel;
             dbAnalysis.HepatitisB = analysis.HepatitisB;
