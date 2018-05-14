@@ -166,7 +166,7 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
             <div className="main">
                 <div className="separation"></div>
                 <div>
-                <h1 className="title">Profil doctor</h1>
+                <h1 className="title">Profil donator</h1>
                 </div>
                 <div className="separation"></div>
                 <div className="main">

@@ -12,13 +12,14 @@ using System;
 namespace DatabaseAccess.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180507111828_AddCenterToComponentsMigration")]
+    partial class AddCenterToComponentsMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
+                .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("DatabaseAccess.Models.Address", b =>
@@ -192,20 +193,6 @@ namespace DatabaseAccess.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Donors");
-                });
-
-            modelBuilder.Entity("DatabaseAccess.Models.DonorRegistrationForDonation", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("DonorName");
-
-                    b.Property<DateTime>("RegistrationDate");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DonorsRegistrationsForDonation");
                 });
 
             modelBuilder.Entity("DatabaseAccess.Models.Employee", b =>

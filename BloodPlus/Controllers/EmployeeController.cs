@@ -95,5 +95,76 @@ namespace BloodPlus.Controllers
                 return BadRequest(ex.Message);
             }
         }
-    }
+
+	
+
+		[Authorize(Roles = "DonationCenterDoctor")]
+		[HttpGet("stock")]
+		public IActionResult GetBloodStock() {
+			try {
+				var centerId = int.Parse(Request.Cookies["CenterId"]);
+				var bagsStock = employeeService.GetBloodBags(centerId);
+				var thromboStock = employeeService.GetThrombocytesStock(centerId);
+				var redCellsStock = employeeService.GetRedBloodCellsStock(centerId);
+				var plasmaStock = employeeService.GetPlasmaStock(centerId);
+
+				return Ok(CreateFullStock(bagsStock, thromboStock, redCellsStock, plasmaStock));
+			} catch (Exception ex) {
+				return BadRequest(ex.Message);
+			}
+		}
+
+		private List<BloodStockViewModel> CreateFullStock(List<BloodBag> bagsStock, List<Thrombocyte> thromboStock, List<RedBloodCell> redCellsStock, List<Plasma> plasmaStock) {
+			List<BloodStockViewModel> finalStock = new List<BloodStockViewModel>();
+			foreach (BloodBag bag in bagsStock) {
+				finalStock.Add(new BloodStockViewModel() {
+					ID = bag.Id,
+					Type = "Punga de sange",
+					Group = bag.BloodType.ToString(),
+					Rh = bag.RhType.ToString(),
+					Donor = bag.Analysis.Donor.FirstName + " " + bag.Analysis.Donor.LastName,
+					Date = bag.Analysis.DateAndTime.ToString(),
+					Status = bag.Stage.ToString()
+				});
+			}
+
+			foreach (Thrombocyte bag in thromboStock) {
+				finalStock.Add(new BloodStockViewModel() {
+					ID = bag.Id,
+					Type = "Trombocite",
+					Group = bag.BloodType.ToString(),
+					Rh = bag.RhType.ToString(),
+					Donor = bag.Analysis.Donor.FirstName + " " + bag.Analysis.Donor.LastName,
+					Date = bag.Analysis.DateAndTime.ToString(),
+					Status = "Separated"
+				});
+			}
+
+			foreach (Plasma bag in plasmaStock) {
+				finalStock.Add(new BloodStockViewModel() {
+					ID = bag.Id,
+					Type = "Punga de sange",
+					Group = bag.BloodType.ToString(),
+					Rh = "-",
+					Donor = bag.Analysis.Donor.FirstName + " " + bag.Analysis.Donor.LastName,
+					Date = bag.Analysis.DateAndTime.ToString(),
+					Status = "Separated"
+				});
+			}
+
+			foreach (RedBloodCell bag in redCellsStock) {
+				finalStock.Add(new BloodStockViewModel() {
+					ID = bag.Id,
+					Type = "Punga de sange",
+					Group = bag.BloodType.ToString(),
+					Rh = bag.RhType.ToString(),
+					Donor = bag.Analysis.Donor.FirstName + " " + bag.Analysis.Donor.LastName,
+					Date = bag.Analysis.DateAndTime.ToString(),
+					Status = "Separated"
+				});
+			}
+
+			return finalStock;
+		}
+	}
 }

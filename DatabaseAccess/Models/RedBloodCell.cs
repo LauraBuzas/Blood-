@@ -8,7 +8,9 @@ namespace DatabaseAccess.Models
     {
         public int Id { get; set; }
 
-        public DateTime SeparationDateAndTime { get; set; }
+		public MedicalAnalysis Analysis { get; set; }
+
+		public DateTime SeparationDateAndTime { get; set; }
 
         public DateTime ExpirationDateAndTime { get; set; }
 
@@ -16,5 +18,8 @@ namespace DatabaseAccess.Models
 
         public RhTypes RhType { get; set; }
 
-    }
+		public Center Center { get; set; }
+		public int CenterId { get; set; }
+
+	}
 }
