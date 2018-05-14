@@ -31,7 +31,6 @@ namespace DatabaseAccess.Data
 
         }
 
-      
 
         public static async Task Seed(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
@@ -58,7 +57,6 @@ namespace DatabaseAccess.Data
             await roleManager.CreateAsync(new IdentityRole { Name = "HospitalAdmin"});
             await roleManager.CreateAsync(new IdentityRole { Name = "DonationCenterDoctor"});
             await roleManager.CreateAsync(new IdentityRole { Name = "HospitalDoctor"});
-            await roleManager.CreateAsync(new IdentityRole { Name = "Donor"});
 
             var createdDonor = await userManager.FindByEmailAsync("donor1@donor.com");
 
@@ -103,16 +101,7 @@ namespace DatabaseAccess.Data
             await userManager.AddToRoleAsync(createdDonor, role6.Name);
 
         }
-
-        private static async Task SeedAddress(ApplicationDbContext context)
-        {
-          
-            
-
-          
-          
-        }
-
+        
         private static async Task SeedHospitals(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             Address addressHospital1 = new Address()
@@ -452,13 +441,5 @@ namespace DatabaseAccess.Data
             context.Requests.Add(request3);
             context.SaveChanges();
         }
-
-
-
-
-
-
-
-
     }
 }

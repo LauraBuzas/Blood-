@@ -2,9 +2,6 @@
 using DatabaseAccess.Models;
 using DatabaseAccess.Repository;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DatabaseAccess.UOW
 {
@@ -20,10 +17,15 @@ namespace DatabaseAccess.UOW
         private IRepository<Address> _AddressRepository;
         private IRepository<ApplicationUser> _ApplicationUserRepository;
         private IRepository<BloodBag> _BloodBagRepository;
-        private IRepository<MedicalAnalysis> _MedicalAnalysisRepository;
+		private IRepository<Thrombocyte> _ThrombocyteRepository;
+		private IRepository<RedBloodCell> _RedBloodCellRepository;
+		private IRepository<Plasma> _PlasmaRepository;
+		private IRepository<MedicalAnalysis> _MedicalAnalysisRepository;
         private IRepository<Center> _CenterRepository;
+        private IRepository<Hospital> _HospitalRepository;
         private IRepository<Patient> _PatientRepository;
         private IRepository<Request> _DoctorRequestRepository;
+        private IRepository<DonorRegistrationForDonation> _DonorRegistrationForDonationRepository;
 
         public UnitOfWork()
         {
@@ -90,7 +92,31 @@ namespace DatabaseAccess.UOW
             }
         }
 
-        public IRepository<HospitalAdmin> HospitalAdminRepository
+		public IRepository<Thrombocyte> ThrombocyteRepository {
+			get {
+				if (_ThrombocyteRepository == null)
+					_ThrombocyteRepository = new GenericRepository<Thrombocyte>(context);
+				return _ThrombocyteRepository;
+			}
+		}
+
+		public IRepository<RedBloodCell> RedBloodCellRepository {
+			get {
+				if (_RedBloodCellRepository == null)
+					_RedBloodCellRepository = new GenericRepository<RedBloodCell>(context);
+				return _RedBloodCellRepository;
+			}
+		}
+
+		public IRepository<Plasma> PlasmaRepository {
+			get {
+				if (_PlasmaRepository == null)
+					_PlasmaRepository = new GenericRepository<Plasma>(context);
+				return _PlasmaRepository;
+			}
+		}
+
+		public IRepository<HospitalAdmin> HospitalAdminRepository
         {
             get
             {
@@ -147,6 +173,28 @@ namespace DatabaseAccess.UOW
                 if (_CenterRepository == null)
                     _CenterRepository = new GenericRepository<Center>(context);
                 return _CenterRepository;
+            }
+        }
+
+        public IRepository<Hospital> HospitalRepository
+        {
+            get
+            {
+                if (_HospitalRepository == null)
+                    _HospitalRepository = new GenericRepository<Hospital>(context);
+                return _HospitalRepository;
+            }
+        }
+
+        public IRepository<DonorRegistrationForDonation> DonorRegistrationForDonationRepository
+        {
+            get
+            {
+                if(_DonorRegistrationForDonationRepository == null) 
+                {
+                    _DonorRegistrationForDonationRepository = new GenericRepository<DonorRegistrationForDonation>(context);
+                }
+                return _DonorRegistrationForDonationRepository;
             }
         }
 

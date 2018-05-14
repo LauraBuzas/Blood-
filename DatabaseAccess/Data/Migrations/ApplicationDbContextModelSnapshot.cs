@@ -15,7 +15,7 @@ namespace DatabaseAccess.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
+                .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("DatabaseAccess.Models.Address", b =>
@@ -103,7 +103,7 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.Property<int>("CenterId");
 
-                    //b.Property<int>("Stage");
+                    b.Property<int>("Stage");
 
                     b.Property<int>("Status");
 
@@ -194,6 +194,20 @@ namespace DatabaseAccess.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Donors");
+                });
+
+            modelBuilder.Entity("DatabaseAccess.Models.DonorRegistrationForDonation", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("DonorName");
+
+                    b.Property<DateTime>("RegistrationDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DonorsRegistrationsForDonation");
                 });
 
             modelBuilder.Entity("DatabaseAccess.Models.Employee", b =>
@@ -322,11 +336,15 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.Property<int>("BloodType");
 
+                    b.Property<int>("CenterId");
+
                     b.Property<DateTime>("ExpirationDateAndTime");
 
                     b.Property<DateTime>("SeparationDateAndTime");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CenterId");
 
                     b.ToTable("Plasmas");
                 });
@@ -338,6 +356,8 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.Property<int>("BloodType");
 
+                    b.Property<int>("CenterId");
+
                     b.Property<DateTime>("ExpirationDateAndTime");
 
                     b.Property<int>("RhType");
@@ -345,6 +365,8 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<DateTime>("SeparationDateAndTime");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CenterId");
 
                     b.ToTable("RedBloodCells");
                 });
@@ -386,6 +408,8 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.Property<int>("BloodType");
 
+                    b.Property<int>("CenterId");
+
                     b.Property<DateTime>("ExpirationDateAndTime");
 
                     b.Property<int>("RhType");
@@ -393,6 +417,8 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<DateTime>("SeparationDateAndTime");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CenterId");
 
                     b.ToTable("Thrombocytes");
                 });
@@ -617,11 +643,35 @@ namespace DatabaseAccess.Data.Migrations
                         .HasForeignKey("IdDoctor");
                 });
 
+            modelBuilder.Entity("DatabaseAccess.Models.Plasma", b =>
+                {
+                    b.HasOne("DatabaseAccess.Models.Center", "Center")
+                        .WithMany()
+                        .HasForeignKey("CenterId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DatabaseAccess.Models.RedBloodCell", b =>
+                {
+                    b.HasOne("DatabaseAccess.Models.Center", "Center")
+                        .WithMany()
+                        .HasForeignKey("CenterId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("DatabaseAccess.Models.Request", b =>
                 {
                     b.HasOne("DatabaseAccess.Models.Patient", "Patient")
                         .WithMany("Requests")
                         .HasForeignKey("IdPatient")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DatabaseAccess.Models.Thrombocyte", b =>
+                {
+                    b.HasOne("DatabaseAccess.Models.Center", "Center")
+                        .WithMany()
+                        .HasForeignKey("CenterId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
