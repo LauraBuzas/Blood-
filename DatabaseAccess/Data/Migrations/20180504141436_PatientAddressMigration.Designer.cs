@@ -107,7 +107,7 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.Property<int>("CenterId");
 
-                    b.Property<int>("Stage");
+                    //b.Property<int>("Stage");
 
                     b.Property<int>("Status");
 

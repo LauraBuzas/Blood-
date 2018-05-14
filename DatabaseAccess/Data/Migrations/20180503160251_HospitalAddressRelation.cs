@@ -14,11 +14,11 @@ namespace DatabaseAccess.Data.Migrations
                 nullable: false,
                 defaultValue: 0);
 
-            migrationBuilder.AddColumn<int>(
-                name: "Stage",
-                table: "BloodBags",
-                nullable: false,
-                defaultValue: 0);
+            //migrationBuilder.AddColumn<int>(
+            //    name: "Stage",
+            //    table: "BloodBags",
+            //    nullable: false,
+            //    defaultValue: 0);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Hospitals_IdAddress",
@@ -49,9 +49,9 @@ namespace DatabaseAccess.Data.Migrations
                 name: "IdAddress",
                 table: "Hospitals");
 
-            migrationBuilder.DropColumn(
-                name: "Stage",
-                table: "BloodBags");
+            //migrationBuilder.DropColumn(
+            //    name: "Stage",
+            //    table: "BloodBags");
         }
     }
 }
