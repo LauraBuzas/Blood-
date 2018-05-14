@@ -17,7 +17,7 @@ interface DonorProfileState {
     donorPastTests: IDonorMedicalTest[]
 }
 
-export class DonorProfilePage extends React.Component<DonorProfileProps, DonorProfileState> {
+export class DonorTestsPage extends React.Component<DonorProfileProps, DonorProfileState> {
 
     constructor(props: DonorProfileProps) {
         super(props);

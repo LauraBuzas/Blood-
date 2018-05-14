@@ -79,6 +79,10 @@ var nodesEmployee=[
     {
         title:"Profil",
         link:"/employee/profile"
+    },
+    {
+        title: "Stoc sange",
+        link: "/employees/stock"
     }
 
 ]
@@ -94,7 +98,11 @@ var nodesDonor=[
     },
     {
         title:"Analizele mele",
-        link:"/analyses"
+        link:"/donor/analyses"
+    },
+    {
+        title:"Profil",
+        link:"/donor/profile"
     }]
 export class Header extends React.Component<HeaderProps,HeaderState>
 {
