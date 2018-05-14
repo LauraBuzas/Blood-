@@ -6,7 +6,7 @@ import { IDoctorRequestView } from '../Models/IDoctorRequestView';
 
 export class DoctorService {
 
-    private static rootDoctors: string = 'http://localhost:50272/doctors';
+    private static rootDoctors: string = 'http://localhost:57738/doctors';
 
 
     public static getHospitalizedPatients(): Promise<any> {
