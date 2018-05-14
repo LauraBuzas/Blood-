@@ -48,7 +48,7 @@ namespace DatabaseAccess.Data
 
             await userManager.CreateAsync(new ApplicationUser { Email = "centerAdmin@admin.com", UserName = "centerAdmin@admin.com" }, "Password123.");
             await userManager.CreateAsync(new ApplicationUser { Email = "centerAdmin2@admin.com", UserName = "centerAdmin2@admin.com" }, "Password123.");
-            await userManager.CreateAsync(new ApplicationUser { Email = "employee1@center.com", UserName = "Employee1" }, "Password123.");
+            await userManager.CreateAsync(new ApplicationUser { Email = "employee1@center.com", UserName = "employee1@center.com" }, "Password123.");
 
             await userManager.CreateAsync(new ApplicationUser { Email = "donor1@donor.com", UserName = "donor1@donor.com" }, "Password123.");
 
@@ -441,7 +441,7 @@ namespace DatabaseAccess.Data
                 Component = ComponentType.Plasma,
                 RequestedQuantity = 2,
                 DateOfRequest = DateTime.Now,
-                EmergencyLevel = EmergencyLevel.SCAZUT,
+                EmergencyLevel = EmergencyLevel.SCĂZUT,
                 BloodType = BloodTypes.O1,
                 IdPatient = 3,
                 Rh = RhTypes.POZITIV

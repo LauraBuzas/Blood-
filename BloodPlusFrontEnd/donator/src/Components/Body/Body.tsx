@@ -14,8 +14,11 @@ import { ModalDoctorRequest } from '../Modal/ModalDoctorRequest';
 
 import { EmployeeProfile } from '../EmployeeProfile/EmployeeProfile';
 import { DoctorRequest } from '../Doctor/DoctorRequest/DoctorRequest';
+import { CenterRequest } from '../MedicalCenter/CenterRequests';
+import { WebSocketService } from '../../Services/WebSocketService';
 export interface BodyProps{
     setRole:any;
+    webSocket:WebSocketService;
 } 
 interface BodyState{} 
 
@@ -37,11 +40,7 @@ export class Body extends React.Component<BodyProps,BodyState>
         const DoctorRequestCompoent=()=>{return <DoctorRequest/>}
         const EmployeeProfileComponent=()=>{return <EmployeeProfile/>}
         const HomeComponent = () => {return <HomePage/>}
-        // console.log("body height: " + this.state.height);
-        // let newHeight = parseInt(document.getElementById("body").style.height);
-        // if (newHeight) {
-        //     this.setState({height: newHeight });
-        // }
+        const CenterRequestComponent=()=>{return <CenterRequest webSocket={this.props.webSocket}/>}
         const DoctorRequestComponent=()=>{return <DoctorRequest/>}
         const DonorComponent=()=>{return <Donor/>}
        
@@ -53,6 +52,7 @@ export class Body extends React.Component<BodyProps,BodyState>
                 <Route path="/register" exact={true} render={RegisterComponent}/>
                 <Route path="/request" exact={true} render={DoctorRequestComponent}/>
                 <Route path="/employee/profile" exact={true} render={EmployeeProfileComponent}/>
+                <Route path="/employee/requests" exact={true} render={CenterRequestComponent}/>
                 <Route path="/analyses" exact={true} render={DonorComponent}/>              
                 <Route path="/" exact={true} render={HomeComponent}/>
                 <div id="push">

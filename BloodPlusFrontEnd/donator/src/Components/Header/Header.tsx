@@ -75,6 +75,10 @@ var nodesEmployee=[
     {
         title:"Profil",
         link:"/employee/profile"
+    },
+    {
+        title:"Cereri de sânge",
+        link:"/employee/requests"
     }
 
 ]
