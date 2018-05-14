@@ -36,7 +36,7 @@ namespace DatabaseAccess.Data
             await userManager.CreateAsync(new ApplicationUser { Email = "hospitalAdmin@admin.com", UserName = "hospitalAdmin@admin.com" }, "Password123.");
             await userManager.CreateAsync(new ApplicationUser { Email = "doctor1@spital.com", UserName = "doctor1@spital.com" }, "Password123.");
             await userManager.CreateAsync(new ApplicationUser { Email = "centerAdmin@admin.com", UserName = "centerAdmin@admin.com" }, "Password123.");
-            await userManager.CreateAsync(new ApplicationUser { Email = "employee1@center.com", UserName = "Employee1" }, "Password123.");
+            await userManager.CreateAsync(new ApplicationUser { Email = "employee1@center.com", UserName = "employee1@center.com" }, "Password123.");
 
 
             await roleManager.CreateAsync(new IdentityRole { Name = "God"});
