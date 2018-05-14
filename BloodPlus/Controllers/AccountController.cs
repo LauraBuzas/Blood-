@@ -309,7 +309,7 @@ namespace BloodPlus.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            //await _broadcaster.Unsubscribe("employees");
+           // await _broadcaster.Unsubscribe("employees");
             await _signInManager.SignOutAsync();
             //RemoveCookie("HospitalId");
             //RemoveCookie("CenterId");

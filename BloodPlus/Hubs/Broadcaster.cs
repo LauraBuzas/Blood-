@@ -16,6 +16,7 @@ namespace BloodPlus.Hubs
         //Server side methods called from client
         public Task Subscribe(string clientType)
         {
+            
             return Groups.AddAsync(Context.ConnectionId, clientType);
         }
 

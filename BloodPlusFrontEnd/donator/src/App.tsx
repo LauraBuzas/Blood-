@@ -17,6 +17,7 @@ import { CenterRequest } from './Components/MedicalCenter/CenterRequests';
 import { WebSocketService } from './Services/WebSocketService';
 //import {Cookies} from 'universal-cookie';
 import cookie from 'react-cookies'
+import { Marker } from './Components/Map/Map';
 
 
 export interface AppProps
@@ -50,8 +51,9 @@ export class App extends React.Component<AppProps,AppState> {
     this.setState({role:event,isLoggedIn:true,webSocket:webSocket});
   }
 
-  logout()
+  async logout()
   {
+      await this.state.webSocket.unsubscribeToAGroup(this.state.role);
       AccountService.logoutUser().then(()=>{
          // const cookies = new Cookies();
           if(this.state.role==="DonationCenterDoctor")
@@ -83,6 +85,8 @@ export class App extends React.Component<AppProps,AppState> {
           }
           <Body setRole={(event) => this.setRoleInApp(event)} webSocket={this.state.webSocket}  />  
           <Footer/>
+
+       
           
 
            

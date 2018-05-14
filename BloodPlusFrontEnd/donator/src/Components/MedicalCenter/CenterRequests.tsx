@@ -10,7 +10,7 @@ export interface CenterRequestProps{webSocket:WebSocketService;}
 interface CenterRequestState
 {
   requests:DoctorRequest[];
-  
+  notificationRequested:boolean;
 }
 export class CenterRequest extends React.Component<CenterRequestProps,CenterRequestState>
 {
@@ -20,16 +20,12 @@ export class CenterRequest extends React.Component<CenterRequestProps,CenterRequ
         super(props);
         this.state=
         {
-            requests:[]
+            requests:[],
+            notificationRequested:false
         }
         // var webSocket=new WebSocketService();
         // webSocket.startConnection();
-        if(this.props.webSocket!==null)
-          this.props.webSocket.requestNotification((request: DoctorRequest) => {
-            console.log(request);
-            this.addRequest(request);
-          
-          });
+        
        // webSocket.subscribeToAGroup("employees");
         
     }
@@ -46,8 +42,16 @@ export class CenterRequest extends React.Component<CenterRequestProps,CenterRequ
     }
     
     render() {
+      if(this.props.webSocket!==null && !this.state.notificationRequested){
+          this.props.webSocket.requestNotification((request: DoctorRequest) => {
+            console.log(request);
+            this.addRequest(request);
+          
+          });
+          this.setState({notificationRequested:true});
+        }
       return (
-        
+          
             // <ul >
             //   <h1>CERERI</h1>
             // {

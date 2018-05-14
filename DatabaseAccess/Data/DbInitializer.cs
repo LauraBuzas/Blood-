@@ -57,6 +57,7 @@ namespace DatabaseAccess.Data
             await roleManager.CreateAsync(new IdentityRole { Name = "HospitalAdmin"});
             await roleManager.CreateAsync(new IdentityRole { Name = "DonationCenterDoctor"});
             await roleManager.CreateAsync(new IdentityRole { Name = "HospitalDoctor"});
+            await roleManager.CreateAsync(new IdentityRole { Name = "Donor" });
 
             var createdDonor = await userManager.FindByEmailAsync("donor1@donor.com");
 
@@ -85,7 +86,7 @@ namespace DatabaseAccess.Data
             //await userManager.AddToRoleAsync(createdUser, role5.Name); 
             var role6 = await roleManager.FindByNameAsync("Donor");
             //await userManager.AddToRoleAsync(createdUser, role6.Name);
-            await userManager.AddToRolesAsync(createdUser, new List<string> { role1.Name, role2.Name, role3.Name, role4.Name, role5.Name, role6.Name });
+            //await userManager.AddToRolesAsync(createdUser, new List<string> { role1.Name, role2.Name, role3.Name, role4.Name, role5.Name, role6.Name });
             await userManager.AddToRoleAsync(createdDoctor1, role5.Name);
             await userManager.AddToRoleAsync(createdDoctor2, role5.Name);
             await userManager.AddToRoleAsync(createdDoctor3, role5.Name);
@@ -260,6 +261,9 @@ namespace DatabaseAccess.Data
 
             var createdUser = await userManager.FindByEmailAsync("employee1@center.com");
             employee.Id = createdUser.Id;
+
+            var center=context.Centers.Where(x => x.CenterName == "Centru Donare Sânge Cluj-Napoca").FirstOrDefault();
+            employee.Center = center;
         
             context.Employee.Add(employee);
             context.SaveChanges();

@@ -18,6 +18,7 @@ import { EmployeeProfile } from '../EmployeeProfile/EmployeeProfile';
 import { DoctorRequest } from '../Doctor/DoctorRequest/DoctorRequest';
 import { CenterRequest } from '../MedicalCenter/CenterRequests';
 import { WebSocketService } from '../../Services/WebSocketService';
+import { Marker } from '../Map/Map';
 export interface BodyProps{
     setRole:any;
     webSocket:WebSocketService;
@@ -53,6 +54,7 @@ export class Body extends React.Component<BodyProps,BodyState>
         const CenterRequestComponent=()=>{return <CenterRequest webSocket={this.props.webSocket}/>}
         const DoctorRequestComponent=()=>{return <DoctorRequest/>}
         const DonorTestsComponent=()=>{return <DonorTestsPage/>}
+        const GoogleMapComponent=()=>{return  <Marker location="46.7758616,23.597914"/>}
        
         return(
            <div id="body">
@@ -68,8 +70,7 @@ export class Body extends React.Component<BodyProps,BodyState>
                 <Route path="/doctor/profile" exact={true} render={DoctorProfileComponent}/>
                 <Route path="/employees/stock" exact={true} render={EmployeeStockComponent} />
                 <Route path="/employee/requests" exact={true} render={CenterRequestComponent}/>
-                //<Route path="/analyses" exact={true} render={DonorComponent}/>              
-                <Route path="/" exact={true} render={HomeComponent}/>
+                <Route path="/centers" exact={true} render={GoogleMapComponent}/>
                 <div id="push">
                     {/* for footer */}
                 </div>

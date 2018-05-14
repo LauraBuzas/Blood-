@@ -30,6 +30,10 @@ var nodesGuest=[
         link:'/'
     },
     {
+        title:"Centre",
+        link:'/centers'
+    },
+    {
         title:"Cont nou",
         link:"/register"
     },

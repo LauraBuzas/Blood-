@@ -20,13 +20,19 @@ export class WebSocketService {
     
     public  requestNotification(requestAdded: (request: DoctorRequest) => void) { 
         this._connection.on('SendRequest', (request: DoctorRequest) => {
-           requestAdded(request)
+           requestAdded(request);
        });
     }
     
     public subscribeToAGroup(groupname: string) {
         this._connection.invoke('Subscribe', groupname);
     }
+
+    public unsubscribeToAGroup(groupname: string) {
+        this._connection.invoke('Unsubscribe', groupname);
+    }
+
+   
 
 }
 // const WebsocketService = new WebSocketService();
