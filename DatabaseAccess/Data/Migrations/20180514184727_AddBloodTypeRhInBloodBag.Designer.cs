@@ -12,9 +12,10 @@ using System;
 namespace DatabaseAccess.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180514184727_AddBloodTypeRhInBloodBag")]
+    partial class AddBloodTypeRhInBloodBag
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,8 +108,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<int>("BloodType");
 
                     b.Property<int>("CenterId");
-
-                    b.Property<DateTime>("Date");
 
                     b.Property<int>("RhType");
 
