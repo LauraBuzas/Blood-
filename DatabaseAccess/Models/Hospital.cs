@@ -23,5 +23,9 @@ namespace DatabaseAccess.Models
         public string HospitalAdminId { get; set; }
 
         public List<Doctor> Doctors { get; set; }
+
+        public Address Address { get; set; }
+
+        public int IdAddress { get; set; }
     }
 }
