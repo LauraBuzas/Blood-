@@ -96,7 +96,7 @@ namespace Services
         }
 
 
-        public void DonateBlood(string donorCnp, int centerId)
+        public void DonateBlood(string donorCnp, string bloodType, string rh, int centerId)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
