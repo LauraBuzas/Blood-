@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BloodPlus.Mappers;
 using BloodPlus.ModelViews;
 using BloodPlus.ModelViews.AccountViewModels;
+using BloodPlus.Services;
 using DatabaseAccess.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,10 +19,15 @@ namespace BloodPlus.Controllers
     {
 
         EmployeeService employeeService;
+        DonorService donorService;
+        private readonly IEmailSender _emailSender;
 
-        public EmployeeController(EmployeeService employeeService)
+
+        public EmployeeController(EmployeeService employeeService,DonorService donorService, IEmailSender _emailSender)
         {
             this.employeeService = employeeService;
+            this._emailSender = _emailSender;
+            this.donorService = donorService;
         }
 
         [Authorize(Roles = "DonationCenterAdmin")]
@@ -96,9 +102,25 @@ namespace BloodPlus.Controllers
             }
         }
 
-	
+        [Authorize(Roles = "DonationCenterDoctor")]
+        [HttpGet("notify")]
+        public IActionResult NotifyDonors()
+        {
+            try
+            {
+                var centerId = Request.Cookies["CenterId"];
+                donorService.SendEmails(_emailSender, centerId);
+            }
+            catch (Exception)
+            {
 
-		[Authorize(Roles = "DonationCenterDoctor")]
+                throw;
+            }
+        }
+
+
+
+        [Authorize(Roles = "DonationCenterDoctor")]
 		[HttpGet("stock")]
 		public IActionResult GetBloodStock() {
 			try {
@@ -166,5 +188,7 @@ namespace BloodPlus.Controllers
 
 			return finalStock;
 		}
+
+
 	}
 }

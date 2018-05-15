@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using DatabaseAccess.Data;
 using DatabaseAccess.Models;
-using BloodPlus.Services2;
+using BloodPlus.Services;
 using Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
