@@ -1,4 +1,5 @@
-﻿using BloodPlus.ModelViews.AccountViewModels;
+﻿using BloodPlus.Hubs;
+using BloodPlus.ModelViews.AccountViewModels;
 using BloodPlus.Services2;
 using DatabaseAccess.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -26,6 +27,7 @@ namespace BloodPlus.Controllers
         private readonly DonorService _donorsService;
         private readonly AdminService _adminService;
         private readonly EmployeeService _employeeService;
+        private Broadcaster _broadcaster;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -35,7 +37,8 @@ namespace BloodPlus.Controllers
             DoctorsService doctorsService,
             DonorService donorService,
             AdminService adminService,
-            EmployeeService employeeService)
+            EmployeeService employeeService,
+            Broadcaster broadcaster)
         {
 
             _userManager = userManager;
@@ -46,6 +49,7 @@ namespace BloodPlus.Controllers
             _adminService=adminService;
             _donorsService = donorService;
             _employeeService = employeeService;
+            _broadcaster = broadcaster;
         }
 
         [TempData]
@@ -306,10 +310,13 @@ namespace BloodPlus.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
+           // await _broadcaster.Unsubscribe("employees");
             await _signInManager.SignOutAsync();
-            RemoveCookie("HospitalId");
-            RemoveCookie("CenterId");
+            //RemoveCookie("HospitalId");
+            //RemoveCookie("CenterId");
+
             _logger.LogInformation("User logged out.");
+
             return Ok();
         }
 

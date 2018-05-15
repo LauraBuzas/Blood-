@@ -4,7 +4,7 @@ import { IDonorTestGet } from '../Models/IDonorTestGet';
 
 export class DonorService {
 
-    private static rootDonors: string = 'http://localhost:50272/donors';
+    private static rootDonors: string = 'http://localhost:51401/donors';
 
 
     public static getNextDonation(): Promise<any> {

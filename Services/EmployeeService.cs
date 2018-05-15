@@ -63,7 +63,40 @@ namespace Services
             }
         }
 
-        public void DonateBlood(string donorCnp,string bloodType, string rh,int centerId)
+        public List<Request> GetRequests(int centerId)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+               
+                var center = uow.CenterRepository.GetAll()
+                        .Include("Address")
+                        .FirstOrDefault(c => c.Id == centerId);
+                var centerAddress = center.Address;
+
+                var allRequest = uow.DoctorRequestRepository.GetAll()
+                                .Include(r => r.Patient)
+                                .ThenInclude(p => p.Doctor)
+                                .ThenInclude(d => d.Hospital)
+                                .ThenInclude(h => h.Address)
+                                .OrderByDescending(r => r.EmergencyLevel)
+                                .ThenBy(r => r.DateOfRequest);
+
+                List<Request> requestsForCenter = new List<Request>();
+                foreach(var request in allRequest)
+                {
+                    if(request.Patient.Doctor.Hospital.Address.County==center.Address.County)
+                    {
+                        requestsForCenter.Add(request);
+                    }
+                }
+                return requestsForCenter;
+    
+            }
+
+        }
+
+
+        public void DonateBlood(string donorCnp, int centerId)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
