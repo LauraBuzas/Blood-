@@ -59,8 +59,7 @@ export class Body extends React.Component<BodyProps,BodyState>
                 <Route path="/register" exact={true} render={RegisterComponent}/>
                 <Route path="/request" exact={true} render={DoctorRequestComponent}/>
                 <Route path="/employee/profile" exact={true} render={EmployeeProfileComponent}/>
-                <Route path="/donor/analyses" exact={true} render={DonorTestsComponent}/>              
-                <Route path="/" exact={true} render={HomeComponent}/>
+                <Route path="/donor/analyses" exact={true} render={DonorTestsComponent}/> 
                 <Route path="/donor/profile" exact={true} render={DonorProfileComponent}/>
                 <Route path="/doctor/profile" exact={true} render={DoctorProfileComponent}/>
                 <Route path="/employees/stock" exact={true} render={EmployeeStockComponent} />
