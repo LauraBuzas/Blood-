@@ -9,6 +9,8 @@ import { Redirect } from 'react-router';
 import Alert from 'react-s-alert';
 import '../css/SignUp.css';
 import { IUserLogin } from '../Models/IUserLogin';
+import { DoctorRequest } from '../Components/Doctor/DoctorRequest/DoctorRequest';
+import WebSocketService from '../Services/WebSocketService';
 
 export interface LoginProps {
     setRole:any
@@ -58,6 +60,7 @@ export class LogIn extends React.Component<LoginProps, LoginState>
         AccountService.loginUser(user).then((resp) => {
             this.setState({role:resp.data[0]});
             this.props.setRole(this.state.role);
+
             
 
         },
@@ -71,6 +74,11 @@ export class LogIn extends React.Component<LoginProps, LoginState>
                     effect: 'jelly'
                   });
             });
+    }
+
+    componentDidMount()
+    {
+        
     }
 
     render() {
@@ -92,7 +100,8 @@ export class LogIn extends React.Component<LoginProps, LoginState>
 
         if(this.state.role=="DonationCenterDoctor")
         {
-            return <Redirect to="/employee/profile"/>
+           
+            return <Redirect to="/employee/requests"/>
         }
         
         if(this.state.role=="Donor")

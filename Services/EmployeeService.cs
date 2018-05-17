@@ -63,6 +63,39 @@ namespace Services
             }
         }
 
+        public List<Request> GetRequests(int centerId)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+               
+                var center = uow.CenterRepository.GetAll()
+                        .Include("Address")
+                        .FirstOrDefault(c => c.Id == centerId);
+                var centerAddress = center.Address;
+
+                var allRequest = uow.DoctorRequestRepository.GetAll()
+                                .Include(r => r.Patient)
+                                .ThenInclude(p => p.Doctor)
+                                .ThenInclude(d => d.Hospital)
+                                .ThenInclude(h => h.Address)
+                                .OrderByDescending(r => r.EmergencyLevel)
+                                .ThenBy(r => r.DateOfRequest);
+
+                List<Request> requestsForCenter = new List<Request>();
+                foreach(var request in allRequest)
+                {
+                    if(request.Patient.Doctor.Hospital.Address.County==center.Address.County)
+                    {
+                        requestsForCenter.Add(request);
+                    }
+                }
+                return requestsForCenter;
+    
+            }
+
+        }
+
+
         public void DonateBlood(string donorCnp, int centerId)
         {
             using (UnitOfWork uow = new UnitOfWork())
@@ -111,7 +144,49 @@ namespace Services
 
         }
 
-        public void CopyAnalysisDetailsToDb(UnitOfWork uow, MedicalAnalysis dbAnalysis, MedicalAnalysis analysis)
+
+		public List<BloodBag> GetBloodBags(int centerId) {
+			using (UnitOfWork uow = new UnitOfWork()) {
+				return uow.BloodBagRepository
+					.GetAll()
+					.Include(bb => bb.Analysis.Donor)
+					.Where(bb => bb.Stage == BloodBagStage.Qualification && bb.CenterId == centerId)
+					.ToList();
+				
+			}
+		}
+
+		public List<Thrombocyte> GetThrombocytesStock(int centerId) {
+			using (UnitOfWork uow = new UnitOfWork()) {
+				return uow.ThrombocyteRepository
+					.GetAll()
+					.Where(t => t.CenterId == centerId)
+					.ToList();
+
+			}
+		}
+
+		public List<RedBloodCell> GetRedBloodCellsStock(int centerId) {
+			using (UnitOfWork uow = new UnitOfWork()) {
+				return uow.RedBloodCellRepository
+					.GetAll()
+					.Where(rbc => rbc.CenterId == centerId)
+					.ToList();
+
+			}
+		}
+
+		public List<Plasma> GetPlasmaStock(int centerId) {
+			using (UnitOfWork uow = new UnitOfWork()) {
+				return uow.PlasmaRepository
+					.GetAll()
+					.Where(p => p.CenterId == centerId)
+					.ToList();
+
+			}
+		}
+
+		public void CopyAnalysisDetailsToDb(UnitOfWork uow, MedicalAnalysis dbAnalysis, MedicalAnalysis analysis)
         {
             dbAnalysis.ALTLevel = analysis.ALTLevel;
             dbAnalysis.HepatitisB = analysis.HepatitisB;
