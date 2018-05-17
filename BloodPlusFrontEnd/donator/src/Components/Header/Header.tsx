@@ -30,6 +30,10 @@ var nodesGuest=[
         link:'/'
     },
     {
+        title:"Centre",
+        link:'/centers'
+    },
+    {
         title:"Cont nou",
         link:"/register"
     },
@@ -79,6 +83,10 @@ var nodesEmployee=[
     {
         title:"Profil",
         link:"/employee/profile"
+    },
+    {
+        title:"Cereri de sânge",
+        link:"/employee/requests"
     },
     {
         title: "Stoc sange",
