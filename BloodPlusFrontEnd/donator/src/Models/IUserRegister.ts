@@ -7,4 +7,5 @@ export interface IUserRegister {
     county : string;
     street : string;
     number : number;
+    cnp : string;
 } 

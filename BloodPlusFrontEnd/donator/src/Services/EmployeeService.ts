@@ -7,7 +7,7 @@ import { IEmployeeProfile } from '../Models/IEmployeeProfile';
 import { BloodStockModel } from '../Models/BloodStockModel';
 
 export class EmployeeService {
-    private static rootEmployee: string = 'http://localhost:51401/employees/';
+    private static rootEmployee: string = 'http://localhost:49853/employees/';
     
     public static getBloodStock(): Promise<BloodStockModel[]> {
         return new Promise((resolve, reject) => {
