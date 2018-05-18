@@ -96,7 +96,7 @@ namespace Services
         }
 
 
-        public void DonateBlood(string donorCnp, int centerId)
+        public void DonateBlood(string donorCnp, string bloodType, string rh, int centerId)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
@@ -108,7 +108,10 @@ namespace Services
                 {
                     Status = BloodBagStatus.Waiting,
                     Stage = BloodBagStage.Sampling,
-                    CenterId=centerId
+                    BloodType = (BloodTypes)Enum.Parse(typeof(BloodTypes), bloodType.ToUpper()),
+                    RhType = (RhTypes)Enum.Parse(typeof(RhTypes), rh.ToUpper()),
+                    CenterId = centerId,
+                    Date = DateTime.Now
                 };
                 uow.BloodBagRepository.Add(bloodBag);
                 uow.Save();

@@ -74,17 +74,17 @@ namespace BloodPlus.Controllers
 
         [Authorize(Roles = "DonationCenterDoctor")]
         [HttpPost("blood-bag")]
-        public IActionResult AddBloodBag([FromBody] CNPViewModel cnpViewModel)
+        public IActionResult AddBloodBag([FromBody] BloodBagViewModel bloodBagViewModel)
         {
             try
             {
                 var centerId = int.Parse(Request.Cookies["CenterId"]);
-                employeeService.DonateBlood(cnpViewModel.CNP,centerId);
+                employeeService.DonateBlood(bloodBagViewModel.CNP,bloodBagViewModel.BloodType,bloodBagViewModel.Rh,centerId);
                 return Ok("Blood bag registered");
             }
             catch(Exception ex)
             {
-                return Ok(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 

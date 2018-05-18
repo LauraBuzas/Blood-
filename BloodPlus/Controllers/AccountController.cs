@@ -110,7 +110,8 @@ namespace BloodPlus.Controllers
                     if (roles.Any(s => s == "DonationCenterDoctor"))
                     {
                         var centerId = _employeeService.GetCenterIdForCenterDoctor(user.Id);
-                        SetCookie("CenterDoctorId", user.Id); //CenterId
+                        SetCookie("CenterId", centerId.ToString());
+                        SetCookie("CenterDoctorId", user.Id); 
                     }
                     if (roles.Any(s => s == "HospitalDoctor"))
                     {

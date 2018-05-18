@@ -107,10 +107,6 @@ var nodesDonor=[
     {
         title:"Analizele mele",
         link:"/donor/analyses"
-    },
-    {
-        title:"Profil",
-        link:"/donor/profile"
     }]
 export class Header extends React.Component<HeaderProps,HeaderState>
 {

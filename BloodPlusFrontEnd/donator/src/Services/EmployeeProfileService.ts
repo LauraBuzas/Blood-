@@ -6,7 +6,7 @@ import { IEmployeeDelete } from '../Models/IEmployeeDelete';
 import { IEmployeeProfile } from '../Models/IEmployeeProfile';
 
 export class EmployeeProfileService {
-    private static rootEmployeeProfile: string = 'http://localhost:51401/employee/profile';
+    private static rootEmployeeProfile: string = 'http://localhost:50272/employee/profile';
    
     
     public static getEmployee(): Promise<IEmployeeGet> {

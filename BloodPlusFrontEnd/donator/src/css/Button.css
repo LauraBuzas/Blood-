@@ -13,7 +13,49 @@
   border-radius: 25px;
 }
 
-.buttonSendRequest
+.titles
+{
+  color: #000055;
+}
+
+.div-add-bloodbag
+{
+  background-color: #98c4ea;
+
+}
+.buttonAddBloodBag
+{
+  height: 50px;
+  padding: 0px 10px;
+  border: none;
+  color: rgb(236, 227, 227);
+  display: inline-block;
+  background: #f70606c7;
+  font-family: 'lato', sans-serif;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.10em;
+  border-radius: 25px;
+  margin-left: 20px;
+}
+
+.buttonRequestBlood
+{
+  height: 50px;
+  padding: 0px 10px;
+  border: none;
+  color: rgb(236, 227, 227);
+  display: inline-block;
+  background: #f70606c7;
+  font-family: 'lato', sans-serif;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.10em;
+  border-radius: 25px;
+  margin-right: 10px;
+  float:right;
+}
+.buttonSendRequest, 
 {
   height: 40px;
   width: 130px;
