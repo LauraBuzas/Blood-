@@ -30,6 +30,10 @@ var nodesGuest=[
         link:'/'
     },
     {
+        title:"Centre",
+        link:'/centers'
+    },
+    {
         title:"Cont nou",
         link:"/register"
     },
@@ -81,6 +85,10 @@ var nodesEmployee=[
         link:"/employee/profile"
     },
     {
+        title:"Cereri de sânge",
+        link:"/employee/requests"
+    },
+    {
         title: "Stoc sange",
         link: "/employees/stock"
     }
@@ -99,10 +107,6 @@ var nodesDonor=[
     {
         title:"Analizele mele",
         link:"/donor/analyses"
-    },
-    {
-        title:"Profil",
-        link:"/donor/profile"
     }]
 export class Header extends React.Component<HeaderProps,HeaderState>
 {

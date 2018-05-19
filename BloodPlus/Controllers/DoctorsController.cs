@@ -1,6 +1,8 @@
-﻿using BloodPlus.Mappers;
+﻿using BloodPlus.Hubs;
+using BloodPlus.Mappers;
 using BloodPlus.ModelViews;
 using DatabaseAccess.Models;
+using Microsoft.AspNet.SignalR.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -13,15 +15,18 @@ namespace BloodPlus.Controllers
     [Produces("application/json")]
     [Route("doctors")]
     
-    public class DoctorsController : Controller
+    public class DoctorsController:Controller
     {
         DoctorsService doctorsService;
         PatientService patientService;
-
-        public DoctorsController(DoctorsService doctorsService,PatientService patientService)
+        Broadcaster broadcaster;
+       
+        public DoctorsController(DoctorsService doctorsService,PatientService patientService,Broadcaster broadcaster)
+           
         {
             this.doctorsService = doctorsService;
             this.patientService = patientService;
+            this.broadcaster = broadcaster;
         }
 
         [Authorize(Roles = "HospitalAdmin")]
@@ -84,7 +89,12 @@ namespace BloodPlus.Controllers
 
                 Request request = Mappers.MapperDoctorRequest.ToDoctorRequestDb(doctorRequest);
                 request.IdPatient = patient.Id;
-                doctorsService.AddRequest(request);          
+                request = doctorsService.AddRequest(request);
+
+                doctorRequest.dateOfRequest = request.DateOfRequest;
+
+                this.broadcaster.Clients.Group("DonationCenterDoctor").SendRequest(doctorRequest);
+
                 return Ok(request);
 
             }catch(Exception ex)
@@ -99,6 +109,7 @@ namespace BloodPlus.Controllers
         {
             try
             {
+             
                 var id= Request.Cookies["UserId"];
                 var patients = patientService.GetHospitalizedPatientsForDoctor(id);
                 List<PatientGetViewModel> patientsReturned = new List<PatientGetViewModel>();
