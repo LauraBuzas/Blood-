@@ -1,20 +1,22 @@
 import * as React from 'react';
-import { VBox, HBox } from 'react-stylesheet';
-import { TextField } from '../utils/TextField'
 import '../css/Button.css';
 import '../css/SignUp.css';
-import update from 'react-addons-update';
-import Alert from 'react-s-alert';
+import { VBox, HBox } from 'react-stylesheet';
+import { TextField } from '../utils/TextField'
 import { IUserRegister } from '../Models/IUserRegister';
 import { AccountService } from '../Services/AccountServices';
 import { ConsoleLogger } from '@aspnet/signalr';
+import EmailValidator from 'email-validator';
+import { Redirect } from 'react-router';
+import update from 'react-addons-update';
+import Alert from 'react-s-alert';
 export interface SignUpProps 
 {
     setRole: any;
 }
 interface SignUpState {
     newUser: IUserRegister
-    confirmPassword: string
+    created: boolean
 }
 export class SignUp extends React.Component<SignUpProps, SignUpState> 
 {
@@ -30,12 +32,13 @@ export class SignUp extends React.Component<SignUpProps, SignUpState>
                         email: '',
                         password: '',
                         city : '',
+                        confirmPassword: '',
                         county : '',
                         street : '',
                         number : -1,
                         cnp : ''
                     },
-                confirmPassword: ''
+                created: false
             }
     }
 
@@ -46,8 +49,6 @@ export class SignUp extends React.Component<SignUpProps, SignUpState>
     }
 
     handleFirstNameChange(event: any) {
-        console.log(event);
-        console.log(event.target.value);
         this.setState({
             newUser: update(this.state.newUser, { firstName: { $set: event.target.value } })
         });
@@ -85,9 +86,13 @@ export class SignUp extends React.Component<SignUpProps, SignUpState>
     }
 
     handleNumberChange(event: any) {
-        this.setState({
-            newUser: update(this.state.newUser, { number: { $set: event.target.value } })
-        });
+        if(isNaN(event.target.value)){
+            this.showError("Va rugam introduceti doar numere!")
+        } else {
+            this.setState({
+                newUser: update(this.state.newUser, { number: { $set: event.target.value } })
+            });
+        }
     }
 
     handlePasswordChange(event: any) {
@@ -98,7 +103,7 @@ export class SignUp extends React.Component<SignUpProps, SignUpState>
 
     handleConfirmPasswordChange(event: any) {
         this.setState({
-            confirmPassword: update(this.state.confirmPassword,  { $set: event.target.value } )
+            newUser: update(this.state.newUser, { confirmPassword: { $set: event.target.value } } )
         });
     }
 
@@ -117,24 +122,36 @@ export class SignUp extends React.Component<SignUpProps, SignUpState>
         ){
             
             this.showError('Toate campurile sunt obligatorii!');
-        } else if(this.state.confirmPassword === this.state.newUser.password){
-            let newUser = {
-                email: this.state.newUser.email,
-                password: this.state.newUser.password,
-                cnp: this.state.newUser.cnp,
-                city: this.state.newUser.city,
-                country: this.state.newUser.county,
-                firstName: this.state.newUser.firstName,
-                lastName: this.state.newUser.lastName
+        } else if(this.state.newUser.confirmPassword === this.state.newUser.password){
+            if(isNaN(this.state.newUser.number)) {
+                this.showError('Va rugam introduceti doar numere!');
+                return;
             }
-            AccountService.registerUser(newUser).then((resp) => {
-            alert(resp);
-                
-            });
+            if(!(/^\d+$/.test(this.state.newUser.cnp))) {
+                this.showError('Campul CNP trebuie sa contina doar numere!');
+                return;
+            }
+            if(this.state.newUser.cnp.length < 10) {
+                this.showError('CNP-ul trebuie sa aiba cel putin 10 cifre');
+                return;
+            }
+            if(this.state.newUser.password.length < 6){
+                this.showError('Parola trebuie sa aiba minim 6 caractere');
+                return;
+            }
+            //needs stronger validation for password, or at least an info field
+            //rework thislater if there is time
+            if(EmailValidator.validate(this.state.newUser.email)){
+                console.log('signing up', this.state.newUser);
+                AccountService.registerUser(this.state.newUser).then((resp) => {
+                    this.setState({
+                        created: update(this.state.created, { $set: true } )
+                    });
+                });
+            } else {
+                this.showError('Email-ul nu este valid!');
+            }
         } else {
-            alert(this.state.confirmPassword);
-            alert(this.state.newUser.password);
-            alert(this.state.confirmPassword === this.state.newUser.password);
             this.showError('Parolele nu coincid!');
         } 
     }
@@ -147,6 +164,9 @@ export class SignUp extends React.Component<SignUpProps, SignUpState>
     }
 
     render() {
+        if(this.state.created === true) {
+            return <Redirect to='/'/>
+        }
         return (
             <div>
                 <HBox className="hboxPosition">

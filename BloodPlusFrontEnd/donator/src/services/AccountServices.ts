@@ -56,7 +56,7 @@ export class AccountService {
     public static registerUser(newUser: any) : Promise<any>  {
         return new Promise((resolve, reject) => {
             axios(
-                this.root + 'register/donor',
+                this.root + '/register/donor',
                 {
                     method: 'POST',
                     headers: {
@@ -74,6 +74,7 @@ export class AccountService {
                 resolve(response);
             },
                 (error: any) => {
+                    console.log(error);
                     reject(error);
                 });
         });
@@ -93,7 +94,6 @@ export class AccountService {
                     },
                     withCredentials:true,
                     maxRedirects:0,
-                  
                 }
             ).then((response: any) => {
                 resolve(response);

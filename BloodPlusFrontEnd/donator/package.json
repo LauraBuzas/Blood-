@@ -6,6 +6,7 @@
     "@aspnet/signalr": "^1.0.0-preview2-final",
     "@types/react-router-dom": "^4.2.3",
     "axios": "^0.18.0",
+    "email-validator": "^2.0.3",
     "font-awesome": "^4.7.0",
     "google-map-react": "^1.0.3",
     "google-maps-react": "^2.0.2",
@@ -43,6 +44,7 @@
     "react-scripts-ts": "2.8.0",
     "react-select": "^1.2.1",
     "react-stylesheet": "^2.2.2",
+    "react-validation": "^3.0.7",
     "universal-cookie": "^2.1.2"
   },
   "scripts": {

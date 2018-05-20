@@ -60,9 +60,6 @@ export class LogIn extends React.Component<LoginProps, LoginState>
         AccountService.loginUser(user).then((resp) => {
             this.setState({role:resp.data[0]});
             this.props.setRole(this.state.role);
-
-            
-
         },
             (error) => {
 
