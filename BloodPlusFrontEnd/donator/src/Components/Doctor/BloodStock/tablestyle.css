@@ -1,0 +1,64 @@
+#tabel1 {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 85%;
+    margin-left: 75px;
+    margin-right: 10px;
+    
+}
+
+.tblclass{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 85%;
+    margin-left: 75px;
+    margin-right: 10px;
+}
+
+.headerclass{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: crimson;
+    color: white;
+}
+
+.listcolclass{
+    font-weight: normal;
+}
+.listcolclass:hover{
+    background-color:pink;
+    color: black;
+    font-weight: bold;
+}
+#tabel1 td, #tabel1 th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+
+
+
+
+#listcol{
+    font-weight: normal;
+    
+}
+
+#listcol:hover{
+    background-color:pink;
+    color: black;
+    font-weight: bold;
+}
+
+
+
+
+
+#tabel1 th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: crimson;
+    color: white;
+}

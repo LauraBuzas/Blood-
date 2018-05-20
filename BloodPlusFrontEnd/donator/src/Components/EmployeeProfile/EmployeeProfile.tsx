@@ -5,7 +5,7 @@ import {IEmployeeProfile} from '../../Models/IEmployeeProfile';
 import Alert from 'react-s-alert';
 import {TextField} from '../../utils/TextField';
 //import {Button1} from '../../utils/Button1';
-import {HBox,VBox} from '../../../node_modules/react-stylesheet';
+import {HBox,VBox} from 'react-stylesheet';
 //import {Avatar} from '../../../node_modules/react-avatar';
 import Avatar from 'react-avatar';
 import { EmployeeProfileService } from '../../Services/EmployeeProfileService';

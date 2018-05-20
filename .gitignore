@@ -288,3 +288,5 @@ __pycache__/
 *.xsd.cs
 
 
+/BloodPlusFrontEnd/.vscode/launch.json
+/BloodPlusFrontEnd/donator/src/Components/EmployeeProfile

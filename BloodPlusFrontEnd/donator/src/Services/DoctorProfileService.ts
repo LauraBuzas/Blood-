@@ -6,7 +6,7 @@ import { Session } from 'inspector';
 import { IPasswordUpdate } from '../Models/IPasswordUpdate';
 import { resolve } from 'path';
 export class DoctorProfileService{
-    private static rootDoctor: string = 'http://localhost:57738/doctor/profile';
+    private static rootDoctor: string = 'http://localhost:54211/doctor/profile';
     public static getDoctor(): Promise<IDoctorGet> {
         return new Promise((resolve, reject) => {
             //var doctorId=cookies.get("DoctorId");
