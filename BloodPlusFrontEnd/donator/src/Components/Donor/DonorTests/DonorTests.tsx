@@ -69,9 +69,9 @@ export class DonorTestsPage extends React.Component<DonorProfileProps, DonorProf
     canDonate(date) {
   
         //console.log(date);
-        console.log("next date: "+Date.parse(date));
-        console.log("now: "+Date.now());
-        if (date < Date.now()) {
+       // console.log("next date: "+Date.parse(date));
+        //console.log("now: "+Date.now());
+        if (!date) {
             return true;
         }
         return false;

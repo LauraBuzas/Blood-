@@ -10,7 +10,7 @@ import Alert from 'react-s-alert';
 import '../css/SignUp.css';
 import { IUserLogin } from '../Models/IUserLogin';
 import { DoctorRequest } from '../Components/Doctor/DoctorRequest/DoctorRequest';
-import WebSocketService from '../Services/WebSocketService';
+//import WebSocketService from '../Services/WebSocketService';
 
 export interface LoginProps {
     setRole:any
@@ -57,6 +57,7 @@ export class LogIn extends React.Component<LoginProps, LoginState>
             email: this.state.userRegistered.email,
             password: this.state.userRegistered.password
         }
+        console.log(user);
         AccountService.loginUser(user).then((resp) => {
             this.setState({role:resp.data[0]});
             this.props.setRole(this.state.role);
