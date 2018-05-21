@@ -2,12 +2,13 @@ import axios from 'axios';
 import { IPatient } from '../Models/IPatient';
 import { IDoctorRequest } from '../Models/IDoctorRequest';
 import { IDoctorRequestView } from '../Models/IDoctorRequestView';
+import { ICenterBloodQty } from '../Models/ICenterBloodQty';
 
 
 export class DoctorService {
 
     private static rootDoctors: string = 'http://localhost:54211/doctors';
-
+    private static rootCenters: string = 'http://localhost:54211/centers';
 
     public static getHospitalizedPatients(): Promise<any> {
         return new Promise((resolve, reject) => {
@@ -103,5 +104,36 @@ export class DoctorService {
             id:response.id
             
         };
+    }
+
+    private static toCenter(response: any): ICenterBloodQty {
+        return {
+            center:response.center,
+            location:response.location,
+            quantity:response.quantity,
+           
+        };
+    }
+
+    public static getEmployees(): Promise<ICenterBloodQty[]> {
+        return new Promise((resolve, reject) => {
+            axios(
+                this.rootCenters,
+                {
+                    method:'GET',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json'
+                    },
+                    withCredentials:true
+                }
+            ).then((response: any) => {
+                let employees = response.data.map(this.toCenter);
+                resolve(employees);
+            },
+                (error: any) => {
+                    reject(error);
+                });
+        });
     }
 }

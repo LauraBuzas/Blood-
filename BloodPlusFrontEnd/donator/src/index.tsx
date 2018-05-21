@@ -5,9 +5,10 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import 'font-awesome/css/font-awesome.min.css';
 import Multistep from './donation_form/MultiStep'
+
 import BloodStock from '../src/Components/Doctor/BloodStock/BloodStock'
 ReactDOM.render(
-<App />,
+<BloodStock />,
  document.getElementById('root') as HTMLElement
 );
 registerServiceWorker();

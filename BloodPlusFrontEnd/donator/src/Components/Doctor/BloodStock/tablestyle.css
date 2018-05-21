@@ -1,10 +1,24 @@
 #tabel1 {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-    width: 85%;
-    margin-left: 75px;
-    margin-right: 10px;
+    width: 80%;
+   
     
+}
+
+
+
+.tablespan{
+    width:70%;
+    float: left;
+    margin-left: 5px;
+}
+.filterspan{
+    width:20%;
+    float: left;
+    border-right: 1px solid crimson;
+    background-color: lightgray;
+   
 }
 
 .tblclass{
@@ -36,6 +50,10 @@
     padding: 8px;
 }
 
+#tabel1 tr:nth-child(even){
+    background-color: lightpink;
+}
+
 
 
 
@@ -62,3 +80,5 @@
     background-color: crimson;
     color: white;
 }
+
+

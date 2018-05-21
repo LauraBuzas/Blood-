@@ -1,27 +1,25 @@
 
 import React from "react";
 import ReactDOM from "react-dom"
-import './FormStyle.css'
+
 import './tablestyle.css'
 import Collapsible from 'react-collapsible'
-import BootstrapTable from 'react-bootstrap-table-next';
-import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-require('react-bootstrap-table-next/dist/react-bootstrap-table2.min.css');
-const products = [ {id:1,name:'milk',price:15},{id:2,name:'coffee',price:55}];
-const columns = [{
-  dataField: 'id',
-  text: 'Product ID',
-  sort: true
-}, {
-  dataField: 'name',
-  text: 'Product Name',
-  sort: true,
-  //headerClasses: 'headerclass'
-}, {
-  dataField: 'price',
-  text: 'Product Price',
-  sort: true
-}];
+import {ICenterBloodQty} from '../../../Models/ICenterBloodQty'
+import ReactTable from "react-table";
+import "react-table/react-table.css";
+let centerStock:ICenterBloodQty[];
+        centerStock=[
+        {
+            center:'centru',
+            location:'Cluj',
+            quantity:10
+        },{
+          center:'centru2',
+          location:'Cluj-Napoca',
+          quantity:20
+      }
+      ]
+
 
 export interface BloodStockProps{
 
@@ -47,99 +45,31 @@ export default class BloodStock extends React.Component<BloodStockProps,BloodSto
              <div>
                   <h1 className='head'><hr/>Stoc sange <hr/></h1>
 
-
-                <BootstrapTable id='tabel1' keyField='id' data={ products } columns={ columns } /><br/>
-                  <table id='tabel1' >
-
-                      <tr>
-                          <th>Centru</th>
-                          <th>Stoc sange</th>
-                          <th>Cantitate</th>
-
-                      </tr>
-                    <tr >
-                        <td>Centru1</td>
-                        <td>
-                            
-                                
-                               
-                                <Collapsible trigger={this.state.sangeint } >
-                                <label>Grupa:</label>
-                                <select>
-                                    <option>O I</option>
-                                   
-                                    <option>A II</option>
-                                   
-                                    <option>B III</option>
-                                   
-                                    <option>AB IV</option>
-                                    
-                                </select>
-                                <label>  Rh:</label>
-                                <select>
-                                    <option>+</option>
-                                   
-                                    <option>-</option>
-                                   
-                                   
-                                    
-                                </select><br/>
-
-
-                                </Collapsible>
-                               <Collapsible trigger={this.state.trom}>
-                               </Collapsible>
-                                <div id='listcol'>
-                              
-                                 <Collapsible trigger={this.state.grosii}  >
-                                 <label>Grupa:</label>
-                                <select>
-                                    <option>O I</option>
-                                   
-                                    <option>A II</option>
-                                   
-                                    <option>B III</option>
-                                   
-                                    <option>AB IV</option>
-                                    
-                                </select>
-                                <label>  Rh:</label>
-                                <select>
-                                    <option>+</option>
-                                   
-                                    <option>-</option>
-                                   
-                                   
-                                    
-                                </select><br/>
-
-                                </Collapsible>
-                                </div>
-                                <Collapsible trigger={this.state.plas}>
-                                <label>Grupa:</label>
-                                <select>
-                                    <option>O I</option>
-                                   
-                                    <option>A II</option>
-                                   
-                                    <option>B III</option>
-                                   
-                                    <option>AB IV</option>
-                                    
-                                </select>
-                                
-
-                                </Collapsible>
-
-
-                        </td>
-                        <td>
-                            </td>
-                            
-                        </tr>
-
-                     
-                      </table>
+<ReactTable
+          data={centerStock}
+          columns={[
+            {
+              Header: "Centru",
+              accessor: "center"
+             
+            },
+            {
+              Header: "Locatie",
+              accessor: "location"
+             
+            },
+            {
+              Header: "Cantitate",
+              accessor: "quantity"
+             
+            },
+           
+          ]}
+          defaultPageSize={5}
+          className="-striped -highlight"
+        />
+              
+                  
                  </div>   
         )
     }
