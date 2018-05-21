@@ -8,12 +8,6 @@ namespace DatabaseAccess.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "Stage",
-                table: "BloodBags",
-                nullable: false,
-                defaultValue: 0);
-
             migrationBuilder.CreateTable(
                 name: "DonorsRegistrationsForDonation",
                 columns: table => new
@@ -32,10 +26,6 @@ namespace DatabaseAccess.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "DonorsRegistrationsForDonation");
-
-            migrationBuilder.DropColumn(
-                name: "Stage",
-                table: "BloodBags");
         }
     }
 }

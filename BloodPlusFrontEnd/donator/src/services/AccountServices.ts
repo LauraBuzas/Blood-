@@ -72,7 +72,6 @@ export class AccountService {
                 }
             ).then((response: any) => {
                 resolve(response);
-            
             },
                 (error: any) => {
                     reject(error);

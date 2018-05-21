@@ -50,11 +50,11 @@ namespace BloodPlus.Controllers
                 {
                     var lastDonation = analyses[0].DateAndTime;
                     var nextDonation = lastDonation.AddMonths(3);
-                    return Ok("Te asteptam sa donezi incepand cu "+nextDonation.ToLongDateString());
+                    return Ok(nextDonation);
                 }
                 else
                 {
-                    return Ok("Vino sa donezi acum!");
+                    return Ok("");
                 }
 
 

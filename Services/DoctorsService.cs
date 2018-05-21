@@ -60,7 +60,7 @@ namespace Services
             }
         }
 
-        public void AddRequest(Request request)
+        public Request AddRequest(Request request)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
@@ -68,6 +68,7 @@ namespace Services
                 uow.DoctorRequestRepository.Add(request);
                 uow.Save();
             }
+            return request;
         }
 
         public List<Request> GetRequests(string id)

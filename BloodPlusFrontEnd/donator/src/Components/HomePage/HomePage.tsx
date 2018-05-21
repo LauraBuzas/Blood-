@@ -44,7 +44,6 @@ export class HomePage extends React.Component {
                 <WhyPage />
                 <FaqMenu />
             
-
             </div>
             
         );
