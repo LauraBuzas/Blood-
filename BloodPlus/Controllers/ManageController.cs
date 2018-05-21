@@ -150,7 +150,8 @@ namespace BloodPlus.Controllers
             return View(model);
         }
 
-        [Authorize(Roles ="HospitalDoctor")]
+        [Authorize(Roles ="HospitalDoctor,Donor")]
+        //[Authorize(Roles ="Donor")]
         [HttpPost("change")]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangePassword([FromBody]ChangePasswordViewModel model)

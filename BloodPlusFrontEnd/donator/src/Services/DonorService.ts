@@ -53,9 +53,11 @@ export class DonorService {
         });
     }
 
+    
+
     public static mapNextDate(date: string) {
-        if (date === "Vino sa donezi acum!") {
-            return date;
+        if (date === "") {
+            return null;
         }
         let year = parseInt(date.substring(0, 4));
         let month = parseInt(date.substring(5, 7));

@@ -54,7 +54,7 @@ namespace BloodPlus.Controllers
                 }
                 else
                 {
-                    return Ok("Vino sa donezi acum!");
+                    return Ok("");
                 }
 
 

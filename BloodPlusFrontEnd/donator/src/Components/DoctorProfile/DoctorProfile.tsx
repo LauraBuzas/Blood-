@@ -144,10 +144,10 @@ export class DoctorProfile extends React.Component<DoctorProfileProps,DoctorProf
             ok1=false;
         }
         if(this.state.doctor.password=='' || this.state.doctor.confirmPassword=='' || this.state.newPassword==''){
-            Alert.error("Câmpurile de parolă necompletate!", {
-                position: 'top-right',
-                effect: 'jelly'
-            });
+            // Alert.error("Câmpurile de parolă necompletate!", {
+            //     position: 'top-right',
+            //     effect: 'jelly'
+            // });
             ok2=false;
         }
         if(this.state.newPassword!=this.state.doctor.confirmPassword && this.state.newPassword!='' && this.state.doctor.confirmPassword!=''){
