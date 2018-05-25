@@ -45,6 +45,7 @@
     "react-scripts-ts": "2.8.0",
     "react-select": "^1.2.1",
     "react-stylesheet": "^2.2.2",
+    "react-table": "^6.8.5",
     "react-validator": "^0.1.0",
     "universal-cookie": "^2.1.2",
     "validator": "^10.2.0"

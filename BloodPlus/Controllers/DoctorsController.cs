@@ -147,6 +147,129 @@ namespace BloodPlus.Controllers
         }
 
 
+        [Authorize(Roles = "HospitalDoctor")]
+        [HttpGet("bloodqty")]
+        public IActionResult GetBloodQuantity()
+        {
+            try
+            {
+                var centers = doctorsService.GetCenters();
+                var addresses = doctorsService.GetCenterAddresses();
+                var bloodbags = doctorsService.GetBloodBagsQty();
+                var plasmas = doctorsService.GetPlasmasQty();
+                var thrombocytes = doctorsService.GetThrombocyteQty();
+                var redcells = doctorsService.GetRedBloodCellQty();
+
+
+                List<CenterBloodQuantityViewModel> centersqty = new List<CenterBloodQuantityViewModel>();
+                foreach(Center c in centers)
+                {
+                    var centerbloodbags = (from bags in bloodbags
+                                           where bags.CenterId == c.Id
+                                           select bags);
+                    var centeraddres = (from a in addresses
+                                       where a.Id == c.IdAddress
+                                       select  a).First();
+
+                    var bbags = (from bag in centerbloodbags
+                                 group bag by new { bag.BloodType, bag.RhType } into grp
+                                 select new { grp.Key.BloodType, grp.Key.RhType, qty = grp.Count() }).ToList();
+
+                    foreach(var bag in bbags)
+                    {
+                        CenterBloodQuantityViewModel cbq = new CenterBloodQuantityViewModel();
+                        cbq.CenterName = c.CenterName;
+                        cbq.Address = centeraddres.ToString();
+                        cbq.Component = "Sange neseparat";
+                        cbq.Group = bag.BloodType.ToString();
+                        cbq.Rh = bag.RhType.ToString();
+                        cbq.Quantity = bag.qty;
+
+                        centersqty.Add(cbq);
+
+                    }
+
+                    var centerplasmas = (from plasma in plasmas
+                                         where plasma.CenterId == c.Id
+                                         select plasma);
+
+
+                    var cplasmas = (from p in centerplasmas
+                                 group p by new { p.BloodType} into grp
+                                 select new { grp.Key.BloodType, qty = grp.Count() }).ToList();
+
+                    foreach (var p in cplasmas)
+                    {
+                        CenterBloodQuantityViewModel cbq = new CenterBloodQuantityViewModel();
+                        cbq.CenterName = c.CenterName;
+                        cbq.Address = centeraddres.ToString();
+                        cbq.Component = "Plasma";
+                        cbq.Group = p.BloodType.ToString();
+                        
+                        cbq.Quantity = p.qty;
+
+                        centersqty.Add(cbq);
+
+                    }
+
+                    var centerthr = (from thr in thrombocytes
+                                     where thr.CenterId == c.Id
+                                     select thr);
+
+                    var thrs = (from t in centerthr
+                                 group t by new { t.BloodType, t.RhType } into grp
+                                 select new { grp.Key.BloodType, grp.Key.RhType, qty = grp.Count() }).ToList();
+
+                    foreach (var t in thrs)
+                    {
+                        CenterBloodQuantityViewModel cbq = new CenterBloodQuantityViewModel();
+                        cbq.CenterName = c.CenterName;
+                        cbq.Address = centeraddres.ToString();
+                        cbq.Component = "Trombocite";
+                        cbq.Group = t.BloodType.ToString();
+                        cbq.Rh = t.RhType.ToString();
+                        cbq.Quantity = t.qty;
+
+                        centersqty.Add(cbq);
+
+                    }
+
+                    var centerredcells = (from rc in redcells
+                                          where rc.CenterId == c.Id
+                                          select rc);
+
+                    var rcs = (from r in centerredcells
+                                 group r by new { r.BloodType, r.RhType } into grp
+                                 select new { grp.Key.BloodType, grp.Key.RhType, qty = grp.Count() }).ToList();
+
+                    foreach (var r in rcs)
+                    {
+                        CenterBloodQuantityViewModel cbq = new CenterBloodQuantityViewModel();
+                        cbq.CenterName = c.CenterName;
+                        cbq.Address = centeraddres.ToString();
+                        cbq.Component = "Globule rosii";
+                        cbq.Group = r.BloodType.ToString();
+                        cbq.Rh = r.RhType.ToString();
+                        cbq.Quantity = r.qty;
+
+                        centersqty.Add(cbq);
+
+                    }
+
+                }
+                //var requests = doctorsService.GetRequests(id);
+               // List<DoctorRequestViewModel> requestsReturned = requests.Select(r => MapperDoctorRequest.ToDoctorRequestViewModel(r)).ToList();
+
+
+                return Ok(centersqty);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Can't get centers'blood quantity.");
+            }
+        }
+
 
     }
 }

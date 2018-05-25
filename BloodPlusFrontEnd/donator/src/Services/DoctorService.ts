@@ -8,7 +8,7 @@ import { ICenterBloodQty } from '../Models/ICenterBloodQty';
 export class DoctorService {
 
     private static rootDoctors: string = 'http://localhost:54211/doctors';
-    private static rootCenters: string = 'http://localhost:54211/centers';
+   // private static rootCenters: string = 'http://localhost:54211/centers';
 
     public static getHospitalizedPatients(): Promise<any> {
         return new Promise((resolve, reject) => {
@@ -110,15 +110,19 @@ export class DoctorService {
         return {
             center:response.center,
             location:response.location,
+            component:response.component,
+            group:response.group,
+            rh:response.rh,
             quantity:response.quantity,
+
            
         };
     }
 
-    public static getEmployees(): Promise<ICenterBloodQty[]> {
+    public static getCentersStock(): Promise<ICenterBloodQty[]> {
         return new Promise((resolve, reject) => {
             axios(
-                this.rootCenters,
+                this.rootDoctors+'/bloodqty',
                 {
                     method:'GET',
                     headers:{
@@ -128,8 +132,8 @@ export class DoctorService {
                     withCredentials:true
                 }
             ).then((response: any) => {
-                let employees = response.data.map(this.toCenter);
-                resolve(employees);
+                let centers = response.data.map(this.toCenter);
+                resolve(centers);
             },
                 (error: any) => {
                     reject(error);
