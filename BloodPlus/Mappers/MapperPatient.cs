@@ -62,7 +62,7 @@ namespace BloodPlus.Mappers
                 CNP = patientExtGetView.CNP,
                 LastName = patientExtGetView.LastName,
                 FirstName = patientExtGetView.FirstName,
-                Status = PatientStatus.INTERNAT,        //Sa MODIFICI AICI
+                Status = PatientStatus.INTERNAT,        
                 //Address = address
                 //IdAddress = address.Id
             };
