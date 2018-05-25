@@ -183,6 +183,10 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
                 isLoading: true,
                 bgColor: 'gray'
             });
+            Alert.success("Schimbările au fost salvate", {
+                position: 'top-right',
+                effect: 'jelly'
+            });
         }
         if(ok2==true && ok3==true){
              let passwordUpdate: IPasswordUpdate = {
@@ -199,6 +203,10 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
             this.setState({
                 isLoading: true,
                 bgColor: 'gray'
+            });
+            Alert.success("Schimbările au fost salvate", {
+                position: 'top-right',
+                effect: 'jelly'
             });
         }
     }
