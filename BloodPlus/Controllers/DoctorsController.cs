@@ -103,6 +103,66 @@ namespace BloodPlus.Controllers
             }
         }
 
+        //[Authorize(Roles = "HospitalDoctor")]
+        //[HttpPost("addPatient")]
+        //public IActionResult AddPatient([FromBody] PatientGetExtendedModelView patientView)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return BadRequest("Can't add request");
+
+        //    try
+        //    {
+        //        Address address = Mappers.MapperPatient.ToAddress(patientView);
+        //        Patient patient = Mappers.MapperPatient.ToPatient(patientView);
+        //        patientService.AddPatient(patient, address);
+        //        return Ok(patientView); //patient
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest("Can't add request");
+        //    }
+        //}
+
+        [Authorize(Roles = "HospitalDoctor")]
+        [HttpPost("changePatientStatus")]
+        public IActionResult ChangePatientStatus([FromBody] PatientChangeStatus patientChange)
+        {
+            try
+            {
+                string cnp = patientChange.CNP;
+                Patient currrentPatient = patientService.GetPatientByCNP(cnp);
+
+                string newStatus = patientChange.Status;
+                if (newStatus.Equals("INTERNAT"))
+                {
+                    currrentPatient.Status = PatientStatus.INTERNAT;
+                }else if (newStatus.Equals("EXTERNAT"))
+                        {
+                            currrentPatient.Status = PatientStatus.EXTERNAT;
+                        }
+                        else if(newStatus.Equals("DECEDAT"))
+                        {
+                            currrentPatient.Status = PatientStatus.DECEDAT;
+                        }
+                patientService.UpdatePatient(currrentPatient);
+
+                //getAll
+                var id = Request.Cookies["UserId"];
+                var patients = patientService.GetHospitalizedPatientsForDoctor(id);
+                List<PatientGetExtendedModelView> patientsReturned = new List<PatientGetExtendedModelView>();
+                foreach (var patient in patients)
+                {
+                    Address address = doctorsService.GetAddressForPatient(patient.IdAddress);
+                    patientsReturned.Add(Mappers.MapperPatient.ToPatientExtendedGet(patient, address));
+                }
+                return Ok(patientsReturned);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Can't change status of patient");
+            }
+        }
+
         [Authorize(Roles = "HospitalDoctor")]
         [HttpGet("hospitalized")]
         public IActionResult GetHospitalizedPatients()
@@ -117,10 +177,36 @@ namespace BloodPlus.Controllers
                 {
                     patientsReturned.Add(Mappers.MapperPatient.ToPatientGet(patient));
                 }
-
+                
                 return Ok(patientsReturned);
 
             }catch(Exception ex)
+            {
+                return BadRequest("Can't get hospitalized patients");
+            }
+        }
+
+        [Authorize(Roles = "HospitalDoctor")]
+        [HttpGet("hospitalized/details")]
+        public IActionResult GetHospitalizedPatientsDetailed()
+        {
+            try
+            {
+
+                var id = Request.Cookies["UserId"];
+                var patients = patientService.GetHospitalizedPatientsForDoctor(id);
+               
+
+                List<PatientGetExtendedModelView> patientsReturned = new List<PatientGetExtendedModelView>();
+                foreach (var patient in patients)
+                {
+                    Address address = doctorsService.GetAddressForPatient(patient.IdAddress);
+                    patientsReturned.Add(Mappers.MapperPatient.ToPatientExtendedGet(patient,address));
+                }
+                return Ok(patientsReturned);
+
+            }
+            catch (Exception ex)
             {
                 return BadRequest("Can't get hospitalized patients");
             }

@@ -54,6 +54,10 @@ var nodesDoctor=[
     {
         title:"Cere sânge",
         link:"/request"
+    },
+    {
+        title:"Pacienții mei",
+        link:"doctor/patients"
     }]
 var nodesHospitalAdmin=[
     {
