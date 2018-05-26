@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Route} from 'react-router-dom';
 import { HospitalAdmin } from '../Doctor/HospitalAdmin/HospitalAdmin';
 import { CenterAdmin } from '../MedicalCenter/CenterAdmin/CenterAdmin';
-import { Register } from '../../main_components/Register';
+// import { Register } from '../../main_components/Register';
 import { LogIn } from '../../main_components/LogIn';
 import { SignUp } from '../../main_components/SignUp';
 import { HomePage } from '../HomePage/HomePage';
@@ -38,8 +38,8 @@ export class Body extends React.Component<BodyProps,BodyState>
     {
         const HospitalAdminComponent=()=>{return <HospitalAdmin/>}
         const CenterAdminComponent=()=>{return <CenterAdmin/>}
-        const LoginComponent=()=>{return <Register setRole={this.props.setRole} />}
-        const RegisterComponent=()=>{return <SignUp/>}
+        const LoginComponent=()=>{return <LogIn setRole={this.props.setRole} />}
+        const RegisterComponent=()=>{return <SignUp setRole={this.props.setRole}/>}
         const DoctorRequestCompoent=()=>{return <DoctorRequest/>}
         const EmployeeProfileComponent=()=>{return <EmployeeProfile/>}
         const HomeComponent = () => {return <HomePage/>}
