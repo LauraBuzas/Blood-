@@ -30,6 +30,10 @@ var nodesGuest=[
         link:'/'
     },
     {
+        title:"Centre",
+        link:'/centers'
+    },
+    {
         title:"Cont nou",
         link:"/register"
     },
@@ -50,6 +54,10 @@ var nodesDoctor=[
     {
         title:"Cere sânge",
         link:"/request"
+    },
+    {
+        title:"Pacienții mei",
+        link:"doctor/patients"
     }]
 var nodesHospitalAdmin=[
     {
@@ -79,6 +87,14 @@ var nodesEmployee=[
     {
         title:"Profil",
         link:"/employee/profile"
+    },
+    {
+        title:"Cereri de sânge",
+        link:"/employee/requests"
+    },
+    {
+        title: "Stoc sange",
+        link: "/employees/stock"
     }
 
 ]
@@ -89,8 +105,12 @@ var nodesDonor=[
         link:'/'
     },
     {
+        title:"Profil",
+        link:'/donor/profile'
+    },
+    {
         title:"Analizele mele",
-        link:"/analyses"
+        link:"/donor/analyses"
     }]
 export class Header extends React.Component<HeaderProps,HeaderState>
 {

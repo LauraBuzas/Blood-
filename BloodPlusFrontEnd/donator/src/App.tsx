@@ -13,6 +13,11 @@ import { Body } from './Components/Body/Body';
 import { AccountService } from './Services/AccountServices';
 import {ModalDoctorRequest} from './Components/Modal/ModalDoctorRequest';
 import { DoctorRequest } from './Components/Doctor/DoctorRequest/DoctorRequest';
+import { CenterRequest } from './Components/MedicalCenter/CenterRequests';
+import { WebSocketService } from './Services/WebSocketService';
+//import {Cookies} from 'universal-cookie';
+import cookie from 'react-cookies'
+import { Marker } from './Components/Map/Map';
 
 
 export interface AppProps
@@ -23,6 +28,7 @@ interface AppState
 {
   role:string;
   isLoggedIn:boolean;
+  webSocket:WebSocketService;
 }
 
 export class App extends React.Component<AppProps,AppState> {
@@ -31,22 +37,30 @@ export class App extends React.Component<AppProps,AppState> {
         super(props);
         this.state=
         {
-          role:'Guest',
-          isLoggedIn:false
+          role: 'Guest',
+          isLoggedIn: false,
+          webSocket: null
         }
         this.setRoleInApp=this.setRoleInApp.bind(this);
   }
 
-  setRoleInApp(event:any)
+  async setRoleInApp(event:any)
   {
-    this.setState({role:event,isLoggedIn:true});
+    var webSocket=new WebSocketService();
+    await webSocket.startConnection(event);
+    this.setState({role:event,isLoggedIn:true,webSocket:webSocket});
   }
 
-  logout()
+  async logout()
   {
+      await this.state.webSocket.unsubscribeToAGroup(this.state.role);
       AccountService.logoutUser().then(()=>{
-          this.setState({isLoggedIn:false})
-          this.setState({role:"Guest"})
+         // const cookies = new Cookies();
+          if(this.state.role==="DonationCenterDoctor")
+            cookie.remove("CenterId",{path:"/"});
+          if(this.state.role==="HospitalDoctor")
+            cookie.remove("HospitalId",{path:"/"});
+          this.setState({isLoggedIn:false,role:"Guest"});
       },
       (error) => {
           Alert.error("Eroare la logout. Vă rugăm, reîncercați", {
@@ -69,9 +83,13 @@ export class App extends React.Component<AppProps,AppState> {
               logOut={this.logout.bind(this)} 
             /> : null
           }
-          <Body setRole={(event) => this.setRoleInApp(event)}  />  
+          <Body setRole={(event) => this.setRoleInApp(event)} webSocket={this.state.webSocket}  />  
           <Footer/>
+
+       
           
+
+           
         </div>
           
       </Router>

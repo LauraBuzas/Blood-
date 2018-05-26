@@ -17,7 +17,7 @@ interface DonorProfileState {
     donorPastTests: IDonorMedicalTest[]
 }
 
-export class DonorProfilePage extends React.Component<DonorProfileProps, DonorProfileState> {
+export class DonorTestsPage extends React.Component<DonorProfileProps, DonorProfileState> {
 
     constructor(props: DonorProfileProps) {
         super(props);
@@ -69,9 +69,9 @@ export class DonorProfilePage extends React.Component<DonorProfileProps, DonorPr
     canDonate(date) {
   
         //console.log(date);
-        console.log("next date: "+Date.parse(date));
-        console.log("now: "+Date.now());
-        if (date < Date.now()) {
+       // console.log("next date: "+Date.parse(date));
+        //console.log("now: "+Date.now());
+        if (!date) {
             return true;
         }
         return false;
