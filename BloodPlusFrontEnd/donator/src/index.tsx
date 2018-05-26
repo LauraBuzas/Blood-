@@ -8,7 +8,7 @@ import Multistep from './donation_form/MultiStep'
 
 import BloodStock from '../src/Components/Doctor/BloodStock/BloodStock'
 ReactDOM.render(
-<BloodStock />,
+<App />,
  document.getElementById('root') as HTMLElement
 );
 registerServiceWorker();

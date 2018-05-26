@@ -99,22 +99,22 @@ const stocks=[
   quantity:20
 }
 ];
-
+let stock:ICenterBloodQty[]
 
 
 export default class BloodStock extends React.Component<BloodStockProps,BloodStockState>{
         constructor(props){
             super(props);
-            let stock:ICenterBloodQty[]
+           
 
               
             
-            DoctorService.getCentersStock().then((resp)=> {stock=resp},
+            DoctorService.getCentersStock().then((centers:ICenterBloodQty[])=> {this.setState({centerstock:centers})},
             (error) => {
                 console.log(error);
                 
             });
-            this.state={centerstock:stock}
+          
               this.renderShowsTotal=this.renderShowsTotal.bind(this);
         }
 
@@ -136,8 +136,8 @@ export default class BloodStock extends React.Component<BloodStockProps,BloodSto
         }, {
           text: '10', value: 10
         }, {
-          text: 'All', value: this.state.centerstock.length
-        } ], // you can change the dropdown list for size per page
+          text: 'All', value: this.state.centerstock.length} 
+        ], // you can change the dropdown list for size per page
         sizePerPage: 5,  // which size per page you want to locate as default
         pageStartIndex: 1, // where to start counting the pages
         paginationSize: 3,  // the pagination bar size.

@@ -120,6 +120,7 @@ export class DoctorService {
     }
 
     public static getCentersStock(): Promise<ICenterBloodQty[]> {
+        console.log("e aici");
         return new Promise((resolve, reject) => {
             axios(
                 this.rootDoctors+'/bloodqty',
@@ -127,7 +128,8 @@ export class DoctorService {
                     method:'GET',
                     headers:{
                         'Access-Control-Allow-Origin':'*',
-                        'Content-Type':'application/json'
+                        'Content-Type':'application/json',
+                        'Access-Control-Allow-Credentials':true
                     },
                     withCredentials:true
                 }
@@ -136,6 +138,7 @@ export class DoctorService {
                 resolve(centers);
             },
                 (error: any) => {
+                    
                     reject(error);
                 });
         });
