@@ -18,6 +18,15 @@ namespace Services
             }
         }
 
+        public void UpdatePatient(Patient pat)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                uow.PatientRepository.Update(pat);
+                uow.Save();
+            }
+        }
+
         public void AddPatient(Patient patient,Address address)
         {
             using (UnitOfWork uow = new UnitOfWork())
@@ -27,6 +36,14 @@ namespace Services
                 patient.IdAddress = address.Id;
                 uow.PatientRepository.Add(patient);
                 uow.Save();
+            }
+        }
+
+        public Address GetAddressForPatient(int id)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.AddressRepository.GetById(id);
             }
         }
 

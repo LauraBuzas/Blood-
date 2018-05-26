@@ -30,6 +30,14 @@ namespace Services
             }
         }
 
+        public Address GetAddressForPatient(int idAddress)
+        {
+            using( UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.AddressRepository.GetById(idAddress);
+            }
+        }
+
         public Doctor AddDoctor(Doctor doctor)
         {
             using (UnitOfWork uow = new UnitOfWork())
