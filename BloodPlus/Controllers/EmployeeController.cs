@@ -117,14 +117,15 @@ namespace BloodPlus.Controllers
         {
             try
             {
-                var centerId = Request.Cookies["CenterId"];
+                var centerId = int.Parse(Request.Cookies["CenterId"]);
                 donorService.SendEmails(_emailSender, centerId);
             }
             catch (Exception)
             {
 
-                throw;
+               
             }
+            return BadRequest();
         }
 
 

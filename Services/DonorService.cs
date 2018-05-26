@@ -56,13 +56,12 @@ namespace Services
             int numberOfEmailsSent = 0;
             using (UnitOfWork uow = new UnitOfWork())
             {
-                //var centerAddress = uow.CenterRepository.GetAll().Include(c => c.Address)
-                //                    .First(c => c.Id == centerId).Address;
-                var centerCity = "Cluj-Napoca";
-                var centerAddress = new Address();
+                var centerAddress = uow.CenterRepository.GetAll().Include(c => c.Address)
+                                    .First(c => c.Id == centerId).Address;
+               
                 var users = uow.DonorRepository.GetAll()
                                 .Include(d => d.Address)
-                                .Where(d => d.Address.City == centerCity);
+                                .Where(d => d.Address.City == centerAddress.City);
 
                 users.ForEachAsync(u =>
                 {
