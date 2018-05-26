@@ -37,9 +37,9 @@ export class App extends React.Component<AppProps,AppState> {
         super(props);
         this.state=
         {
-          role:'Guest',
-          isLoggedIn:false,
-          webSocket:null
+          role: 'Guest',
+          isLoggedIn: false,
+          webSocket: null
         }
         this.setRoleInApp=this.setRoleInApp.bind(this);
   }

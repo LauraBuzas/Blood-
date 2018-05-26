@@ -165,6 +165,10 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
               });
         }else{
             EmployeeProfileService.saveProfileChanges(this.state.employee);
+            Alert.success("S-au salvat modificarile", {
+                position: 'top-right',
+                effect: 'jelly'
+              });
         }
     }
     
