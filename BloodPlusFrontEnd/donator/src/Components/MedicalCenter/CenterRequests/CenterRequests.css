@@ -1,0 +1,17 @@
+.all-requests{
+    margin:10%;
+    display:flex;
+}
+
+.column {
+    float: left;
+    padding: 10px;
+}
+
+.left-stock {
+  width: 25%;
+}
+
+.right-table {
+  width: 75%;
+}

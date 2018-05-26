@@ -14,7 +14,8 @@ import { DoctorService } from '../../../Services/DoctorService';
 import { Button1 } from '../../../utils/Button1';
 import { ModalDoctorRequest } from '../../Modal/ModalDoctorRequest';
 import {ModalDoctorRequestView} from '../DoctorRequest/Modal/ModalDoctorRequestView';
-export interface DoctorRequestProps{}
+import { WebSocketService } from '../../../Services/WebSocketService';
+export interface DoctorRequestProps{webSocket:WebSocketService}
 
 interface DoctorRequestState
 {
@@ -22,7 +23,8 @@ interface DoctorRequestState
     message: string,
     addRequest: boolean,
     showDetails: boolean,
-    currentRow: IDoctorRequestView
+    currentRow: IDoctorRequestView,
+    notificationRequested:boolean
 }
 
 export class DoctorRequest extends React.Component<DoctorRequestProps,DoctorRequestState>
@@ -38,9 +40,11 @@ export class DoctorRequest extends React.Component<DoctorRequestProps,DoctorRequ
             message:"",
             addRequest:false,
             showDetails:false,
-            currentRow:undefined
+            currentRow:undefined,
+            notificationRequested:false
         }
         this.closeDetails=this.closeDetails.bind(this);
+        this.requestAccepted=this.requestAccepted.bind(this);
         
     }
 
@@ -83,9 +87,19 @@ export class DoctorRequest extends React.Component<DoctorRequestProps,DoctorRequ
     closeDetails(){
         this.setState({showDetails:false});
     }
+    requestAccepted()
+    {
+        console.log("am primit accept");
+        this.getRequests();
+    }
     
     render()
     {
+        if(this.props.webSocket!==null && !this.state.notificationRequested){
+            this.props.webSocket.requestAcceptedNotification(this.requestAccepted);
+            this.setState({notificationRequested:true});
+        }
+
         const selectRowProp = {
             clickToSelect: true,           
           };
@@ -119,6 +133,7 @@ export class DoctorRequest extends React.Component<DoctorRequestProps,DoctorRequ
                     <TableHeaderColumn dataField='currentQuantity'>Cantitate Curenta</TableHeaderColumn>
                     <TableHeaderColumn dataField='requestedComponent'>Componenta Ceruta</TableHeaderColumn>
                     <TableHeaderColumn dataField='emergencyLevel'>Grad de Urgenta</TableHeaderColumn>
+                    <TableHeaderColumn dataField='status'>Status</TableHeaderColumn>
                 </BootstrapTable>
 
                 </div>
