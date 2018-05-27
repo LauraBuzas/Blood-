@@ -12,7 +12,6 @@ namespace BloodPlus.Hubs
             return Clients.Client(Context.ConnectionId).SetConnectionId(Context.ConnectionId);
         }
 
-
         //Server side methods called from client
         public Task Subscribe(string clientType)
         {
@@ -25,9 +24,14 @@ namespace BloodPlus.Hubs
             return Groups.RemoveAsync(Context.ConnectionId, clientType);
         }
 
-        public Task SendRequest(DoctorRequestViewModel request)
+        public Task SendRequest(EmployeeRequestModelView request)
         {
             return Clients.Group("DonationCenterDoctor").SendRequest(request);
+        }
+
+        public Task AcceptRequest()
+        {
+            return Clients.Group("HospitalDoctor").AcceptRequest();
         }
 
 
@@ -37,7 +41,8 @@ namespace BloodPlus.Hubs
     public interface IBroadcaster
     {
         Task SetConnectionId(string connectionId);
-        Task SendRequest(DoctorRequestViewModel request);
+        Task SendRequest(EmployeeRequestModelView request);
+        Task AcceptRequest();
     }
     
 }
