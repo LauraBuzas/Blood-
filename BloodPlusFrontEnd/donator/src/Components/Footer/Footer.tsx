@@ -27,7 +27,7 @@ export class Footer extends React.Component {
         return(
             <div id="footer">
                 <button onClick={this.scrollUp} className="footer-button up-button" id="up-button">
-                    <div><i className="fa fa-angle-double-up" /></div>
+                    <div><i className="fa fa-caret-up" /></div>
                 </button>
                 
                 <a href="/" className="footer-button" id="up-button">
@@ -41,7 +41,7 @@ export class Footer extends React.Component {
                         Contact         
                     </div>
                     <div>
-                        e-mail: info@bloodplus.com
+                        e-mail: bloodplus.contact@gmail.com
                     </div>
                 </div>
 

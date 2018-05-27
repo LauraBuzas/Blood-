@@ -1,15 +1,23 @@
-.hboxPosition {
+.signup-container {
+    display: flex;
+    flex-wrap: wrap;
     margin: 0 auto;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
+    max-width: 380px;
     margin-bottom: auto;
 }
 
-.vboxPosition {
-    width : 410px;
+.h-box {
+    width: 100%;
 }
 
+.h-box div {
+    display: inline-block;
+}
+
+
 #login-div {
-    margin: 0 auto;
-    margin-bottom: 201px;
+    margin: 10px auto;
+    width: 100%;
+    max-width: 380px;
 }

@@ -21,7 +21,13 @@ export class FaqMenu extends React.Component {
                 <QuestionContainer question="Ce riscuri exista in donarea de sange?" 
                 answer={"Orice risc va fi prevenit de personalul centrului de donare unde doriti sa mergeti. " + 
                 "Acestia se vor asigura ca nu va pun in pericol si ca procesul decurge bine."}/>
-                <QuestionContainer question="Cum pot sa donez?" answer="uite asa"/>
+
+                <QuestionContainer question="Pot sa donez daca sunt racit/racita sau am febra?" 
+                answer="Cand donezi trebuie sa nu ai febra sau sa suferi de vreo boala."/>
+                
+                <QuestionContainer question="Cat de des pot sa donez sange?" 
+                answer="Barbatii pot dona de 4-5 ori pe an iar femeile de 3 ori pe an."/>
+
 
             </div>
         );

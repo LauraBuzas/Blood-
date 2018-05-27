@@ -168,6 +168,7 @@ export class SignUp extends React.Component<SignUpProps, SignUpState>
             return <Redirect to='/'/>
         }
         return (
+<<<<<<< Updated upstream
             <div>
                 <HBox className="hboxPosition">
                     <VBox className="vboxPosition">
@@ -195,6 +196,44 @@ export class SignUp extends React.Component<SignUpProps, SignUpState>
                 </HBox>
                 <Alert stack={true} timeout={3000} />
             </div>
+=======
+        <div className="signup-container">
+    
+        {/* first and last names */}
+        <div className="h-box">
+            <TextField text="Nume" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
+            <TextField text="Prenume" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
+        </div>
+        {/* cnp */}
+        
+        <div className="h-box">
+            <TextField text="CNP" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
+        </div>
+        
+        
+        {/* city and county */}
+        <div className="h-box">
+            <TextField text="Oras" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
+            <TextField text="Judet" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
+        </div>
+        {/* street */}
+        <div className="h-box">
+            <TextField text="Strada" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
+            <TextField text="Numar" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
+        </div>
+        <div className="h-box">
+            <TextField text="E-mail" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
+            <TextField text="Nume utilizator" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
+        </div>
+        <div className="h-box">
+            <TextField text="Parolă" type="password" onChangeFunction={this.handleUsernameChange.bind(this)} />
+            <TextField text="Confirmare Parolă" type="password" onChangeFunction={this.handleUsernameChange.bind(this)} />
+        </div>
+        <button className="generic-button">Inregistreaza-te</button>
+           
+        </div>
+            
+>>>>>>> Stashed changes
         );
     }
 }

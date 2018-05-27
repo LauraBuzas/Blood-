@@ -32,8 +32,8 @@ export class LogIn extends React.Component<LoginProps, LoginState>
                 message: '',
                 userRegistered:
                     {
-                        email: '',
-                        password: ''
+                        email: 'donor1@donor.com',
+                        password: 'Password123.'
                     },
                 role:''
             }
@@ -110,13 +110,9 @@ export class LogIn extends React.Component<LoginProps, LoginState>
         
         return (
             <div id="login-div">
-                <HBox className="hboxPosition">
-                    <VBox className="vboxPosition">
-                        <TextField text="Email" type="text" onChangeFunction={(event) => this.handleEmailChange(event)} />
-                        <TextField text="Parolă" type="password" onChangeFunction={(event) => this.handlePasswordChange(event)} />
-                        <button className="buttonLogIn" onClick={(event) => this.loginUser(event)}>Log in</button>
-                    </VBox>
-                </HBox>
+                <TextField text="Email" type="text" onChangeFunction={(event) => this.handleEmailChange(event)} />
+                <TextField text="Parolă" type="password" onChangeFunction={(event) => this.handlePasswordChange(event)} />
+                <button className="generic-button" onClick={(event) => this.loginUser(event)}>Log in</button>
                 <Alert stack={true} timeout={3000} />
             </div>
         );
