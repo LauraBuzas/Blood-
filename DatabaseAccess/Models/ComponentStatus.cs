@@ -4,8 +4,8 @@ using System.Text;
 
 namespace DatabaseAccess.Models
 {
-    public enum BloodBagStage
+    public enum ComponentStatus
     {
-        Sampling, Qualification, Separation, Sent
+        Available, Sent
     }
 }

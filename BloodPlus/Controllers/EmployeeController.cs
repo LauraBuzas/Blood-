@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BloodPlus.Hubs;
 using BloodPlus.Mappers;
 using BloodPlus.ModelViews;
 using BloodPlus.ModelViews.AccountViewModels;
@@ -11,7 +12,6 @@ using Microsoft.AspNetCore.Mvc;
 using Services;
 
 
-
 namespace BloodPlus.Controllers
 {
     [Produces("application/json")]
@@ -20,13 +20,17 @@ namespace BloodPlus.Controllers
     {
 
         EmployeeService employeeService;
+        DoctorsService doctorService;
+        Broadcaster broadcaster;
         DonorService donorService;
         private readonly IEmailSender _emailSender;
 
 
-        public EmployeeController(EmployeeService employeeService,DonorService donorService, IEmailSender _emailSender)
+        public EmployeeController(EmployeeService employeeService, DoctorsService doctorService, DonorService donorService, IEmailSender _emailSender)
         {
             this.employeeService = employeeService;
+            this.doctorService = doctorService;
+            this.broadcaster = broadcaster;
             this._emailSender = _emailSender;
             this.donorService = donorService;
         }
@@ -52,8 +56,77 @@ namespace BloodPlus.Controllers
         {
             var centerId = Request.Cookies["CenterId"];
             List<Request> requests = employeeService.GetRequests(int.Parse(centerId));
-            return Ok(requests);
+            List<EmployeeRequestModelView> requestViewModels = new List<EmployeeRequestModelView>();
+            foreach(var request in requests)
+            {
+                requestViewModels.Add(Mappers.MapperDoctorRequest.ToEmployeeRequest(request));
+            }
+            return Ok(requestViewModels);
         }
+
+        [HttpPost("accept")]
+        public IActionResult AcceptRequest([FromBody]EmployeeRequestModelView employeeRequestModelView)
+        {
+            var centerId = int.Parse(Request.Cookies["CenterId"]);
+            string component = employeeRequestModelView.Component;
+
+            Request doctorRequest = doctorService.GetDoctorRequest(employeeRequestModelView.Id);
+
+            try
+            {
+                if (employeeRequestModelView.Component == "Sange neseparat")
+                {
+                    employeeService.AcceptBloodBag(doctorRequest, centerId, employeeRequestModelView.Rh, employeeRequestModelView.BloodType, employeeRequestModelView.QuantityNeeded);
+                }
+                else if (employeeRequestModelView.Component == "Trombocite")
+                {
+                    employeeService.AcceptThrombocytes(doctorRequest, centerId, employeeRequestModelView.Rh, employeeRequestModelView.BloodType, employeeRequestModelView.QuantityNeeded);
+
+                }
+                else if (employeeRequestModelView.Component == "Plasma")
+                {
+                    employeeService.AcceptPlasma(doctorRequest, centerId, employeeRequestModelView.BloodType, employeeRequestModelView.QuantityNeeded);
+                }
+                else if (employeeRequestModelView.Component == "Celule rosii")
+                {
+                    employeeService.AcceptRedBloodCells(doctorRequest, centerId, employeeRequestModelView.Rh, employeeRequestModelView.BloodType, employeeRequestModelView.QuantityNeeded);
+                }
+              
+                this.broadcaster.Clients.Group("HospitalDoctor").AcceptRequest();          
+                return Ok(employeeRequestModelView);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("grouped-stock")]
+        public IActionResult GetBloodStockForCenter()
+        {
+            var centerId = int.Parse(Request.Cookies["CenterId"]);
+            var bagsStock = employeeService.GetBloodBags(centerId);
+            var thromboStock = employeeService.GetThrombocytesStock(centerId);
+            var redCellsStock = employeeService.GetRedBloodCellsStock(centerId);
+            var plasmaStock = employeeService.GetPlasmaStock(centerId);
+
+            var groupedBloodBags=bagsStock.AsQueryable().GroupBy(b => new { b.BloodType, b.RhType })
+                                .Select(b => new CenterBloodStockModelView { Component="Punga de sange", BloodType = b.Key.BloodType.ToString(), Rh = b.Key.RhType.ToString(), Quantity = b.Count() })
+                                .ToList();
+            var groupedThrombo = thromboStock.AsQueryable().GroupBy(b => new { b.BloodType, b.RhType })
+                               .Select(b => new CenterBloodStockModelView { Component="Trombocite", BloodType = b.Key.BloodType.ToString(), Rh = b.Key.RhType.ToString(), Quantity = b.Count() })
+                               .ToList();
+            var groupedRedCells = redCellsStock.AsQueryable().GroupBy(b => new { b.BloodType, b.RhType })
+                              .Select(b => new CenterBloodStockModelView {Component="Globule rosii", BloodType = b.Key.BloodType.ToString(), Rh = b.Key.RhType.ToString(), Quantity = b.Count() })
+                              .ToList();
+            var groupedPlasma = redCellsStock.AsQueryable().GroupBy(b => new { b.BloodType })
+                           .Select(b => new CenterBloodStockModelView { Component="Plasma", BloodType = b.Key.BloodType.ToString(), Rh = "", Quantity = b.Count() })
+                           .ToList();
+            var fullStock = groupedBloodBags.Union(groupedPlasma).Union(groupedRedCells).Union(groupedThrombo).ToList();
+
+            return Ok(fullStock);
+        }
+
 
         [Authorize(Roles = "DonationCenterAdmin")]
         [HttpDelete]

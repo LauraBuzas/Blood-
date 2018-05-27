@@ -190,6 +190,11 @@ export class DoctorService {
     }
 
     private static toRequestGet(response: any): IDoctorRequestView {
+        var statusRo;
+        if (response.status=="Waiting")
+            statusRo="In așteptare";
+        else statusRo="Completă"
+
         return {
             bloodType: response.bloodType,
             requestedQuantity: response.requestedQuantity,
@@ -200,8 +205,8 @@ export class DoctorService {
             dateOfRequest: response.dateOfRequest,
             CNP: response.patient.cnp,
             fullName: response.patient.firstName + " " + response.patient.lastName,
-            id:response.id
-            
+            id:response.id,
+            status:statusRo       
         };
     }
 }

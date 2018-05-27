@@ -68,7 +68,7 @@ export class DonorProfileService{
     public static updatePassword(passwordUpdate:IPasswordUpdate):Promise<any>{
         return new Promise((resolve, reject) => {
             axios(
-                "http://localhost:49853/manage/change",
+                "http://localhost:51401/manage/change",
                 {
                     method:'POST',
                     headers:{

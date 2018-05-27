@@ -10,9 +10,100 @@ import { IStatusChange } from '../Models/IStatusChange';
 import { IEditBloodBag } from '../Models/IEditBloodBag';
 import { IAddMedicalTest } from '../Models/IAddMedicalTest';
 import { IDonorView } from '../Models/IDonorView';
+import { IDoctorRequestView } from '../Models/IDoctorRequestView';
+import { IEmployeeRequest } from '../Models/IEmployeeRequest';
+import { IGroupedStock } from '../Models/IGroupedStock';
 
 export class EmployeeService {
     private static rootEmployee: string = 'http://localhost:50272/employees';
+
+    public static getRequests(): Promise<IEmployeeRequest[]> {
+        return new Promise((resolve, reject) => {
+            axios(
+                this.rootEmployee + '/requests',
+                {
+                    method:'GET',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                    },
+                    withCredentials:true
+                }
+            ).then((response: any) => {
+                let requests=response.data.map(this.toRequest);
+                resolve(requests);
+            },
+                (error: any) => {
+                    reject(error);
+                });
+        });
+    }
+
+    public static getGroupedStock(): Promise<IGroupedStock[]> {
+        return new Promise((resolve, reject) => {
+            axios(
+                this.rootEmployee + '/grouped-stock',
+                {
+                    method:'GET',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                    },
+                    withCredentials:true
+                }
+            ).then((response: any) => {
+                let groupedStock=response.data.map(this.toGroupedStock);
+                resolve(groupedStock);
+            },
+                (error: any) => {
+                    reject(error);
+                });
+        });
+    }
+
+    public static toRequest(response:any):IEmployeeRequest{
+        return{
+            quantityNeeded: response.quantityNeeded,
+            emergencyLevel:  response.emergencyLevel,
+            component: response.component,
+            bloodType: response.bloodType,
+            rh: response.rh,
+            dateOfRequest: response.dateOfRequest,
+            id:response.id
+        };
+    }
+
+    public static toGroupedStock(response:any):IGroupedStock{
+        return{
+            quantity: response.quantity,
+            component: response.component,
+            bloodType: response.bloodType,
+            rh: response.rh,
+        };
+    }
+
+    public static acceptRequest(request:IEmployeeRequest): Promise<IEmployeeRequest> {
+        return new Promise((resolve, reject) => {
+            axios(
+                this.rootEmployee + '/accept',
+                {
+                    method:'POST',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                    },
+                    withCredentials:true,
+                    data:request
+                }
+            ).then((response: any) => {        
+                resolve(response.data);
+            },
+                (error: any) => {
+                    reject(error);
+                });
+        });
+    }
+
     
     public static getBloodStock(): Promise<BloodStockModel[]> {
         return new Promise((resolve, reject) => {

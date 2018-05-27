@@ -73,7 +73,7 @@ namespace Services
                         .FirstOrDefault(c => c.Id == centerId);
                 var centerAddress = center.Address;
 
-                var allRequest = uow.DoctorRequestRepository.GetAll()
+                var allRequests = uow.DoctorRequestRepository.GetAll()
                                 .Include(r => r.Patient)
                                 .ThenInclude(p => p.Doctor)
                                 .ThenInclude(d => d.Hospital)
@@ -82,9 +82,9 @@ namespace Services
                                 .ThenBy(r => r.DateOfRequest);
 
                 List<Request> requestsForCenter = new List<Request>();
-                foreach(var request in allRequest)
+                foreach(var request in allRequests)
                 {
-                    if(request.Patient.Doctor.Hospital.Address.County==center.Address.County)
+                    if(request.Patient.Doctor.Hospital.Address.County==center.Address.County && request.ReceivedQuantity!=request.RequestedQuantity)
                     {
                         requestsForCenter.Add(request);
                     }
@@ -155,7 +155,7 @@ namespace Services
 					.GetAll()
 					.Include(bb => bb.Analysis.Donor)
                     .Include(bb => bb.Center)
-					.Where(bb => (bb.Status!=BloodBagStatus.Destroyed && bb.Status!=BloodBagStatus.Rejected) && bb.CenterId == centerId)
+					.Where(bb => (bb.Status!=BloodBagStatus.Destroyed && bb.Status!=BloodBagStatus.Rejected && bb.Stage!=BloodBagStage.Sent) && bb.CenterId == centerId)
 					.ToList();
 				
 			}
@@ -246,7 +246,7 @@ namespace Services
 					.GetAll()
                     .Include(bb => bb.Analysis.Donor)
                     .Include(bb => bb.Center)
-                    .Where(t => t.CenterId == centerId)
+                    .Where(t => t.CenterId == centerId && t.Status!=ComponentStatus.Sent)
 					.ToList();
 
 			}
@@ -258,7 +258,7 @@ namespace Services
 					.GetAll()
                     .Include(bb => bb.Analysis.Donor)
                     .Include(bb => bb.Center)
-                    .Where(rbc => rbc.CenterId == centerId)
+                    .Where(rbc => rbc.CenterId == centerId && rbc.Status!=ComponentStatus.Sent)
 					.ToList();
 
 			}
@@ -270,7 +270,7 @@ namespace Services
 					.GetAll()
                     .Include(bb => bb.Analysis.Donor)
                     .Include(bb => bb.Center)
-                    .Where(p => p.CenterId == centerId)
+                    .Where(p => p.CenterId == centerId && p.Status != ComponentStatus.Sent)
 					.ToList();
 
 			}
@@ -299,6 +299,169 @@ namespace Services
             return donorHasADisease || analysis.RejectedOtherCauses;
         }
 
-        //public void 
+        public List<RedBloodCell> GetRedBloodCellsForRequest(int centerId,string rh, string bloodType)
+        {
+            List<RedBloodCell> redBloodCells = new List<RedBloodCell>();
+            var available = GetRedBloodCellsStock(centerId);
+            foreach(var redBloodCell in available)
+            {
+                if (redBloodCell.BloodType.ToString() == bloodType && redBloodCell.RhType.ToString() == rh)
+                    redBloodCells.Add(redBloodCell);
+            }
+            return redBloodCells;
+        }
+
+        public List<Thrombocyte> GetThrombocytesForRequest(int centerId, string rh, string bloodType)
+        {
+            List<Thrombocyte> thrombocytes = new List<Thrombocyte>();
+            var available = GetThrombocytesStock(centerId);
+            foreach (var thrombocyte in available)
+            {
+                if (thrombocyte.BloodType.ToString() == bloodType && thrombocyte.RhType.ToString() == rh)
+                    thrombocytes.Add(thrombocyte);
+            }
+            return thrombocytes;
+        }
+
+        public List<BloodBag> GetBloodBagsForRequest(int centerId, string rh, string bloodType)
+        {
+            List<BloodBag> bloodBags = new List<BloodBag>();
+            var available = GetBloodBags(centerId);
+            foreach (var bag in available)
+            {
+                if (bag.BloodType.ToString() == bloodType && bag.RhType.ToString() == rh)
+                    bloodBags.Add(bag);
+            }
+            return bloodBags;
+        }
+
+        public List<Plasma> GetPlasmaForRequest(int centerId, string bloodType)
+        {
+            List<Plasma> plasmas = new List<Plasma>();
+            var available = GetPlasmaStock(centerId);
+            foreach (var plasma in available)
+            {
+                if (plasma.BloodType.ToString() == bloodType)
+                    plasmas.Add(plasma);
+            }
+            return plasmas;
+        }
+
+        public void AcceptBloodBag(Request doctorRequest, int centerId, string rh, string bloodType, int quatityNeeded)
+        {
+            var availableBloodBags = GetBloodBagsForRequest(centerId,rh,bloodType).OrderBy(b => b.Date).ToList();
+            var availableQuantity = availableBloodBags.Count;
+            if (availableQuantity == 0)
+                throw new Exception("Nu exista pungi de sange in centru");
+
+            int sentQuantity = 0;
+            if (availableQuantity > quatityNeeded)
+                sentQuantity = quatityNeeded;
+            else sentQuantity = availableQuantity;
+            doctorRequest.ReceivedQuantity += sentQuantity;
+            if (doctorRequest.ReceivedQuantity == doctorRequest.RequestedQuantity)
+                doctorRequest.Status = RequestStatus.Completed;
+
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                uow.DoctorRequestRepository.Update(doctorRequest);
+                for (int i = 0; i < sentQuantity; i++)
+                {
+                    availableBloodBags[i].Stage = BloodBagStage.Sent;
+                    uow.BloodBagRepository.Update(availableBloodBags[i]);
+                }
+                uow.Save();
+            }
+        }
+
+        public void AcceptThrombocytes(Request doctorRequest, int centerId, string rh, string bloodType, int quatityNeeded)
+        {
+            var availableThrombocytes = GetThrombocytesForRequest(centerId,rh,bloodType).OrderBy(t=>t.ExpirationDateAndTime).ToList();
+            var availableQuantity = availableThrombocytes.Count;
+            if (availableQuantity == 0)
+                throw new Exception("Nu exista trombocite in centru");
+
+            int sentQuantity = 0;
+            if (availableQuantity > quatityNeeded)
+                sentQuantity = quatityNeeded;
+            else sentQuantity = availableQuantity;
+            doctorRequest.ReceivedQuantity += sentQuantity;
+            if (doctorRequest.ReceivedQuantity == doctorRequest.RequestedQuantity)
+                doctorRequest.Status = RequestStatus.Completed;
+
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                uow.DoctorRequestRepository.Update(doctorRequest);
+                for (int i = 0; i < sentQuantity; i++)
+                {
+                    availableThrombocytes[i].Status = ComponentStatus.Sent;
+                    uow.ThrombocyteRepository.Update(availableThrombocytes[i]);
+                }
+                uow.Save();
+            }
+        }
+
+        public void AcceptPlasma(Request doctorRequest, int centerId, string bloodType, int quatityNeeded)
+        {
+            var availablePlasma = GetPlasmaForRequest(centerId,bloodType).OrderBy(t => t.ExpirationDateAndTime).ToList();
+            var availableQuantity = availablePlasma.Count;
+            if (availableQuantity == 0)
+                throw new Exception("Nu exista plasma in centru");
+
+            int sentQuantity = 0;
+            if (availableQuantity > quatityNeeded)
+                sentQuantity = quatityNeeded;
+            else sentQuantity = availableQuantity;
+            doctorRequest.ReceivedQuantity += sentQuantity;
+            if (doctorRequest.ReceivedQuantity == doctorRequest.RequestedQuantity)
+                doctorRequest.Status = RequestStatus.Completed;
+
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                uow.DoctorRequestRepository.Update(doctorRequest);
+                for (int i = 0; i < sentQuantity; i++)
+                {
+                    availablePlasma[i].Status = ComponentStatus.Sent;
+                    uow.PlasmaRepository.Update(availablePlasma[i]);
+                }
+                uow.Save();
+            }
+        }
+
+        public void AcceptRedBloodCells(Request doctorRequest, int centerId, string rh,string bloodType, int quatityNeeded)
+        {
+            var availableRedBloodCells = GetRedBloodCellsForRequest(centerId,rh,bloodType).OrderBy(rb => rb.ExpirationDateAndTime).ToList();
+            var availableQuantity = availableRedBloodCells.Count;
+            if (availableQuantity == 0)
+                throw new Exception("Nu exista globule rosii in centru");
+
+            int sentQuantity = 0;
+            if (availableQuantity > quatityNeeded)
+                sentQuantity = quatityNeeded;
+            else sentQuantity = availableQuantity;
+            doctorRequest.ReceivedQuantity += sentQuantity;
+            if (doctorRequest.ReceivedQuantity == doctorRequest.RequestedQuantity)
+                doctorRequest.Status = RequestStatus.Completed;
+
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                uow.DoctorRequestRepository.Update(doctorRequest);
+                for (int i = 0; i < sentQuantity; i++)
+                {
+                    availableRedBloodCells[i].Status = ComponentStatus.Sent;
+                    uow.RedBloodCellRepository.Update(availableRedBloodCells[i]);
+                }
+                uow.Save();
+            }
+        }
+
+        public void test()
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var x =uow.BloodBagRepository.GetAll().GroupBy(b => new { b.BloodType, b.RhType }).Select(b => new { BloodType = b.Key.BloodType, RhType = b.Key.RhType, Count = b.Count() }).ToList();
+            }
+        }
+
     }
 }

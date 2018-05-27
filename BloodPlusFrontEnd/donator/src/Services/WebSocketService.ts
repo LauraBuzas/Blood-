@@ -2,6 +2,8 @@ import axios from 'axios';
 import * as signalR from '@aspnet/signalr';
 import { HubConnection} from '@aspnet/signalr';
 import { DoctorRequest } from '../Components/Doctor/DoctorRequest/DoctorRequest';
+import { IEmployeeRequest } from '../Models/IEmployeeRequest';
+import { IDoctorRequestView } from '../Models/IDoctorRequestView';
 
 
 export class WebSocketService {
@@ -39,6 +41,12 @@ export class WebSocketService {
             });
             this.SendRequest=true;
         }
+    }
+
+    public requestAcceptedNotification(requestAccepted:()=>void) { 
+        this._connection.on('AcceptRequest', () => {
+            requestAccepted();
+       });
     }
     
     public subscribeToAGroup(groupname: string) {
