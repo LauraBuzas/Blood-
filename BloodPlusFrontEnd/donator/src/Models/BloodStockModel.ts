@@ -3,6 +3,7 @@ export interface BloodStockModel {
     group: string,
     rh: string,
     donor: string,
+    cnp: string,
     date: string,
     status: string
 }

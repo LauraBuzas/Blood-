@@ -153,17 +153,99 @@ namespace Services
 				return uow.BloodBagRepository
 					.GetAll()
 					.Include(bb => bb.Analysis.Donor)
-					.Where(bb => bb.Stage == BloodBagStage.Qualification && bb.CenterId == centerId)
+                    .Include(bb => bb.Center)
+					.Where(bb => (bb.Status!=BloodBagStatus.Destroyed && bb.Status!=BloodBagStatus.Rejected) && bb.CenterId == centerId)
 					.ToList();
 				
 			}
 		}
 
+
+        public void ChangeStatus(BloodBag bloodBag)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+     
+                if (bloodBag.Status == BloodBagStatus.Waiting)
+                {
+                    bloodBag.Status = BloodBagStatus.Accepted;
+                    bloodBag.Stage = BloodBagStage.Qualification;
+                }
+                uow.BloodBagRepository.Update(bloodBag);
+                uow.Save();
+            }
+        }
+
+        public void ChangeStatusReject(BloodBag bloodBag)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+
+                bloodBag.Status = BloodBagStatus.Rejected;
+                bloodBag.Stage = BloodBagStage.Qualification;
+               
+                uow.BloodBagRepository.Update(bloodBag);
+                uow.Save();
+            }
+        }
+
+        public void UpdateBloodBag(BloodBag bloodBag)
+        {
+            using(UnitOfWork uow =new UnitOfWork())
+            {
+                uow.BloodBagRepository.Update(bloodBag);
+                uow.Save();
+            }
+        }
+
+        public void UpdateThrombocyte(Thrombocyte thrombocyte)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                uow.ThrombocyteRepository.Update(thrombocyte);
+                uow.Save();
+            }
+        }
+
+        public void UpdatePlasma(Plasma plasma)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                uow.PlasmaRepository.Update(plasma);
+                uow.Save();
+            }
+        }
+
+        public void UpdateRedBloodCell(RedBloodCell redBloodCell)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                uow.RedBloodCellRepository.Update(redBloodCell);
+                uow.Save();
+            }
+        }
+
+        public void SeparateBloodBag(BloodBag bloodBag,Thrombocyte t,Plasma p, RedBloodCell r)
+        {
+            using(UnitOfWork uow = new UnitOfWork())
+            {
+                bloodBag.Stage = BloodBagStage.Separation;
+                bloodBag.Status = BloodBagStatus.Destroyed;
+                uow.BloodBagRepository.Update(bloodBag);
+                uow.ThrombocyteRepository.Add(t);
+                uow.PlasmaRepository.Add(p);
+                uow.RedBloodCellRepository.Add(r);
+                uow.Save();
+            }
+        }
+
 		public List<Thrombocyte> GetThrombocytesStock(int centerId) {
 			using (UnitOfWork uow = new UnitOfWork()) {
 				return uow.ThrombocyteRepository
 					.GetAll()
-					.Where(t => t.CenterId == centerId)
+                    .Include(bb => bb.Analysis.Donor)
+                    .Include(bb => bb.Center)
+                    .Where(t => t.CenterId == centerId)
 					.ToList();
 
 			}
@@ -173,7 +255,9 @@ namespace Services
 			using (UnitOfWork uow = new UnitOfWork()) {
 				return uow.RedBloodCellRepository
 					.GetAll()
-					.Where(rbc => rbc.CenterId == centerId)
+                    .Include(bb => bb.Analysis.Donor)
+                    .Include(bb => bb.Center)
+                    .Where(rbc => rbc.CenterId == centerId)
 					.ToList();
 
 			}
@@ -183,7 +267,9 @@ namespace Services
 			using (UnitOfWork uow = new UnitOfWork()) {
 				return uow.PlasmaRepository
 					.GetAll()
-					.Where(p => p.CenterId == centerId)
+                    .Include(bb => bb.Analysis.Donor)
+                    .Include(bb => bb.Center)
+                    .Where(p => p.CenterId == centerId)
 					.ToList();
 
 			}

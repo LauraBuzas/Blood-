@@ -6,14 +6,16 @@ import { IEmployeeDelete } from '../Models/IEmployeeDelete';
 import { IEmployeeProfile } from '../Models/IEmployeeProfile';
 import { BloodStockModel } from '../Models/BloodStockModel';
 import { IAddBloodBag } from '../Models/IAddBloodBag';
+import { IStatusChange } from '../Models/IStatusChange';
+import { IEditBloodBag } from '../Models/IEditBloodBag';
 
 export class EmployeeService {
-    private static rootEmployee: string = 'http://localhost:50272/employees/';
+    private static rootEmployee: string = 'http://localhost:57738/employees';
     
     public static getBloodStock(): Promise<BloodStockModel[]> {
         return new Promise((resolve, reject) => {
             axios(
-                this.rootEmployee + 'stock',
+                this.rootEmployee + '/stock',
                 {
                     method:'GET',
                     headers:{
@@ -24,14 +26,28 @@ export class EmployeeService {
                     withCredentials:true
                 }
             ).then((response: any) => {
-                console.log(response);
-                
-                resolve(EmployeeService.mapBloodStock(response.data));
+                //console.log(response);
+                let bloodStock=response.data.map(this.toBloodStockModel);
+                resolve(bloodStock);
+                //resolve(EmployeeService.mapBloodStock(response.data));
             },
                 (error: any) => {
                     reject(error);
                 });
         });
+    }
+
+   
+    public static toBloodStockModel(response:any):BloodStockModel{
+        return{
+            type:response.type,
+            group:response.group,
+            rh:response.rh,
+            donor:response.donor,
+            cnp:response.cnp,
+            date:response.date,
+            status:response.status
+        };
     }
 
     public static mapBloodStock(data: any): BloodStockModel[] {
@@ -54,7 +70,7 @@ export class EmployeeService {
 
         return new Promise((resolve, reject) => {
             axios(
-                this.rootEmployee+'blood-bag',
+                this.rootEmployee+'/blood-bag',
                 {
                     method:'POST',
                     headers:{
@@ -75,5 +91,104 @@ export class EmployeeService {
         });
   
  
+    }
+    public static changeStatus(status:IStatusChange):Promise<BloodStockModel[]>{
+        return new Promise((resolve, reject) => {
+            axios(
+                this.rootEmployee+'/status',
+                {
+                    method:'POST',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                        'Access-Control-Allow-Credentials':true
+                    },
+                    withCredentials:true,
+                    maxRedirects:0,
+                    data:status
+                }
+            ).then((response: any) => {
+                let bloodStock=response.data.map(this.toBloodStockModel);
+                resolve(bloodStock);
+            },
+                (error: any) => {
+                    reject(error);
+                });
+        });
+    }
+
+    public static changeStatusRejected(status:IStatusChange):Promise<BloodStockModel[]>{
+        return new Promise((resolve, reject) => {
+            axios(
+                this.rootEmployee+'/statusReject',
+                {
+                    method:'POST',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                        'Access-Control-Allow-Credentials':true
+                    },
+                    withCredentials:true,
+                    maxRedirects:0,
+                    data:status
+                }
+            ).then((response: any) => {
+                let bloodStock=response.data.map(this.toBloodStockModel);
+                resolve(bloodStock);
+            },
+                (error: any) => {
+                    reject(error);
+                });
+        });
+    }
+
+    public static separateBloodBag(status:IStatusChange):Promise<BloodStockModel[]>{
+        return new Promise((resolve, reject) => {
+            axios(
+                this.rootEmployee+'/separate',
+                {
+                    method:'POST',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                        'Access-Control-Allow-Credentials':true
+                    },
+                    withCredentials:true,
+                    maxRedirects:0,
+                    data:status
+                }
+            ).then((response: any) => {
+                let bloodStock=response.data.map(this.toBloodStockModel);
+                resolve(bloodStock);
+            },
+                (error: any) => {
+                    reject(error);
+                });
+        });
+    }
+
+    public static updateBloodBag(edit:IEditBloodBag):Promise<BloodStockModel[]>{
+        return new Promise((resolve, reject) => {
+            axios(
+                this.rootEmployee+'/update',
+                {
+                    method:'POST',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                        'Access-Control-Allow-Credentials':true
+                    },
+                    withCredentials:true,
+                    maxRedirects:0,
+                    data:edit
+                }
+            ).then((response: any) => {
+                let bloodStock=response.data.map(this.toBloodStockModel);
+                resolve(bloodStock);
+            },
+                (error: any) => {
+                    reject(error);
+                });
+        });
     }
 }
