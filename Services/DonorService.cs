@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Services
 {
@@ -32,11 +33,7 @@ namespace Services
                 return uow.DonorRepository.GetAll().Include(d => d.MedicalAnalysis).Where(d => d.Id == id).FirstOrDefault().MedicalAnalysis;
             }
         }
-
-        public object GetCenterIdForCenterDoctor(string id)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public void AddRegistrationForDonation(String donorName)
         {
@@ -51,7 +48,7 @@ namespace Services
             }
         }
 
-        public int SendEmails(IEmailSender _emailSender,int centerId)
+        public async Task<int> SendEmails(IEmailSender _emailSender,int centerId)
         {
             int numberOfEmailsSent = 0;
             using (UnitOfWork uow = new UnitOfWork())
@@ -63,7 +60,7 @@ namespace Services
                                 .Include(d => d.Address)
                                 .Where(d => d.Address.City == centerAddress.City);
 
-                users.ForEachAsync(u =>
+                await users.ForEachAsync(u =>
                 {
                     var email = uow.ApplicationUserRepository.GetById(u.Id).Email;
                     var result = _emailSender.SendEmailConfirmationAsync(email, u, centerAddress);
@@ -72,6 +69,14 @@ namespace Services
             }
             return numberOfEmailsSent;
 
+        }
+
+        public List<Donor> GetDonors()
+        {
+            using (var uow = new UnitOfWork())
+            {
+                return uow.DonorRepository.GetAll().ToList();
+            }
         }
     }
 }

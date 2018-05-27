@@ -44,18 +44,22 @@ export class CenterBloodStock extends React.Component<BloodStockProps, BloodStoc
     
 
     requestBlood(event: any) {
-        // event.preventDefault();
+        event.preventDefault();
         
-        // AccountService.loginUser(user).then((resp) => {
-            
+        EmployeeService.notifyDonors().then((resp) => {
+            Alert.success("Donatorii au fost notificati.",{
+                position: 'top-right',
+                effect: 'jelly'
+              });
 
-        // },
-        //     (error) => {
-        //         Alert.error("Nu s-a putut trimite e-mail donatorilor. Vă rugăm,reîncercați.", {
-        //             position: 'top-right',
-        //             effect: 'jelly'
-        //           });
-        //     });
+        },
+            (error) => {
+                Alert.error("Nu s-a putut trimite e-mail donatorilor. Vă rugăm,reîncercați.", {
+                    position: 'top-right',
+                    effect: 'jelly'
+                  });
+            });
+        return false;
     }
 
     closeModal(){

@@ -118,6 +118,7 @@ namespace Services
 
                 medicalAnalysis.BloodBag = bloodBag;
                 medicalAnalysis.Donor = donor;
+
                 uow.MedicalAnalysisRepository.Add(medicalAnalysis);
                 uow.Save();
             }
@@ -284,15 +285,18 @@ namespace Services
             dbAnalysis.HTLV = analysis.HTLV;
             dbAnalysis.Sifilis = analysis.Sifilis;
             dbAnalysis.DateAndTime = analysis.DateAndTime;
+            dbAnalysis.RejectedOtherCauses = analysis.RejectedOtherCauses;
+            dbAnalysis.Observations = analysis.Observations;
+            dbAnalysis.DateAndTime = DateTime.Now;
             uow.MedicalAnalysisRepository.Update(dbAnalysis);
             uow.Save();
         }
 
         public bool IsNotValidBloodBag(MedicalAnalysis analysis)
         {
-            var isNotValidBloodBag = analysis.Sifilis || analysis.HTLV || analysis.HIV || analysis.HepatitisB || analysis.HepatitisB || analysis.HTLV || analysis.ALTLevel;
+            var donorHasADisease = analysis.Sifilis || analysis.HTLV || analysis.HIV || analysis.HepatitisB || analysis.HepatitisB || analysis.HTLV || analysis.ALTLevel;
 
-            return isNotValidBloodBag;
+            return donorHasADisease || analysis.RejectedOtherCauses;
         }
 
         //public void 

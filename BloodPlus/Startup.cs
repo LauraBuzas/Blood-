@@ -69,8 +69,12 @@ namespace BloodPlus
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
-           
-            services.AddSignalR();
+
+            services.AddSignalR(
+                options =>
+                {
+                    options.KeepAliveInterval = TimeSpan.FromSeconds(3);
+                });
 
 
             services.AddMvc();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using BloodPlus.Mappers;
 using BloodPlus.ModelViews;
 using BloodPlus.ModelViews.AccountViewModels;
@@ -122,10 +123,10 @@ namespace BloodPlus.Controllers
             }
             catch (Exception)
             {
-
+                return BadRequest();
                
             }
-            return BadRequest();
+            return Ok();
         }
 
 
@@ -158,7 +159,7 @@ namespace BloodPlus.Controllers
 					Rh = bag.RhType.ToString(),
                     CNP = bag.Analysis.Donor.CNP,
 					Donor = bag.Analysis.Donor.FirstName + " " + bag.Analysis.Donor.LastName,
-					Date = bag.Analysis.DateAndTime.ToString(),
+					Date = bag.Date.ToString(),
 					Status = bag.Status.ToString()
 				});
 			}
@@ -171,7 +172,7 @@ namespace BloodPlus.Controllers
 					Rh = bag.RhType.ToString(),
 					Donor = bag.Analysis.Donor.FirstName + " " + bag.Analysis.Donor.LastName,
                     CNP = bag.Analysis.Donor.CNP,
-					Date = bag.Analysis.DateAndTime.ToString(),
+					Date = bag.ExpirationDateAndTime.ToString(),
 					Status = "Separated"
 				});
 			}
@@ -184,7 +185,7 @@ namespace BloodPlus.Controllers
 					Rh = "-",
 					Donor = bag.Analysis.Donor.FirstName + " " + bag.Analysis.Donor.LastName,
                     CNP = bag.Analysis.Donor.CNP,
-                    Date = bag.Analysis.DateAndTime.ToString(),
+                    Date = bag.ExpirationDateAndTime.ToString(),
 					Status = "Separated"
 				});
 			}
@@ -197,7 +198,7 @@ namespace BloodPlus.Controllers
 					Rh = bag.RhType.ToString(),
 					Donor = bag.Analysis.Donor.FirstName + " " + bag.Analysis.Donor.LastName,
                     CNP = bag.Analysis.Donor.CNP,
-                    Date = bag.Analysis.DateAndTime.ToString(),
+                    Date = bag.ExpirationDateAndTime.ToString(),
 					Status = "Separated"
 				});
 			}
@@ -415,6 +416,22 @@ namespace BloodPlus.Controllers
             }
             catch (Exception ex)
             {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Authorize(Roles = "DonationCenterDoctor")]
+        [HttpGet("donors")]
+        public IActionResult GetDonors()
+        {
+            try
+            {
+                var donors = donorService.GetDonors().Select(d=>MapperDonnorDonnorView.ToDonorModelView(d)).ToList();
+                return Ok(donors);
+            }
+            catch (Exception ex)
+            {
+
                 return BadRequest(ex.Message);
             }
         }

@@ -8,7 +8,7 @@ import { IPatientStatusChange } from '../Models/IPatientStatusChange';
 
 export class DoctorService {
 
-    private static rootDoctors: string = 'http://localhost:57738/doctors';
+    private static rootDoctors: string = 'http://localhost:50272/doctors';
 
 
     public static getHospitalizedPatients(): Promise<any> {

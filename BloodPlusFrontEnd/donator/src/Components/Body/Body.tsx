@@ -20,6 +20,7 @@ import { CenterRequest } from '../MedicalCenter/CenterRequests';
 import { WebSocketService } from '../../Services/WebSocketService';
 import { Marker } from '../Map/Map';
 import { DoctorPatients } from '../Doctor/DoctorPatients/DoctorPatients';
+import { CenterMedicalAnalyses } from '../MedicalCenter/MedicalAnalyses/MedicalAnalyses';
 export interface BodyProps{
     setRole:any;
     webSocket:WebSocketService;
@@ -57,6 +58,7 @@ export class Body extends React.Component<BodyProps,BodyState>
         const DonorTestsComponent=()=>{return <DonorTestsPage/>}
         const GoogleMapComponent=()=>{return  <Marker location="46.7758616,23.597914"/>}
         const DoctorPatientsComponent=()=>{return <DoctorPatients/>}
+        const AddAnalysisComponent=()=>{return <CenterMedicalAnalyses/>}
        
         return(
            <div id="body">
@@ -74,6 +76,7 @@ export class Body extends React.Component<BodyProps,BodyState>
                 <Route path="/employee/requests" exact={true} render={CenterRequestComponent}/>
                 <Route path="/centers" exact={true} render={GoogleMapComponent}/>
                 <Route path="/doctor/patients" exact={true} render={DoctorPatientsComponent}/>
+                <Route path="/employees/analyses" exact={true} render={AddAnalysisComponent}/>
                 <div id="push">
                     {/* for footer */}
                 </div>

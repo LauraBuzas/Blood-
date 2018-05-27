@@ -95,6 +95,10 @@ var nodesEmployee=[
     {
         title: "Stoc sange",
         link: "/employees/stock"
+    },
+    {
+        title: "Analize",
+        link: "/employees/analyses"
     }
 
 ]
