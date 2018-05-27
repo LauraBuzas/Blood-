@@ -86,11 +86,8 @@ namespace BloodPlus.Controllers
                 {
                     employeeService.AcceptRedBloodCells(doctorRequest, centerId, employeeRequestModelView.Rh, employeeRequestModelView.BloodType, employeeRequestModelView.QuantityNeeded);
                 }
-                //if (doctorRequest.RequestedQuantity == doctorRequest.ReceivedQuantity)
-                //{
-                    //var doctorRequestView = Mappers.MapperDoctorRequest.ToDoctorRequestViewModel(doctorRequest);
-                    this.broadcaster.Clients.Group("HospitalDoctor").AcceptRequest();
-                //}
+              
+                this.broadcaster.Clients.Group("HospitalDoctor").AcceptRequest();          
                 return Ok(employeeRequestModelView);
             }
             catch(Exception ex)

@@ -17,6 +17,8 @@ import {
     AccordionItemBody,
 } from 'react-accessible-accordion';
 import 'react-accessible-accordion/dist/fancy-example.css';
+import NotificationBadge from 'react-notification-badge';
+import {Effect} from 'react-notification-badge';
 
 export interface CenterRequestProps{webSocket:WebSocketService;}
 interface CenterRequestState
@@ -25,6 +27,7 @@ interface CenterRequestState
   notificationRequested:boolean;
   message:string;
   stock:IGroupedStock[];
+  noNotifications:number
 }
 export class CenterRequest extends React.Component<CenterRequestProps,CenterRequestState>
 {
@@ -37,7 +40,8 @@ export class CenterRequest extends React.Component<CenterRequestProps,CenterRequ
             requests:[],
             notificationRequested:false,
             message:'',
-            stock:[]
+            stock:[],
+            noNotifications:0
         }
         this.getRequests=this.getRequests.bind(this);
         this.getStock=this.getStock.bind(this);
@@ -107,6 +111,7 @@ export class CenterRequest extends React.Component<CenterRequestProps,CenterRequ
       EmployeeService.acceptRequest(row).then((request:IEmployeeRequest) => {
         console.log("s-a acceptat"+request)
         this.getRequests();
+        this.getStock();
       },
         (error) => {
             Alert.error(error, {
@@ -118,54 +123,44 @@ export class CenterRequest extends React.Component<CenterRequestProps,CenterRequ
 
     bloodbags(grup:any,index:number):JSX.Element
     {
-        // this.state.stock.map((grup)=>{
-        //     if(grup.component=="Punga de sange")
-        //         return (<p>{grup.bloodType} {grup.rh}: {grup.quantity}</p>);
-        //     else return(<p></p>);
-        // })
         if(grup.component=="Punga de sange")
                 return (<p>{grup.bloodType} {grup.rh}: {grup.quantity}</p>);
         else return(null);
     }
 
-    thrombocytes()
+    thrombocytes(grup:any,index:number):JSX.Element
     {
-        this.state.stock.forEach(grup=>{
-            if(grup.component=="Trombocite")
-                return <p>{grup.bloodType} {grup.rh}: {grup.quantity}</p>
-            else return null;
-        })
+        if(grup.component=="Trombocite")
+            return <p>{grup.bloodType} {grup.rh}: {grup.quantity}</p>
+        else return null;    
+    }
+    redbloodcells(grup:any,index:number):JSX.Element
+    {
+        if(grup.component=="Globule rosii")
+            return <p>{grup.bloodType} {grup.rh}: {grup.quantity}</p>
+        else return null;
     }
 
-    redbloodcells()
+    plasma(grup:any,index:number):JSX.Element
     {
-        this.state.stock.forEach(grup=>{
-            if(grup.component=="Globule rosii")
-                return <p>{grup.bloodType} {grup.rh}: {grup.quantity}</p>
-            else return null;
-        })
-    }
-
-    plasma()
-    {
-        this.state.stock.forEach(grup=>{
-            if(grup.component=="Plasma")
-                return (<p>{grup.bloodType} {grup.rh}: {grup.quantity}</p>);
-            else return null;
-        })
+        if(grup.component=="Plasma")
+            return (<p>{grup.bloodType} {grup.rh}: {grup.quantity}</p>);
+        else return null;
+        
     }
     
     render() {
       if(this.props.webSocket!==null && !this.state.notificationRequested){
           this.props.webSocket.requestNotification((request: IEmployeeRequest) => {
-            console.log(request);
             this.addRequest(request);
-          
           });
           this.setState({notificationRequested:true});
         }
       return (
         <div className="all-requests">
+        {/* <div>
+             <NotificationBadge count={this.state.noNotifications} effect={Effect.SCALE}/>
+        </div> */}
             <div className="column left-stock">
                 <h1> Stoc sange </h1>
                 <Accordion>
@@ -177,12 +172,12 @@ export class CenterRequest extends React.Component<CenterRequestProps,CenterRequ
                         {this.state.stock.map(this.bloodbags.bind(this))}
                     </AccordionItemBody>
                 </AccordionItem>
-                {/* <AccordionItem>
+                <AccordionItem>
                     <AccordionItemTitle>
                         <h3>Trombocite</h3>
                     </AccordionItemTitle>
                     <AccordionItemBody>
-                        {this.thrombocytes()}
+                    {this.state.stock.map(this.thrombocytes.bind(this))}
                     </AccordionItemBody>
                 </AccordionItem>
                 <AccordionItem>
@@ -190,7 +185,7 @@ export class CenterRequest extends React.Component<CenterRequestProps,CenterRequ
                         <h3>Globule roșii</h3>
                     </AccordionItemTitle>
                     <AccordionItemBody>
-                        {this.redbloodcells()}
+                    {this.state.stock.map(this.redbloodcells.bind(this))}
                     </AccordionItemBody>
                 </AccordionItem>
                 <AccordionItem>
@@ -198,11 +193,12 @@ export class CenterRequest extends React.Component<CenterRequestProps,CenterRequ
                         <h3>Plasma</h3>
                     </AccordionItemTitle>
                     <AccordionItemBody>
-                        {this.plasma()}
+                        {this.state.stock.map(this.plasma.bind(this))}
                     </AccordionItemBody>
-                </AccordionItem> */}
+                </AccordionItem>
                 </Accordion>
             </div>   
+
             <div className="column right-table">
             <Helmet>
                 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>

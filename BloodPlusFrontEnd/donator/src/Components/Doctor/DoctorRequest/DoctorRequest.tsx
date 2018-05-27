@@ -15,7 +15,12 @@ import { Button1 } from '../../../utils/Button1';
 import { ModalDoctorRequest } from '../../Modal/ModalDoctorRequest';
 import {ModalDoctorRequestView} from '../DoctorRequest/Modal/ModalDoctorRequestView';
 import { WebSocketService } from '../../../Services/WebSocketService';
-export interface DoctorRequestProps{webSocket:WebSocketService}
+import BellIcon from 'react-bell-icon';
+
+export interface DoctorRequestProps
+{
+    webSocket:WebSocketService
+}
 
 interface DoctorRequestState
 {
@@ -24,7 +29,8 @@ interface DoctorRequestState
     addRequest: boolean,
     showDetails: boolean,
     currentRow: IDoctorRequestView,
-    notificationRequested:boolean
+    notificationRequested:boolean,
+    activeBell:boolean
 }
 
 export class DoctorRequest extends React.Component<DoctorRequestProps,DoctorRequestState>
@@ -41,7 +47,8 @@ export class DoctorRequest extends React.Component<DoctorRequestProps,DoctorRequ
             addRequest:false,
             showDetails:false,
             currentRow:undefined,
-            notificationRequested:false
+            notificationRequested:false,
+            activeBell:false
         }
         this.closeDetails=this.closeDetails.bind(this);
         this.requestAccepted=this.requestAccepted.bind(this);
@@ -91,6 +98,10 @@ export class DoctorRequest extends React.Component<DoctorRequestProps,DoctorRequ
     {
         console.log("am primit accept");
         this.getRequests();
+        this.setState({activeBell:true});
+        setTimeout(function(){
+            this.setState({activeBell:false});
+       }.bind(this),5000);
     }
     
     render()
@@ -109,6 +120,7 @@ export class DoctorRequest extends React.Component<DoctorRequestProps,DoctorRequ
        
         return(
             <div className="container-requests">  
+                <BellIcon width='100' active={this.state.activeBell} animate={this.state.activeBell} />
                 <Helmet>
                     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
                 </Helmet>    
