@@ -32,7 +32,7 @@ export class ModalInfoBloodBag extends React.Component<ModalInfoBloodBagProps,Mo
 
     onOpenModal = () => {
         this.setState({ open: true });
-      };
+    };
 
       onCloseModal = () => {
         this.setState({ open: false });

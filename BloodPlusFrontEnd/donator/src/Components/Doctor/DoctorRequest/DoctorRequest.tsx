@@ -67,7 +67,7 @@ export class DoctorRequest extends React.Component<DoctorRequestProps,DoctorRequ
         },
             (error) => {
                 this.setState({
-                    message: "A apărut o eroare la aducerea datelor despre doctori"
+                    message: "A apărut o eroare la aducerea cererilor de sânge"
                     
                 });
                 Alert.error(this.state.message, {

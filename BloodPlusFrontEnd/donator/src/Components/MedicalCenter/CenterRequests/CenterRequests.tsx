@@ -100,6 +100,10 @@ export class CenterRequest extends React.Component<CenterRequestProps,CenterRequ
         var all=this.state.requests;
         all.push(request);
         this.setState({requests:all});
+        Alert.info("Un doctor are nevoie de sânge. Verificați cererile", {
+            position: 'top-right',
+            effect: 'jelly'
+          });
     }
 
     buttonAccept(cell,row){
@@ -112,9 +116,17 @@ export class CenterRequest extends React.Component<CenterRequestProps,CenterRequ
         console.log("s-a acceptat"+request)
         this.getRequests();
         this.getStock();
+        Alert.success("Cererea a fost acceptata cu success. Doctorul va fi notificat.", {
+            position: 'top-right',
+            effect: 'jelly'
+          });
+        Alert.success("Verificati stocul disponibil", {
+            position: 'top-right',
+            effect: 'jelly'
+          });
       },
         (error) => {
-            Alert.error(error, {
+            Alert.error(error.response.data, {
                 position: 'top-right',
                 effect: 'jelly'
               });

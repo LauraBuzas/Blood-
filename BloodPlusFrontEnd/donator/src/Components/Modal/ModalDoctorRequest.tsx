@@ -260,7 +260,12 @@ export class ModalDoctorRequest extends React.Component<ModalDoctorRequestProps,
         if(allErrors.length==0)
         { 
             DoctorService.addRequest(request).then((request:any) => {
-            console.log(request);
+                console.log(request);
+                this.setState({open:false});
+                Alert.success("Cererea s-a trimis cu succes către centrele din județ", {
+                    position: 'top-right',
+                    effect: 'jelly'
+                });
             },
                 (error) => {
                     Alert.error("A apărut o eroare la trimitere request", {
