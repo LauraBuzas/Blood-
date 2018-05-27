@@ -13,7 +13,7 @@ import { Body } from './Components/Body/Body';
 import { AccountService } from './Services/AccountServices';
 import {ModalDoctorRequest} from './Components/Modal/ModalDoctorRequest';
 import { DoctorRequest } from './Components/Doctor/DoctorRequest/DoctorRequest';
-import { CenterRequest } from './Components/MedicalCenter/CenterRequests';
+import { CenterRequest } from './Components/MedicalCenter/CenterRequests/CenterRequests';
 import { WebSocketService } from './Services/WebSocketService';
 //import {Cookies} from 'universal-cookie';
 import cookie from 'react-cookies'
