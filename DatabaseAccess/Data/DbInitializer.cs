@@ -90,7 +90,7 @@ namespace DatabaseAccess.Data
             var role6 = await roleManager.FindByNameAsync("Donor");
             //await userManager.AddToRoleAsync(createdUser, role6.Name);
             //await userManager.AddToRolesAsync(createdUser, new List<string> { role1.Name, role2.Name, role3.Name, role4.Name, role5.Name, role6.Name });
-
+            //TODO add analyses
 
             await userManager.AddToRoleAsync(createdDoctor1, role5.Name);
             await userManager.AddToRoleAsync(createdDoctor2, role5.Name);

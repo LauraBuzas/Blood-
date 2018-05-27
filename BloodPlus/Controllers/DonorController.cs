@@ -43,7 +43,6 @@ namespace BloodPlus.Controllers
         {
             try
             {
-
                 var id = Request.Cookies["UserId"];
                 var analyses = donorService.GetMedicalAnalyses(id).AsQueryable().OrderByDescending(a => a.DateAndTime).ToList();
                 if (analyses.Count != 0)
@@ -56,10 +55,8 @@ namespace BloodPlus.Controllers
                 {
                     return Ok("");
                 }
-
-
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return BadRequest("Nu putem determina urmatoarea data la care poti sa donezi");
             }
