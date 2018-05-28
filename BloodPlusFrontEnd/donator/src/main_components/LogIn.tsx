@@ -61,9 +61,6 @@ export class LogIn extends React.Component<LoginProps, LoginState>
         AccountService.loginUser(user).then((resp) => {
             this.setState({role:resp.data[0]});
             this.props.setRole(this.state.role);
-
-            
-
         },
             (error) => {
 
@@ -102,7 +99,7 @@ export class LogIn extends React.Component<LoginProps, LoginState>
         if(this.state.role=="DonationCenterDoctor")
         {
            
-            return <Redirect to="/employee/requests"/>
+            return <Redirect to="/employee/requests"/> 
         }
         
         if(this.state.role=="Donor")

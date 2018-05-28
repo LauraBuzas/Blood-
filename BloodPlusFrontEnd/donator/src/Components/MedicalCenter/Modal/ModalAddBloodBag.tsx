@@ -10,6 +10,7 @@ import { TextField } from '../../../utils/TextField';
 // import './ModalDoctorRequest.css'
 import { IAddBloodBag } from '../../../Models/IAddBloodBag';
 import { EmployeeService } from '../../../Services/EmployeeService';
+import { BloodStockModel } from '../../../Models/BloodStockModel';
 
 const styles = {
   fontFamily: "sans-serif",

@@ -65,7 +65,8 @@ namespace BloodPlus.Mappers
                 City=viewModel.City,
                 County = viewModel.County,
                 Street = viewModel.Street,
-                Number = viewModel.Number
+                Number =viewModel.Number,
+
             };
         }
     }

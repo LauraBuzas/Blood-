@@ -51,6 +51,8 @@ namespace DatabaseAccess.Data
 
             await userManager.CreateAsync(new ApplicationUser { Email = "donor1@donor.com", UserName = "donor1@donor.com" }, "Password123.");
 
+            await userManager.CreateAsync(new ApplicationUser { Email = "donor2@donor.com", UserName = "donor2@donor.com" }, "Password123.");
+
 
             await roleManager.CreateAsync(new IdentityRole { Name = "God"});
             await roleManager.CreateAsync(new IdentityRole { Name = "DonationCenterAdmin"});
@@ -60,6 +62,7 @@ namespace DatabaseAccess.Data
             await roleManager.CreateAsync(new IdentityRole { Name = "Donor" });
 
             var createdDonor = await userManager.FindByEmailAsync("donor1@donor.com");
+            var createdDonor2 = await userManager.FindByEmailAsync("donor2@donor.com");
 
             var createdUser =await userManager.FindByEmailAsync("god@iss.com");
 
@@ -103,6 +106,7 @@ namespace DatabaseAccess.Data
             await userManager.AddToRoleAsync(createdEmployee, role4.Name);
 
             await userManager.AddToRoleAsync(createdDonor, role6.Name);
+            await userManager.AddToRoleAsync(createdDonor2, role6.Name);
 
         }
         
@@ -282,7 +286,16 @@ namespace DatabaseAccess.Data
                 Number = 20
             };
 
+            Address addressDonor2 = new Address()
+            {
+                City = "Cluj-Napoca",
+                County = "Cluj",
+                Street = "Avram Iancu",
+                Number = 25
+            };
+
             context.Addresses.Add(addressDonor1);
+            context.Addresses.Add(addressDonor2);
             context.SaveChanges();
 
             Donor donor = new Donor()
@@ -295,9 +308,20 @@ namespace DatabaseAccess.Data
             var createdUser = await userManager.FindByEmailAsync("donor1@donor.com");
             donor.Id = createdUser.Id;
 
-            context.Donors.Add(donor);
-            context.SaveChanges();
 
+            Donor donor2 = new Donor()
+            {
+                CNP = "1970329335674",
+                FirstName = "Vasile",
+                LastName = "Popescu",
+                Address = addressDonor2
+            };
+            var createdUser2 = await userManager.FindByEmailAsync("donor2@donor.com");
+            donor2.Id = createdUser2.Id;
+
+            context.Donors.Add(donor);
+            context.Donors.Add(donor2);
+            context.SaveChanges();
         }
 
         private static async Task SeedDoctorsWithPatients(ApplicationDbContext context, UserManager<ApplicationUser> userManager)

@@ -2,13 +2,14 @@ import axios from 'axios';
 import { IPatient } from '../Models/IPatient';
 import { IDoctorRequest } from '../Models/IDoctorRequest';
 import { IDoctorRequestView } from '../Models/IDoctorRequestView';
-import { ICenterBloodQty } from '../Models/ICenterBloodQty';
+import { IPatientGet } from '../Models/IPatientGet';
+import { IPatientStatusChange } from '../Models/IPatientStatusChange';
 
 
 export class DoctorService {
 
-    private static rootDoctors: string = 'http://localhost:54211/doctors';
-   // private static rootCenters: string = 'http://localhost:54211/centers';
+    private static rootDoctors: string = 'http://localhost:57738/doctors';
+
 
     public static getHospitalizedPatients(): Promise<any> {
         return new Promise((resolve, reject) => {
@@ -32,6 +33,30 @@ export class DoctorService {
                 });
         });
     }
+
+    public static getHospitalizedPatientsDetailed(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            axios(
+                this.rootDoctors+'/hospitalized/details',
+                {
+                    method:'GET',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json'
+                    },
+                    withCredentials:true
+                }
+            ).then((response: any) => {
+                let patients = response.data.map(this.toPatientGetComplete);
+                resolve(patients);
+              
+            },
+                (error: any) => {
+                    reject(error);
+                });
+        });
+    }
+
 
     public static getRequests(): Promise<any>{
         return new Promise((resolve,reject) =>{
@@ -83,11 +108,85 @@ export class DoctorService {
   
  
     }
-    private static toPatientGet(response: any): IPatient {
-        return {
+
+    // public static addPatient(patient:IPatientGet): Promise<any> {
+    //     /*const cookies = new Cookies();
+    //     employee.centerId=cookies.get("CenterId");
+    //     employee.confirmPassword=employee.password;*/
+    //     //patient.cnp = patient.cnp;
+
+    //     return new Promise((resolve, reject) => {
+    //         axios(
+    //             this.rootDoctors+'/addPatient',
+    //             {
+    //                 method:'POST',
+    //                 headers:{
+    //                     'Access-Control-Allow-Origin':'*',
+    //                     'Content-Type':'application/json',
+    //                     'Access-Control-Allow-Credentials':true
+    //                 },
+    //                 withCredentials:true,
+    //                 maxRedirects:0,
+    //                 data:patient
+    //             }
+    //         ).then((response: any) => {
+    //             //let patient = this.toPatientGet(response.data);
+    //             resolve(patient);
+    //         },
+    //             (error: any) => {
+    //                 reject(error);
+    //             });
+    //     });
+    // }
+
+    public static changePatientStatus(changePatient:IPatientStatusChange):Promise<any>{
+        return new Promise((resolve,reject)=>
+    {
+        axios(
+            this.rootDoctors+'/changePatientStatus',
+            {
+                method:'POST',
+                headers:{
+                    'Access-Control-Allow-Origin':'*',
+                    'Content-Type':'application/json',
+                    'Access-Control-Allow-Credentials':true
+                },
+                withCredentials:true,
+                maxRedirects:0,
+                data:changePatient
+            }
+        ).then((response: any) => {
+            //let patient = this.toPatientGet(response.data);
+            let patients = response.data.map(this.toPatientGetComplete);
+            resolve(patients);
+        },
+            (error: any) => {
+                reject(error);
+            });
+    });
+
+    }
+
+    private static toPatientGet(response:any):IPatient{
+        return{
             fullname:response.fullName,
             CNP:response.cnp
-        }; 
+        };
+    }
+
+    private static toPatientGetComplete(response: any): IPatientGet {
+        return {
+            id:response.id,
+            cnp:response.cnp,
+            lastname:response.lastName,
+            firstname:response.firstName,
+            city:response.city,
+            county:response.county,
+            street:response.street,
+            floor:response.floor,
+            status:response.status
+
+            }; 
     }
 
     private static toRequestGet(response: any): IDoctorRequestView {
@@ -104,43 +203,5 @@ export class DoctorService {
             id:response.id
             
         };
-    }
-
-    private static toCenter(response: any): ICenterBloodQty {
-        return {
-            center:response.center,
-            location:response.location,
-            component:response.component,
-            group:response.group,
-            rh:response.rh,
-            quantity:response.quantity,
-
-           
-        };
-    }
-
-    public static getCentersStock(): Promise<ICenterBloodQty[]> {
-        console.log("e aici");
-        return new Promise((resolve, reject) => {
-            axios(
-                this.rootDoctors+'/bloodqty',
-                {
-                    method:'GET',
-                    headers:{
-                        'Access-Control-Allow-Origin':'*',
-                        'Content-Type':'application/json',
-                        'Access-Control-Allow-Credentials':true
-                    },
-                    withCredentials:true
-                }
-            ).then((response: any) => {
-                let centers = response.data.map(this.toCenter);
-                resolve(centers);
-            },
-                (error: any) => {
-                    
-                    reject(error);
-                });
-        });
     }
 }
