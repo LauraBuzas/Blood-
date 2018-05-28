@@ -45,7 +45,8 @@
     "react-select": "^1.2.1",
     "react-stylesheet": "^2.2.2",
     "react-validation": "^3.0.7",
-    "universal-cookie": "^2.1.2"
+    "universal-cookie": "^2.1.2",
+    "validator": "^10.2.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",

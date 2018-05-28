@@ -10,7 +10,7 @@ import { IStatusChange } from '../Models/IStatusChange';
 import { IEditBloodBag } from '../Models/IEditBloodBag';
 
 export class EmployeeService {
-    private static rootEmployee: string = 'http://localhost:57738/employees';
+    private static rootEmployee: string = 'http://localhost:54211/employees';
     
     public static getBloodStock(): Promise<BloodStockModel[]> {
         return new Promise((resolve, reject) => {

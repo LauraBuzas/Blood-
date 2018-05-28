@@ -5,8 +5,8 @@ import {Helmet} from 'react-helmet'
 import './tablestyle.css'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {ICenterBloodQty} from '../../../../src/Models/ICenterBloodQty'
-import ReactTable from "react-table";
-import "react-table/react-table.css";
+//import ReactTable from "react-table";
+//import "react-table/react-table.css";
 import './styles.css';
 import {Header} from '../../Header/Header'
 import {DoctorService} from '../../../Services/DoctorService'
@@ -34,6 +34,7 @@ const RhType = {
   
   'POZITIV':'POZITIV',
   'NEGATIV': 'NEGATIV',
+  '-':'-'
  
 };
 const componentType = {
@@ -53,56 +54,56 @@ const stocks=[
       location:'Cluj',
       component:'Sange intreg',
       group:'O1',
-      rh:'+',
+      rh:'POZITIV',
       quantity:10
   },{
     center:'centru2',
     location:'Cluj-Napoca',
-    component:'Sange intreg',
+    component:'Plasma',
     group:'O1',
-    rh:'+',
+    rh:'-',
     quantity:20
 },{
   center:'centru23',
   location:'Cluj-Napoca',
   component:'Sange intreg',
-  group:'O1',
-  rh:'+',
+  group:'AB4',
+  rh:'POZITIV',
   quantity:20
 },{
   center:'centru22',
   location:'Cluj-Napoca',
   component:'Sange intreg',
-  group:'O1',
-  rh:'+',
+  group:'A2',
+  rh:'POZITIV',
   quantity:20
 },{
   center:'centru3',
   location:'Cluj-Napoca',
-  component:'Sange intreg',
-  group:'O1',
-  rh:'+',
+  component:'Globule rosii',
+  group:'B3',
+  rh:'NEGATIV',
   quantity:20
 },{
   center:'centru4',
   location:'Cluj-Napoca',
-  component:'Sange intreg',
-  group:'O1',
-  rh:'+',
+  component:'Globule rosii',
+  group:'A2',
+  rh:'NEGATIV',
   quantity:20
 },{
   center:'centru5',
   location:'Cluj-Napoca',
-  component:'Sange intreg',
+  component:'Trombocite',
   group:'O1',
-  rh:'+',
+  rh:'NEGATIV',
   quantity:20
 }
 ];
 let stock:ICenterBloodQty[]
 
 
-export default class BloodStock extends React.Component<BloodStockProps,BloodStockState>{
+export class BloodStock extends React.Component<BloodStockProps,BloodStockState>{
         constructor(props){
             super(props);
            
@@ -136,7 +137,7 @@ export default class BloodStock extends React.Component<BloodStockProps,BloodSto
         }, {
           text: '10', value: 10
         }, {
-          text: 'All', value: this.state.centerstock.length} 
+          text: 'All', value: stocks.length} 
         ], // you can change the dropdown list for size per page
         sizePerPage: 5,  // which size per page you want to locate as default
         pageStartIndex: 1, // where to start counting the pages
@@ -164,7 +165,7 @@ export default class BloodStock extends React.Component<BloodStockProps,BloodSto
                 <h1 className='head2'><hr/>Sange disponibil in centre <hr/></h1>
                 <BootstrapTable
                 
-                    data={this.state.centerstock}
+                    data={stocks}
                     striped
                     hover
                     pagination={true}

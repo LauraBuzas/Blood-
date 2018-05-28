@@ -4,7 +4,7 @@ import { HubConnection} from '@aspnet/signalr';
 import { DoctorRequest } from '../Components/Doctor/DoctorRequest/DoctorRequest';
 
 export class WebSocketService {
-    private  root: string = 'http://localhost:57738/broadcaster';
+    private  root: string = 'http://localhost:54211/broadcaster';
     private  _connection: HubConnection;
 
     constructor()

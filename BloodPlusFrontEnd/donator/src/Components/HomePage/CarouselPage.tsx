@@ -3,7 +3,7 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './home-page.css';
 import { Link } from 'react-router-dom';
-
+import {Redirect} from 'react-router'
 export interface CarouselPageProps {
     image: string;
     legend: string;
@@ -22,7 +22,7 @@ export class CarouselPage extends React.Component<CarouselPageProps, any> {
             <div>   
                 <img src={this.props.image} alt="image not found"/>
                 
-                <Link to="/register" id="register-button">Vreau sa donez!</Link>
+                <Link to="/donationform" >Vreau sa donez!</Link>
                 <p className="legend">{ this.props.legend }</p>
             </div>
         );

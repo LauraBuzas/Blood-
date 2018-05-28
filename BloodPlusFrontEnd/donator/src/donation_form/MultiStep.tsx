@@ -46,7 +46,7 @@ interface MultiStepState {
    
 }
 
-export default class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
+export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
 
     constructor(props){
         super(props),
@@ -447,6 +447,7 @@ export default class MultiStep extends React.Component<MultiStepProps,MultiStepS
 
     
     if(this.state.comp==5 ){
+        console.log("spre HP")
         return (<HomePage/>);
      }else{
         return(

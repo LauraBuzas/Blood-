@@ -4,11 +4,11 @@ import { IDoctorRequest } from '../Models/IDoctorRequest';
 import { IDoctorRequestView } from '../Models/IDoctorRequestView';
 import { IPatientGet } from '../Models/IPatientGet';
 import { IPatientStatusChange } from '../Models/IPatientStatusChange';
-
+import {ICenterBloodQty} from '../Models/ICenterBloodQty';
 
 export class DoctorService {
 
-    private static rootDoctors: string = 'http://localhost:57738/doctors';
+    private static rootDoctors: string = 'http://localhost:54211/doctors';
 
 
     public static getHospitalizedPatients(): Promise<any> {
@@ -138,6 +138,46 @@ export class DoctorService {
     //             });
     //     });
     // }
+
+
+
+    private static toCenter(response: any): ICenterBloodQty {
+        return {
+            center:response.center,
+            location:response.location,
+            component:response.component,
+            group:response.group,
+            rh:response.rh,
+            quantity:response.quantity,
+
+           
+        };
+    }
+
+    public static getCentersStock(): Promise<ICenterBloodQty[]> {
+        console.log("e aici");
+        return new Promise((resolve, reject) => {
+            axios(
+                this.rootDoctors+'/bloodqty',
+                {
+                    method:'GET',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                        'Access-Control-Allow-Credentials':true
+                    },
+                    withCredentials:true
+                }
+            ).then((response: any) => {
+                let centers = response.data.map(this.toCenter);
+                resolve(centers);
+            },
+                (error: any) => {
+                    
+                    reject(error);
+                });
+        });
+    }
 
     public static changePatientStatus(changePatient:IPatientStatusChange):Promise<any>{
         return new Promise((resolve,reject)=>
