@@ -1,15 +1,17 @@
-.column {
-    float: left;
-    padding: 10px;
-    height: 300px; /* Should be removed. Only for demonstration */
+.map-details {
+  margin: 20px 0;
 }
 
-.left {
-  width: 65%;
+.google-map {
+  max-width: 700px;
+  width: 100%;
+  margin: 20px auto;
 }
 
-.right {
-  width: 35%;
+@media (max-width: 720px) {
+  .google-map {
+    margin: 0 auto;
+  }
 }
 
 /* Clear floats after the columns */
