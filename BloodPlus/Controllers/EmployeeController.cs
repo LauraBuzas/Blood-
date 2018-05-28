@@ -26,7 +26,7 @@ namespace BloodPlus.Controllers
         private readonly IEmailSender _emailSender;
 
 
-        public EmployeeController(EmployeeService employeeService, DoctorsService doctorService, DonorService donorService, IEmailSender _emailSender)
+        public EmployeeController(EmployeeService employeeService, DoctorsService doctorService, DonorService donorService, IEmailSender _emailSender, Broadcaster broadcaster)
         {
             this.employeeService = employeeService;
             this.doctorService = doctorService;

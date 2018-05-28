@@ -10,10 +10,13 @@ export class WebSocketService {
     private  root: string = 'http://localhost:50272/broadcaster';
     private  _connection: HubConnection;
     private SendRequest:boolean;
+    private AcceptRequest:boolean;
+
     constructor()
     {
         this._connection = new signalR.HubConnection(this.root);
         this.SendRequest=false;
+        this.AcceptRequest = false;
     }
 
     getSessionId()
@@ -33,10 +36,10 @@ export class WebSocketService {
        await this._connection.start().then(()=>{this.subscribeToAGroup(groupname)}); //.catch(err => console.error(err, 'red'));  
     }
     
-    public  requestNotification(requestAdded: (request: DoctorRequest) => void) { 
+    public  requestNotification(requestAdded: (request: IEmployeeRequest) => void) { 
         if(!this.SendRequest)
         {
-            this._connection.on('SendRequest', (request: DoctorRequest) => {
+            this._connection.on('SendRequest', (request: IEmployeeRequest) => {
            requestAdded(request);
             });
             this.SendRequest=true;
@@ -44,9 +47,13 @@ export class WebSocketService {
     }
 
     public requestAcceptedNotification(requestAccepted:()=>void) { 
-        this._connection.on('AcceptRequest', () => {
-            requestAccepted();
-       });
+        if(!this.AcceptRequest)
+        {
+            this._connection.on('AcceptRequest', () => {
+                requestAccepted();
+            });
+            this.AcceptRequest=true;
+        }
     }
     
     public subscribeToAGroup(groupname: string) {

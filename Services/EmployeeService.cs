@@ -365,6 +365,7 @@ namespace Services
             using (UnitOfWork uow = new UnitOfWork())
             {
                 uow.DoctorRequestRepository.Update(doctorRequest);
+                uow.Save();
                 for (int i = 0; i < sentQuantity; i++)
                 {
                     availableBloodBags[i].Stage = BloodBagStage.Sent;
