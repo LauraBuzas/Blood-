@@ -69,15 +69,15 @@ var nodesHospitalAdmin=[
         link:"/hospital/admin"
     }]
 var nodesCenterAdmin=[
-        {
-            title:"Acasă",
-            link:'/'
-        },
-        {
-            title:"Conturi",
-            link:"/center/admin"
-        },
-    ]
+    {
+        title:"Acasă",
+        link:'/'
+    },
+    {
+        title:"Conturi",
+        link:"/center/admin"
+    },
+]
 
 var nodesEmployee=[
     {
@@ -136,7 +136,7 @@ export class Header extends React.Component<HeaderProps,HeaderState>
         return(
             // <div key={index}>
                 <Link to={node.link}>
-                    <span> {node.title} </span>
+                    {node.title}
                     {/* {node.title=="LogOut"?<a onClick={this.logout.bind(this)} ></a>:null} */}
                 </Link>
             // </div>

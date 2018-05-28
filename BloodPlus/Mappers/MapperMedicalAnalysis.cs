@@ -39,5 +39,16 @@ namespace BloodPlus.Mappers
                 Observations = analysis.Observations
             };
         }
+
+       
+        public static MedicalAnalysesDateModelView ToMedicalAnalysisDate(MedicalAnalysis analysis)
+        {
+            return new MedicalAnalysesDateModelView
+            {
+                Id = analysis.Id,
+                Date = analysis.DateAndTime.ToString()       
+            };
+        }
+
     }
 }

@@ -30,7 +30,9 @@ namespace Services
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                return uow.DonorRepository.GetAll().Include(d => d.MedicalAnalysis).Where(d => d.Id == id).FirstOrDefault().MedicalAnalysis;
+                return uow.DonorRepository.GetAll().Include(d => d.MedicalAnalysis)
+                    .Where(d => d.Id == id)
+                    .FirstOrDefault().MedicalAnalysis;
             }
         }
         
