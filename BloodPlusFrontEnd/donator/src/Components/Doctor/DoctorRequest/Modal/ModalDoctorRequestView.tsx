@@ -6,7 +6,6 @@ import {Helmet} from 'react-helmet'
 import {Label} from 'react-bootstrap'
 
 
-
 const styles = {
   fontFamily: "sans-serif",
   textAlign: "center"
@@ -126,9 +125,7 @@ export class ModalDoctorRequestView extends React.Component<ModalDoctorRequestVi
             <Label className="emergencyLevel" bsStyle={style}>{this.props.row.emergencyLevel}</Label>
             </div>
             </div>
-        
-        
-          
+
          <div id="container"></div>
          </div>
           
