@@ -92,8 +92,10 @@ namespace BloodPlus.Controllers
                 request = doctorsService.AddRequest(request);
 
                 doctorRequest.dateOfRequest = request.DateOfRequest;
+                doctorRequest.id = request.Id;
 
-                this.broadcaster.Clients.Group("DonationCenterDoctor").SendRequest(doctorRequest);
+                EmployeeRequestModelView employeeRequest = Mappers.MapperDoctorRequest.ToEmployeeRequest(request);
+                this.broadcaster.Clients.Group("DonationCenterDoctor").SendRequest(employeeRequest);
 
                 return Ok(request);
 
@@ -221,7 +223,6 @@ namespace BloodPlus.Controllers
                 var id = Request.Cookies["UserId"];
                 var requests = doctorsService.GetRequests(id);
                 List<DoctorRequestViewModel> requestsReturned = requests.Select(r => MapperDoctorRequest.ToDoctorRequestViewModel(r)).ToList();
-               
 
                 return Ok(requestsReturned);
 

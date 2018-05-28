@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Modal from "react-responsive-modal";
-//import 'C:/Users/Laura S/source/repos/BloodPlus/BloodPlusFrontEnd/donator/src/Components/Doctor/DoctorRequest/Modal/ModalDoctorRequestView.css'
+import '../../Doctor/DoctorRequest/Modal/ModalDoctorRequestView.css'
 import {Helmet} from 'react-helmet'
 import {Label} from 'react-bootstrap'
 import { IDonorBloodBagView } from '../../../Models/IDonorBloodBagView';
@@ -32,7 +32,7 @@ export class ModalInfoBloodBag extends React.Component<ModalInfoBloodBagProps,Mo
 
     onOpenModal = () => {
         this.setState({ open: true });
-      };
+    };
 
       onCloseModal = () => {
         this.setState({ open: false });

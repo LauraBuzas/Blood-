@@ -177,6 +177,14 @@ namespace Services
             }
         }
 
+        public Request GetDoctorRequest(int id)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.DoctorRequestRepository.GetByFunc(dr => dr.Id == id);
+            }
+        }
+
         public Request AddRequest(Request request)
         {
             using (UnitOfWork uow = new UnitOfWork())
