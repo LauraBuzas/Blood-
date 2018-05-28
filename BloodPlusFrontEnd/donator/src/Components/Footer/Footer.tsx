@@ -31,7 +31,7 @@ export class Footer extends React.Component {
                 </button>
                 
                 <a href="/" className="footer-button" id="up-button">
-                    Acasa
+                    Acasă
                 </a>
             
                 
@@ -46,7 +46,7 @@ export class Footer extends React.Component {
                 </div>
 
                 <div id="copyright-text">
-                    Blood+ copyright © 2018 Universitatea Babes Bolyai Cluj-Napoca.
+                    Blood+ copyright © 2018 Universitatea Babeș Bolyai Cluj-Napoca.
                 </div>
             </div>
         );

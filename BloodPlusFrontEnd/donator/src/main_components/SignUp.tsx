@@ -1,6 +1,6 @@
 import * as React from 'react';
-import '../css/Button.css';
-import '../css/SignUp.css';
+
+
 import { VBox, HBox } from 'react-stylesheet';
 import { TextField } from '../utils/TextField'
 import { IUserRegister } from '../Models/IUserRegister';
@@ -10,6 +10,9 @@ import EmailValidator from 'email-validator';
 import { Redirect } from 'react-router';
 import update from 'react-addons-update';
 import Alert from 'react-s-alert';
+import '../css/SignUp.css';
+import '../css/Button.css';
+
 export interface SignUpProps 
 {
     setRole: any;
@@ -168,72 +171,59 @@ export class SignUp extends React.Component<SignUpProps, SignUpState>
             return <Redirect to='/'/>
         }
         return (
-<<<<<<< Updated upstream
-            <div>
-                <HBox className="hboxPosition">
-                    <VBox className="vboxPosition">
-                        <HBox className="hboxTwoEntities">
-                            <TextField text="Nume" type="text" onChangeFunction={(event) => this.handleFirstNameChange(event)} />
-                            <TextField text="Prenume" type="text" onChangeFunction={ (event) => this.handleLastNameChange(event)} />
-                        </HBox>
-                        <TextField text="CNP" type="text" onChangeFunction={(event) => this.handleCnpChange(event)} />
-
-                        <HBox className="hboxTwoEntities">
-                        <TextField text="Oras" type="text" onChangeFunction={(event) => this.handleCityChange(event)} />
-                        <TextField text="Judet" type="text" onChangeFunction={(event) => this.handleCountyChange(event)} />
-                        </HBox>
-
-                        <HBox className="hboxTwoEntities">
-                        <TextField text="Strada" type="text" onChangeFunction={(event) => this.handleStreetChange(event)} />
-                        <TextField text="Numar" type="text" onChangeFunction={(event) => this.handleNumberChange(event)} />
-                        </HBox>
-
-                        <TextField text="E-mail" type="text" onChangeFunction={(event) => this.handleEmailChange(event)} />
-                        <TextField text="Parola" type="password" onChangeFunction={(event) => this.handlePasswordChange(event)} />
-                        <TextField text="Confirmare parola" type="password" onChangeFunction={(event) => this.handleConfirmPasswordChange(event)} />
-                        <button className="buttonSignUp"  onClick={(event) => this.registerUser(event)}>Inregistreaza-te</button>
-                    </VBox>
-                </HBox>
-                <Alert stack={true} timeout={3000} />
-            </div>
-=======
-        <div className="signup-container">
-    
-        {/* first and last names */}
-        <div className="h-box">
-            <TextField text="Nume" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
-            <TextField text="Prenume" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
-        </div>
-        {/* cnp */}
-        
-        <div className="h-box">
-            <TextField text="CNP" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
-        </div>
-        
-        
-        {/* city and county */}
-        <div className="h-box">
-            <TextField text="Oras" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
-            <TextField text="Judet" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
-        </div>
-        {/* street */}
-        <div className="h-box">
-            <TextField text="Strada" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
-            <TextField text="Numar" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
-        </div>
-        <div className="h-box">
-            <TextField text="E-mail" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
-            <TextField text="Nume utilizator" type="text" onChangeFunction={this.handleUsernameChange.bind(this)} />
-        </div>
-        <div className="h-box">
-            <TextField text="Parolă" type="password" onChangeFunction={this.handleUsernameChange.bind(this)} />
-            <TextField text="Confirmare Parolă" type="password" onChangeFunction={this.handleUsernameChange.bind(this)} />
-        </div>
-        <button className="generic-button">Inregistreaza-te</button>
-           
-        </div>
+            <VBox id="signup-container">
             
->>>>>>> Stashed changes
+            {/* first and last names */}
+            <HBox>
+                <TextField text="Nume" 
+                    type="text" 
+                    onChangeFunction={this.handleFirstNameChange.bind(this)} />
+                <TextField text="Prenume" 
+                    type="text" 
+                    onChangeFunction={this.handleLastNameChange.bind(this)} />
+            </HBox>
+            {/* cnp */}            
+            <TextField text="CNP" 
+                type="text" 
+                onChangeFunction={this.handleCnpChange.bind(this)} />        
+            {/* city and county */}
+            <HBox>
+                <TextField text="Oraș" 
+                    type="text" 
+                    onChangeFunction={this.handleCityChange.bind(this)} />
+                <TextField text="Județ" 
+                    type="text" 
+                    onChangeFunction={this.handleCountyChange.bind(this)} />
+            </HBox>
+            {/* street */}
+            <HBox>
+                <TextField text="Strada" 
+                    type="text" 
+                    onChangeFunction={this.handleStreetChange.bind(this)} />
+                <TextField text="Număr" 
+                    type="text" 
+                    onChangeFunction={this.handleNumberChange.bind(this)} />
+            </HBox>
+            
+            
+            <TextField text="E-mail" 
+                
+                type="text" 
+                onChangeFunction={this.handleEmailChange.bind(this)} />
+            {/* <TextField text="Nume utilizator" type="text" onChangeFunction={this.ha.bind(this)} /> */}
+        
+            <HBox>
+                <TextField text="Parolă" 
+                    type="password" 
+                    onChangeFunction={this.handlePasswordChange.bind(this)} />
+                <TextField text="Confirmare Parolă" 
+                    type="password" 
+                    onChangeFunction={this.handleConfirmPasswordChange.bind(this)} />
+            </HBox>
+            <button className="generic-button">Inregistrează-te</button>
+        
+            </VBox>      
+            
         );
     }
 }

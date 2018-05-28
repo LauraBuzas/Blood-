@@ -19,8 +19,10 @@ export interface DonorProfileProps{
 interface DonorProfileState{
     donor:IDonorGet;
     isLoading:boolean;
-    bgColor:string;
+    //bgColor:string;
     newPassword:string;
+
+    isPasswordChanging: boolean;
 }
 export class DonorProfile extends React.Component<DonorProfileProps,DonorProfileState>
 {
@@ -43,7 +45,8 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
                 },
             newPassword:'',
             isLoading: true,
-            bgColor: 'gray'
+            //bgColor: 'gray',
+            isPasswordChanging: false
         }
     };
 
@@ -61,7 +64,7 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
         this.setState({
             donor: update(this.state.donor, { lastname: { $set: event.target.value } }),
             isLoading: false,
-            bgColor: 'hsl(0, 98%, 68%)'
+            //bgColor: 'hsl(0, 98%, 68%)'
         });
     }
 
@@ -69,7 +72,7 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
         this.setState({
             donor: update(this.state.donor, { firstname: { $set: event.target.value } }),
             isLoading: false,
-            bgColor: 'hsl(0, 98%, 68%)'
+            //bgColor: 'hsl(0, 98%, 68%)'
         });
     }
 
@@ -77,7 +80,7 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
         this.setState({
             donor: update(this.state.donor, { email: { $set: event.target.value } }),
             isLoading: false,
-            bgColor: 'hsl(0, 98%, 68%)'
+            //bgColor: 'hsl(0, 98%, 68%)'
         });
     }
 
@@ -92,7 +95,7 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
         this.setState({
             donor: update(this.state.donor, { street: { $set: event.target.value } }),
             isLoading: false,
-            bgColor: 'hsl(0, 98%, 68%)'
+           // bgColor: 'hsl(0, 98%, 68%)'
         });
     }
 
@@ -100,7 +103,7 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
         this.setState({
             donor: update(this.state.donor, { county: { $set: event.target.value } }),
             isLoading: false,
-            bgColor: 'hsl(0, 98%, 68%)'
+            //bgColor: 'hsl(0, 98%, 68%)'
         });
     }
 
@@ -108,7 +111,7 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
         this.setState({
             donor: update(this.state.donor, { city: { $set: event.target.value } }),
             isLoading: false,
-            bgColor: 'hsl(0, 98%, 68%)'
+            //bgColor: 'hsl(0, 98%, 68%)'
         });
     }
 
@@ -116,7 +119,7 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
         this.setState({
             donor: update(this.state.donor, { number: { $set: event.target.value } }),
             isLoading: false,
-            bgColor: 'hsl(0, 98%, 68%)'
+            //bgColor: 'hsl(0, 98%, 68%)'
         });
     }
     
@@ -124,7 +127,7 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
         this.setState({
             donor: update(this.state.donor, { password: { $set: event.target.value } }),
             isLoading: false,
-            bgColor: 'hsl(0, 98%, 68%)'
+            //bgColor: 'hsl(0, 98%, 68%)'
         });
     }
 
@@ -132,7 +135,7 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
         this.setState({
             newPassword:event.target.value ,
             isLoading: false,
-            bgColor: 'hsl(0, 98%, 68%)'
+            //bgColor: 'hsl(0, 98%, 68%)'
         });
     }
 
@@ -140,7 +143,7 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
         this.setState({
             donor: update(this.state.donor, { confirmPassword: { $set: event.target.value } }),
             isLoading: false,
-            bgColor: 'hsl(0, 98%, 68%)'
+            //bgColor: 'hsl(0, 98%, 68%)'
         });
     }
 
@@ -182,7 +185,7 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
             DonorProfileService.updateInfo(donorUpdate);
             this.setState({
                 isLoading: true,
-                bgColor: 'gray'
+                //bgColor: 'gray'
             });
             Alert.success("Schimbările au fost salvate", {
                 position: 'top-right',
@@ -203,7 +206,7 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
             });
             this.setState({
                 isLoading: true,
-                bgColor: 'gray'
+               // bgColor: 'gray'
             });
             Alert.success("Schimbările au fost salvate", {
                 position: 'top-right',
@@ -215,7 +218,7 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
     handleCancel(event:any){
         this.setState({
             isLoading: true,
-            bgColor: 'gray',
+            //bgColor: 'gray',
             newPassword:'',
             donor: update(this.state.donor,{password:{$set:''},confirmPassword:{$set:''}})
         });
@@ -224,6 +227,18 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
                 donor: donor
             });    
         });
+    }
+
+    togglePasswordChange = () => {
+        if (this.state.isPasswordChanging) {
+            this.setState({
+                isPasswordChanging: false
+            });
+        } else {
+            this.setState({
+                isPasswordChanging: true
+            });
+        }
     }
 
     render(){
@@ -260,11 +275,12 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
                         <TextField text="Județ" type="text" value={this.state.donor.county} onChangeFunction={(event)=>this.handleCountyChange(event)} />
                         <TextField text="Stradă" type="text" value={this.state.donor.street} onChangeFunction={(event)=>this.handleStreetChange(event)} />
                         <TextField text="Număr" type="text" value={this.state.donor.number.toString(10)} onChangeFunction={(event)=>this.handleNumberChange(event)} />
-                    </VBox>
-                    <VBox>
                         <div>
-                            <h1 className="mainTitles">Schimbă parola</h1>
+                            <button onClick={this.togglePasswordChange} className="generic-button change-pass-btn">Schimbă parola</button>
                         </div>
+                    </VBox>
+                    <VBox className={this.state.isPasswordChanging? "pass-vbox pass-visible": "pass-vbox pass-hidden"}>
+                        
                         
                         <MuiThemeProvider muiTheme={getMuiTheme()}>
                         <PasswordField value={this.state.donor.password}className="passField" onChange={(event) => this.handleCPassChange(event)} hintText="Cel puțin 8 caractere" floatingLabelText="Introdu parola curentă" />
@@ -272,9 +288,15 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
                         <PasswordField value={this.state.donor.confirmPassword} onChange={(event) => this.handleConfirmPassChange(event)} floatingLabelText="Confirmă noua parolă" />
                         </MuiThemeProvider>
                         
-                        <HBox className="HBoxButtons">
-                            <ReactBootstrap.Button disabled={isLoading} style={{backgroundColor:this.state.bgColor}} className="button" onClick={(event)=>this.handleSave(event)}>Salvează</ReactBootstrap.Button>
-                            <ReactBootstrap.Button disabled={isLoading} style={{backgroundColor:this.state.bgColor}} className="button" onClick={(event)=>this.handleCancel(event)}>Anulează</ReactBootstrap.Button>
+                        <HBox>
+                            <ReactBootstrap.Button 
+                                disabled={isLoading} 
+                                className={this.state.isLoading? "generic-button password-btn btn-disabled" : "generic-button password-btn btn-enabled"} 
+                                onClick={(event)=>this.handleSave(event)}>Salvează</ReactBootstrap.Button>
+                            <ReactBootstrap.Button 
+                                disabled={isLoading} 
+                                className={this.state.isLoading? "generic-button password-btn btn-disabled" : "generic-button password-btn btn-enabled"} 
+                                onClick={(event)=>this.handleCancel(event)}>Anulează</ReactBootstrap.Button>
                         </HBox>
                     </VBox>
                     </VBox>

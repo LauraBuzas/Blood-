@@ -1,10 +1,8 @@
-.signup-container {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 auto;
+#signup-container {
+    margin: 20px auto;
     width: 100%;
     max-width: 380px;
-    margin-bottom: auto;
+    /* margin-bottom: auto; */
 }
 
 .h-box {
@@ -12,9 +10,12 @@
 }
 
 .h-box div {
-    display: inline-block;
+    display: flex;
 }
 
+/* .h-box:has(div:only-child) {
+    display: block;
+} */
 
 #login-div {
     margin: 10px auto;

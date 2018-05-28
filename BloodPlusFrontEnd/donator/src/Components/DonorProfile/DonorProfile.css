@@ -3,35 +3,19 @@
     height:100%;
 }
 
-.separation{
-    width: 100%;
-    height: 3px;
-    font-family: 'lato', sans-serif;
-    font-size: 10px;
-    /* margin-top: 20;
-    margin-bottom: 20; */
-    /* Safari 5.1+, Chrome 10+ */
-    background: -webkit-linear-gradient(left, rgba(0,0,0,0), hsl(0, 98%, 68%), rgba(0,0,0,0));
-    /* Firefox 3.6+ */
-    background: -moz-linear-gradient(left, rgba(0,0,0,0), hsl(0, 98%, 68%), rgba(0,0,0,0));
-}
-.separation2{
-    width:100%;
-    height: 2px;
-    background: -webkit-linear-gradient(left, rgba(0,0,0,0), hsl(0, 98%, 68%), rgba(0,0,0,0));
-    /* Firefox 3.6+ */
-    background: -moz-linear-gradient(left, rgba(0,0,0,0), hsl(0, 98%, 68%), rgba(0,0,0,0));
-}
 .title{
     font-family: 'lato', sans-serif;
     font-size: 20px;
+    margin-top: 10px;
 }
 .mainTitles{
     font-family: 'lato', sans-serif;
     font-size: 13px;
+    text-align: left;
 }
 .hBox{
-    width: 100%;
+    width: 60%;
+    margin: 20px auto;
 }
 
 .avatar {
@@ -46,17 +30,64 @@
     padding-left: 70%;
     position: relative;
 } */
-.content-vbox, .info-vbox {
+.content-vbox, .info-vbox, .pass-vbox {
     display: flex;
     box-sizing: border-box;
     width: 100%;
     
 }
 
-.info-vbox {
-    width: 300px;
+.info-vbox, .pass-vbox {
+    box-sizing: border-box;
+    max-width: 380px;
     margin: 20px auto;
 }
 
+.pass-vbox {
+    transition-duration: 0.5s;
+    overflow: hidden;
+}
 
+.pass-visible {
+    height: 370px;
+    
+}
+
+.pass-hidden {
+    height: 0px;
+}
+
+.change-pass-btn {
+    background: #98c4ea;
+    color: white;
+    /* width: 150px;
+    height: 40px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    border: none;
+    margin-left: 0px;
+    -webkit-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75);
+    box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75); */
+
+}
+
+
+
+.change-pass-btn:focus {
+    outline: none;
+}
+
+.password-btn {
+    margin: 10px auto;
+    width: 40%;
+}
+
+.btn-disabled {
+    background-color: grey;
+}
+
+.btn-enabled {
+    background-color: #f70606c7;
+}
 

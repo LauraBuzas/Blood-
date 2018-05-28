@@ -107,7 +107,7 @@ export class DonorTestsPage extends React.Component<DonorProfileProps, DonorProf
     getDateComponent() {
         if (this.canDonate(this.state.nextDate)) {
             return(
-                <h1>Puteti dona</h1>
+                <h1>Puteți dona</h1>
             );
         }
         console.log(this.state.nextDate);
@@ -119,7 +119,7 @@ export class DonorTestsPage extends React.Component<DonorProfileProps, DonorProf
                     
                 </h1>
                 <div>
-                    zile pana cand puteti dona din nou
+                    zile până când puteți dona din nou
                 </div>
                 <span className="date-text">{this.state.nextDate.toDateString()}</span>
             </div>

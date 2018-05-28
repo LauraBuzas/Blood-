@@ -1,4 +1,4 @@
-.hangouts-header{
+.hangouts-header {
     height:60px;
     background: #ffffff;
     color: black;
@@ -10,24 +10,26 @@
     /* background-blend-mode: soft-light; */
 }
 
-.hangouts-nodes{
+.hangouts-nodes {
     display:flex;
     text-transform: uppercase;
     font-size: large;
     font-weight: bold;
     align-content: center;
-    cursor:pointer;
+    /* cursor:pointer; */
     width:100%;
 }
 
-.hangouts-nodes a{
+.hangouts-nodes a {
     color: black;
-    text-decoration: none !important;
+    text-decoration: none;
     padding: 20px 20px;
 }
 
-.hangous-nodes a:hover{
-    color:rgb(165, 37, 37) !important;
+.hangouts-nodes a:hover {
+    color:#98c4ea;
+    text-decoration: none;
+    /* background-color: #89b4c8; */
 }
 
 @media (max-width: 700px) {

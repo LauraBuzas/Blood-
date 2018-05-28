@@ -34,10 +34,10 @@ export class HomePage extends React.Component {
                 <div id="welcome-container">
                     <img id="logo" src="assets/logo/logo.png"></img>
                     <div  id="blood-description">
-                        <h1 id="welcome-title">Bine ati venit la <span id="logo-text">Blood+</span></h1>
+                        <h1 id="welcome-title">Bine ați venit la <span id="logo-text">Blood+</span></h1>
                         <p><span className="indent"></span>
-                            Blood+ este o aplicatie realizata de o echipa de studenti din anul 2 de la Facultatea
-                            de Matematica si Informatica, Universitatea Babes Bolyai Cluj-Napoca.
+                            Blood+ este o aplicație realizată de o echipă de studenți din anul 2 de la Facultatea
+                            de Matematică și Informatică, Universitatea Babeș Bolyai Cluj-Napoca.
                         </p>
                     </div>
                 </div>
