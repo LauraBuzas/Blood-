@@ -623,6 +623,37 @@ namespace DatabaseAccess.Data
 
             context.MedicalAnalyses.Add(medicalAnalysis3);
             context.SaveChanges();
+
+            BloodBag bloodbag4 = new BloodBag()
+            {
+                Center = center1,
+                Date = DateTime.Now,
+                Status = BloodBagStatus.Rejected,
+                Stage = BloodBagStage.Sampling,
+                BloodType = BloodTypes.B3,
+                RhType = RhTypes.POZITIV,
+                CenterId = center1.Id
+            };
+            context.BloodBags.Add(bloodbag4);
+            context.SaveChanges();
+
+            MedicalAnalysis medicalAnalysis4 = new MedicalAnalysis()
+            {
+                BloodBag = bloodbag4,
+                DateAndTime = DateTime.Now,
+                ALTLevel = false,
+                Sifilis = false,
+                HepatitisB = false,
+                HepatitisC = false,
+                HIV = false,
+                HTLV = false,
+                RejectedOtherCauses = true,
+                Observations = "S-a găsit prea multă grăsime în sânge.",
+                Donor = donor1
+            };
+
+            context.MedicalAnalyses.Add(medicalAnalysis4);
+            context.SaveChanges();
         }
 
         private static async Task SeedRequests(ApplicationDbContext context)
