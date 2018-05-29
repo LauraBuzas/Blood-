@@ -245,7 +245,7 @@ namespace Services
 					.GetAll()
                     .Include(bb => bb.Analysis.Donor)
                     .Include(bb => bb.Center)
-                    .Where(t => t.CenterId == centerId && t.Status!=ComponentStatus.Sent)
+                    .Where(t => t.Status!=ComponentStatus.Sent && t.CenterId == centerId && t.Status!=ComponentStatus.Sent)
 					.ToList();
 
 			}
@@ -257,7 +257,7 @@ namespace Services
 					.GetAll()
                     .Include(bb => bb.Analysis.Donor)
                     .Include(bb => bb.Center)
-                    .Where(rbc => rbc.CenterId == centerId && rbc.Status!=ComponentStatus.Sent)
+                    .Where(rbc => rbc.Status != ComponentStatus.Sent && rbc.CenterId == centerId && rbc.Status!=ComponentStatus.Sent)
 					.ToList();
 
 			}
@@ -269,7 +269,7 @@ namespace Services
 					.GetAll()
                     .Include(bb => bb.Analysis.Donor)
                     .Include(bb => bb.Center)
-                    .Where(p => p.CenterId == centerId && p.Status != ComponentStatus.Sent)
+                    .Where(p => p.Status != ComponentStatus.Sent && p.CenterId == centerId && p.Status != ComponentStatus.Sent)
 					.ToList();
 
 			}

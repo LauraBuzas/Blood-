@@ -6,7 +6,7 @@ import { IEmployeeRequest } from '../Models/IEmployeeRequest';
 import { IDoctorRequestView } from '../Models/IDoctorRequestView';
 
 export class WebSocketService {
-    private  root: string = 'http://localhost:51401/broadcaster';
+    private  root: string = 'http://localhost:57738/broadcaster';
     private  _connection: HubConnection;
 
     constructor()
