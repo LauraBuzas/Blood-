@@ -150,7 +150,7 @@ namespace BloodPlus.Controllers
             return View(model);
         }
 
-        [Authorize(Roles ="HospitalDoctor,Donor")]
+        [Authorize(Roles ="HospitalDoctor,Donor,DonationCenterDoctor")]
         //[Authorize(Roles ="Donor")]
         [HttpPost("change")]
         //[ValidateAntiForgeryToken]
