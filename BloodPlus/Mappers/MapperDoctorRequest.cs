@@ -62,5 +62,40 @@ namespace BloodPlus.Mappers
             return requestViewModel;
 
         }
+
+        public static EmployeeRequestModelView ToEmployeeRequest(Request request)
+        {
+            var requestViewModel = new EmployeeRequestModelView()
+            {
+                BloodType = request.BloodType.ToString(),
+                EmergencyLevel = request.EmergencyLevel.ToString(),
+                Rh = request.Rh.ToString(),
+                QuantityNeeded = request.RequestedQuantity-request.ReceivedQuantity,
+                dateOfRequest = request.DateOfRequest,
+                Id = request.Id
+            };
+
+            switch (request.Component)
+            {
+                case ComponentType.BloodBag:
+                    requestViewModel.Component = "Sange neseparat";
+                    break;
+                case ComponentType.Thrombocyte:
+                    requestViewModel.Component = "Trombocite";
+                    break;
+                case ComponentType.Plasma:
+                    requestViewModel.Component = "Plasma";
+                    break;
+                case ComponentType.RedBloodCells:
+                    requestViewModel.Component = "Celule rosii";
+                    break;
+                default:
+                    break;
+            }
+
+            return requestViewModel;
+
+        }
+
     }
 }

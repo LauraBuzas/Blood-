@@ -27,14 +27,19 @@
 }
 
 .up-button {
+    border-radius: 5px;
+    display: flex;
     height: 30px;
     width: 30px;
     font-size: 30px;
     background-color: #98c4ea;
+    
+    color: black;
+    justify-content: space-evenly;
 }
 
 .up-button div {
-    margin: auto;
+    margin: 0 auto;
 }
 
 .up-button:hover {
@@ -43,9 +48,11 @@
 
 #copyright-text {
     box-sizing: border-box;
-    margin: 10px 0;
-    width: 600px;
+    font-size: 10px;
+    margin: 10px 0 0 0;
+    width: 100%;
     color: white;
+    
 }
 
 #contact-title {

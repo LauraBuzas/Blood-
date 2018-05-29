@@ -5,7 +5,7 @@ import Cookies from 'universal-cookie';
 
 export class AccountService {
 
-    private static root: string = "http://localhost:50272/account";
+    private static root: string = "http://localhost:51401/account";
 
 
     public static loginUser(user: any): Promise<any> {
@@ -53,6 +53,32 @@ export class AccountService {
         // });
     }
 
+    public static registerUser(newUser: any) : Promise<any>  {
+        return new Promise((resolve, reject) => {
+            axios(
+                this.root + '/register/donor',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                        'Access-Control-Allow-Credentials':true
+                    },
+                    withCredentials: true,
+                    maxRedirects: 0,
+                    data: newUser
+                }
+            ).then((response: any) => {
+                console.log(response);
+                console.log(response.headers['set-cookie']);
+                resolve(response);
+            },
+                (error: any) => {
+                    console.log(error);
+                    reject(error);
+                });
+        });
+    }
 
     public static logoutUser(): Promise<any> {
 
@@ -68,7 +94,6 @@ export class AccountService {
                     },
                     withCredentials:true,
                     maxRedirects:0,
-                  
                 }
             ).then((response: any) => {
                 resolve(response);

@@ -170,6 +170,10 @@ export class DoctorProfile extends React.Component<DoctorProfileProps,DoctorProf
                 isLoading: true,
                 bgColor: 'gray'
             });
+            Alert.success("Schimbările au fost salvate", {
+                position: 'top-right',
+                effect: 'jelly'
+            });
         }
         if(ok2==true && ok3==true){
              let passwordUpdate: IPasswordUpdate = {
@@ -186,6 +190,10 @@ export class DoctorProfile extends React.Component<DoctorProfileProps,DoctorProf
             this.setState({
                 isLoading: true,
                 bgColor: 'gray'
+            });
+            Alert.success("Schimbările au fost salvate", {
+                position: 'top-right',
+                effect: 'jelly'
             });
         }
             
