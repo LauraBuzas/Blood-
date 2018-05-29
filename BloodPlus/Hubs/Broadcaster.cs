@@ -6,10 +6,14 @@ namespace BloodPlus.Hubs
 {
     public class Broadcaster : Hub<IBroadcaster>
     {
+        public Broadcaster()
+        {
+        }
         public override Task OnConnectedAsync()
         {
             // Set connection id for just connected client only
             return Clients.Client(Context.ConnectionId).SetConnectionId(Context.ConnectionId);
+            
         }
 
         //Server side methods called from client

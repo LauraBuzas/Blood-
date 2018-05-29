@@ -19,7 +19,6 @@ namespace BloodPlus.Mappers
                 HIV = analysisViewModel.HIV,
                 HTLV = analysisViewModel.HTLV,
                 Sifilis = analysisViewModel.Sifilis,
-                DateAndTime = analysisViewModel.DateAndTime,
                 RejectedOtherCauses = analysisViewModel.RejectedOtherCauses,
                 Observations = analysisViewModel.Observations
             };
