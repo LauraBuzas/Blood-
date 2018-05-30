@@ -15,6 +15,8 @@ import './ModalDoctorRequest.css'
 import { IPatientAdd } from '../../Models/IPatientAdd';
 import { IDoctorRequest } from '../../Models/IDoctorRequest';
 
+ 
+
 const styles = {
   fontFamily: "sans-serif",
   textAlign: "center"
@@ -258,7 +260,13 @@ export class ModalDoctorRequest extends React.Component<ModalDoctorRequestProps,
         if(allErrors.length==0)
         { 
             DoctorService.addRequest(request).then((request:any) => {
-            console.log(request);
+                console.log(request);
+               this.setState({open:false}); 
+               this.props.onClose();
+                Alert.success("Cererea s-a trimis cu succes către centrele din județ", {
+                    position: 'top-right',
+                    effect: 'jelly'
+                });
             },
                 (error) => {
                     Alert.error("A apărut o eroare la trimitere request", {

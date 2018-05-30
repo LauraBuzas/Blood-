@@ -29,7 +29,6 @@ namespace BloodPlus.ModelViews
         [Required]
         public string CNP { get; set; }
 
-        [Required]
         public DateTime DateAndTime { get; set; }
 
         [Required]

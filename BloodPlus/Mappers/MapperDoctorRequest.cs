@@ -11,15 +11,18 @@ namespace BloodPlus.Mappers
     {
         public static Request ToDoctorRequestDb(DoctorRequestViewModel requestViewModel)
         {
-            return new Request()
+
+            var request = new Request()
             {
                 BloodType = (BloodTypes)Enum.Parse(typeof(BloodTypes), requestViewModel.BloodType.ToUpper()),
                 EmergencyLevel = (EmergencyLevel)Enum.Parse(typeof(EmergencyLevel), requestViewModel.EmergencyLevel.ToUpper()),
-                Rh = (RhTypes)Enum.Parse(typeof(RhTypes), requestViewModel.Rh.ToUpper()),
                 Status = RequestStatus.Waiting,
                 RequestedQuantity = requestViewModel.RequestedQuantity,
                 Component = (ComponentType)Enum.Parse(typeof(ComponentType), requestViewModel.Component)
             };
+            if (requestViewModel.Rh != null)
+                request.Rh = (RhTypes)Enum.Parse(typeof(RhTypes), requestViewModel.Rh.ToUpper());
+            return request;
 
         }
 
@@ -59,5 +62,40 @@ namespace BloodPlus.Mappers
             return requestViewModel;
 
         }
+
+        public static EmployeeRequestModelView ToEmployeeRequest(Request request)
+        {
+            var requestViewModel = new EmployeeRequestModelView()
+            {
+                BloodType = request.BloodType.ToString(),
+                EmergencyLevel = request.EmergencyLevel.ToString(),
+                Rh = request.Rh.ToString(),
+                QuantityNeeded = request.RequestedQuantity-request.ReceivedQuantity,
+                dateOfRequest = request.DateOfRequest,
+                Id = request.Id
+            };
+
+            switch (request.Component)
+            {
+                case ComponentType.BloodBag:
+                    requestViewModel.Component = "Sange neseparat";
+                    break;
+                case ComponentType.Thrombocyte:
+                    requestViewModel.Component = "Trombocite";
+                    break;
+                case ComponentType.Plasma:
+                    requestViewModel.Component = "Plasma";
+                    break;
+                case ComponentType.RedBloodCells:
+                    requestViewModel.Component = "Celule rosii";
+                    break;
+                default:
+                    break;
+            }
+
+            return requestViewModel;
+
+        }
+
     }
 }

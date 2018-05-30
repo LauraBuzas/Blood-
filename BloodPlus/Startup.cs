@@ -10,9 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using DatabaseAccess.Data;
 using DatabaseAccess.Models;
-using BloodPlus.Services2;
+using BloodPlus.Services;
 using Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using BloodPlus.Hubs;
 
 namespace BloodPlus
 {
@@ -68,6 +68,15 @@ namespace BloodPlus
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+
+
+            services.AddSignalR(
+                options =>
+                {
+                    options.KeepAliveInterval = TimeSpan.FromSeconds(3);
+                });
+
+
             services.AddMvc();
             services.AddTransient<DoctorsService>();
             services.AddTransient<AdminService>();
@@ -76,12 +85,16 @@ namespace BloodPlus
             services.AddTransient<EmployeeProfileService>();
             services.AddTransient<DoctorProfileService>();
             services.AddTransient<PatientService>();
+            services.AddSingleton<Broadcaster>();
 
+            services.AddTransient<DonorProfileService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+           
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -95,10 +108,17 @@ namespace BloodPlus
 
             //app.UseStaticFiles();
 
+           
             app.UseAuthentication();
             
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials());
             app.UseMvc();
+
+            app.UseWebSockets();
+            app.UseSignalR(routes=>
+            {
+                routes.MapHub<Broadcaster>("/broadcaster");
+            });
 
             //app.UseCookieAuthentication(new CookieAuthenticationOptions { CookieHttpOnly = false });
 

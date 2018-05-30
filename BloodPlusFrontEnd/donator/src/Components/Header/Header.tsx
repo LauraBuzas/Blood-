@@ -30,6 +30,10 @@ var nodesGuest=[
         link:'/'
     },
     {
+        title:"Centre",
+        link:'/centers'
+    },
+    {
         title:"Cont nou",
         link:"/register"
     },
@@ -50,6 +54,10 @@ var nodesDoctor=[
     {
         title:"Cere sânge",
         link:"/request"
+    },
+    {
+        title:"Pacienții mei",
+        link:"doctor/patients"
     }]
 var nodesHospitalAdmin=[
     {
@@ -61,15 +69,15 @@ var nodesHospitalAdmin=[
         link:"/hospital/admin"
     }]
 var nodesCenterAdmin=[
-        {
-            title:"Acasă",
-            link:'/'
-        },
-        {
-            title:"Conturi",
-            link:"/center/admin"
-        },
-    ]
+    {
+        title:"Acasă",
+        link:'/'
+    },
+    {
+        title:"Conturi",
+        link:"/center/admin"
+    },
+]
 
 var nodesEmployee=[
     {
@@ -79,6 +87,18 @@ var nodesEmployee=[
     {
         title:"Profil",
         link:"/employee/profile"
+    },
+    {
+        title:"Cereri de sânge",
+        link:"/employee/requests"
+    },
+    {
+        title: "Stoc sange",
+        link: "/employees/stock"
+    },
+    {
+        title: "Analize",
+        link: "/employees/analyses"
     }
 
 ]
@@ -89,8 +109,12 @@ var nodesDonor=[
         link:'/'
     },
     {
+        title:"Profil",
+        link:'/donor/profile'
+    },
+    {
         title:"Analizele mele",
-        link:"/analyses"
+        link:"/donor/analyses"
     }]
 export class Header extends React.Component<HeaderProps,HeaderState>
 {
@@ -112,7 +136,7 @@ export class Header extends React.Component<HeaderProps,HeaderState>
         return(
             // <div key={index}>
                 <Link to={node.link}>
-                    <span> {node.title} </span>
+                    {node.title}
                     {/* {node.title=="LogOut"?<a onClick={this.logout.bind(this)} ></a>:null} */}
                 </Link>
             // </div>

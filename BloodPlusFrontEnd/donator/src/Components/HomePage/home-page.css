@@ -21,13 +21,21 @@ img {
     right: 30px;
     top: 10%;
     z-index: 1;
-    width: 150px;
+    width: 200px;
     height: 40px;  
     background-color: #ff3e30;
     text-transform: uppercase;
     border-radius: 25px;
     color: white;
     border: none;
+}
+
+@media (max-width: 700px) {
+    #register-button {
+        width: 120px;
+        height: 20px;  
+        font-size: 10px;
+    }
 }
 
 #register-button:focus {
@@ -47,24 +55,22 @@ img {
 }
 
 #logo, #blood-description {
+    box-sizing: border-box;
     width: 100%;
     max-width: 400px;
     height: auto;
     display: inline-block;
-    margin: 20px;
+    padding: 20px;
 }
 
-
-
-#blood-description {
-    /* background-color: rgba(99,11,11,0.2 ); */
-}
 
 p {
+    box-sizing: border-box;
     text-align: justify;
     font-family: 'Roboto', sans-serif;
     font-size: 18px;
     padding: 20px;
+    max-width: 100%;
 }
 
 .indent {
@@ -72,4 +78,12 @@ p {
     border-left: 5px solid #991111;
 }
 
-
+#register-button {
+    text-decoration: none;
+    align-content: center;
+   
+    padding: 5px;
+    -webkit-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75);
+    box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75);
+}

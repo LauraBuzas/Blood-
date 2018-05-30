@@ -1,5 +1,6 @@
-﻿using BloodPlus.ModelViews.AccountViewModels;
-using BloodPlus.Services2;
+﻿using BloodPlus.Hubs;
+using BloodPlus.ModelViews.AccountViewModels;
+using BloodPlus.Services;
 using DatabaseAccess.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -26,6 +27,7 @@ namespace BloodPlus.Controllers
         private readonly DonorService _donorsService;
         private readonly AdminService _adminService;
         private readonly EmployeeService _employeeService;
+        private Broadcaster _broadcaster;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -35,7 +37,8 @@ namespace BloodPlus.Controllers
             DoctorsService doctorsService,
             DonorService donorService,
             AdminService adminService,
-            EmployeeService employeeService)
+            EmployeeService employeeService,
+            Broadcaster broadcaster)
         {
 
             _userManager = userManager;
@@ -46,6 +49,7 @@ namespace BloodPlus.Controllers
             _adminService=adminService;
             _donorsService = donorService;
             _employeeService = employeeService;
+            _broadcaster = broadcaster;
         }
 
         [TempData]
@@ -87,10 +91,16 @@ namespace BloodPlus.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+
                     _logger.LogInformation("User logged in.");
                     var user = await _userManager.FindByNameAsync(model.Email);
                     var roles=_userManager.GetRolesAsync(user).Result.ToList();
-                    if(roles.Any(s=>s== "HospitalAdmin"))
+
+                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+                    //await _emailSender.SendEmailConfirmationAsync("bogdyg97@gmail.com",new Donor() {FirstName="Firstname",LastName = "Lastname" },new Address() { Street = "strada x", Number = 13, City = "Cluj" },BloodTypes.AB4);
+
+                    if (roles.Any(s=>s== "HospitalAdmin"))
                     {
                         var hospitalId = _adminService.GetHospitalIdForHospitalAdmin(user.Id);
                         SetCookie("HospitalId", hospitalId.ToString());
@@ -106,7 +116,8 @@ namespace BloodPlus.Controllers
                     if (roles.Any(s => s == "DonationCenterDoctor"))
                     {
                         var centerId = _employeeService.GetCenterIdForCenterDoctor(user.Id);
-                        SetCookie("CenterDoctorId", user.Id); //CenterId
+                        SetCookie("CenterId", centerId.ToString());
+                        SetCookie("CenterDoctorId", user.Id); 
                     }
                     if (roles.Any(s => s == "HospitalDoctor"))
                     {
@@ -286,9 +297,9 @@ namespace BloodPlus.Controllers
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
-                    await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
+                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+                    //await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
@@ -305,10 +316,13 @@ namespace BloodPlus.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
+           // await _broadcaster.Unsubscribe("employees");
             await _signInManager.SignOutAsync();
-            RemoveCookie("HospitalId");
-            RemoveCookie("CenterId");
+            //RemoveCookie("HospitalId");
+            //RemoveCookie("CenterId");
+
             _logger.LogInformation("User logged out.");
+
             return Ok();
         }
 
@@ -433,10 +447,10 @@ namespace BloodPlus.Controllers
 
                 // For more information on how to enable account confirmation and password reset please
                 // visit https://go.microsoft.com/fwlink/?LinkID=532713
-                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
-                await _emailSender.SendEmailAsync(model.Email, "Reset Password",
-                   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
+                //var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                //var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
+                //await _emailSender.SendEmailAsync(model.Email, "Reset Password",
+                //   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
                 return RedirectToAction(nameof(ForgotPasswordConfirmation));
             }
 
@@ -595,7 +609,7 @@ namespace BloodPlus.Controllers
                     var createdDonor = await _userManager.FindByEmailAsync(donorModel.Email);
                     await _userManager.AddToRoleAsync(createdDonor, "Donor");
 
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     //await _emailSender.SendEmailConfirmationAsync(donorModel.Email, callbackUrl);
                     var donorDb = Mappers.MapperRegisterDonor.ToDonor(donorModel, createdDonor);

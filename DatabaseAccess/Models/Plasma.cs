@@ -8,10 +8,17 @@ namespace DatabaseAccess.Models
     {
         public int Id { get; set; }
 
-        public DateTime SeparationDateAndTime { get; set; }
+		public MedicalAnalysis Analysis { get; set; }
+
+		public DateTime SeparationDateAndTime { get; set; }
 
         public DateTime ExpirationDateAndTime { get; set; }
 
         public BloodTypes BloodType { get; set; }
-    }
+
+        public ComponentStatus Status { get; set; }
+
+        public Center Center { get; set; }
+		public int CenterId { get; set; }
+	}
 }

@@ -37,6 +37,45 @@ namespace BloodPlus.Controllers
             }
         }
 
+
+        [Authorize(Roles = "Donor")]
+        [HttpGet("analyses-date")]
+        public IActionResult MedicalAnalysesDate()
+        {
+            try
+            {
+                var id = Request.Cookies["UserId"];
+                var analyses = donorService.GetMedicalAnalyses(id)
+                                            .OrderByDescending(a=>a.DateAndTime)
+                                            .Select(ma => MapperMedicalAnalysis.ToMedicalAnalysisDate(ma))
+                                            .ToList();
+                return Ok(analyses);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Authorize(Roles = "Donor")]
+        [HttpGet("analyses/{id}")]
+        public IActionResult GetMedicalAnalyseById(int id)
+        {
+            try
+            {
+                var idUser = Request.Cookies["UserId"];
+                var analyse= donorService.GetMedicalAnalyses(idUser)
+                                            .Where(a => a.Id == id)
+                                            .FirstOrDefault();
+                var analyseModelView = MapperMedicalAnalysis.ToMedicalAnalysisViewModel(analyse);
+                return Ok(analyseModelView);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [Authorize(Roles = "Donor")]
         [HttpGet("nextDonation")]
         public IActionResult NextDonation()
@@ -54,7 +93,7 @@ namespace BloodPlus.Controllers
                 }
                 else
                 {
-                    return Ok("Vino sa donezi acum!");
+                    return Ok("");
                 }
 
 
@@ -84,5 +123,6 @@ namespace BloodPlus.Controllers
             }
         }
 
+       
     }
 }
