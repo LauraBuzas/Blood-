@@ -265,7 +265,7 @@ namespace BloodPlus.Controllers
 					Donor = bag.Analysis.Donor.FirstName + " " + bag.Analysis.Donor.LastName,
                     CNP = bag.Analysis.Donor.CNP,
                     Stage = bag.Status.ToString(),
-                    Status = "Separated"
+                    Status = "Separated",
                     Date = bag.ExpirationDateAndTime.ToString(),
 
 				});
@@ -281,7 +281,7 @@ namespace BloodPlus.Controllers
                     CNP = bag.Analysis.Donor.CNP,
 
                     Stage = bag.Status.ToString(),
-                    Status = "Separated"
+                    Status = "Separated",
                     Date = bag.ExpirationDateAndTime.ToString(),
 				});
 			}
