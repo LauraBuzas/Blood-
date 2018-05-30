@@ -5,7 +5,9 @@ import {IPasswordUpdate} from '../Models/IPasswordUpdate'
 import Cookies from 'universal-cookie';
 import { Session } from 'inspector';
 export class DonorProfileService{
-    private static rootDonor: string = 'http://localhost:50272/donor/profile';
+
+    private static rootDonor: string = 'http://localhost:57738/donor/profile';
+
     public static getDonor(): Promise<IDonorGet> {
         return new Promise((resolve, reject) => {
             //var doctorId=cookies.get("DoctorId");
@@ -68,7 +70,7 @@ export class DonorProfileService{
     public static updatePassword(passwordUpdate:IPasswordUpdate):Promise<any>{
         return new Promise((resolve, reject) => {
             axios(
-                "http://localhost:51401/manage/change",
+                "http://localhost:57738/manage/change",
                 {
                     method:'POST',
                     headers:{

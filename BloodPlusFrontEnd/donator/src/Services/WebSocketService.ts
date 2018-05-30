@@ -7,7 +7,9 @@ import { IDoctorRequestView } from '../Models/IDoctorRequestView';
 
 
 export class WebSocketService {
-    private  root: string = 'http://localhost:50272/broadcaster';
+
+    private  root: string = 'http://localhost:57738/broadcaster';
+
     private  _connection: HubConnection;
     private SendRequest:boolean;
     private AcceptRequest:boolean;

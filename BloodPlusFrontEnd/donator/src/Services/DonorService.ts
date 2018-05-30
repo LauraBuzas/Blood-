@@ -6,7 +6,7 @@ import { IMedicalTestDetails } from '../Models/IMedicalTestDetails';
 
 export class DonorService {
 
-    private static rootDonors: string = 'http://localhost:50272/donors';
+    private static rootDonors: string = 'http://localhost:57738/donors';
 
 
     public static getNextDonation(): Promise<any> {

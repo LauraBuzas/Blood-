@@ -19,7 +19,8 @@ const styles = {
 
 export interface ModalAddBloodBagProps
 {
-    onClose:any
+    onClose:any,
+    onAdd:any
 }
 interface ModalAddBloodBagState
 {
@@ -108,6 +109,7 @@ export class ModalAddBloodBag extends React.Component<ModalAddBloodBagProps,Moda
                     effect: 'jelly'
                   });
                   this.setState({open:false});
+                  this.props.onAdd();
                 
     
             },
