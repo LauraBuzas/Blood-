@@ -12,9 +12,10 @@ using System;
 namespace DatabaseAccess.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180526152451_PatientIsActiveDonorMigration")]
+    partial class PatientIsActiveDonorMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -355,8 +356,6 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.Property<DateTime>("SeparationDateAndTime");
 
-                    b.Property<int>("Status");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AnalysisId");
@@ -382,8 +381,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<int>("RhType");
 
                     b.Property<DateTime>("SeparationDateAndTime");
-
-                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
@@ -440,8 +437,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<int>("RhType");
 
                     b.Property<DateTime>("SeparationDateAndTime");
-
-                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 

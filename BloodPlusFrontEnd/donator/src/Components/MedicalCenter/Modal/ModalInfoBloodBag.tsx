@@ -50,7 +50,7 @@ export class ModalInfoBloodBag extends React.Component<ModalInfoBloodBagProps,Mo
             </Helmet>    
             
             <Modal open={open} onClose={this.onCloseModal} large>
-              <h2>Detalii cerere</h2>
+              <h2>Detalii donator</h2>
               <hr className="invisibleHr"/>
               <div className="hboxWithSpace">
               <div className="labels">

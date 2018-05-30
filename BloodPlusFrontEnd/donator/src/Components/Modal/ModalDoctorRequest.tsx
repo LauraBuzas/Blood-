@@ -261,7 +261,8 @@ export class ModalDoctorRequest extends React.Component<ModalDoctorRequestProps,
         { 
             DoctorService.addRequest(request).then((request:any) => {
                 console.log(request);
-                this.setState({open:false});
+               this.setState({open:false}); 
+               this.props.onClose();
                 Alert.success("Cererea s-a trimis cu succes către centrele din județ", {
                     position: 'top-right',
                     effect: 'jelly'

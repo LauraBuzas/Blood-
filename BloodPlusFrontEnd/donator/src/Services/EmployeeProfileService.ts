@@ -7,7 +7,9 @@ import { IEmployeeProfile } from '../Models/IEmployeeProfile';
 import { IPasswordUpdate } from '../Models/IPasswordUpdate';
 
 export class EmployeeProfileService {
+
     private static rootEmployeeProfile: string = 'http://localhost:50272/employee/profile';
+
    
     
     public static getEmployee(): Promise<IEmployeeGet> {
