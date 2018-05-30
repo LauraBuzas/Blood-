@@ -30,6 +30,14 @@ namespace Services
             }
         }
 
+        public Address GetAddressForPatient(int idAddress)
+        {
+            using( UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.AddressRepository.GetById(idAddress);
+            }
+        }
+
         public Doctor AddDoctor(Doctor doctor)
         {
             using (UnitOfWork uow = new UnitOfWork())
@@ -57,6 +65,14 @@ namespace Services
             using (UnitOfWork uow = new UnitOfWork())
             {
                return uow.DoctorRepository.GetByFunc(d => d.Id == id);
+            }
+        }
+
+        public Request GetDoctorRequest(int id)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.DoctorRequestRepository.GetByFunc(dr => dr.Id == id);
             }
         }
 

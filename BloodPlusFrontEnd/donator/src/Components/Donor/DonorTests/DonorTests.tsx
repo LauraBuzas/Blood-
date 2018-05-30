@@ -6,6 +6,9 @@ import Alert from 'react-s-alert';
 import './donor-profile.css';
 import {Days} from 'react-countdowntimer';
 import {Helmet} from 'react-helmet'
+import { IMedicalTestDate } from '../../../Models/IMedicalTestDate';
+import { ModalDonorTestDetails } from '../Modal/ModalDonorTestDetails';
+import { IMedicalTestDetails } from '../../../Models/IMedicalTestDetails';
 
 interface DonorProfileProps {
 
@@ -14,7 +17,9 @@ interface DonorProfileProps {
 interface DonorProfileState {
     message: string,
     nextDate: Date,
-    donorPastTests: IDonorMedicalTest[]
+    donorPastTests: IMedicalTestDate[],
+    showDetails: boolean,
+    currentTest:IMedicalTestDetails
 }
 
 export class DonorTestsPage extends React.Component<DonorProfileProps, DonorProfileState> {
@@ -24,14 +29,36 @@ export class DonorTestsPage extends React.Component<DonorProfileProps, DonorProf
         this.state = {
             message: '',
             nextDate: null,
-            donorPastTests: []
+            donorPastTests: [],
+            showDetails: false,
+            currentTest:null
         }
+        this.closeDetails=this.closeDetails.bind(this);
 
     }
+    closeDetails(){
+        this.setState({showDetails:false});
+    }
 
+    onSelectRow(row){
+        
+        DonorService.getMedicalAnalysesById(row.id).then((analyse:IMedicalTestDetails) => {
+            this.setState({
+                currentTest:analyse,
+                showDetails:true
+            });   
+        },
+            (error) => {
+                Alert.error("A apărut o eroare la aducerea detalillor pentru analiza", {
+                    position: 'top-right',
+                    effect: 'jelly'
+                  });
+            });
+    }
+    
     componentDidMount() {
         
-        DonorService.getAnalyses().then((donorPastTests: IDonorMedicalTest[]) => {
+        DonorService.getAnalysesDate().then((donorPastTests: IMedicalTestDate[]) => {
             this.setState({
                 donorPastTests: donorPastTests
             });
@@ -69,9 +96,9 @@ export class DonorTestsPage extends React.Component<DonorProfileProps, DonorProf
     canDonate(date) {
   
         //console.log(date);
-        console.log("next date: "+Date.parse(date));
-        console.log("now: "+Date.now());
-        if (date < Date.now()) {
+       // console.log("next date: "+Date.parse(date));
+        //console.log("now: "+Date.now());
+        if (!date) {
             return true;
         }
         return false;
@@ -80,7 +107,7 @@ export class DonorTestsPage extends React.Component<DonorProfileProps, DonorProf
     getDateComponent() {
         if (this.canDonate(this.state.nextDate)) {
             return(
-                <h1>Puteti dona</h1>
+                <h1>Puteți dona</h1>
             );
         }
         console.log(this.state.nextDate);
@@ -92,7 +119,7 @@ export class DonorTestsPage extends React.Component<DonorProfileProps, DonorProf
                     
                 </h1>
                 <div>
-                    zile pana cand puteti dona din nou
+                    zile până când puteți dona din nou
                 </div>
                 <span className="date-text">{this.state.nextDate.toDateString()}</span>
             </div>
@@ -102,8 +129,12 @@ export class DonorTestsPage extends React.Component<DonorProfileProps, DonorProf
 
     render() {
         const options = {
-            noDataText: "Nu exista analize medicale"
+            noDataText: "Nu exista analize medicale",
+            onRowClick: this.onSelectRow.bind(this)
         }
+        const selectRowProp = {
+            clickToSelect: true,           
+          };
         return(
             
             <div>
@@ -118,15 +149,13 @@ export class DonorTestsPage extends React.Component<DonorProfileProps, DonorProf
                         hover
                         search
                         options={options}
-                        exportCSV
-                    >
-                    
-                        <TableHeaderColumn dataField="date" isKey={true}>Data</TableHeaderColumn>
-                        <TableHeaderColumn dataField="results">Rezultate analize</TableHeaderColumn>
-
+                        selectRow={selectRowProp}
+                        exportCSV>
+                        <TableHeaderColumn dataField="id" isKey={true}>Nr</TableHeaderColumn>
+                        <TableHeaderColumn dataField="date">Data analizei</TableHeaderColumn>
                     </BootstrapTable>
-                </div>
-                
+                    {this.state.showDetails?<ModalDonorTestDetails currentTest={this.state.currentTest} onClose={this.closeDetails}/>:null}
+                </div>            
             </div>
         );
     }

@@ -37,7 +37,6 @@ namespace DatabaseAccess.Models
 
         public PatientStatus Status { get; set; }
 
-
-
+        public bool IsActiveDonor { get; set; }
     }
 }

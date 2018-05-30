@@ -127,7 +127,7 @@ export class CenterAdmin extends React.Component<CenterAdminProps,CenterAdminSta
               },
               {
                 label: 'Nu',
-                onClick: () => alert('Click No')
+                onClick: () => next()
               }
             ]
           })

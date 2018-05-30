@@ -27,7 +27,7 @@ export class Marker extends React.Component<MarkerProps> {
     var lat = parseFloat(coordinates[0]);
       return (
         <div className="container">
-        <div className='google-map column left' style={{height:300 }}>
+        <div className='google-map' style={{height:300 }}>
          
           <GoogleMapReact
             bootstrapURLKeys={{key:'AIzaSyAbqet_sTRdWH4cv_hLOkFP7VE4R6XRza4'}}
@@ -37,8 +37,8 @@ export class Marker extends React.Component<MarkerProps> {
             >
           </GoogleMapReact>
         </div>
-        <div className="map-details column right">
-            <h1> Centru de transfuzie Cluj-Napoca </h1>
+        <div className="map-details">
+            {/* <h1>Centru de transfuzie Cluj-Napoca</h1>
             <div>Adresă: Strada Nicolae Bălcescu 18, Cluj-Napoca 400000</div>
             <h1>Program: </h1> 
             <div>luni 07:30–14</div>
@@ -48,7 +48,14 @@ export class Marker extends React.Component<MarkerProps> {
             <div>vineri 07:30–14</div>
             <div>sâmbătă Închis</div>
             <div>duminică Închis</div>
-            <div>Telefon: 0264 592 882</div>     
+            <div>Telefon: 0264 592 882</div>      */}
+
+            <h1>Centru de transfuzie Cluj-Napoca</h1>
+            <div>Adresă: Strada Nicolae Bălcescu 18, Cluj-Napoca 400000</div>
+            <h1>Program: </h1> 
+            <div>luni-vineri: 07:30–14</div>
+            <div>sâmbătă-duminică: Închis</div>
+            <div>Telefon: 0264 592 882</div>   
         </div>
         </div>
       )

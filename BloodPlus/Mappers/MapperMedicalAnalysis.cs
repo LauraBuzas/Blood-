@@ -19,7 +19,6 @@ namespace BloodPlus.Mappers
                 HIV = analysisViewModel.HIV,
                 HTLV = analysisViewModel.HTLV,
                 Sifilis = analysisViewModel.Sifilis,
-                DateAndTime = analysisViewModel.DateAndTime,
                 RejectedOtherCauses = analysisViewModel.RejectedOtherCauses,
                 Observations = analysisViewModel.Observations
             };
@@ -40,5 +39,16 @@ namespace BloodPlus.Mappers
                 Observations = analysis.Observations
             };
         }
+
+       
+        public static MedicalAnalysesDateModelView ToMedicalAnalysisDate(MedicalAnalysis analysis)
+        {
+            return new MedicalAnalysesDateModelView
+            {
+                Id = analysis.Id,
+                Date = analysis.DateAndTime.ToString()       
+            };
+        }
+
     }
 }

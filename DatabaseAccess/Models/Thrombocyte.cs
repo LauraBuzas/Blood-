@@ -19,7 +19,9 @@ namespace DatabaseAccess.Models
 
         public RhTypes RhType { get; set; }
 
-		public Center Center { get; set; }
+        public ComponentStatus Status { get; set; }
+
+        public Center Center { get; set; }
 		public int CenterId { get; set; }
 	}
 }

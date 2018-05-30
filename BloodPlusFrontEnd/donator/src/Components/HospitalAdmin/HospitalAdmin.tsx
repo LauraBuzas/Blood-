@@ -39,9 +39,7 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
 
 
     componentDidMount() {
-        
     
-       
         HospitalAdminService.getDoctors().then((doctors:IDoctorGet[]) => {
             this.setState({
                 doctors: doctors
@@ -129,7 +127,7 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
               },
               {
                 label: 'Nu',
-                onClick: () => alert('Click No')
+                onClick: () => next()
               }
             ]
           })
