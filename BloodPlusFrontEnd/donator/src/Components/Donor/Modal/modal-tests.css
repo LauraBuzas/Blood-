@@ -1,0 +1,19 @@
+.info-label {
+    box-sizing: border-box;
+    display: block;
+    width: 600px;
+    background-color: steelblue;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.tests-modal {
+    width: 600px;
+}
+
+#modal-medical-tests {
+    width: 50%;
+}

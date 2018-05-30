@@ -1,9 +1,9 @@
 import * as React from 'react'
 import Modal from "react-responsive-modal";
-import '../../Doctor/DoctorRequest/Modal/ModalDoctorRequestView.css'
 import {Helmet} from 'react-helmet'
 import {Label} from 'react-bootstrap'
 import { IDonorBloodBagView } from '../../../Models/IDonorBloodBagView';
+import './modal-info.css';
 
 const styles = {
     fontFamily: "sans-serif",
@@ -50,22 +50,22 @@ export class ModalInfoBloodBag extends React.Component<ModalInfoBloodBagProps,Mo
             </Helmet>    
             
             <Modal open={open} onClose={this.onCloseModal} large>
-              <h2>Detalii donator</h2>
-              <hr className="invisibleHr"/>
+              <h2>Detalii cerere</h2>
+              
               <div className="hboxWithSpace">
-              <div className="labels">
-                <Label className="infoLabel" bsStyle="default">CNP: {this.props.row.CNP}</Label>
-                <Label className="infoLabel" bsStyle="default">Nume pacient: {this.props.row.fullName}</Label>
-                <Label className="infoLabel" bsStyle="default">Grupa sange: {this.props.row.bloodType}</Label>
-                <Label className="infoLabel" bsStyle="default">Rh: {this.props.row.rh}</Label>
-                
+                <div className="labels">
+                    <Label bsClass="info-label" bsStyle="info">CNP: {this.props.row.CNP}</Label>
+                    <Label bsClass="info-label" bsStyle="info">Nume pacient: {this.props.row.fullName}</Label>
+                    <Label bsClass="info-label" bsStyle="info">Grupa sange: {this.props.row.bloodType}</Label>
+                    <Label bsClass="info-label" bsStyle="info">Rh: {this.props.row.rh}</Label>
+                    
                 </div>
             
                 <div>
-                <Label className="infoLabel" bsStyle="default">Pungi de sange:</Label>
-                <select className="selectLabel" multiple>
-                    {this.props.row.bloodBags.map(bag =>(<option key={ bag.cnp } value={ bag.cnp }>{ bag.type+" "+bag.status+" "+bag.date}</option>)) }
-                </select>
+                    <Label bsClass="info-label bags" bsStyle="info">Pungi de sange:</Label>
+                    <select className="selectLabel" multiple>
+                        {this.props.row.bloodBags.map(bag =>(<option key={ bag.cnp } value={ bag.cnp }>{ bag.type+" "+bag.status+" "+bag.date}</option>)) }
+                    </select>
                 </div>
               
              </div>

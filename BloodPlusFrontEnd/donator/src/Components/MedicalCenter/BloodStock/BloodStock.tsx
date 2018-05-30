@@ -11,6 +11,8 @@ import { ModalAddBloodBag } from '../Modal/ModalAddBloodBag';
 import {ModalInfoBloodBag} from '../Modal/ModalInfoBloodBag';
 import { IDonorBloodBagView } from '../../../Models/IDonorBloodBagView';
 
+import Divider from 'material-ui/Divider';
+
 interface BloodStockProps{}
 interface BloodStockState {
     bloodStock: BloodStockModel[],
@@ -65,6 +67,7 @@ export class CenterBloodStock extends React.Component<BloodStockProps, BloodStoc
     closeModal(){
         this.setState({addBloodBag:false});
     }
+    
     separateBloodBag(row){
         if(row.status=="Accepted"){
             let separate = {
@@ -147,15 +150,26 @@ export class CenterBloodStock extends React.Component<BloodStockProps, BloodStoc
     }
     buttonFormatter(cell,row){
         if(row.type=="Punga de sange" && row.status!="Accepted"){
-            return <div><button className="buttonStatusAccept" onClick = {() => {this.changeStatus(row)}}>Acceptă</button> <button className="buttonStatusReject" onClick = {() =>{this.changeStatusReject(row)}}>Respinge</button></div>;
+            return <div>
+                    <button className="accept-btn" onClick = {() => {this.changeStatus(row)}}>
+                    <i className="fa fa-check-square"></i>
+                    </button> 
+                    <button className="reject-btn" onClick = {() =>{this.changeStatusReject(row)}}>
+                    <i className="fa fa-times-circle"></i>
+                    </button>
+                </div>;
         }
         else if(row.type=="Punga de sange" && row.status=="Accepted")
-            return <button className="buttonStatusReject" onClick = {() =>{this.changeStatusReject(row)}}>Respinge</button>
+            return <button className="reject-btn" onClick = {() =>{this.changeStatusReject(row)}}>
+            <i className="fa fa-times-circle"></i>
+            </button>
         return null;
     }
     buttonSeparation(cell,row){
         if(row.type=="Punga de sange")
-            return <button className="buttonSeparation" onClick = {() => {this.separateBloodBag(row)}}>Separă</button>
+            return <button className="separation-btn" onClick = {() => {this.separateBloodBag(row)}}>
+                <i className="fa fa-heartbeat"></i>
+            </button>
         return null;
     }
     buttonCancel(cell,row){
@@ -251,9 +265,9 @@ export class CenterBloodStock extends React.Component<BloodStockProps, BloodStoc
         return(
             <div id="stock-table">
 
-                {this.state.addBloodBag?<ModalAddBloodBag onClose={()=>this.closeModal()} onAdd={this.onAdd.bind(this)}/>:null}  
-                <button className="buttonAddBloodBag" onClick={(event) => this.addBloodBag(event)} >Adaugă pungă de sânge</button>
-                <button className="buttonRequestBlood" onClick={(event) => this.requestBlood(event)}>Cere sânge donatorilor</button>               
+                {this.state.addBloodBag?<ModalAddBloodBag onAdd={this.addBloodBag} onClose={()=>this.closeModal()}/>:null}  
+                <button className="generic-button stock-btn" onClick={(event) => this.addBloodBag(event)} >Adaugă pungă de sânge</button>
+                <button className="generic-button stock-btn" onClick={(event) => this.requestBlood(event)}>Cere sânge donatorilor</button>               
                 
                 <Helmet>
                     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
@@ -273,12 +287,11 @@ export class CenterBloodStock extends React.Component<BloodStockProps, BloodStoc
                     <TableHeaderColumn dataField="group">Grupa</TableHeaderColumn>
                     <TableHeaderColumn dataField="rh">Rh</TableHeaderColumn>
                     <TableHeaderColumn dataField="donor" editable={false} width={170}>Donator</TableHeaderColumn>
-                    <TableHeaderColumn dataField = "cnp"  editable={false}>CNP</TableHeaderColumn>
-                    <TableHeaderColumn dataField="date"  editable={false} isKey={true}>Data</TableHeaderColumn>
-                    <TableHeaderColumn dataField="stage" width={130} editable={false}>Stadiu</TableHeaderColumn>
-                    <TableHeaderColumn dataField="status" width={130} editable={false}>Status</TableHeaderColumn>
-                    <TableHeaderColumn dataField="button" width={170} dataAlign={'center'} editable={false} dataFormat={this.buttonFormatter.bind(this)}>Schimbă status</TableHeaderColumn>
-                    <TableHeaderColumn dataField="button" dataAlign={'center'} editable={false} dataFormat={this.buttonSeparation.bind(this)}>Separă</TableHeaderColumn>
+                    <TableHeaderColumn dataField="cnp" editable={false}>CNP</TableHeaderColumn>
+                    <TableHeaderColumn dataField="date" editable={false} isKey={true}>Data</TableHeaderColumn>
+                    <TableHeaderColumn dataField="status" width={90} editable={false}>Status</TableHeaderColumn>
+                    <TableHeaderColumn dataField="button" width={130} dataAlign={'center'} editable={false} dataFormat={this.buttonFormatter.bind(this)}>Schimbă status</TableHeaderColumn>
+                    <TableHeaderColumn dataField="button" width={70} dataAlign={'center'} editable={false} dataFormat={this.buttonSeparation.bind(this)}>Separă</TableHeaderColumn>
                     {/* <TableHeaderColumn dataField="button" dataAlign={'center'} editable={false} dataFormat={this.buttonCancel.bind(this)}>Anulează</TableHeaderColumn> */}
                 </BootstrapTable>
                 {this.state.showDetails?<ModalInfoBloodBag row={this.state.currentRow} onClose={this.closeDetailsInfo.bind(this) }/>:null}

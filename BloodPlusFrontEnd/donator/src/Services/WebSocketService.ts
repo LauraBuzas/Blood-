@@ -5,11 +5,10 @@ import { DoctorRequest } from '../Components/Doctor/DoctorRequest/DoctorRequest'
 import { IEmployeeRequest } from '../Models/IEmployeeRequest';
 import { IDoctorRequestView } from '../Models/IDoctorRequestView';
 
+import { Config } from './UrlConfig';
 
 export class WebSocketService {
-
-    private  root: string = 'http://localhost:50272/broadcaster';
-
+    private  root: string = Config.url + '/broadcaster';
     private  _connection: HubConnection;
     private SendRequest:boolean;
     private AcceptRequest:boolean;
