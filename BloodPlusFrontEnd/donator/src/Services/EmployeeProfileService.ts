@@ -6,6 +6,7 @@ import { IEmployeeDelete } from '../Models/IEmployeeDelete';
 import { IEmployeeProfile } from '../Models/IEmployeeProfile';
 
 export class EmployeeProfileService {
+
     private static rootEmployeeProfile: string = 'http://localhost:57738/employee/profile';
    
     

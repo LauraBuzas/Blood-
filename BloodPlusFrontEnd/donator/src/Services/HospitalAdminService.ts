@@ -4,6 +4,7 @@ import Cookies from 'universal-cookie';
 import { Session } from 'inspector';
 import { IDoctorDelete } from '../Models/IDoctorDelete';
 export class HospitalAdminService {
+
     private static rootDoctors: string = 'http://localhost:57738/doctors';
     private static rootRegisterDoctors: string = 'http://localhost:57738/account/register/doctor';
 
