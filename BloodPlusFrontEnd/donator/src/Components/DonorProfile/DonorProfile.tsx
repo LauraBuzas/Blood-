@@ -23,6 +23,7 @@ interface DonorProfileState{
     newPassword:string;
 
     isPasswordChanging: boolean;
+    message:string;
 }
 export class DonorProfile extends React.Component<DonorProfileProps,DonorProfileState>
 {
@@ -46,7 +47,8 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
             newPassword:'',
             isLoading: true,
             //bgColor: 'gray',
-            isPasswordChanging: false
+            isPasswordChanging: false,
+            message:''
         }
     };
 
@@ -187,7 +189,7 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
                 isLoading: true,
                 //bgColor: 'gray'
             });
-            Alert.success("Schimbările au fost salvate", {
+            Alert.success("Informațiile personale au fost salvate", {
                 position: 'top-right',
                 effect: 'jelly'
             });
@@ -203,14 +205,17 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
                     position: 'top-right',
                     effect: 'jelly'
                 });
+                this.setState({message:response});
+                if(this.state.message!="Invalid password!" && this.state.message!="Invalid model!")
+                    Alert.success("Parola a fost salvată", {
+                        position: 'top-right',
+                        effect: 'jelly'
+                    });
+                this.setState({message:''})
             });
             this.setState({
                 isLoading: true,
                // bgColor: 'gray'
-            });
-            Alert.success("Schimbările au fost salvate", {
-                position: 'top-right',
-                effect: 'jelly'
             });
         }
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BloodPlus.Services2
+namespace BloodPlus.Services
 {
     public interface IEmailSender
     {

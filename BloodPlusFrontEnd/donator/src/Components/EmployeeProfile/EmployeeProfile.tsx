@@ -11,6 +11,10 @@ import Avatar from 'react-avatar';
 import { EmployeeProfileService } from '../../Services/EmployeeProfileService';
 //import * as ReactBootstrap from 'react-bootstrap';
 import update from 'react-addons-update';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import PasswordField from 'material-ui-password-field';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { IPasswordUpdate } from '../../Models/IPasswordUpdate';
 
 export interface EmployeeProfileProps{
 
@@ -19,6 +23,8 @@ interface EmployeeProfileState{
     employee: IEmployeeGet;
     message:string;
     centerName:string;
+    newPassword:string;
+    
 
     //firstName:string;
     //lastName:string;
@@ -43,7 +49,7 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
             },
             message:'',
             centerName:'',
-            
+            newPassword:'',
             
         };
     }
@@ -75,6 +81,15 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
                             <TextField text="Prenume" type="text" value={this.state.employee.firstname} onChangeFunction={(event) =>this.handleFirstNameChange(event)}/>
                             <TextField text="Email" type="text" value={this.state.employee.email} onChangeFunction={(event) =>this.handleEmailChange(event)}/>  
                             <TextField text="Centru" type="text"  value ={this.state.centerName} onChangeFunction={(event)=>this.handleCenterChange(event)}/>                        
+                            
+                            <h3 className='title'>Schimbare parola</h3>
+                            <div className="separation"></div>
+                            <MuiThemeProvider muiTheme={getMuiTheme()}>
+                            <PasswordField value={this.state.employee.password}className="passField" onChange={(event) => this.handleCPassChange(event)} hintText="Cel puțin 8 caractere" floatingLabelText="Introdu parola curentă" />
+                            <PasswordField value={this.state.newPassword} onChange={(event) => this.handleNewPassChange(event)} hintText="Cel puțin 8 caractere" floatingLabelText="Introdu noua parolă" />
+                            <PasswordField value={this.state.employee.confirmPassword} onChange={(event) => this.handleConfirmPassChange(event)} floatingLabelText="Confirmă noua parolă" />
+                            </MuiThemeProvider>
+                            
                             <button    className="btnSaveChanges"  onClick={(event) => this.handleSave(event)}>
                             Salvează modificările
                             </button>
@@ -154,10 +169,49 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
           });
     }
 
+    handleCPassChange(event:any){
+        this.setState({
+            employee: update(this.state.employee, { password: { $set: event.target.value } }),
+    
+            
+        });
+    }
+
+    handleNewPassChange(event:any){
+        this.setState({
+            newPassword:event.target.value ,
+            
+        });
+    }
+
+    handleConfirmPassChange(event:any){
+        this.setState({
+            employee: update(this.state.employee, { confirmPassword: { $set: event.target.value } }),
+            
+        });
+    }
+
+    handleUpdate
+
     handleSave(event:any){
         var completed = true;
+        var ok2=true,ok3=true;
+        var currentPassMistake = false;
         if(this.state.employee.firstname == "" || this.state.employee.lastname == "" || this.state.employee.email == "")
             completed = false;
+
+        if(this.state.employee.password=='' || this.state.employee.confirmPassword=='' || this.state.newPassword==''){
+       
+            ok2=false;
+        }
+        if(this.state.newPassword!=this.state.employee.confirmPassword && this.state.newPassword!='' && this.state.employee.confirmPassword!=''){
+            Alert.error("Parolă nouă incompatibilă", {
+                position: 'top-right',
+                effect: 'jelly'
+            });
+            ok3=false;
+        }
+
         if(!completed){
             Alert.error("Completati toate campurile", {
                 position: 'top-right',
@@ -165,11 +219,37 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
               });
         }else{
             EmployeeProfileService.saveProfileChanges(this.state.employee);
-            Alert.success("S-au salvat modificarile", {
+            Alert.success("S-au salvat informatiile de profil cu succes", {
                 position: 'top-right',
                 effect: 'jelly'
               });
         }
+
+        if(ok2==true && ok3==true){
+            let passwordUpdate: IPasswordUpdate = {
+               oldPassword:this.state.employee.password,
+               newPassword:this.state.newPassword,
+               confirmPassword:this.state.employee.confirmPassword
+           }
+           EmployeeProfileService.updatePassword(passwordUpdate).then((response:any) => {
+               
+            console.log("Raspunsu: "+response);
+            if(response == "Invalid model!" || response == 'Invalid password!'){
+                Alert.error("Parolă invalidă!\nParola trebuie să aibă minim 6 caractere(literă mare,mică,cifre și un caracter special)", {
+                    position: 'top-right',
+                    effect: 'jelly'
+                });
+            }else{
+                Alert.success("Parola s-a modificat cu succes", {
+                    position: 'top-right',
+                    effect: 'jelly'
+                });
+            }
+               
+               
+           });
+          
+       }
     }
     
 

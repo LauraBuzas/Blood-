@@ -17,8 +17,6 @@ import {
     AccordionItemBody,
 } from 'react-accessible-accordion';
 import 'react-accessible-accordion/dist/fancy-example.css';
-import NotificationBadge from 'react-notification-badge';
-import {Effect} from 'react-notification-badge';
 
 export interface CenterRequestProps{webSocket:WebSocketService;}
 interface CenterRequestState

@@ -4,9 +4,12 @@ import Cookies from 'universal-cookie';
 import { Session } from 'inspector';
 import { IEmployeeDelete } from '../Models/IEmployeeDelete';
 import { IEmployeeProfile } from '../Models/IEmployeeProfile';
+import { IPasswordUpdate } from '../Models/IPasswordUpdate';
 
 export class EmployeeProfileService {
-    private static rootEmployeeProfile: string = 'http://localhost:51401/employee/profile';
+
+    private static rootEmployeeProfile: string = 'http://localhost:50272/employee/profile';
+
    
     
     public static getEmployee(): Promise<IEmployeeGet> {
@@ -102,4 +105,29 @@ export class EmployeeProfileService {
         });
 
     }
+
+    public static updatePassword(passwordUpdate:IPasswordUpdate):Promise<any>{
+        return new Promise((resolve, reject) => {
+            axios(
+                "http://localhost:50272/manage/change",
+                {
+                    method:'POST',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                        'Access-Control-Allow-Credentials':true
+                    },
+                    withCredentials:true,
+                    maxRedirects:0,
+                    data:passwordUpdate
+                }
+            ).then((response: any) => {
+                resolve(response.data);
+            },
+                (error: any) => {
+                    reject(error);
+                });
+        });
+    }
+
 }

@@ -44,18 +44,22 @@ export class CenterBloodStock extends React.Component<BloodStockProps, BloodStoc
     
 
     requestBlood(event: any) {
-        // event.preventDefault();
+        event.preventDefault();
         
-        // AccountService.loginUser(user).then((resp) => {
-            
+        EmployeeService.notifyDonors().then((resp) => {
+            Alert.success("Donatorii au fost notificati.",{
+                position: 'top-right',
+                effect: 'jelly'
+              });
 
-        // },
-        //     (error) => {
-        //         Alert.error("Nu s-a putut trimite e-mail donatorilor. Vă rugăm,reîncercați.", {
-        //             position: 'top-right',
-        //             effect: 'jelly'
-        //           });
-        //     });
+        },
+            (error) => {
+                Alert.error("Nu s-a putut trimite e-mail donatorilor. Vă rugăm,reîncercați.", {
+                    position: 'top-right',
+                    effect: 'jelly'
+                  });
+            });
+        return false;
     }
 
     closeModal(){
@@ -221,10 +225,18 @@ export class CenterBloodStock extends React.Component<BloodStockProps, BloodStoc
     closeDetailsInfo(){
         this.setState({showDetails:false});
     }
+    onAdd(){
+        this.closeModal();
+        EmployeeService.getBloodStock().then((bloodBags:BloodStockModel[])=>{
+            this.setState({
+                bloodStock:bloodBags
+            });
+        });
+    }
     render() {
         const options = {
             noDataText: "Nu exista pungi de sange pe stoc",
-            onRowClick: this.onSelectRow.bind(this)
+            onRowDoubleClick: this.onSelectRow.bind(this)
         }
         const cellEditProp={
             mode: 'click',
@@ -239,7 +251,7 @@ export class CenterBloodStock extends React.Component<BloodStockProps, BloodStoc
         return(
             <div id="stock-table">
 
-                {this.state.addBloodBag?<ModalAddBloodBag onClose={()=>this.closeModal()}/>:null}  
+                {this.state.addBloodBag?<ModalAddBloodBag onClose={()=>this.closeModal()} onAdd={this.onAdd.bind(this)}/>:null}  
                 <button className="buttonAddBloodBag" onClick={(event) => this.addBloodBag(event)} >Adaugă pungă de sânge</button>
                 <button className="buttonRequestBlood" onClick={(event) => this.requestBlood(event)}>Cere sânge donatorilor</button>               
                 
@@ -257,18 +269,19 @@ export class CenterBloodStock extends React.Component<BloodStockProps, BloodStoc
                     //width={600}
                 >
                 
-                    <TableHeaderColumn dataField="type" editable={false} width={170}>Tip</TableHeaderColumn>
+                    <TableHeaderColumn dataField="type" editable={false} width={150}>Tip</TableHeaderColumn>
                     <TableHeaderColumn dataField="group">Grupa</TableHeaderColumn>
                     <TableHeaderColumn dataField="rh">Rh</TableHeaderColumn>
                     <TableHeaderColumn dataField="donor" editable={false} width={170}>Donator</TableHeaderColumn>
-                    <TableHeaderColumn dataField = "cnp" editable={false}>CNP</TableHeaderColumn>
-                    <TableHeaderColumn dataField="date" editable={false} isKey={true}>Data</TableHeaderColumn>
-                    <TableHeaderColumn dataField="status" editable={false}>Status</TableHeaderColumn>
+                    <TableHeaderColumn dataField = "cnp"  editable={false}>CNP</TableHeaderColumn>
+                    <TableHeaderColumn dataField="date"  editable={false} isKey={true}>Data</TableHeaderColumn>
+                    <TableHeaderColumn dataField="stage" width={130} editable={false}>Stadiu</TableHeaderColumn>
+                    <TableHeaderColumn dataField="status" width={130} editable={false}>Status</TableHeaderColumn>
                     <TableHeaderColumn dataField="button" width={170} dataAlign={'center'} editable={false} dataFormat={this.buttonFormatter.bind(this)}>Schimbă status</TableHeaderColumn>
                     <TableHeaderColumn dataField="button" dataAlign={'center'} editable={false} dataFormat={this.buttonSeparation.bind(this)}>Separă</TableHeaderColumn>
                     {/* <TableHeaderColumn dataField="button" dataAlign={'center'} editable={false} dataFormat={this.buttonCancel.bind(this)}>Anulează</TableHeaderColumn> */}
                 </BootstrapTable>
-                {this.state.showDetails?<ModalInfoBloodBag row={this.state.currentRow} onClose={this.closeDetailsInfo.bind(this)}/>:null}
+                {this.state.showDetails?<ModalInfoBloodBag row={this.state.currentRow} onClose={this.closeDetailsInfo.bind(this) }/>:null}
             </div>
         );
     }

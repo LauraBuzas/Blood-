@@ -31,7 +31,7 @@ namespace BloodPlus.Mappers
                 FirstName = employee.FirstName,
                 LastName = employee.LastName,
                 Email = applicationUser.Email,
-                Password = "ChangeMe",
+                Password = "",
                 CenterId = employee.CenterId
 
             };

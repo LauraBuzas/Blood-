@@ -22,6 +22,7 @@ interface DoctorProfileState{
     bgColor:string;
     hospitalName:string;
     newPassword:string;
+    message:string;
 }
 export class DoctorProfile extends React.Component<DoctorProfileProps,DoctorProfileState>
 {
@@ -43,7 +44,8 @@ export class DoctorProfile extends React.Component<DoctorProfileProps,DoctorProf
             newPassword:'',
             isLoading: true,
             bgColor: 'gray',
-            hospitalName:''
+            hospitalName:'',
+            message:''
         }
     };
 
@@ -170,7 +172,7 @@ export class DoctorProfile extends React.Component<DoctorProfileProps,DoctorProf
                 isLoading: true,
                 bgColor: 'gray'
             });
-            Alert.success("Schimbările au fost salvate", {
+            Alert.success("Informațiile personale au fost salvate", {
                 position: 'top-right',
                 effect: 'jelly'
             });
@@ -186,14 +188,17 @@ export class DoctorProfile extends React.Component<DoctorProfileProps,DoctorProf
                     position: 'top-right',
                     effect: 'jelly'
                 });
+                this.setState({message:response});
+                if(this.state.message!="Invalid password!" && this.state.message!="Invalid model!")
+                    Alert.success("Parola a fost salvată", {
+                        position: 'top-right',
+                        effect: 'jelly'
+                    });
+                this.setState({message:''})
             });
             this.setState({
                 isLoading: true,
                 bgColor: 'gray'
-            });
-            Alert.success("Schimbările au fost salvate", {
-                position: 'top-right',
-                effect: 'jelly'
             });
         }
             
