@@ -41,12 +41,12 @@ namespace Services
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                var registration = new DonorRegistrationForDonation();
-                registration.DonorName = donorName;
-                registration.RegistrationDate = DateTime.Now;
+                //var registration = new DonorRegistrationForDonation();
+                //registration.DonorName = donorName;
+                //registration.RegistrationDate = DateTime.Now;
 
-                uow.DonorRegistrationForDonationRepository.Add(registration);
-                uow.Save();
+                //uow.DonorRegistrationForDonationRepository.Add(registration);
+                //uow.Save();
             }
         }
 
