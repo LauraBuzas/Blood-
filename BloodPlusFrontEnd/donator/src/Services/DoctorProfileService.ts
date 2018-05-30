@@ -7,8 +7,10 @@ import { IPasswordUpdate } from '../Models/IPasswordUpdate';
 import { resolve } from 'path';
 export class DoctorProfileService{
 
-    private static rootDoctor: string = 'http://localhost:57738/doctor/profile';
+    private static rootDoctor: string = 'http://localhost:50272/doctor/profile';
 
+
+   
     public static getDoctor(): Promise<IDoctorGet> {
         return new Promise((resolve, reject) => {
             //var doctorId=cookies.get("DoctorId");
@@ -86,7 +88,9 @@ export class DoctorProfileService{
     public static updatePassword(passwordUpdate:IPasswordUpdate):Promise<any>{
         return new Promise((resolve, reject) => {
             axios(
-                "http://localhost:57738/manage/change",
+
+                "http://localhost:50272/manage/change",
+
                 {
                     method:'POST',
                     headers:{

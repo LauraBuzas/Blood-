@@ -16,7 +16,8 @@ import { IGroupedStock } from '../Models/IGroupedStock';
 
 export class EmployeeService {
 
-    private static rootEmployee: string = 'http://localhost:57738/employees';
+    private static rootEmployee: string = 'http://localhost:50272/employees';
+
 
     public static getRequests(): Promise<IEmployeeRequest[]> {
         return new Promise((resolve, reject) => {

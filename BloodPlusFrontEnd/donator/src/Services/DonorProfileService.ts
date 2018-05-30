@@ -6,8 +6,10 @@ import Cookies from 'universal-cookie';
 import { Session } from 'inspector';
 export class DonorProfileService{
 
-    private static rootDonor: string = 'http://localhost:57738/donor/profile';
+    private static rootDonor: string = 'http://localhost:50272/donor/profile';
 
+
+   
     public static getDonor(): Promise<IDonorGet> {
         return new Promise((resolve, reject) => {
             //var doctorId=cookies.get("DoctorId");
