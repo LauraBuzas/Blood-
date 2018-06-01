@@ -347,6 +347,14 @@ namespace Services
             return plasmas;
         }
 
+        public List<Donor> GetDonors()
+        {
+            using(UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.DonorRepository.GetAll().Include("Address").ToList();
+            }
+        }
+
         public void AcceptBloodBag(Request doctorRequest, int centerId, string rh, string bloodType, int quatityNeeded)
         {
             var availableBloodBags = GetBloodBagsForRequest(centerId,rh,bloodType).OrderBy(b => b.Date).ToList();

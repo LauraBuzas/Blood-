@@ -10,6 +10,7 @@ import { Config } from './UrlConfig';
 
 export class DoctorProfileService{
     private static rootDoctor: string = Config.url + '/doctor/profile';
+    private static rootPasswordChange: string = Config.url + '/manage/change';
     public static getDoctor(): Promise<IDoctorGet> {
         return new Promise((resolve, reject) => {
             //var doctorId=cookies.get("DoctorId");
@@ -88,7 +89,7 @@ export class DoctorProfileService{
         return new Promise((resolve, reject) => {
             axios(
 
-                "http://localhost:50272/manage/change",
+                this.rootPasswordChange,
 
                 {
                     method:'POST',

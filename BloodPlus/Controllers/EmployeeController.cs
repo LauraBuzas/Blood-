@@ -518,5 +518,26 @@ namespace BloodPlus.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [Authorize(Roles = "DonationCenterDoctor")]
+        [HttpGet("donors-info")]
+        public IActionResult GetDonorsInfo()
+        {
+            try
+            {
+                List<Donor> donors = employeeService.GetDonors();
+                List<DonorInfoGetModelView> digmv = new List<DonorInfoGetModelView>();
+                foreach(Donor d in donors)
+                {
+                    digmv.Add(Mappers.MapperDonnorDonnorView.ToDonorInfoModelView(d));
+                }
+                return Ok(digmv);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

@@ -9,6 +9,7 @@ import { Config } from './UrlConfig';
 
 export class DonorProfileService{
     private static rootDonor: string = Config.url + '/donor/profile';
+    private static rootPasswordChange: string = Config.url + '/manage/change';
     public static getDonor(): Promise<IDonorGet> {
         return new Promise((resolve, reject) => {
             //var doctorId=cookies.get("DoctorId");
@@ -71,7 +72,7 @@ export class DonorProfileService{
     public static updatePassword(passwordUpdate:IPasswordUpdate):Promise<any>{
         return new Promise((resolve, reject) => {
             axios(
-                "http://localhost:57738/manage/change",
+                this.rootPasswordChange,
                 {
                     method:'POST',
                     headers:{
