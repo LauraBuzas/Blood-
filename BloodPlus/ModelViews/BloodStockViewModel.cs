@@ -14,6 +14,7 @@ namespace BloodPlus.ModelViews
 		public string Donor { get; set; }
         public string CNP { get; set; }
 		public string Date { get; set; }
+        public string Stage { get; set; }
 		public string Status { get; set; }
 
 	}
