@@ -12,9 +12,10 @@ using System;
 namespace DatabaseAccess.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180530062254_AddTableDonorRegistrationForDonationComplete")]
+    partial class AddTableDonorRegistrationForDonationComplete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -234,8 +235,6 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.Property<bool>("Diabetes");
 
-                    b.Property<string>("DonorId");
-
                     b.Property<string>("Email");
 
                     b.Property<bool>("EndocrineDisease");
@@ -293,8 +292,6 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<int>("Weigth");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DonorId");
 
                     b.ToTable("DonorsRegistrationsForDonation");
                 });
@@ -692,13 +689,6 @@ namespace DatabaseAccess.Data.Migrations
                         .WithOne()
                         .HasForeignKey("DatabaseAccess.Models.Donor", "Id")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DatabaseAccess.Models.DonorRegistrationForDonation", b =>
-                {
-                    b.HasOne("DatabaseAccess.Models.Donor", "Donor")
-                        .WithMany("RegistrationHistory")
-                        .HasForeignKey("DonorId");
                 });
 
             modelBuilder.Entity("DatabaseAccess.Models.Employee", b =>
