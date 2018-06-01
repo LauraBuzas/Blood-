@@ -12,9 +12,10 @@ using System;
 namespace DatabaseAccess.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180530054653_DeleteRegistrationForDonationTable")]
+    partial class DeleteRegistrationForDonationTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -203,100 +204,6 @@ namespace DatabaseAccess.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Donors");
-                });
-
-            modelBuilder.Entity("DatabaseAccess.Models.DonorRegistrationForDonation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Age");
-
-                    b.Property<int>("BeatsPerMiute");
-
-                    b.Property<DateTime>("BirthDate");
-
-                    b.Property<int>("BloodPressure");
-
-                    b.Property<bool>("Brucellosis");
-
-                    b.Property<int>("CNP");
-
-                    b.Property<bool>("Cancer");
-
-                    b.Property<string>("CityOfBirth");
-
-                    b.Property<string>("CountyOfBirth");
-
-                    b.Property<string>("CurrentCity");
-
-                    b.Property<string>("CurrentCounty");
-
-                    b.Property<bool>("Diabetes");
-
-                    b.Property<string>("DonorId");
-
-                    b.Property<string>("Email");
-
-                    b.Property<bool>("EndocrineDisease");
-
-                    b.Property<bool>("Epilepsy");
-
-                    b.Property<int>("HadSurgery");
-
-                    b.Property<bool>("HeartDisease");
-
-                    b.Property<bool>("HeartDiseases");
-
-                    b.Property<bool>("Hepatitis");
-
-                    b.Property<bool>("Hypertension");
-
-                    b.Property<bool>("KidneyDisease");
-
-                    b.Property<bool>("LiverDisease");
-
-                    b.Property<bool>("Malaria");
-
-                    b.Property<bool>("MentalIlness");
-
-                    b.Property<bool>("MindIlnesses");
-
-                    b.Property<bool>("Myopia");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("OtherPersonName");
-
-                    b.Property<string>("OtherPersonSurname");
-
-                    b.Property<bool>("Period");
-
-                    b.Property<int>("PersonSex");
-
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<bool>("Pox");
-
-                    b.Property<int>("PregnancyStatus");
-
-                    b.Property<DateTime>("RegistrationDate");
-
-                    b.Property<bool>("SkinDiseases");
-
-                    b.Property<string>("Surname");
-
-                    b.Property<bool>("Tuberculosis");
-
-                    b.Property<bool>("Ulcer");
-
-                    b.Property<int>("Weigth");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DonorId");
-
-                    b.ToTable("DonorsRegistrationsForDonation");
                 });
 
             modelBuilder.Entity("DatabaseAccess.Models.Employee", b =>
@@ -692,13 +599,6 @@ namespace DatabaseAccess.Data.Migrations
                         .WithOne()
                         .HasForeignKey("DatabaseAccess.Models.Donor", "Id")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DatabaseAccess.Models.DonorRegistrationForDonation", b =>
-                {
-                    b.HasOne("DatabaseAccess.Models.Donor", "Donor")
-                        .WithMany("RegistrationHistory")
-                        .HasForeignKey("DonorId");
                 });
 
             modelBuilder.Entity("DatabaseAccess.Models.Employee", b =>
