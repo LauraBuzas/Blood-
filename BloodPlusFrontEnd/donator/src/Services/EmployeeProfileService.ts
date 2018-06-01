@@ -6,10 +6,10 @@ import { IEmployeeDelete } from '../Models/IEmployeeDelete';
 import { IEmployeeProfile } from '../Models/IEmployeeProfile';
 import { IPasswordUpdate } from '../Models/IPasswordUpdate';
 
+import { Config } from './UrlConfig';
+
 export class EmployeeProfileService {
-
-    private static rootEmployeeProfile: string = 'http://localhost:50272/employee/profile';
-
+    private static rootEmployeeProfile: string = Config.url + '/employee/profile';
    
     
     public static getEmployee(): Promise<IEmployeeGet> {

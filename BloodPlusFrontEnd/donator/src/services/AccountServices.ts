@@ -1,13 +1,11 @@
 import axios from 'axios';
 import { IUserGet } from './../Models/IUserGet';
 import Cookies from 'universal-cookie';
-
+import { Config } from './UrlConfig';
 
 export class AccountService {
 
-
-    private static root: string = "http://localhost:50272/account";
-
+    private static root: string = Config.url + "/account";
 
 
     public static loginUser(user: any): Promise<any> {

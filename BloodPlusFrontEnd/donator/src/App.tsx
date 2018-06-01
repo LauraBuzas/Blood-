@@ -97,6 +97,7 @@ export class App extends React.Component<AppProps,AppState> {
             />
             <Body setRole={(event) => this.setRoleInApp(event)} webSocket={this.state.webSocket}  />  
             <Redirect to={window.location.pathname  } />
+            <Footer/>
         </div>
       </Router>)
     }

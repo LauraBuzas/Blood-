@@ -1,5 +1,6 @@
 import * as React from 'react';
 import './EmployeeProfile.css';
+import '../../css/Button.css';
 import { IEmployeeGet } from '../../Models/IEmployeeGet';
 import {IEmployeeProfile} from '../../Models/IEmployeeProfile';
 import Alert from 'react-s-alert';
@@ -57,47 +58,34 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
     render(){
         return(
             
-            <div className="Employee">
-            <div className="separation">
-            </div>
-            <div className="title">
-                <h1> Profil angajat </h1>
-            </div>
-            <div className="separation">
-            </div>
-                <div className="orizontal">
-                    <HBox>
-                        <div className="avatar">
-                            <Avatar name="mircea bravo" size={200} src='https://cdn3.iconfinder.com/data/icons/medicalicons/PNG_256x256/doctor_assistant.png'/>
-                            {/* <button className='btnUploadImage' onClick={(event) => alert("Not implemented yet :)")}>
-                            Încarcă<br/>altă imagine
-                            </button> */}
-                        </div >
-                        <VBox>
-                            <h3 className='title'>Informații profil</h3>
-                            <div className="separation">
-                            </div>
-                            <TextField text="Nume" type="text" value={this.state.employee.lastname} onChangeFunction={(event) =>this.handleLastNameChange(event)}/>
-                            <TextField text="Prenume" type="text" value={this.state.employee.firstname} onChangeFunction={(event) =>this.handleFirstNameChange(event)}/>
-                            <TextField text="Email" type="text" value={this.state.employee.email} onChangeFunction={(event) =>this.handleEmailChange(event)}/>  
-                            <TextField text="Centru" type="text"  value ={this.state.centerName} onChangeFunction={(event)=>this.handleCenterChange(event)}/>                        
-                            
-                            <h3 className='title'>Schimbare parola</h3>
-                            <div className="separation"></div>
-                            <MuiThemeProvider muiTheme={getMuiTheme()}>
-                            <PasswordField value={this.state.employee.password}className="passField" onChange={(event) => this.handleCPassChange(event)} hintText="Cel puțin 8 caractere" floatingLabelText="Introdu parola curentă" />
-                            <PasswordField value={this.state.newPassword} onChange={(event) => this.handleNewPassChange(event)} hintText="Cel puțin 8 caractere" floatingLabelText="Introdu noua parolă" />
-                            <PasswordField value={this.state.employee.confirmPassword} onChange={(event) => this.handleConfirmPassChange(event)} floatingLabelText="Confirmă noua parolă" />
-                            </MuiThemeProvider>
-                            
-                            <button    className="btnSaveChanges"  onClick={(event) => this.handleSave(event)}>
-                            Salvează modificările
-                            </button>
-                            
-                        </VBox>
-                    </HBox>
+            <div className="main-employee">
+                
+                {/* <Avatar id="avatar" style={{display: "block"}} name="mircea bravo" size={200} src='https://cdn3.iconfinder.com/data/icons/medicalicons/PNG_256x256/doctor_assistant.png'/> */}
+                    {/* <button className='btnUploadImage' onClick={(event) => alert("Not implemented yet :)")}>
+                    Încarcă<br/>altă imagine
+                    </button> */}
+                <VBox className="hBox">
+                <div className="profile-fields">
+                    
+                    <h2 className='title'>Informații profil</h2>
+                    
+                    
+                    <TextField text="Nume" type="text" value={this.state.employee.lastname} onChangeFunction={(event) =>this.handleLastNameChange(event)}/>
+                    <TextField text="Prenume" type="text" value={this.state.employee.firstname} onChangeFunction={(event) =>this.handleFirstNameChange(event)}/>
+                    <TextField text="Email" type="text" value={this.state.employee.email} onChangeFunction={(event) =>this.handleEmailChange(event)}/>  
+                    <TextField text="Centru" type="text"  value ={this.state.centerName} onChangeFunction={(event)=>this.handleCenterChange(event)}/>                        
+                    <button className="generic-button"  onClick={(event) => this.handleSave(event)}>
+                    Salvează modificările
+                    </button>
+                        
+                    
+                    
                 </div>
                 <Alert stack={true} timeout={2000} />
+                </VBox>
+                
+                
+                
             </div>
     )
         
