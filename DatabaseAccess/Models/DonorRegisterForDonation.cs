@@ -104,6 +104,8 @@ namespace DatabaseAccess.Models
 
         public DateTime RegistrationDate { get; set; }
 
+        public Donor Donor { get; set; }
+
         public string  DonorId { get; set; }
     }
 }
