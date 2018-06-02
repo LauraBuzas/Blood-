@@ -5,5 +5,6 @@ export interface BloodStockModel {
     donor: string,
     cnp: string,
     date: string,
+    stage: string,
     status: string
 }

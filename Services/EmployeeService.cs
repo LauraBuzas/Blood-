@@ -118,6 +118,7 @@ namespace Services
 
                 medicalAnalysis.BloodBag = bloodBag;
                 medicalAnalysis.Donor = donor;
+
                 uow.MedicalAnalysisRepository.Add(medicalAnalysis);
                 uow.Save();
             }
@@ -245,7 +246,7 @@ namespace Services
 					.GetAll()
                     .Include(bb => bb.Analysis.Donor)
                     .Include(bb => bb.Center)
-                    .Where(t => t.CenterId == centerId && t.Status!=ComponentStatus.Sent)
+                    .Where(t => t.Status!=ComponentStatus.Sent && t.CenterId == centerId && t.Status!=ComponentStatus.Sent)
 					.ToList();
 
 			}
@@ -257,7 +258,7 @@ namespace Services
 					.GetAll()
                     .Include(bb => bb.Analysis.Donor)
                     .Include(bb => bb.Center)
-                    .Where(rbc => rbc.CenterId == centerId && rbc.Status!=ComponentStatus.Sent)
+                    .Where(rbc => rbc.Status != ComponentStatus.Sent && rbc.CenterId == centerId && rbc.Status!=ComponentStatus.Sent)
 					.ToList();
 
 			}
@@ -269,7 +270,7 @@ namespace Services
 					.GetAll()
                     .Include(bb => bb.Analysis.Donor)
                     .Include(bb => bb.Center)
-                    .Where(p => p.CenterId == centerId && p.Status != ComponentStatus.Sent)
+                    .Where(p => p.Status != ComponentStatus.Sent && p.CenterId == centerId && p.Status != ComponentStatus.Sent)
 					.ToList();
 
 			}
@@ -284,15 +285,18 @@ namespace Services
             dbAnalysis.HTLV = analysis.HTLV;
             dbAnalysis.Sifilis = analysis.Sifilis;
             dbAnalysis.DateAndTime = analysis.DateAndTime;
+            dbAnalysis.RejectedOtherCauses = analysis.RejectedOtherCauses;
+            dbAnalysis.Observations = analysis.Observations;
+            dbAnalysis.DateAndTime = DateTime.Now;
             uow.MedicalAnalysisRepository.Update(dbAnalysis);
             uow.Save();
         }
 
         public bool IsNotValidBloodBag(MedicalAnalysis analysis)
         {
-            var isNotValidBloodBag = analysis.Sifilis || analysis.HTLV || analysis.HIV || analysis.HepatitisB || analysis.HepatitisB || analysis.HTLV || analysis.ALTLevel;
+            var donorHasADisease = analysis.Sifilis || analysis.HTLV || analysis.HIV || analysis.HepatitisB || analysis.HepatitisB || analysis.HTLV || analysis.ALTLevel;
 
-            return isNotValidBloodBag;
+            return donorHasADisease || analysis.RejectedOtherCauses;
         }
 
         public List<RedBloodCell> GetRedBloodCellsForRequest(int centerId,string rh, string bloodType)
@@ -361,6 +365,7 @@ namespace Services
             using (UnitOfWork uow = new UnitOfWork())
             {
                 uow.DoctorRequestRepository.Update(doctorRequest);
+                uow.Save();
                 for (int i = 0; i < sentQuantity; i++)
                 {
                     availableBloodBags[i].Stage = BloodBagStage.Sent;

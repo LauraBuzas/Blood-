@@ -25,10 +25,10 @@ export interface HeaderState
 }
 
 var nodesGuest=[
-    {
-        title:"Acasă",
-        link:'/'
-    },
+    // {
+    //     title:"Acasă",
+    //     link:'/'
+    // },
     {
         title:"Centre",
         link:'/centers'
@@ -43,10 +43,10 @@ var nodesGuest=[
     }]
 
 var nodesDoctor=[
-    {
-        title:"Acasă",
-        link:'/'
-    },
+    // {
+    //     title:"Acasă",
+    //     link:'/'
+    // },
     {
         title:"Profil",
         link:"/doctor/profile"
@@ -65,30 +65,30 @@ var nodesDoctor=[
     }
 ]
 var nodesHospitalAdmin=[
-    {
-        title:"Acasă",
-        link:'/'
-    },
+    // {
+    //     title:"Acasă",
+    //     link:'/'
+    // },
     {
         title:"Conturi",
         link:"/hospital/admin"
     }]
 var nodesCenterAdmin=[
-        {
-            title:"Acasă",
-            link:'/'
-        },
-        {
-            title:"Conturi",
-            link:"/center/admin"
-        },
-    ]
+    // {
+    //     title:"Acasă",
+    //     link:'/'
+    // },
+    {
+        title:"Conturi",
+        link:"/center/admin"
+    },
+]
 
 var nodesEmployee=[
-    {
-        title:"Acasă",
-        link:'/'
-    },
+    // {
+    //     title:"Acasă",
+    //     link:'/'
+    // },
     {
         title:"Profil",
         link:"/employee/profile"
@@ -100,15 +100,19 @@ var nodesEmployee=[
     {
         title: "Stoc sange",
         link: "/employees/stock"
+    },
+    {
+        title: "Analize",
+        link: "/employees/analyses"
     }
 
 ]
 
 var nodesDonor=[
-    {
-        title:"Acasă",
-        link:'/'
-    },
+    // {
+    //     title:"Acasă",
+    //     link:'/'
+    // },
     {
         title:"Profil",
         link:'/donor/profile'
@@ -137,7 +141,7 @@ export class Header extends React.Component<HeaderProps,HeaderState>
         return(
             // <div key={index}>
                 <Link to={node.link}>
-                    <span> {node.title} </span>
+                    {node.title}
                     {/* {node.title=="LogOut"?<a onClick={this.logout.bind(this)} ></a>:null} */}
                 </Link>
             // </div>
@@ -169,10 +173,14 @@ export class Header extends React.Component<HeaderProps,HeaderState>
             return( 
                 <div className="hangouts-header">
                 <div className="hangouts-nodes">
+                    <Link className="home-link" to="/">
+                        <i className="fa fa-home"></i>
+                    </Link>
+                       
                     {currentNodes.map(this.renderNode.bind(this))}
                     {isRegistered?
-                        <Link onClick={this.props.logOut} to="/">
-                            <span>Log Out</span>
+                        <Link className="log-out" onClick={this.props.logOut} to="/">
+                           <i className="fa fa-angle-double-right"></i>
                         </Link>
                         : <Redirect to="/"/>
                     }
