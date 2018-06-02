@@ -44,62 +44,8 @@ const componentType = {
   'Globule rosii': 'Globule rosii',
   
 };
-function enumFormatter(cell, row, enumObject) {
-  return enumObject[cell];
-}
 
-const stocks=[
-  {
-      center:'centru',
-      location:'Cluj',
-      component:'Sange intreg',
-      group:'O1',
-      rh:'POZITIV',
-      quantity:10
-  },{
-    center:'centru2',
-    location:'Cluj-Napoca',
-    component:'Plasma',
-    group:'O1',
-    rh:'-',
-    quantity:20
-},{
-  center:'centru23',
-  location:'Cluj-Napoca',
-  component:'Sange intreg',
-  group:'AB4',
-  rh:'POZITIV',
-  quantity:20
-},{
-  center:'centru22',
-  location:'Cluj-Napoca',
-  component:'Sange intreg',
-  group:'A2',
-  rh:'POZITIV',
-  quantity:20
-},{
-  center:'centru3',
-  location:'Cluj-Napoca',
-  component:'Globule rosii',
-  group:'B3',
-  rh:'NEGATIV',
-  quantity:20
-},{
-  center:'centru4',
-  location:'Cluj-Napoca',
-  component:'Globule rosii',
-  group:'A2',
-  rh:'NEGATIV',
-  quantity:20
-},{
-  center:'centru5',
-  location:'Cluj-Napoca',
-  component:'Trombocite',
-  group:'O1',
-  rh:'NEGATIV',
-  quantity:20
-}
-];
+
 
 
 export class BloodStock extends React.Component<BloodStockProps,BloodStockState>{
@@ -147,7 +93,7 @@ export class BloodStock extends React.Component<BloodStockProps,BloodStockState>
         lastPage: 'Ultima', // Last page button text
         paginationShowsTotal: this.renderShowsTotal,  // Accept bool or function
         paginationPosition: 'top'  ,// default is bottom, top and both is all available
-        // hideSizePerPage: true > You can hide the dropdown for sizePerPage
+        hideSizePerPage: true,// > You can hide the dropdown for sizePerPage
         alwaysShowAllBtns: true // Always show next and previous button
         // withFirstAndLast: false > Hide the going to First and Last page button
     }
@@ -174,7 +120,7 @@ export class BloodStock extends React.Component<BloodStockProps,BloodStockState>
                 
                     <TableHeaderColumn dataField="CenterName" isKey={true}>Centru</TableHeaderColumn>
                     <TableHeaderColumn dataField="Address" filter={ { type: 'TextFilter', delay: 200 } }>Locatie</TableHeaderColumn>
-                    <TableHeaderColumn width="20%" dataField="Component"
+                    <TableHeaderColumn width="15%" dataField="Component"
                     
                     filter={ { type: 'SelectFilter', options: componentType,selectText:'Alege',condition:'eq' } }
                     >Componenta</TableHeaderColumn>
@@ -186,7 +132,7 @@ export class BloodStock extends React.Component<BloodStockProps,BloodStockState>
                      filter={ { type: 'SelectFilter', options: RhType,selectText:'Alege' } }
                     
                     >Rh</TableHeaderColumn>
-                    <TableHeaderColumn dataField="Quantity">Cantitate</TableHeaderColumn>
+                    <TableHeaderColumn width="10%" dataField="Quantity">Cantitate</TableHeaderColumn>
                 </BootstrapTable>
           
                   
