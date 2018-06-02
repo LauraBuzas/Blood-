@@ -7,6 +7,8 @@ import {IDonorRegisterForDonation} from '../Models/IDonorRegisterForDonation';
 import { Config } from './UrlConfig';
 import {IDonorRegistrationData} from '../Models/IDonorRegistrationData'
 import { IDonorContact } from '../Models/IDonorContact';
+import { IDonorRegistrationForDonation } from '../Models/IDonorRegistrationForDonation';
+import { parse } from 'url';
 
 export class DonorService {
 
@@ -37,7 +39,7 @@ export class DonorService {
         });
     }
 
-    public static addRegistration(name: IDonorRegisterForDonation ): Promise<any> {
+  /*  public static addRegistration(name: IDonorRegisterForDonation ): Promise<any> {
 
         return new Promise((resolve, reject) => {
             axios(
@@ -65,7 +67,35 @@ export class DonorService {
         });
     }
 
+*/
 
+public static addRegistration(formdata: IDonorRegistrationForDonation ): Promise<any> {
+
+    return new Promise((resolve, reject) => {
+        axios(
+            this.rootDonors+'/registerForDonation',
+            {
+                method:'POST',
+                headers:{
+                    'Access-Control-Allow-Origin':'*',
+                    'Content-Type':'application/json',
+                    'Access-Control-Allow-Credentials':true
+                },
+                withCredentials:true,
+                maxRedirects:0,
+                data:formdata
+            }
+        ).then((response: any) => {
+            console.log(response);
+            console.log(response.headers['set-cookie']);
+            resolve(response);
+            
+        },
+            (error: any) => {
+                reject(error);
+            })
+    });
+}
     public static getDonorData(): Promise<IDonorRegistrationData> {
         return new Promise((resolve, reject) => {
             //var doctorId=cookies.get("DoctorId");
@@ -82,6 +112,15 @@ export class DonorService {
                 }
             ).then((response: any) => {
                 //let doctor = response.data.map(this.toDoctor);
+                let dataofb:string=response.data.dob.toString();
+                let datas:string[]=dataofb.split('-');
+                let year:number=parseInt(datas[0]);
+                let month:number=parseInt(datas[1]);
+                let day:number=parseInt(datas[2].slice(0,2));
+                console.log("data nasterii: "+dataofb);
+                let db:Date=new Date(year,month,day,0,0,0,0);
+                console.log(db.getDate()+" "+db.getFullYear()+" "+db.getMonth())
+                db=new Date(Date.UTC(year,month,day,0,0,0))
                let donord:IDonorRegistrationData={
                     name:response.data.name,
                     surname:response.data.surname,

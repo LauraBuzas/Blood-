@@ -13,7 +13,8 @@ import Succes from './Succes'
 
 import {DonorService} from '../Services/DonorService'
 import {Redirect} from 'react-router-dom'
-import { IDonorRegisterForDonation } from "../Models/IDonorRegisterForDonation";
+//import { IDonorRegisterForDonation } from "../Models/IDonorRegisterForDonation";
+import {IDonorRegistrationForDonation} from "../Models/IDonorRegistrationForDonation"
 import {IDonorRegistrationData} from '../Models/IDonorRegistrationData'
 export interface MultiStepProps {
     
@@ -39,7 +40,7 @@ interface MultiStepState {
    listValid4:any;
    listValidMessage4:any;
    validation_msg:string;
-   donor:IDonorRegistrationData;
+   
 
   
   
@@ -50,11 +51,14 @@ interface MultiStepState {
 export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
 
     constructor(props){
-        super(props),
+        super(props);
+      
+        
         this.nextComponent=this.nextComponent.bind(this);
         this.prevComponent=this.prevComponent.bind(this);
         this.state={comp:0,backclass:'buttonBack',nextbtnclass:'buttonNext',nextclass:'Urmator',comp0:'progtrckr-doing',comp1:'progtrckr-todo',comp2:'progtrckr-todo',comp3:'progtrckr-todo',
-        list_data1:['','',new Date(),'','','','',''],
+       list_data1:['','',new Date(),'','','','',''],
+      // list_data1:[donor1.name,donor1.surname,donor1.dob,donor1.cityD,donor1.countyD,'','',donor1.cnp],
         list_data2:[0,0,0,0,'Nu','M','',false,false,false,false,false,false,false,true,false],
         list_data3:[false,false,false,false,false,false,false,false,false,false,false,false,false,],
        
@@ -66,7 +70,7 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
         listValidMessage2:['invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel'],
         listValidMessage4:['invisibleLabel','invisibleLabel'],
         validation_msg:"Sunteti eligibil sa donati",
-       donor:{name:"",surname:"",dob:new Date(),cnp:"",cityD:"",cityR:"",countyD:"",countyR:""}
+      
       
         
         
@@ -184,7 +188,7 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
         this.state.listValidMessage1[6]='invisibleLabel'
        }
 
-       if(this.state.list_data1[7]=="" || (!(validator.isNumeric(this.state.list_data1[7])&& this.state.list_data1[7].length==13) )){
+       if(this.state.list_data1[7]=="" || (!(validator.isNumeric(this.state.list_data1[7])) )){
         this.state.listValid1[7]="invalidField";
         this.state.listValidMessage1[7]='visibleLabel'
      }
@@ -314,21 +318,7 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
             this.validateStepTwo();
             if(this.state.listValid2[0]=='invalidField'||this.state.listValid2[1]=='invalidField'||this.state.listValid2[2]=='invalidField'||this.state.listValid2[3]=='invalidField'||this.state.listValid2[4]=='invalidField')
             {ok=false;
-           /* if(this.state.listValid2[0]=='invalidField'){
-                message+='Varsta trebuie sa fie minim 18 ani.\n';
-            }
-            if(this.state.listValid2[1]=='invalidField'){
-                message+='Greutatea trebuie sa fie peste 55 kg.\n';
-            }
-            if(this.state.listValid2[2]=='invalidField'){
-                message+='Pulsul trebuie sa fie intre 60 si 100 batai/minut.\n';
-            }
-            if(this.state.listValid2[3]=='invalidField'){
-                message+='Tensiunea arteriala trebuie sa fie intre 100 si 180 mmHg.\n'
-            }
-            if(this.state.listValid2[4]=='invalidField'){
-                message+='Daca ati suferit interventii chirurgicale in ultimele 6 luni nu sunteti eligibil sa donati.\n';
-            }*/
+          
             }
             else{ok=true;}
         }
@@ -352,10 +342,7 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
         this.setState({comp:nextcomp,backclass:'buttonBackVisible',nextclass:'Trimite'})
       }
       if(this.state.comp+1==4){
-       /* console.log("date colectate \n");
-        for(var i=0;i<this.state.list_data2.length;i++){
-            console.log(" "+this.state.list_data2[i]);
-        }*/
+       
         var msg='';
         var ok1=true;
         msg+='Varsta: '+this.state.list_data2[0]+";"
@@ -427,23 +414,29 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
                 break;
                 case 10: 
                 if(this.state.list_data2[i]){
-                    message+="Daca urmati tratament pentu boli psihice nu puteti dona sange.";
+                    message+="Daca urmati tratament pentu boli renale nu puteti dona sange.";
                 }
                 break;
                 case 11: 
                 if(this.state.list_data2[i]){
-                    message+="Daca urmati tratament pentu boli hepatice nu puteti dona sange.";
+                    message+="Daca urmati tratament pentu boli psihice nu puteti dona sange.";
                 }
                 break;
                 case 12: 
                 if(this.state.list_data2[i]){
+                    message+="Daca urmati tratament pentu boli hepatice nu puteti dona sange.";
+                }
+                break;
+                case 13: 
+                if(this.state.list_data2[i]){
                     message+="Daca urmati tratament pentu boli endocrine nu puteti dona sange.";
                 }
                 break;
+                
 
             }
         }
-        var m='Nu puteti dona sange deoarece suferiti de :'+"\n";
+        var m='Nu puteti dona sange daca suferiti de :'+"";
         
         var m1=''
         for(var i=0;i<=12;i++){
@@ -453,7 +446,7 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
             switch(i){
                 case 0: 
                 if(this.state.list_data3[i]){
-                    m1+="hepatita,";
+                    m1+="hepatita";
                 }
                 break;
                 case 1: 
@@ -497,7 +490,7 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
                 }
                 break;
                 case 9: 
-                if(this.state.list_data2[i]){
+                if(this.state.list_data3[i]){
                     m1+="boli de inima,";
                 }
                 break;
@@ -523,17 +516,74 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
             message+=m+m1;
                     }
 
-        if(ok1)
-        {this.setState({comp:nextcomp,backclass:'buttonBack',nextclass:'Ok',validation_msg:'Sunteti eligibil sa donati.'});
-    
-        var name=this.state.list_data1[0];
-        let donorRegister:IDonorRegisterForDonation;
-        donorRegister=
-        {
-            donorName:name
+        
+       
+        var surgery=this.state.list_data2[4];
+        if(surgery=="Nu"){surgery="No"}
+        else{surgery="Yes"}
+        var psex=this.state.list_data2[5];
+        if(psex=="M"){psex="Male"}
+        else {psex="Female"}
+        var pregnancy=this.state.list_data2[6]
+        if(pregnancy=="Nu e cazul" || pregnancy==""){
+            pregnancy="NotPregnant";
+        }
+        if(pregnancy=="Perioada de lehuzie"){
+            pregnancy="PostPregnant"
+        }
+        if(pregnancy=="Insarcinata"){
+            pregnancy="Pregnant"
+        }
+
+
+        
+
+        let donorData:IDonorRegistrationForDonation;
+        donorData={
+            name:this.state.list_data1[0],
+            surname:this.state.list_data1[1],
+            birthdate:this.state.list_data1[2],
+            cityofbirth:this.state.list_data1[3],
+            countyofbirth:this.state.list_data1[4],
+            currentcity:this.state.list_data1[5],
+            currentcounty:this.state.list_data1[6],
+            cnp:this.state.list_data1[7],
+            age:this.state.list_data2[0],
+            weigth:this.state.list_data2[1],
+            beatspermiute:this.state.list_data2[2],
+            bloodpressure:this.state.list_data2[3],
+            hadsurgery:surgery,
+            personsex:psex,
+            pregnancystatus:pregnancy,
+            period:this.state.list_data2[7],
+            hypertension:this.state.list_data2[8],
+            heartdisease:this.state.list_data2[9],
+            kidneydisease:this.state.list_data2[10],
+            mentalilness:this.state.list_data2[11],
+            liverdisease:this.state.list_data2[12],
+            endocrinedisease:this.state.list_data2[13],
+            hepatitis:this.state.list_data3[0],
+            tuberculosis:this.state.list_data3[1],
+            pox:this.state.list_data3[2],
+            malaria:this.state.list_data3[3],
+            epilepsy:this.state.list_data3[4],
+            mindilnesses:this.state.list_data3[5],
+            brucellosis:this.state.list_data3[6],
+            ulcer:this.state.list_data3[7],
+            diabetes:this.state.list_data3[8],
+            heartdiseases:this.state.list_data3[9],
+            skindiseases:this.state.list_data3[10],
+            myopia:this.state.list_data3[11],
+            cancer:this.state.list_data3[12],
+            email:this.state.list_data4[0],
+            phonenumber:this.state.list_data4[1],
+            otherpersonname:this.state.list_data4[2],
+            otherpersonsurname:this.state.list_data4[3]
+
+
         }
       console.log("E valid tot.");
-        DonorService.addRegistration(donorRegister).then((resp) => {
+        DonorService.addRegistration(donorData).then((resp) => {
             console.log("primit");
            console.log(resp);
             
@@ -543,7 +593,9 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
                 console.log(error);
                 
             });
-       
+            if(ok1)
+            {this.setState({comp:nextcomp,backclass:'buttonBack',nextclass:'Ok',validation_msg:'Sunteti eligibil sa donati.'});
+          
         
     }
         else{
@@ -602,7 +654,7 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
          listfromParent={this.state.list_data1}
           listValidFromParent={this.state.listValid1} 
           listMessageFromParent={this.state.listValidMessage1}
-          donor={this.state.donor}/>,
+          />,
         <StepTwo  handleToParent={this.handlefromChild}
                  listfromParent={this.state.list_data2}
                  listValidFromParent={this.state.listValid2}

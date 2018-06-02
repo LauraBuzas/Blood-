@@ -11,7 +11,7 @@ export interface StepOneProps{
     listfromParent:any
     listValidFromParent:any
     listMessageFromParent:any
-    donor:IDonorRegistrationData
+   
     
 }
 
@@ -41,8 +41,8 @@ export default class StepOne extends React.Component<StepOneProps,StepOneState>{
         
         super(props);
         console.log("nume: "+this.props.listfromParent[0]);
-        this.state=//{name:this.props.listfromParent[0],surname:this.props.listfromParent[1],date_of_birth:this.props.listfromParent[2],domicile_city:this.props.listfromParent[3],domicile_county:this.props.listfromParent[4],residence_city:this.props.listfromParent[5],residence_county:this.props.listfromParent[6],cnp:this.props.listfromParent[7],
-        {name:this.props.donor.name,surname:this.props.donor.surname,date_of_birth:this.props.donor.dob,domicile_city:this.props.donor.cityD,domicile_county:this.props.donor.countyD,residence_city:this.props.listfromParent[5],residence_county:this.props.listfromParent[6],cnp:this.props.donor.cnp,
+        this.state={name:this.props.listfromParent[0],surname:this.props.listfromParent[1],date_of_birth:this.props.listfromParent[2],domicile_city:this.props.listfromParent[3],domicile_county:this.props.listfromParent[4],residence_city:this.props.listfromParent[5],residence_county:this.props.listfromParent[6],cnp:this.props.listfromParent[7],
+       // {name:this.props.donor.name,surname:this.props.donor.surname,date_of_birth:this.props.donor.dob,domicile_city:this.props.donor.cityD,domicile_county:this.props.donor.countyD,residence_city:this.props.listfromParent[5],residence_county:this.props.listfromParent[6],cnp:this.props.donor.cnp,
            listMessages:['Nume invalid','Prenume invalid','Data nasterii invalida','Localitatea de domiciliu e invalida','Judetul de domiciliu e invalid','Localitatea de resedinta e invalida','Judetul de resedinta e invalid','CNP-ul e invalid'],
            listMessagesClasses:this.props.listMessageFromParent//['invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel']
         }
@@ -59,10 +59,14 @@ export default class StepOne extends React.Component<StepOneProps,StepOneState>{
     }
     componentDidMount(){
         DonorService.getDonorData().then((donor:IDonorRegistrationData) => {
-            this.setState({
+            console.log("donorname:"+donor.name.length+" data:"+donor.dob.toString())
+           
+            if(this.state.name.length==0&&this.state.cnp.length==0)
+            {console.log("here2")
+                this.setState({
                 name:donor.name,surname:donor.surname,date_of_birth:donor.dob,domicile_city:donor.cityD,domicile_county:donor.countyD,residence_city:this.props.listfromParent[5],residence_county:this.props.listfromParent[6],cnp:donor.cnp
                
-            });    
+            });    }
         });
 
     }

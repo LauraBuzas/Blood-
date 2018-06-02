@@ -42,10 +42,11 @@ constructor(props){
 
 componentDidMount(){
     DonorService.getDonorContact().then((contact:IDonorContact) => {
-        this.setState({
+        if(this.state.email.length==0)
+        {this.setState({
            email:contact.email,phone:contact.phone
            
-        });
+        });}
         this.props.listfromParent[0]=contact.email;
         this.props.listfromParent[1]=contact.phone;    
     });

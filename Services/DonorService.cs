@@ -42,8 +42,11 @@ namespace Services
             using (UnitOfWork uow = new UnitOfWork())
             {
                 donorRegistrationForDonation.RegistrationDate = DateTime.Now;
+                //donorRegistrationForDonation.DonorId = uow.DonorRepository.GetAll().Where(d => d.CNP == donorRegistrationForDonation.CNP).First().Id;
+
                 donorRegistrationForDonation.DonorId = uow.DonorRepository.GetByFunc(donor => donor.CNP == donorRegistrationForDonation.CNP).Id;
                 donorRegistrationForDonation.Donor = uow.DonorRepository.GetByFunc(donor => donor.CNP == donorRegistrationForDonation.CNP);
+                //uow.DonorRepository.GetAll().Where(d => d.CNP == donorRegistrationForDonation.CNP).First();//
 
                 uow.DonorRegistrationForDonationRepository.Add(donorRegistrationForDonation);
                 uow.Save();
