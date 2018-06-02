@@ -138,7 +138,7 @@ namespace Services
                     donorAnalysis.BloodBag.Status = BloodBagStatus.Rejected;
                     uow.BloodBagRepository.Update(donorAnalysis.BloodBag);
                     uow.Save();
-                    throw new Exception("Unusable Blood Bag");
+                    throw new Exception("Punga de sange nu poate fi utilizata!");
                 }
 
                 donorAnalysis.BloodBag.Status = BloodBagStatus.Accepted;
