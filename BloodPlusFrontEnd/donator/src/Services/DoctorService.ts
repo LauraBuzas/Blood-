@@ -4,11 +4,12 @@ import { IDoctorRequest } from '../Models/IDoctorRequest';
 import { IDoctorRequestView } from '../Models/IDoctorRequestView';
 import { IPatientGet } from '../Models/IPatientGet';
 import { IPatientStatusChange } from '../Models/IPatientStatusChange';
-
+import {ICenterBloodQty} from '../Models/ICenterBloodQty';
 import { Config } from './UrlConfig';
 export class DoctorService {
 
     private static rootDoctors: string = Config.url + '/doctors';
+
 
 
     public static getHospitalizedPatients(): Promise<any> {
@@ -138,6 +139,50 @@ export class DoctorService {
     //             });
     //     });
     // }
+
+
+
+    private static toCenter(response: any): ICenterBloodQty {
+        console.log("in tocenter name:");//response.items.length)
+        return {
+            CenterName:response.centerName,
+            Address:response.address,
+            Component:response.component,
+            Group:response.group,
+            Rh:response.rh,
+            Quantity:response.quantity,
+
+           
+        };
+    }
+
+    public static getCentersStock(): Promise<any> {
+        console.log("e aici");
+        return new Promise((resolve, reject) => {
+            axios(
+                this.rootDoctors+'/bloodqty',
+                {
+                    method:'GET',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                        'Access-Control-Allow-Credentials':true
+                    },
+                    withCredentials:true
+                }
+            ).then((response: any) => {
+                
+                console.log("response here"+response);
+                let centers = response.data.map(this.toCenter);
+               
+                resolve(centers);
+            },
+                (error: any) => {
+                    console.log("error here");
+                    reject(error);
+                });
+        });
+    }
 
     public static changePatientStatus(changePatient:IPatientStatusChange):Promise<any>{
         return new Promise((resolve,reject)=>

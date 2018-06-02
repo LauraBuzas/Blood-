@@ -122,6 +122,51 @@ namespace BloodPlus.Controllers
             }
         }
 
-       
+        [Authorize(Roles = "Donor")]
+        [HttpGet("donordata")]
+        public IActionResult GetDonorFormData()
+        {
+            try
+            {
+                var idUser = Request.Cookies["UserId"];
+                var donor = donorService.GetDonors().Where(d => d.Id == idUser).First();
+                DonorFormData df = new DonorFormData();
+                df.Name = donor.FirstName;
+                df.Surname = donor.LastName;
+                df.Cnp = donor.CNP;
+                var adr = donorService.GetDonorAddres(donor.AddressId);
+                df.CityD = adr.City;
+                df.CountyD = adr.County;
+                                
+                return Ok(df);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Authorize(Roles = "Donor")]
+        [HttpGet("donorcontact")]
+        public IActionResult GetDonorEmail()
+        {
+            try
+            {
+                var idUser = Request.Cookies["UserId"];
+                String donoremail = donorService.GetDonorEmail(idUser);
+                String phone = donorService.GetDonorPhone(idUser);
+                DonorContact dc = new DonorContact();
+                dc.Email = donoremail;
+                dc.Phone = phone;
+
+                return Ok(dc);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
     }
 }
