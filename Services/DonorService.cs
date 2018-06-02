@@ -37,16 +37,16 @@ namespace Services
         }
         
 
-        public void AddRegistrationForDonation(String donorName)
+        public void AddRegistrationForDonation(DonorRegistrationForDonation donorRegistrationForDonation)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                //var registration = new DonorRegistrationForDonation();
-                //registration.DonorName = donorName;
-                //registration.RegistrationDate = DateTime.Now;
+                donorRegistrationForDonation.RegistrationDate = DateTime.Now;
+                donorRegistrationForDonation.DonorId = uow.DonorRepository.GetByFunc(donor => donor.CNP == donorRegistrationForDonation.CNP).Id;
+                donorRegistrationForDonation.Donor = uow.DonorRepository.GetByFunc(donor => donor.CNP == donorRegistrationForDonation.CNP);
 
-                //uow.DonorRegistrationForDonationRepository.Add(registration);
-                //uow.Save();
+                uow.DonorRegistrationForDonationRepository.Add(donorRegistrationForDonation);
+                uow.Save();
             }
         }
 

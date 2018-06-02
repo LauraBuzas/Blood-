@@ -50,9 +50,7 @@ namespace BloodPlus.Controllers
         {
             try
             {
-      
                 doctorsService.DeleteDoctor(doctorDelete.Email);
-         
                 return Ok();
             }
             catch (Exception ex)
