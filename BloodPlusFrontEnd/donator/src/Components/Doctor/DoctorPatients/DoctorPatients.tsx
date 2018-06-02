@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {Helmet} from 'react-helmet'
-import '../../Doctor/HospitalAdmin/HospitalAdmin.css'
-import '../../../css/Management.css'
+import './patients.css';
 import { DoctorService } from '../../../Services/DoctorService';
 import Cookies from 'universal-cookie';
 import { confirmAlert } from 'react-confirm-alert'; // Import
@@ -137,19 +136,19 @@ export class DoctorPatients extends React.Component<DoctorPatientsProps,DoctorPa
     
         
         if(row.status == "INTERNAT")
-            return <select className="selectStatus"  onChange={(ev)=>{this.changeStatus(row.cnp,ev.currentTarget.value)}}>
+            return <select className="select-status"  onChange={(ev)=>{this.changeStatus(row.cnp,ev.currentTarget.value)}}>
                         <option>INTERNAT</option>
                         <option>EXTERNAT</option>
                         <option>DECEDAT</option>
                     </select>
         else if(row.status == "EXTERNAT")
-            return <select className="selectStatus"  onChange={(ev)=>{this.changeStatus(row.cnp,ev.currentTarget.value)}}>
+            return <select className="select-status"  onChange={(ev)=>{this.changeStatus(row.cnp,ev.currentTarget.value)}}>
                         <option>EXTERNAT</option>
                         <option>INTERNAT</option>
                         <option>DECEDAT</option>
                     </select>
         else 
-            return <select className="selectStatus"  onChange={(ev)=>{this.changeStatus(row.cnp,ev.currentTarget.value)}}>
+            return <select className="select-status"  onChange={(ev)=>{this.changeStatus(row.cnp,ev.currentTarget.value)}}>
             <option>DECEDAT</option>
             <option>EXTERNAT</option>
             <option>INTERNAT</option>
@@ -170,8 +169,8 @@ export class DoctorPatients extends React.Component<DoctorPatientsProps,DoctorPa
        
           
         return(
-            <div className="container-patients"> 
-            <div className="tableArea">
+            
+            <div className="patients-table-area">
                 <Helmet>
                     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
                 </Helmet>
@@ -184,23 +183,23 @@ export class DoctorPatients extends React.Component<DoctorPatientsProps,DoctorPa
                                 options={option}
                                 cellEdit = {this.cellEditProp}
                                 >
-                <TableHeaderColumn dataField='id' editable={false}>Id</TableHeaderColumn>
-                <TableHeaderColumn dataField='lastname' editable={false}>Nume</TableHeaderColumn>
-                <TableHeaderColumn dataField='firstname' editable={false}>Prenume</TableHeaderColumn>
-                <TableHeaderColumn dataField='cnp' isKey={true} editable={false}>CNP</TableHeaderColumn>
-                <TableHeaderColumn dataField='city' editable={false}>Oras</TableHeaderColumn>
-                <TableHeaderColumn dataField='county' editable={false}>Judet</TableHeaderColumn>
-                <TableHeaderColumn dataField='street' editable={false}>Strada</TableHeaderColumn>
-                <TableHeaderColumn dataField='floor'editable={false}>Etaj</TableHeaderColumn>
+                <TableHeaderColumn width={30} dataField='id' editable={false}>Id</TableHeaderColumn>
+                <TableHeaderColumn width={120} dataField='lastname' editable={false}>Nume</TableHeaderColumn>
+                <TableHeaderColumn width={120} dataField='firstname' editable={false}>Prenume</TableHeaderColumn>
+                <TableHeaderColumn width={160} dataField='cnp' isKey={true} editable={false}>CNP</TableHeaderColumn>
+                <TableHeaderColumn width={130} dataField='city' editable={false}>Oras</TableHeaderColumn>
+                <TableHeaderColumn width={100} dataField='county' editable={false}>Judet</TableHeaderColumn>
+                <TableHeaderColumn width={140} dataField='street' editable={false}>Strada</TableHeaderColumn>
+                <TableHeaderColumn width={50} dataField='floor'editable={false}>Etaj</TableHeaderColumn>
                 {/* <TableHeaderColumn dataField='status'editable={false}>Status</TableHeaderColumn> */}
-                <TableHeaderColumn dataField='select' editable={false} dataFormat = {this.selectStatus.bind(this)}>Schimba status</TableHeaderColumn>
+                <TableHeaderColumn width={120} dataField='select' editable={false} dataFormat = {this.selectStatus.bind(this)}>Schimba status</TableHeaderColumn>
                 </BootstrapTable>
         
                <Alert stack={true} timeout={3000} />
                
                         
             </div>
-            </div>
+            
         );
     }
 

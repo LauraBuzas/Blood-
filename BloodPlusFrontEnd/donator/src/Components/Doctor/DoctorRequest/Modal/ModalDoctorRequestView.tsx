@@ -109,7 +109,7 @@ export class ModalDoctorRequestView extends React.Component<ModalDoctorRequestVi
             <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css"/>
         </Helmet>    
         
-        <Modal open={open} onClose={this.onCloseModal} large>
+        <Modal dialogClassName="request-modal" open={open} onClose={this.onCloseModal} large>
           <h2>Detalii cerere</h2>
           <hr className="invisibleHr"/>
           <div className="hboxWithSpace">

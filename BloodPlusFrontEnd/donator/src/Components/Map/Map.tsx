@@ -50,9 +50,9 @@ export class Marker extends React.Component<MarkerProps> {
             <div>duminică Închis</div>
             <div>Telefon: 0264 592 882</div>      */}
 
-            <h1>Centru de transfuzie Cluj-Napoca</h1>
+            <h1><i className="fa fa-hospital-o"></i>Centru de transfuzie Cluj-Napoca</h1>
             <div>Adresă: Strada Nicolae Bălcescu 18, Cluj-Napoca 400000</div>
-            <h1>Program: </h1> 
+            <h1><i className="fa fa-calendar" aria-hidden="true"></i>Program</h1> 
             <div>luni-vineri: 07:30–14</div>
             <div>sâmbătă-duminică: Închis</div>
             <div>Telefon: 0264 592 882</div>   

@@ -12,6 +12,8 @@ import Alert from 'react-s-alert';
 import { DonorService } from '../../../Services/DonorService';
 import { IDonorView } from '../../../Models/IDonorView';
 
+import './medical-analyses.css';
+
 interface MedicalAnalysesProps{}
 interface MedicalAnalysesState {
     analysis:IAddMedicalTest
@@ -139,30 +141,86 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
         const valuePacient = selectedDonor && selectedDonor.value;
 
         return(
-            <div>
-                <VBox className="vboxPosition">
-                    {/* <TextField text="CNP" type="text" onChangeFunction={(event) => this.handleCnpChange(event)} /> */}
-                    <Select
-                        name="dropdown-pacient"
-                        creatable={false}
-                        placeholder='Nume sau CNP pacient...'
-                        onChange={this.handleChangePacient}
-                        options={this.state.optionsDonors}
-                        value={selectedDonor}
-                        
-                    />
+            <VBox className="analyses-container">
+                
+                {/* <TextField text="CNP" type="text" onChangeFunction={(event) => this.handleCnpChange(event)} /> */}
+                <Select
+                    name="dropdown-pacient"
+                    creatable={false}
+                    placeholder='Nume sau CNP pacient...'
+                    onChange={this.handleChangePacient}
+                    options={this.state.optionsDonors}
+                    value={selectedDonor}
+                    
+                />
 
-                    <label><input type="checkbox" value="HIV" onChange={(event) => this.handleHIVCheckboxClick(event)}/>SIDA</label>
-                    <label><input type="checkbox" value="HepatitisB" onChange={(event) => this.handleHepatitisBCheckboxClick(event)}/>Hepatita B</label>
-                    <label><input type="checkbox" value="HepatitisC" onChange={(event) => this.handleHepatitisCCheckboxClick(event)}/>Hepatita C</label>
-                    <label><input type="checkbox" value="Sifilis" onChange={(event) => this.handleSifilisCheckboxClick(event)}/>Sifilis</label>
-                    <label><input type="checkbox" value="HTLV" onChange={(event) => this.handleHTLVCheckboxClick(event)}/>HTLV</label>
-                    <label><input type="checkbox" value="ALTLevel" onChange={(event) => this.handleALTLevelCheckboxClick(event)}/>Nivel ALT</label>
-                    <label><input type="checkbox" value="Rejected" onChange={(event) => this.handleSifilisCheckboxClick(event)}/>Respins din alte cauze</label>
-                    <textarea ref="observationTextArea"/>
-                    <Button1 text="Salvati analizele" onClickFunction={()=>this.addAnalyses()}> </Button1>
-                </VBox>
-            </div>
+                <label>
+                    <div className="nice-check-box">
+                        <input id="nice-check-1" type="checkbox" value="HIV" onChange={(event) => this.handleHIVCheckboxClick(event)}/>
+                        <label htmlFor="nice-check-1"></label>
+                    </div>
+                    SIDA
+                </label>
+
+                <label>
+                    <div className="nice-check-box">
+                        <input id="nice-check-2" type="checkbox" value="HepatitisB" onChange={(event) => this.handleHepatitisBCheckboxClick(event)}/>
+                        <label htmlFor="nice-check-2"></label>
+                    </div>
+                    Hepatita B
+                </label>
+
+                <label>
+                    <div className="nice-check-box">
+                        <input id="nice-check-3" type="checkbox" value="HepatitisC" onChange={(event) => this.handleHepatitisCCheckboxClick(event)}/>
+                        <label htmlFor="nice-check-3"></label>
+                    </div>
+                    Hepatita C
+                </label>
+
+                <label>
+                    <div className="nice-check-box">
+                        <input id="nice-check-4" type="checkbox" value="Sifilis" onChange={(event) => this.handleSifilisCheckboxClick(event)}/>
+                        <label htmlFor="nice-check-4"></label>
+                    </div>
+                    Sifilis
+                </label>
+
+                <label>
+                    <div className="nice-check-box">
+                        <input id="nice-check-5" type="checkbox" value="HTLV" onChange={(event) => this.handleHTLVCheckboxClick(event)}/>
+                        <label htmlFor="nice-check-5"></label>
+                    </div>
+                    HTLV
+                </label>
+
+                <label>
+                    <div className="nice-check-box">
+                        <input id="nice-check-6" type="checkbox" value="ALTLevel" onChange={(event) => this.handleALTLevelCheckboxClick(event)}/>
+                        <label htmlFor="nice-check-6"></label>
+                    </div>
+                    Nivel ALT
+                </label>
+
+                <label>
+                    <div className="nice-check-box">
+                        <input id="nice-check-7" type="checkbox" value="Rejected" onChange={(event) => this.handleSifilisCheckboxClick(event)}/>
+                        <label htmlFor="nice-check-7"></label>
+                    </div>
+                    Respins din alte cauze
+                </label>
+                
+                {/* <label><input type="checkbox" value="HIV" onChange={(event) => this.handleHIVCheckboxClick(event)}/>SIDA</label>
+                <label><input type="checkbox" value="HepatitisB" onChange={(event) => this.handleHepatitisBCheckboxClick(event)}/>Hepatita B</label>
+                <label><input type="checkbox" value="HepatitisC" onChange={(event) => this.handleHepatitisCCheckboxClick(event)}/>Hepatita C</label>
+                <label><input type="checkbox" value="Sifilis" onChange={(event) => this.handleSifilisCheckboxClick(event)}/>Sifilis</label>
+                <label><input type="checkbox" value="HTLV" onChange={(event) => this.handleHTLVCheckboxClick(event)}/>HTLV</label>
+                <label><input type="checkbox" value="ALTLevel" onChange={(event) => this.handleALTLevelCheckboxClick(event)}/>Nivel ALT</label>
+                <label><input type="checkbox" value="Rejected" onChange={(event) => this.handleSifilisCheckboxClick(event)}/>Respins din alte cauze</label> */}
+                <textarea  rows={4} ref="observationTextArea"/>
+                <button className="generic-button" onClick={()=>this.addAnalyses()}>Salvati analizele</button>
+            
+            </VBox>
         );
     }
 }

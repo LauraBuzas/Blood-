@@ -146,7 +146,7 @@ export class HospitalAdmin extends React.Component<HospitalAdminProps,HospitalAd
        
           
         return(
-            <div className="tableArea">
+            <div className="table-area">
                 {/* <Helmet>
                     <meta charSet="utf-8" />
                     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" type="text/css"/>

@@ -3,6 +3,26 @@
     margin-bottom: 0px!important;
 } */
 
+.add-request-button {
+  float:left;
+}
+
+#bell-icon {
+  margin: 5px;
+  float: right;
+}
+
+.new-request {
+  height: 70px;
+}
+
+.table-area, .new-request {
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
      
 .react-bs-table-container .react-bs-table-search-form {
     margin-bottom: 0;

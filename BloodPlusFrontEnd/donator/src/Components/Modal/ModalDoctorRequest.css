@@ -1,9 +1,17 @@
-.hboxWithSpace
-{
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
+.request-modal {
+    width: 100%;
+    max-width: 600px;
 }
+
+#request-modal {
+    width: 100%;
+    max-width: 600px;
+}
+
+.request-button {
+    margin: 10px;
+}
+
 .Select
 {
     z-index:10;
@@ -29,7 +37,3 @@
     height: 36px;
     padding: 10px;
 }
-.vboxWithSpace
-{
-   
-}   
