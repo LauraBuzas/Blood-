@@ -3,11 +3,12 @@ import { IDoctorGet } from '../Models/IDoctorGet';
 import Cookies from 'universal-cookie';
 import { Session } from 'inspector';
 import { IDoctorDelete } from '../Models/IDoctorDelete';
+
+import { Config } from './UrlConfig';
+
 export class HospitalAdminService {
-
-    private static rootDoctors: string = 'http://localhost:50272/doctors';
-    private static rootRegisterDoctors: string = 'http://localhost:50272/account/register/doctor';
-
+    private static rootDoctors: string = Config.url + '/doctors';
+    private static rootRegisterDoctors: string = Config.url + '/account/register/doctor';
 
   
     public static getDoctors(): Promise<IDoctorGet[]> {
