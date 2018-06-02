@@ -4,6 +4,7 @@ import HeaderForm from './HeaderForm'
 import StepTwo from './StepTwo';
 import {IDonorRegistrationData} from '../Models/IDonorRegistrationData'
 import './FormStyle.css'
+import DatePicker from 'react-date-picker'
 import {DonorService} from '../Services/DonorService'
 export interface StepOneProps{
   
@@ -62,7 +63,8 @@ export default class StepOne extends React.Component<StepOneProps,StepOneState>{
             console.log("donorname:"+donor.name.length+" data:"+donor.dob.toString())
            
             if(this.state.name.length==0&&this.state.cnp.length==0)
-            {console.log("here2")
+            {console.log("here2");
+            this.props.listfromParent[2]=donor.dob;
                 this.setState({
                 name:donor.name,surname:donor.surname,date_of_birth:donor.dob,domicile_city:donor.cityD,domicile_county:donor.countyD,residence_city:this.props.listfromParent[5],residence_county:this.props.listfromParent[6],cnp:donor.cnp
                
@@ -207,6 +209,7 @@ export default class StepOne extends React.Component<StepOneProps,StepOneState>{
             <br/><label className={this.state.listMessagesClasses[7]}>{this.state.listMessages[7]}</label>
             <br/><br/>
             <label>Data nasterii </label>
+           
             <input type='date' onChange={this.handleDOB} name="dob" value={this.props.listfromParent[2]} className={this.props.listValidFromParent[2]} />
             <br/>
             <label className={this.state.listMessagesClasses[2]}>{this.state.listMessages[2]}</label>

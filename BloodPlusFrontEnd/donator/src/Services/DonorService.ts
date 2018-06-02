@@ -9,7 +9,7 @@ import {IDonorRegistrationData} from '../Models/IDonorRegistrationData'
 import { IDonorContact } from '../Models/IDonorContact';
 import { IDonorRegistrationForDonation } from '../Models/IDonorRegistrationForDonation';
 import { parse } from 'url';
-
+var dateformat=require('dateformat');
 export class DonorService {
 
     private static rootDonors: string = Config.url + '/donors';
@@ -120,11 +120,13 @@ public static addRegistration(formdata: IDonorRegistrationForDonation ): Promise
                 console.log("data nasterii: "+dataofb);
                 let db:Date=new Date(year,month,day,0,0,0,0);
                 console.log(db.getDate()+" "+db.getFullYear()+" "+db.getMonth())
-                db=new Date(Date.UTC(year,month,day,0,0,0))
+               // db=new Date(response.data.dob);
+                db=dateformat(db,'isoDate');
+                console.log(db);
                let donord:IDonorRegistrationData={
                     name:response.data.name,
                     surname:response.data.surname,
-                    dob:response.data.dob,
+                    dob:db,
                     cnp:response.data.cnp,
                     cityD:response.data.cityD,
                     countyD:response.data.countyD,
