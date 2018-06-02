@@ -7,9 +7,7 @@ namespace DatabaseAccess
         {
             get
             {
-
-                return "Data Source=NICU-ASUS;Initial Catalog=BloodPlus2;Integrated Security=True;";
-
+                return "Data Source=DESKTOP-L6BBN0T\\SQLEXPRESS;Initial Catalog=BloodPlus;Integrated Security=True;";
             }
         }
     }
