@@ -30,7 +30,7 @@ namespace DatabaseAccess.Models
 
         public List<MedicalAnalysis> MedicalAnalysis { get; set; }
 
-        
+        public List<DonorRegistrationForDonation> RegistrationHistory { get; set; }
 
     }
 }

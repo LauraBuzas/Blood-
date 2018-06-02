@@ -14,8 +14,10 @@ import { IDoctorRequestView } from '../Models/IDoctorRequestView';
 import { IEmployeeRequest } from '../Models/IEmployeeRequest';
 import { IGroupedStock } from '../Models/IGroupedStock';
 
+import { Config } from './UrlConfig';
+
 export class EmployeeService {
-    private static rootEmployee: string = 'http://localhost:50272/employees';
+    private static rootEmployee: string = Config.url + '/employees';
 
     public static getRequests(): Promise<IEmployeeRequest[]> {
         return new Promise((resolve, reject) => {
@@ -160,6 +162,7 @@ export class EmployeeService {
             donor:response.donor,
             cnp:response.cnp,
             date:response.date,
+            stage:response.stage,
             status:response.status
         };
     }

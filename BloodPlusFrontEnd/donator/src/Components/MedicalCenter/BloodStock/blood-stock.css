@@ -1,4 +1,68 @@
 #stock-table {
-    width: 80%;
+    width: 90%;
     margin: 20px auto;
+    align-items: flex-start;
 }
+
+.stock-btn {
+    margin: 10px;
+    
+}
+
+.accept-btn, .reject-btn, .separation-btn {
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+    border: none;
+    background-color: transparent;
+    
+    margin: 0;
+}
+
+.accept-btn {
+    color: #11CC00;
+}
+
+.reject-btn {
+    color: #f70606c7;
+}
+
+
+.separation-btn {
+    color: steelblue;
+}
+
+.reject-btn:hover {
+    color: #c30104b4;
+}
+
+.accept-btn:hover {
+    color: #33AA00;
+}
+
+.separation-btn:hover {
+    color: #3355CC;
+}
+
+.accept-btn:focus, .reject-btn:focus {
+    outline: none;
+}
+
+
+.react-bs-table table tr th {
+    font-size: 14px;
+}
+
+.react-bs-table table tr td {
+    font-size: 14px;
+}
+
+.react-bs-table table tr th:nth-child(5) {
+    width: 9em;
+}
+
+.react-bs-table table tr td:nth-child(5) {
+    width: 9em;
+}
+
