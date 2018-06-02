@@ -266,7 +266,7 @@ namespace BloodPlus.Controllers
                     {
                         CenterBloodQuantityViewModel cbq = new CenterBloodQuantityViewModel();
                         cbq.CenterName = c.CenterName;
-                        cbq.Address = centeraddres.ToString();
+                        cbq.Address = "jud." + centeraddres.County + ",loc. " + centeraddres.City + ",str. " + centeraddres.Street + ",nr. " + centeraddres.Number + ",ap. " + centeraddres.ApartmentNumber + ",et. " + centeraddres.Floor + ",sc." + centeraddres.Unit;
                         cbq.Component = "Sange neseparat";
                         cbq.Group = bag.BloodType.ToString();
                         cbq.Rh = bag.RhType.ToString();
@@ -289,7 +289,7 @@ namespace BloodPlus.Controllers
                     {
                         CenterBloodQuantityViewModel cbq = new CenterBloodQuantityViewModel();
                         cbq.CenterName = c.CenterName;
-                        cbq.Address = centeraddres.ToString();
+                        cbq.Address = "jud." + centeraddres.County + ",loc. " + centeraddres.City + ",str. " + centeraddres.Street + ",nr. " + centeraddres.Number + ",ap. " + centeraddres.ApartmentNumber + ",et. " + centeraddres.Floor + ",sc." + centeraddres.Unit;
                         cbq.Component = "Plasma";
                         cbq.Group = p.BloodType.ToString();
                         
@@ -311,7 +311,7 @@ namespace BloodPlus.Controllers
                     {
                         CenterBloodQuantityViewModel cbq = new CenterBloodQuantityViewModel();
                         cbq.CenterName = c.CenterName;
-                        cbq.Address = centeraddres.ToString();
+                        cbq.Address = "jud." + centeraddres.County + ",loc. " + centeraddres.City + ",str. " + centeraddres.Street + ",nr. " + centeraddres.Number + ",ap. " + centeraddres.ApartmentNumber + ",et. " + centeraddres.Floor + ",sc." + centeraddres.Unit;
                         cbq.Component = "Trombocite";
                         cbq.Group = t.BloodType.ToString();
                         cbq.Rh = t.RhType.ToString();
@@ -333,7 +333,7 @@ namespace BloodPlus.Controllers
                     {
                         CenterBloodQuantityViewModel cbq = new CenterBloodQuantityViewModel();
                         cbq.CenterName = c.CenterName;
-                        cbq.Address = centeraddres.ToString();
+                        cbq.Address ="jud."+ centeraddres.County+",loc. "+centeraddres.City+",str. "+centeraddres.Street+",nr. "+centeraddres.Number+",ap. "+centeraddres.ApartmentNumber+",et. "+centeraddres.Floor+",sc."+centeraddres.Unit;
                         cbq.Component = "Globule rosii";
                         cbq.Group = r.BloodType.ToString();
                         cbq.Rh = r.RhType.ToString();
@@ -345,9 +345,9 @@ namespace BloodPlus.Controllers
 
                 }
                 //var requests = doctorsService.GetRequests(id);
-               // List<DoctorRequestViewModel> requestsReturned = requests.Select(r => MapperDoctorRequest.ToDoctorRequestViewModel(r)).ToList();
+                // List<DoctorRequestViewModel> requestsReturned = requests.Select(r => MapperDoctorRequest.ToDoctorRequestViewModel(r)).ToList();
 
-
+              //  
                 return Ok(centersqty);
 
             }

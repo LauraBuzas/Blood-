@@ -7,11 +7,11 @@ namespace BloodPlus.ModelViews
 {
     public class CenterBloodQuantityViewModel
     {
-        public String CenterName { get; set; }
-        public String Address { get; set; }
-        public String Component { get; set; }
-        public String Group { get; set; }
-        public String Rh { get; set; }
+        public string CenterName { get; set; }
+        public string Address { get; set; }
+        public string Component { get; set; }
+        public string Group { get; set; }
+        public string Rh { get; set; }
         public int Quantity { get; set; }
 
 

@@ -1,8 +1,8 @@
 export interface ICenterBloodQty{
-    center:string
-    location:string
-    component:string
-    group:string
-    rh:string
-    quantity:number
+    CenterName:string
+    Address:string
+    Component:string
+    Group:string
+    Rh:string
+    Quantity:number
 }

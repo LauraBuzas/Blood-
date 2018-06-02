@@ -44,8 +44,12 @@ namespace Services
                     var alladdress = (from center in uow.CenterRepository.GetAll()
                                      join addr in uow.AddressRepository.GetAll() on center.IdAddress equals addr.Id
                                      select addr).ToList();
+                    foreach(Address a in alladdress)
+                    {
+                        addresses.Add(a);
+                    }
 
-                    addresses.Concat(alladdress);
+                    //addresses.Concat(alladdress);
 
                 }
                 return addresses;
@@ -63,8 +67,12 @@ namespace Services
                     var plasmaqty = (from center in uow.CenterRepository.GetAll()
                                      join plasma in uow.PlasmaRepository.GetAll() on center.Id equals plasma.CenterId
                                      select plasma).ToList();
+                    foreach(Plasma p in plasmaqty)
+                    {
+                        plasmaqty.Add(p);
+                    }
 
-                    plasmas.Concat(plasmaqty);
+                    //plasmas.Concat(plasmaqty);
 
                 }
                 return plasmas;
@@ -80,10 +88,15 @@ namespace Services
                 foreach (Center c in centers)
                 {
                     var thrombocyteqty = (from center in uow.CenterRepository.GetAll()
-                                     join thr in uow.ThrombocyteRepository.GetAll() on center.Id equals thr.CenterId
-                                     select thr).ToList();
+                                          join thr in uow.ThrombocyteRepository.GetAll() on center.Id equals thr.CenterId
+                                          select thr).ToList();
+                    foreach (Thrombocyte t in thrombocyteqty)
+                    {
+                        thrombocytes.Add(t);
+                    }
+               
 
-                    thrombocytes.Concat(thrombocyteqty);
+                    //thrombocytes.Concat(thrombocyteqty);
 
                 }
                 return thrombocytes;
@@ -102,7 +115,11 @@ namespace Services
                                           join redcell in uow.RedBloodCellRepository.GetAll() on center.Id equals redcell.CenterId
                                           select redcell).ToList();
 
-                    redcells.Concat(redcellsqty);
+                    foreach(RedBloodCell rc in redcellsqty)
+                    {
+                        redcells.Add(rc);
+                    }
+                    //redcells.Concat(redcellsqty);
 
                 }
                 return redcells;
@@ -121,8 +138,11 @@ namespace Services
                     var bagsqty = (from center in uow.CenterRepository.GetAll()
                                        join bag in uow.BloodBagRepository.GetAll() on center.Id equals bag.CenterId
                                        select bag).ToList();
-
-                    bags.Concat(bagsqty);
+                    foreach(BloodBag bg in bagsqty)
+                    {
+                        bags.Add(bg);
+                    }
+                   // bags.Concat(bagsqty);
 
                 }
                 return bags;

@@ -142,19 +142,20 @@ export class DoctorService {
 
 
     private static toCenter(response: any): ICenterBloodQty {
+        console.log("in tocenter name:");//response.items.length)
         return {
-            center:response.center,
-            location:response.location,
-            component:response.component,
-            group:response.group,
-            rh:response.rh,
-            quantity:response.quantity,
+            CenterName:response.centerName,
+            Address:response.address,
+            Component:response.component,
+            Group:response.group,
+            Rh:response.rh,
+            Quantity:response.quantity,
 
            
         };
     }
 
-    public static getCentersStock(): Promise<ICenterBloodQty[]> {
+    public static getCentersStock(): Promise<any> {
         console.log("e aici");
         return new Promise((resolve, reject) => {
             axios(
@@ -169,11 +170,14 @@ export class DoctorService {
                     withCredentials:true
                 }
             ).then((response: any) => {
+                
+                console.log("response here"+response);
                 let centers = response.data.map(this.toCenter);
+               
                 resolve(centers);
             },
                 (error: any) => {
-                    
+                    console.log("error here");
                     reject(error);
                 });
         });
@@ -230,6 +234,11 @@ export class DoctorService {
     }
 
     private static toRequestGet(response: any): IDoctorRequestView {
+        var statusRo;
+        if (response.status=="Waiting")
+            statusRo="In așteptare";
+        else statusRo="Completă"
+
         return {
             bloodType: response.bloodType,
             requestedQuantity: response.requestedQuantity,
@@ -240,8 +249,8 @@ export class DoctorService {
             dateOfRequest: response.dateOfRequest,
             CNP: response.patient.cnp,
             fullName: response.patient.firstName + " " + response.patient.lastName,
-            id:response.id
-            
+            id:response.id,
+            status:statusRo       
         };
     }
 }

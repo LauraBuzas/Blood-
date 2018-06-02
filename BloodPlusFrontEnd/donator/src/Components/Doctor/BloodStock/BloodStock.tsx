@@ -38,7 +38,7 @@ const RhType = {
  
 };
 const componentType = {
-  'Sange intreg': 'Sange intreg',
+  'Sange neseparat': 'Sange neseparat',
   'Trombocite':'Trombocite',
   'Plasma': 'Plasma',
   'Globule rosii': 'Globule rosii',
@@ -100,26 +100,25 @@ const stocks=[
   quantity:20
 }
 ];
-let stock:ICenterBloodQty[]
 
 
 export class BloodStock extends React.Component<BloodStockProps,BloodStockState>{
         constructor(props){
             super(props);
-           
-
-              
-            
-            DoctorService.getCentersStock().then((centers:ICenterBloodQty[])=> {this.setState({centerstock:centers})},
-            (error) => {
-                console.log(error);
-                
-            });
-          
+           this.state={centerstock:[]};
               this.renderShowsTotal=this.renderShowsTotal.bind(this);
         }
 
 
+
+        componentDidMount(){
+          DoctorService.getCentersStock().then((centers:ICenterBloodQty[])=>{
+              this.setState({
+                  centerstock:centers
+              });
+          });
+          console.log("e aici")
+      }
         renderShowsTotal(start, to, total) {
           return (
             <p style={ { color: 'blue' } }>
@@ -137,7 +136,7 @@ export class BloodStock extends React.Component<BloodStockProps,BloodStockState>
         }, {
           text: '10', value: 10
         }, {
-          text: 'All', value: stocks.length} 
+          text: 'All', value: this.state.centerstock.length} 
         ], // you can change the dropdown list for size per page
         sizePerPage: 5,  // which size per page you want to locate as default
         pageStartIndex: 1, // where to start counting the pages
@@ -147,7 +146,7 @@ export class BloodStock extends React.Component<BloodStockProps,BloodStockState>
         firstPage: 'Prima', // First page button text
         lastPage: 'Ultima', // Last page button text
         paginationShowsTotal: this.renderShowsTotal,  // Accept bool or function
-       // paginationPosition: 'top'  ,// default is bottom, top and both is all available
+        paginationPosition: 'top'  ,// default is bottom, top and both is all available
         // hideSizePerPage: true > You can hide the dropdown for sizePerPage
         alwaysShowAllBtns: true // Always show next and previous button
         // withFirstAndLast: false > Hide the going to First and Last page button
@@ -165,7 +164,7 @@ export class BloodStock extends React.Component<BloodStockProps,BloodStockState>
                 <h1 className='head2'><hr/>Sange disponibil in centre <hr/></h1>
                 <BootstrapTable
                 
-                    data={stocks}
+                    data={this.state.centerstock}
                     striped
                     hover
                     pagination={true}
@@ -173,21 +172,21 @@ export class BloodStock extends React.Component<BloodStockProps,BloodStockState>
                    
                 >
                 
-                    <TableHeaderColumn dataField="center" isKey={true}>Centru</TableHeaderColumn>
-                    <TableHeaderColumn dataField="location" filter={ { type: 'TextFilter', delay: 200 } }>Locatie</TableHeaderColumn>
-                    <TableHeaderColumn dataField="component"
+                    <TableHeaderColumn dataField="CenterName" isKey={true}>Centru</TableHeaderColumn>
+                    <TableHeaderColumn dataField="Address" filter={ { type: 'TextFilter', delay: 200 } }>Locatie</TableHeaderColumn>
+                    <TableHeaderColumn width="20%" dataField="Component"
                     
                     filter={ { type: 'SelectFilter', options: componentType,selectText:'Alege',condition:'eq' } }
                     >Componenta</TableHeaderColumn>
-                    <TableHeaderColumn dataField="group"
+                    <TableHeaderColumn width="10%" dataField="Group"
                      filter={ { type: 'SelectFilter', options: groupType,selectText:'Alege',condition:'eq' } }
                     
                     >Grupa</TableHeaderColumn>
-                    <TableHeaderColumn dataField="rh"
+                    <TableHeaderColumn width="10%" dataField="Rh"
                      filter={ { type: 'SelectFilter', options: RhType,selectText:'Alege' } }
                     
                     >Rh</TableHeaderColumn>
-                    <TableHeaderColumn dataField="quantity">Cantitate</TableHeaderColumn>
+                    <TableHeaderColumn dataField="Quantity">Cantitate</TableHeaderColumn>
                 </BootstrapTable>
           
                   

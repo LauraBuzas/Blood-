@@ -5,7 +5,7 @@ import {IPasswordUpdate} from '../Models/IPasswordUpdate'
 import Cookies from 'universal-cookie';
 import { Session } from 'inspector';
 export class DonorProfileService{
-    private static rootDonor: string = 'http://localhost:51401/donor/profile';
+    private static rootDonor: string = 'http://localhost:54211/donor/profile';
     public static getDonor(): Promise<IDonorGet> {
         return new Promise((resolve, reject) => {
             //var doctorId=cookies.get("DoctorId");

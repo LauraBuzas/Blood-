@@ -53,15 +53,15 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
         this.nextComponent=this.nextComponent.bind(this);
         this.prevComponent=this.prevComponent.bind(this);
         this.state={comp:0,backclass:'buttonBack',nextbtnclass:'buttonNext',nextclass:'Urmator',comp0:'progtrckr-doing',comp1:'progtrckr-todo',comp2:'progtrckr-todo',comp3:'progtrckr-todo',
-        list_data1:['','',new Date(),'','','',''],
+        list_data1:['','',new Date(),'','','','',''],
         list_data2:[0,0,0,0,'Nu','M','',false,false,false,false,false,false,false,true,false],
         list_data3:[false,false,false,false,false,false,false,false,false,false,false,false,false,],
        
         list_data4:["","","",""],
-        listValid1:['validField','validField','validField','validField','validField','validField','validField'],
+        listValid1:['validField','validField','validField','validField','validField','validField','validField','validField'],
         listValid2:['validField','validField','validField','validField','validField'],
         listValid4:['validField','validField'],
-        listValidMessage1:['invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel'],
+        listValidMessage1:['invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel'],
         listValidMessage2:['invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel'],
         listValidMessage4:['invisibleLabel','invisibleLabel'],
         validation_msg:"Sunteti eligibil sa donati"
@@ -174,9 +174,22 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
         this.state.listValid1[6]='validField';
         this.state.listValidMessage1[6]='invisibleLabel'
        }
+
+       if(this.state.list_data1[7]=="" || (!(validator.isNumeric(this.state.list_data1[7])&& this.state.list_data1[7].length==13) )){
+        this.state.listValid1[7]="invalidField";
+        this.state.listValidMessage1[7]='visibleLabel'
+     }
+     else{
+        this.state.listValid1[7]='validField';
+        this.state.listValidMessage1[7]='invisibleLabel'
+       }
+
+
+
      this.setState({listValid1:this.state.listValid1});
      this.setState({listValidMessage1:this.state.listValidMessage1})
     
+
 
         
        }
@@ -185,6 +198,21 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
        validateStepTwo(){
         console.log("e in 2")
         if(this.state.list_data2[0]<=0){
+            this.state.listValid2[0]="invalidField";
+            this.state.listValidMessage2[0]='visibleLabel'
+        }
+        else{
+            this.state.listValid2[0]="validField";
+            this.state.listValidMessage2[0]='invisibleLabel'
+        }
+
+
+        var d=new Date();
+        
+        var dat=new Date(this.state.list_data1[2]);
+        console.log("date:"+d.getFullYear()+" ,"+dat.getFullYear());
+        console.log(d.getFullYear()-dat.getFullYear());
+        if(Math.abs((d.getFullYear()-dat.getFullYear())-this.state.list_data2[0])>1){
             this.state.listValid2[0]="invalidField";
             this.state.listValidMessage2[0]='visibleLabel'
         }
@@ -240,6 +268,7 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
         }
         else{
             this.state.listValidMessage4[0]='invisibleLabel'
+            this.state.listValid4[0]='validField'
         }
         if(this.state.list_data4[1]=="" || !validator.isNumeric(this.state.list_data4[1]) ){
            
@@ -247,7 +276,9 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
             this.state.listValidMessage4[1]='visibleLabel'
         }
         else{
-            this.state.listValidMessage4[0]='invisibleLabel'
+            this.state.listValidMessage4[1]='invisibleLabel'
+            this.state.listValid4[1]='validField'
+
         }
 
         this.setState({listValid4:this.state.listValid4});
@@ -257,6 +288,7 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
   
     nextComponent(){
         var ok=true;
+        var message='';
         console.log(this.state.comp);
         if(this.state.comp==0){
         this.validateStepOne();
@@ -272,7 +304,23 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
         if(this.state.comp==1){
             this.validateStepTwo();
             if(this.state.listValid2[0]=='invalidField'||this.state.listValid2[1]=='invalidField'||this.state.listValid2[2]=='invalidField'||this.state.listValid2[3]=='invalidField'||this.state.listValid2[4]=='invalidField')
-            {ok=false;}
+            {ok=false;
+           /* if(this.state.listValid2[0]=='invalidField'){
+                message+='Varsta trebuie sa fie minim 18 ani.\n';
+            }
+            if(this.state.listValid2[1]=='invalidField'){
+                message+='Greutatea trebuie sa fie peste 55 kg.\n';
+            }
+            if(this.state.listValid2[2]=='invalidField'){
+                message+='Pulsul trebuie sa fie intre 60 si 100 batai/minut.\n';
+            }
+            if(this.state.listValid2[3]=='invalidField'){
+                message+='Tensiunea arteriala trebuie sa fie intre 100 si 180 mmHg.\n'
+            }
+            if(this.state.listValid2[4]=='invalidField'){
+                message+='Daca ati suferit interventii chirurgicale in ultimele 6 luni nu sunteti eligibil sa donati.\n';
+            }*/
+            }
             else{ok=true;}
         }
 
@@ -317,38 +365,154 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
         if(this.state.list_data2[0]<18 || this.state.list_data2[0]>60){
           
             ok1=false;
+            message+='Varsta trebuie sa fie minim 18 ani si maxim 60 ani.\n';
             
         }
+       
+       
         if(this.state.list_data2[1]<50){
            
             ok1=false;
+            message+='Greutatea trebuie sa fie peste 50 kg.\n';
         }
         if(this.state.list_data2[2]<60 || this.state.list_data2[2]>100){
             
             ok1=false;
+            message+='Pulsul trebuie sa fie intre 60 si 100 batai/minut.\n';
         }
 
         if(this.state.list_data2[3]<100 || this.state.list_data2[3]>180){
           
             ok1=false;
+            message+='Tensiunea arteriala trebuie sa fie intre 100 si 180 mmHg.\n'
         }
         if(this.state.list_data2[4]!='Nu'){
            
             ok1=false;
+            message+='Daca ati suferit interventii chirurgicale in ultimele 6 luni nu sunteti eligibil sa donati.\n';
         }
         if(this.state.list_data2[6]!='' && this.state.list_data2[6]!='Nu e cazul'){
+            
             ok1=false;
+            message+='Daca sunteti in perioada de sarcina sau lehuzie nu sunteti eligibil sa donati.\n';
         }
         for(var i=7;i<=13;i++){
             if(this.state.list_data2[i]){
                 ok1=false;
             }
+            switch(i){
+                case 7:
+                    if(this.state.list_data2[i]){
+                        message+="Daca sunteti in perioada menstruala nu puteti dona sange.";
+                    }
+                    break;
+                case 8: 
+                if(this.state.list_data2[i]){
+                    message+="Daca urmati tratament pentu hipertensiune nu puteti dona sange.";
+                }
+                break;
+                case 9: 
+                if(this.state.list_data2[i]){
+                    message+="Daca urmati tratament pentu boli de inima nu puteti dona sange.";
+                }
+                break;
+                case 10: 
+                if(this.state.list_data2[i]){
+                    message+="Daca urmati tratament pentu boli psihice nu puteti dona sange.";
+                }
+                break;
+                case 11: 
+                if(this.state.list_data2[i]){
+                    message+="Daca urmati tratament pentu boli hepatice nu puteti dona sange.";
+                }
+                break;
+                case 12: 
+                if(this.state.list_data2[i]){
+                    message+="Daca urmati tratament pentu boli endocrine nu puteti dona sange.";
+                }
+                break;
+
+            }
         }
+        var m='Nu puteti dona sange deoarece suferiti de :'+"\n";
+        
+        var m1=''
         for(var i=0;i<=12;i++){
             if(this.state.list_data3[i]){
                 ok1=false;
             }
+            switch(i){
+                case 0: 
+                if(this.state.list_data3[i]){
+                    m1+="hepatita,";
+                }
+                break;
+                case 1: 
+                if(this.state.list_data3[i]){
+                    m1+="tbc,";
+                }
+                break;
+                case 2: 
+                if(this.state.list_data3[i]){
+                    m1+="sifilis,";
+                }
+                break;
+                case 3: 
+                if(this.state.list_data3[i]){
+                    m1+="malarie,";
+                }
+                break;
+                case 4: 
+                if(this.state.list_data3[i]){
+                    m1+="epilepsie si alte boli neurologice,";
+                }
+                break;
+                case 5: 
+                if(this.state.list_data3[i]){
+                    m1+="boli psihice,";
+                }
+                break;
+                case 6: 
+                if(this.state.list_data3[i]){
+                    m1+="bruceloza,";
+                }
+                break;
+                case 7: 
+                if(this.state.list_data3[i]){
+                    m1+="ulcer,";
+                }
+                break;
+                case 8: 
+                if(this.state.list_data3[i]){
+                    m1+="diabet zaharat,";
+                }
+                break;
+                case 9: 
+                if(this.state.list_data2[i]){
+                    m1+="boli de inima,";
+                }
+                break;
+                case 10: 
+                if(this.state.list_data3[i]){
+                    m1+="boli de piele: psoriazis, vitiligo,";
+                }
+                break;
+                case 11: 
+                if(this.state.list_data3[i]){
+                    m1+=" miopie forte peste (-) 6 dioptri,";
+                }
+                break;
+                case 12: 
+                if(this.state.list_data3[i]){
+                    m1+="cancer";
+                }
+                break;
+                
+            }
         }
+        if(m1.length!=0){
+            message+=m+m1;
+                    }
 
         if(ok1)
         {this.setState({comp:nextcomp,backclass:'buttonBack',nextclass:'Ok',validation_msg:'Sunteti eligibil sa donati.'});
@@ -374,7 +538,7 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
         
     }
         else{
-            this.setState({comp:nextcomp,backclass:'buttonBack',nextclass:'Ok',validation_msg:'Nu sunteti eligibil sa donati.'})
+            this.setState({comp:nextcomp,backclass:'buttonBack',nextclass:'Ok',validation_msg:'Nu sunteti eligibil sa donati.\n'+message})
         }
         
       }
@@ -448,7 +612,8 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
     
     if(this.state.comp==5 ){
         console.log("spre HP")
-        return (<HomePage/>);
+        //return (<HomePage/>);
+        return (<Redirect to='/'></Redirect>);
      }else{
         return(
            

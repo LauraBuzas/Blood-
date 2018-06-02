@@ -6,8 +6,8 @@ import { IEmployeeDelete } from '../Models/IEmployeeDelete';
 
 export class CenterAdminService {
 
-    private static rootEmployees: string = 'http://localhost:51401/employees';
-    private static rootRegisterEmployees: string = 'http://localhost:51401/account/register/employee';
+    private static rootEmployees: string = 'http://localhost:54211/employees';
+    private static rootRegisterEmployees: string = 'http://localhost:54211/account/register/employee';
 
 
 

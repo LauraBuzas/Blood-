@@ -58,7 +58,12 @@ var nodesDoctor=[
     {
         title:"Pacienții mei",
         link:"doctor/patients"
-    }]
+    },
+    {
+        title:"Sange disponibil",
+        link:"/bloodstock"
+    }
+]
 var nodesHospitalAdmin=[
     {
         title:"Acasă",

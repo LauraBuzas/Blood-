@@ -22,7 +22,7 @@ export class CarouselPage extends React.Component<CarouselPageProps, any> {
             <div>   
                 <img src={this.props.image} alt="image not found"/>
                 
-                <Link to="/donationform" >Vreau sa donez!</Link>
+                <Link to="/donationform" id="register-button">Vreau sa donez!</Link>
                 <p className="legend">{ this.props.legend }</p>
             </div>
         );
