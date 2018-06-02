@@ -31,6 +31,7 @@ export class CenterBloodStock extends React.Component<BloodStockProps, BloodStoc
             showDetails:false,
             currentRow:undefined
         }
+        this.addBloodBag=this.addBloodBag.bind(this);
     }
 
     componentDidMount(){

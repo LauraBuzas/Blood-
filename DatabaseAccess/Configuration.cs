@@ -7,9 +7,7 @@ namespace DatabaseAccess
         {
             get
             {
-
-                return "Data Source= localhost\\SQLEXPRESS01;Initial Catalog=BloodPlus;Integrated Security=True;";
-
+                return "Data Source=localhost\\SQLEXPRESS;Initial Catalog=BloodPlus;Integrated Security=True;";
             }
            
         }

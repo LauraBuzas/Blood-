@@ -223,7 +223,8 @@ namespace BloodPlus.Controllers
 			}
 		}
 
-		private List<BloodStockViewModel> CreateFullStock(List<BloodBag> bagsStock, List<Thrombocyte> thromboStock, List<RedBloodCell> redCellsStock, List<Plasma> plasmaStock) {
+
+        private List<BloodStockViewModel> CreateFullStock(List<BloodBag> bagsStock, List<Thrombocyte> thromboStock, List<RedBloodCell> redCellsStock, List<Plasma> plasmaStock) {
 			List<BloodStockViewModel> finalStock = new List<BloodStockViewModel>();
 			foreach (BloodBag bag in bagsStock) {
                 finalStock.Add(new BloodStockViewModel() {
@@ -234,7 +235,7 @@ namespace BloodPlus.Controllers
                     CNP = bag.Analysis.Donor.CNP,
 					Donor = bag.Analysis.Donor.FirstName + " " + bag.Analysis.Donor.LastName,
 
-                    Stage = bag.Stage.ToString(),
+                    Stage =bag.Stage.ToString(),
 					Date = bag.Date.ToString(),
 
 					Status = bag.Status.ToString()
