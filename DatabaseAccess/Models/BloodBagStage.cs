@@ -6,6 +6,6 @@ namespace DatabaseAccess.Models
 {
     public enum BloodBagStage
     {
-        Sampling, Qualification, Separation
+        Sampling, Qualification, Separation, Sent
     }
 }

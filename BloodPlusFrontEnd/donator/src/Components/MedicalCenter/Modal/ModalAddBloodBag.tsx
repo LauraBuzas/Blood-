@@ -10,6 +10,7 @@ import { TextField } from '../../../utils/TextField';
 // import './ModalDoctorRequest.css'
 import { IAddBloodBag } from '../../../Models/IAddBloodBag';
 import { EmployeeService } from '../../../Services/EmployeeService';
+import { BloodStockModel } from '../../../Models/BloodStockModel';
 
 const styles = {
   fontFamily: "sans-serif",
@@ -18,7 +19,8 @@ const styles = {
 
 export interface ModalAddBloodBagProps
 {
-    onClose:any
+    onClose:any,
+    onAdd:any
 }
 interface ModalAddBloodBagState
 {
@@ -107,6 +109,7 @@ export class ModalAddBloodBag extends React.Component<ModalAddBloodBagProps,Moda
                     effect: 'jelly'
                   });
                   this.setState({open:false});
+                  this.props.onAdd();
                 
     
             },

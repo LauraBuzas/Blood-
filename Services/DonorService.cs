@@ -1,9 +1,11 @@
-﻿using DatabaseAccess.Models;
+﻿using BloodPlus.Services;
+using DatabaseAccess.Models;
 using DatabaseAccess.UOW;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Services
 {
@@ -28,25 +30,54 @@ namespace Services
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                return uow.DonorRepository.GetAll().Include(d => d.MedicalAnalysis).Where(d => d.Id == id).FirstOrDefault().MedicalAnalysis;
+                return uow.DonorRepository.GetAll().Include(d => d.MedicalAnalysis)
+                    .Where(d => d.Id == id)
+                    .FirstOrDefault().MedicalAnalysis;
             }
         }
+        
 
-        public object GetCenterIdForCenterDoctor(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddRegistrationForDonation(String donorName)
+        public void AddRegistrationForDonation(DonorRegistrationForDonation donorRegistrationForDonation)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                var registration = new DonorRegistrationForDonation();
-                registration.DonorName = donorName;
-                registration.RegistrationDate = DateTime.Now;
+                donorRegistrationForDonation.RegistrationDate = DateTime.Now;
+                donorRegistrationForDonation.DonorId = uow.DonorRepository.GetByFunc(donor => donor.CNP == donorRegistrationForDonation.CNP).Id;
+                donorRegistrationForDonation.Donor = uow.DonorRepository.GetByFunc(donor => donor.CNP == donorRegistrationForDonation.CNP);
 
-                uow.DonorRegistrationForDonationRepository.Add(registration);
+                uow.DonorRegistrationForDonationRepository.Add(donorRegistrationForDonation);
                 uow.Save();
+            }
+        }
+
+        public async Task<int> SendEmails(IEmailSender _emailSender,int centerId)
+        {
+            int numberOfEmailsSent = 0;
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var centerAddress = uow.CenterRepository.GetAll().Include(c => c.Address)
+                                    .First(c => c.Id == centerId).Address;
+               
+                var users = uow.DonorRepository.GetAll()
+                                .Include(d => d.Address)
+                                .Where(d => d.Address.City == centerAddress.City);
+
+                await users.ForEachAsync(u =>
+                {
+                    var email = uow.ApplicationUserRepository.GetById(u.Id).Email;
+                    var result = _emailSender.SendEmailConfirmationAsync(email, u, centerAddress);
+                    numberOfEmailsSent += result.IsCompletedSuccessfully ? 1 : 0;
+                });
+            }
+            return numberOfEmailsSent;
+
+        }
+
+        public List<Donor> GetDonors()
+        {
+            using (var uow = new UnitOfWork())
+            {
+                return uow.DonorRepository.GetAll().ToList();
             }
         }
     }

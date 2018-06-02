@@ -4,8 +4,11 @@ import {IDonorUpdate} from '../Models/IDonorUpdate';
 import {IPasswordUpdate} from '../Models/IPasswordUpdate'
 import Cookies from 'universal-cookie';
 import { Session } from 'inspector';
+
+import { Config } from './UrlConfig';
+
 export class DonorProfileService{
-    private static rootDonor: string = 'http://localhost:50272/donor/profile';
+    private static rootDonor: string = Config.url + '/donor/profile';
     public static getDonor(): Promise<IDonorGet> {
         return new Promise((resolve, reject) => {
             //var doctorId=cookies.get("DoctorId");

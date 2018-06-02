@@ -14,7 +14,13 @@ import { DoctorService } from '../../../Services/DoctorService';
 import { Button1 } from '../../../utils/Button1';
 import { ModalDoctorRequest } from '../../Modal/ModalDoctorRequest';
 import {ModalDoctorRequestView} from '../DoctorRequest/Modal/ModalDoctorRequestView';
-export interface DoctorRequestProps{}
+import { WebSocketService } from '../../../Services/WebSocketService';
+import BellIcon from 'react-bell-icon';
+
+export interface DoctorRequestProps
+{
+    webSocket:WebSocketService
+}
 
 interface DoctorRequestState
 {
@@ -22,7 +28,9 @@ interface DoctorRequestState
     message: string,
     addRequest: boolean,
     showDetails: boolean,
-    currentRow: IDoctorRequestView
+    currentRow: IDoctorRequestView,
+    notificationRequested:boolean,
+    activeBell:boolean
 }
 
 export class DoctorRequest extends React.Component<DoctorRequestProps,DoctorRequestState>
@@ -38,9 +46,12 @@ export class DoctorRequest extends React.Component<DoctorRequestProps,DoctorRequ
             message:"",
             addRequest:false,
             showDetails:false,
-            currentRow:undefined
+            currentRow:undefined,
+            notificationRequested:false,
+            activeBell:false
         }
         this.closeDetails=this.closeDetails.bind(this);
+        this.requestAccepted=this.requestAccepted.bind(this);
         
     }
 
@@ -56,7 +67,7 @@ export class DoctorRequest extends React.Component<DoctorRequestProps,DoctorRequ
         },
             (error) => {
                 this.setState({
-                    message: "A apărut o eroare la aducerea datelor despre doctori"
+                    message: "A apărut o eroare la aducerea cererilor de sânge"
                     
                 });
                 Alert.error(this.state.message, {
@@ -83,9 +94,23 @@ export class DoctorRequest extends React.Component<DoctorRequestProps,DoctorRequ
     closeDetails(){
         this.setState({showDetails:false});
     }
+    requestAccepted()
+    {
+        console.log("am primit accept");
+        this.getRequests();
+        this.setState({activeBell:true});
+        setTimeout(function(){
+            this.setState({activeBell:false});
+       }.bind(this),5000);
+    }
     
     render()
     {
+        if(this.props.webSocket!==null && !this.state.notificationRequested){
+            this.props.webSocket.requestAcceptedNotification(this.requestAccepted);
+            this.setState({notificationRequested:true});
+        }
+
         const selectRowProp = {
             clickToSelect: true,           
           };
@@ -95,6 +120,7 @@ export class DoctorRequest extends React.Component<DoctorRequestProps,DoctorRequ
        
         return(
             <div className="container-requests">  
+                <BellIcon width='100' active={this.state.activeBell} animate={this.state.activeBell} />
                 <Helmet>
                     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
                 </Helmet>    
@@ -119,6 +145,7 @@ export class DoctorRequest extends React.Component<DoctorRequestProps,DoctorRequ
                     <TableHeaderColumn dataField='currentQuantity'>Cantitate Curenta</TableHeaderColumn>
                     <TableHeaderColumn dataField='requestedComponent'>Componenta Ceruta</TableHeaderColumn>
                     <TableHeaderColumn dataField='emergencyLevel'>Grad de Urgenta</TableHeaderColumn>
+                    <TableHeaderColumn dataField='status'>Status</TableHeaderColumn>
                 </BootstrapTable>
 
                 </div>

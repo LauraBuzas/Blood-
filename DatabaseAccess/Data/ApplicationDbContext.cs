@@ -204,8 +204,10 @@ namespace DatabaseAccess.Data
              .WithOne()
              .HasForeignKey<Patient>(c => c.IdAddress);
 
-
-
+            //One to many DonorRegitration->Donor
+            builder.Entity<Donor>().HasMany(d => d.RegistrationHistory)
+                                   .WithOne(r => r.Donor)
+                                   .HasForeignKey(d => d.DonorId);
         }
     }
 }

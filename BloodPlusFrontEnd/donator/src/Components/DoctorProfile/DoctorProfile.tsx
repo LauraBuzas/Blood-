@@ -22,6 +22,9 @@ interface DoctorProfileState{
     bgColor:string;
     hospitalName:string;
     newPassword:string;
+    message:string;
+
+    isPasswordChanging: boolean;
 }
 export class DoctorProfile extends React.Component<DoctorProfileProps,DoctorProfileState>
 {
@@ -39,11 +42,15 @@ export class DoctorProfile extends React.Component<DoctorProfileProps,DoctorProf
                     //hospitalId:'',
                     confirmPassword:'',
                     password:''
+                    
                 },
             newPassword:'',
             isLoading: true,
             bgColor: 'gray',
-            hospitalName:''
+            hospitalName:'',
+            message:'',
+
+            isPasswordChanging: false
         }
     };
 
@@ -170,6 +177,10 @@ export class DoctorProfile extends React.Component<DoctorProfileProps,DoctorProf
                 isLoading: true,
                 bgColor: 'gray'
             });
+            Alert.success("Informațiile personale au fost salvate", {
+                position: 'top-right',
+                effect: 'jelly'
+            });
         }
         if(ok2==true && ok3==true){
              let passwordUpdate: IPasswordUpdate = {
@@ -182,6 +193,13 @@ export class DoctorProfile extends React.Component<DoctorProfileProps,DoctorProf
                     position: 'top-right',
                     effect: 'jelly'
                 });
+                this.setState({message:response});
+                if(this.state.message!="Invalid password!" && this.state.message!="Invalid model!")
+                    Alert.success("Parola a fost salvată", {
+                        position: 'top-right',
+                        effect: 'jelly'
+                    });
+                this.setState({message:''})
             });
             this.setState({
                 isLoading: true,
@@ -206,51 +224,62 @@ export class DoctorProfile extends React.Component<DoctorProfileProps,DoctorProf
         });
     }
 
+    togglePasswordChange = () => {
+        if (this.state.isPasswordChanging) {
+            this.setState({
+                isPasswordChanging: false
+            });
+        } else {
+            this.setState({
+                isPasswordChanging: true
+            });
+        }
+    }
+
     render(){
         const {isLoading}=this.state;
         return(
-            <div className="main">
-                <div className="separation"></div>
-                <div>
-                <h1 className="title">Profil doctor</h1>
-                </div>
-                <div className="separation"></div>
-                <div className="main">
-                <HBox className="hBox">
-                    <VBox ClassName="VBox1">
-                        <Avatar className="avatar" src="https://cdn.iconscout.com/public/images/icon/premium/png-512/doctor-physician-practitioner-stethoscope-30ca83c0ae2fdffb-512x512.png" size={200} round={true}/> <br/>
+            <div className="main-doctor">
+                <VBox className="main-container">
+                    <VBox>
+                        {/* <Avatar className="avatar" src="https://cdn.iconscout.com/public/images/icon/premium/png-512/doctor-physician-practitioner-stethoscope-30ca83c0ae2fdffb-512x512.png" size={200} round={true}/> <br/> */}
                         <TextField text="Nume spital" type="text" value={this.state.hospitalName} onChangeFunction={(event)=>this.handleHospitalChange(event)}/>
                     </VBox>
-                    <VBox className="VBox2">
+                    <VBox>
                         <div>
                             <h1 className="mainTitles">Info</h1>
                         </div>
-                        <div className="separation2"></div>
+                       
                         <TextField text="Nume" type="text" value={this.state.doctor.lastname} onChangeFunction={(event) => this.handleLastNameChange(event)} />
                         <TextField text="Prenume" type="text" value={this.state.doctor.firstname} onChangeFunction={(event)=>this.handleFirstNameChange(event)} />
                         <TextField text="Email" type="text" value={this.state.doctor.email} onChangeFunction={(event)=>this.handleEmailChange(event)} />
                         <TextField text="Specializare" type="text" value={this.state.doctor.speciality} onChangeFunction={(event)=>this.handleSpecialityChange(event)}/>
                         <TextField text="Secție" type="text" value={this.state.doctor.ward} onChangeFunction={(event)=>this.handleWardChange(event)} />
-
-                    </VBox>
-                    <VBox className="VBox3">
                         <div>
-                            <h1 className="mainTitles">Schimbă parola</h1>
+                            <button onClick={this.togglePasswordChange} className="generic-button change-pass-btn">Schimbă parola</button>
                         </div>
-                        <div className="separation2"></div>
+                    </VBox>
+                    <VBox className={this.state.isPasswordChanging? "pass-vbox pass-visible": "pass-vbox pass-hidden"}>
                         <MuiThemeProvider muiTheme={getMuiTheme()}>
                         <PasswordField value={this.state.doctor.password}className="passField" onChange={(event) => this.handleCPassChange(event)} hintText="Cel puțin 8 caractere" floatingLabelText="Introdu parola curentă" />
                         <PasswordField value={this.state.newPassword} onChange={(event) => this.handleNewPassChange(event)} hintText="Cel puțin 8 caractere" floatingLabelText="Introdu noua parolă" />
                         <PasswordField value={this.state.doctor.confirmPassword} onChange={(event) => this.handleConfirmPassChange(event)} floatingLabelText="Confirmă noua parolă" />
-                        </MuiThemeProvider>
-                        <br/><br/><br/><br/><br/><br/><br/><br/>
-                        <HBox className="HBoxButtons">
-                            <ReactBootstrap.Button disabled={isLoading} style={{backgroundColor:this.state.bgColor}} className="button" onClick={(event)=>this.handleSave(event)}>Salvează</ReactBootstrap.Button>
-                            <ReactBootstrap.Button disabled={isLoading} style={{backgroundColor:this.state.bgColor}} className="button" onClick={(event)=>this.handleCancel(event)}>Anulează</ReactBootstrap.Button>
-                        </HBox>
+                        </MuiThemeProvider>      
                     </VBox>
-                </HBox>
-                </div>
+                    <HBox>
+                        <ReactBootstrap.Button 
+                            disabled={isLoading} 
+                            className={this.state.isLoading? "generic-button password-btn btn-disabled" : "generic-button password-btn btn-enabled"} 
+                            onClick={(event)=>this.handleSave(event)}>Salvează
+                        </ReactBootstrap.Button>
+                        <ReactBootstrap.Button 
+                            disabled={isLoading} 
+                            className={this.state.isLoading? "generic-button password-btn btn-disabled" : "generic-button password-btn btn-enabled"} 
+                            onClick={(event)=>this.handleCancel(event)}>Anulează
+                        </ReactBootstrap.Button>
+                    </HBox>
+                </VBox>
+               
                 <Alert stack={true} timeout={3000}/>
             </div>    
         );

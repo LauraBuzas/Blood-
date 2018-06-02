@@ -13,20 +13,20 @@ export class WhyPage extends React.Component {
                             <td>
                                 <VBox>
                                     <i className="fa fa-user-md"></i>
-                                    <div className="outer">Cei mai buni medici din tara</div>
+                                    <div className="outer">Cei mai buni medici din țară</div>
                                 </VBox>
                                 
                             </td>
                             <td>
                                 <VBox>
                                     <i className="fa fa-bolt"></i>
-                                    <div className="middle">Viteza si eficienta</div>
+                                    <div className="middle">Viteză și eficiență</div>
                                 </VBox>
                             </td>
                             <td>
                                 <VBox>
                                     <i className="fa fa-check-circle"></i>
-                                    <div className="outer">Aprobat de guvernul roman</div>
+                                    <div className="outer">Aprobat de guvernul român</div>
                                 </VBox>
                             </td>
                         </tr>

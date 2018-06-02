@@ -1,0 +1,95 @@
+.all-requests{
+    margin: 0;
+    display:flex;
+}
+
+.column {
+    float: left;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.left-stock {
+    width: 20%;
+    font-size: 15px;
+}
+
+.right-table {
+  width: 75%;
+  margin: 0 auto;
+}
+
+/* id column */
+.react-bs-table table tr th:first-child {
+  width: 40px;
+}
+
+.react-bs-table table tr td:first-child {
+  width: 40px;
+}
+
+/* accept column */
+.react-bs-table table tr th:last-child {
+  width: 90px;
+}
+
+.react-bs-table table tr td:last-child {
+  width: 90px;
+}
+
+/* group column */
+.react-bs-table table tr th:nth-child(2) {
+  width: 80px;
+}
+
+.react-bs-table table tr td:nth-child(2) {
+  width: 80px;
+}
+
+/* rh column */
+.react-bs-table table tr th:nth-child(3) {
+  width: 100px;
+}
+
+.react-bs-table table tr td:nth-child(3) {
+  width: 100px;
+}
+
+.button-accept {
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  font-size: 30px;
+  border: none;
+  background-color: transparent;
+  color: #11CC00;
+  margin: 0;
+}
+
+.button-accept:hover {
+  color: #33AA00;
+}
+
+.button-accept:focus {
+  outline: none;
+}
+
+.accordion__item div {
+  background-color: #ededff;
+}
+
+.accordion__item div h3 {
+  vertical-align: middle;
+  font-size: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.accordion__item div h3:after {
+  content: '';
+  display: block;
+  height: 10px;
+}
+
+#stock-header {
+  font-family: 'Roboto', sans-serif;
+}
