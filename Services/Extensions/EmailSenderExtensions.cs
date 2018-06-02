@@ -19,8 +19,8 @@ namespace BloodPlus.Services
         {
             var body = $@"<div style='background-color:#8FC4D6;height:100%;width:70%;margin:auto'>{Environment.NewLine}
                             <img width=100% src='http://www.neomobile-jobs.com/wp-content/uploads/2014/07/blood-donation.jpg' alt=''>{Environment.NewLine}
-                            <p>Buna ziua, {donor.FirstName} {donor.LastName}! \n {Environment.NewLine}
-                                Este nevoie de sange la centrul de pe strada {centerAddress.Street}, numarul {centerAddress.Number}.\n\n{Environment.NewLine}
+                            <p>Buna ziua, {donor.FirstName} {donor.LastName}! <br/> {Environment.NewLine}
+                                Este nevoie de sange la centrul de pe strada {centerAddress.Street}, numarul {centerAddress.Number}.<br/> <br/>{Environment.NewLine}
                                 Va asteptam!{Environment.NewLine}
                             </p>{Environment.NewLine}
                             </div>{Environment.NewLine}";

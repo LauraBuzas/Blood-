@@ -327,7 +327,7 @@ export class EmployeeService {
                 resolve(response);
             },
                 (error: any) => {
-                    reject(error);
+                    reject(error.response);
                 });
         });
     }

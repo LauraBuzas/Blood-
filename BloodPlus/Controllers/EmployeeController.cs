@@ -210,6 +210,7 @@ namespace BloodPlus.Controllers
 			try {
 				var centerId = int.Parse(Request.Cookies["CenterId"]);
 				var bagsStock = employeeService.GetBloodBags(centerId);
+                
 				var thromboStock = employeeService.GetThrombocytesStock(centerId);
 				var redCellsStock = employeeService.GetRedBloodCellsStock(centerId);
 				var plasmaStock = employeeService.GetPlasmaStock(centerId);

@@ -6,6 +6,6 @@ namespace DatabaseAccess.Models
 {
     public enum ComponentStatus
     {
-        Available, Sent
+        Available, Sent, Expired
     }
 }
