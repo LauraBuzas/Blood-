@@ -289,6 +289,7 @@ export class CenterBloodStock extends React.Component<BloodStockProps, BloodStoc
                     <TableHeaderColumn dataField="donor" editable={false} width={170}>Donator</TableHeaderColumn>
                     <TableHeaderColumn dataField="cnp" editable={false}>CNP</TableHeaderColumn>
                     <TableHeaderColumn dataField="date" editable={false} isKey={true}>Data</TableHeaderColumn>
+                    <TableHeaderColumn dataField="stage" width={130} editable={false}>Stadiu</TableHeaderColumn>
                     <TableHeaderColumn dataField="status" width={90} editable={false}>Status</TableHeaderColumn>
                     <TableHeaderColumn dataField="button" width={130} dataAlign={'center'} editable={false} dataFormat={this.buttonFormatter.bind(this)}>Schimbă status</TableHeaderColumn>
                     <TableHeaderColumn dataField="button" width={70} dataAlign={'center'} editable={false} dataFormat={this.buttonSeparation.bind(this)}>Separă</TableHeaderColumn>
