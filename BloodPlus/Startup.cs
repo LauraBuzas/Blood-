@@ -71,9 +71,7 @@ namespace BloodPlus
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-			var resp = new HttpResponseMessage();
-			resp.Content = new StringContent("");
-			resp.Content.Headers.Add("Allow", "GET, PUT, POST, DELETE, HEAD");
+			
 
 			services.AddSignalR(
                 options =>
@@ -115,7 +113,7 @@ namespace BloodPlus
 
            
             app.UseAuthentication();
-			app.UseCors(builder => builder.AllowAnyOrigin());
+			
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials());
             app.UseMvc();
 

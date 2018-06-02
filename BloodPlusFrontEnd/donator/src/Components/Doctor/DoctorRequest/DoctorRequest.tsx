@@ -104,6 +104,24 @@ export class DoctorRequest extends React.Component<DoctorRequestProps,DoctorRequ
        }.bind(this),5000);
     }
     
+    emergencyColumnFormat(fieldValue, row, rowIdx, colIdx) {
+        // fieldValue is column value
+        // row is whole row object
+        // rowIdx is index of row
+        // colIdx is index of column
+        switch (fieldValue) {
+            case ("CRITIC"):
+                return "column-critical";
+            case ("RIDICAT"):
+                return "column-high";
+            case ("MEDIU"):
+                return "column-medium";
+            case ("SCĂZUT"):
+                return "column-low";
+        }
+        return "";
+    }
+
     render()
     {
         if(this.props.webSocket!==null && !this.state.notificationRequested){
@@ -147,7 +165,7 @@ export class DoctorRequest extends React.Component<DoctorRequestProps,DoctorRequ
                     <TableHeaderColumn width={80} dataField='requestedQuantity'>Cerut</TableHeaderColumn>
                     <TableHeaderColumn width={80} dataField='currentQuantity'>Curent</TableHeaderColumn>
                     <TableHeaderColumn width={200} dataField='requestedComponent'>Componenta ceruta</TableHeaderColumn>
-                    <TableHeaderColumn width={150} dataField='emergencyLevel'>Grad urgenta</TableHeaderColumn>
+                    <TableHeaderColumn width={150} dataField='emergencyLevel' columnClassName={this.emergencyColumnFormat}>Grad urgenta</TableHeaderColumn>
                     <TableHeaderColumn width={180} dataField='status'>Status</TableHeaderColumn>
                 </BootstrapTable>
 

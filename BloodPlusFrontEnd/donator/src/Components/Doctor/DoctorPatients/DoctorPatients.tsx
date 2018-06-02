@@ -192,7 +192,7 @@ export class DoctorPatients extends React.Component<DoctorPatientsProps,DoctorPa
                 <TableHeaderColumn width={140} dataField='street' editable={false}>Strada</TableHeaderColumn>
                 <TableHeaderColumn width={50} dataField='floor'editable={false}>Etaj</TableHeaderColumn>
                 {/* <TableHeaderColumn dataField='status'editable={false}>Status</TableHeaderColumn> */}
-                <TableHeaderColumn width={120} dataField='select' editable={false} dataFormat = {this.selectStatus.bind(this)}>Schimba status</TableHeaderColumn>
+                <TableHeaderColumn width={160} dataField='select' editable={false} dataFormat = {this.selectStatus.bind(this)}>Schimba status</TableHeaderColumn>
                 </BootstrapTable>
         
                <Alert stack={true} timeout={3000} />

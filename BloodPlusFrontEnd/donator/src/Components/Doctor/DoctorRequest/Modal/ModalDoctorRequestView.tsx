@@ -83,21 +83,20 @@ export class ModalDoctorRequestView extends React.Component<ModalDoctorRequestVi
       bar.animate(this.props.row.currentQuantity/this.props.row.requestedQuantity);
     
   }
+
+  getEmergencyLevelClass() {
+    let level = this.props.row.emergencyLevel;
+    if (level === "SCĂZUT") {
+      return "scazut info-label"; //remove diacriteks
+    } 
+    return level.toLowerCase() + " info-label";
+  }
+
  
   render() {
     const { open } = this.state;
     var currentQuantity=this.props.row.currentQuantity;
     var requiredQuantity=this.props.row.requestedQuantity;
-
-    var style = "";
-    if(this.props.row.emergencyLevel=="SCAZUT")
-        style = "info";
-    if(this.props.row.emergencyLevel=="MEDIU")
-        style = "success";
-    if(this.props.row.emergencyLevel=="RIDICAT")
-        style = "warning";
-    if(this.props.row.emergencyLevel=="CRITIC")
-        style = "danger";
 
     var dateTime=this.props.row.dateOfRequest.split('T')
     var date = dateTime[0];
@@ -114,15 +113,15 @@ export class ModalDoctorRequestView extends React.Component<ModalDoctorRequestVi
           <hr className="invisibleHr"/>
           <div className="hboxWithSpace">
           <div className="labels">
-            <Label className="infoLabel" bsStyle="default">Data cererii: {date + " " + time}</Label>
-            <Label className="infoLabel" bsStyle="default">CNP: {this.props.row.CNP}</Label>
-            <Label className="infoLabel" bsStyle="default">Nume pacient: {this.props.row.fullName}</Label>
-            <Label className="infoLabel" bsStyle="default">Componenta ceruta: {this.props.row.requestedComponent}</Label>
-            <Label className="infoLabel" bsStyle="default">Grupa sange: {this.props.row.bloodType}</Label>
-            <Label className="infoLabel" bsStyle="default">Rh: {this.props.row.rh}</Label>
+            <Label bsClass="info-label" bsStyle="info">Data cererii: {date + " " + time}</Label>
+            <Label bsClass="info-label" bsStyle="info">CNP: {this.props.row.CNP}</Label>
+            <Label bsClass="info-label" bsStyle="info">Nume pacient: {this.props.row.fullName}</Label>
+            <Label bsClass="info-label" bsStyle="info">Componenta ceruta: {this.props.row.requestedComponent}</Label>
+            <Label bsClass="info-label" bsStyle="info">Grupa sange: {this.props.row.bloodType}</Label>
+            <Label bsClass="info-label" bsStyle="info">Rh: {this.props.row.rh}</Label>
             <div>
-            <Label className="emergencyLabel " bsStyle="default">Nivelul urgentei: </Label>
-            <Label className="emergencyLevel" bsStyle={style}>{this.props.row.emergencyLevel}</Label>
+            <h2>Nivelul urgenței</h2>
+            <Label bsClass={this.getEmergencyLevelClass()}>{this.props.row.emergencyLevel}</Label>
             </div>
             </div>
 
