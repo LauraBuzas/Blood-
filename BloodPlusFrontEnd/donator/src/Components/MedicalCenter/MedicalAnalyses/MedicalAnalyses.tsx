@@ -130,7 +130,7 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
         }
         else
         {
-            this.setState({selectedDonor:{value:undefined,label:''} , analysis: update(this.state.analysis, { CNP: { $set: selectedDonor.value } })})
+            this.setState({selectedDonor:{value:undefined,label:''} , analysis: update(this.state.analysis, { CNP: { $set: "" } })})
         }
       }
 
