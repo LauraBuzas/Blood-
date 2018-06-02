@@ -220,7 +220,7 @@ export class SignUp extends React.Component<SignUpProps, SignUpState>
                     type="password" 
                     onChangeFunction={this.handleConfirmPasswordChange.bind(this)} />
             </HBox>
-            <button className="generic-button">Inregistrează-te</button>
+            <button className="generic-button" onClick={(event) => this.registerUser(event)}>Inregistrează-te</button>
         
             </VBox>      
             
