@@ -131,6 +131,8 @@ namespace Services
             {
                 var donor = uow.DonorRepository.GetAll().Where(d => d.CNP == cnp).FirstOrDefault();
                 var donorAnalysis = uow.MedicalAnalysisRepository.GetAll().Include(da => da.BloodBag).Where(ma => ma.DonorId == donor.Id).FirstOrDefault();
+                if (donorAnalysis == null)
+                    throw new Exception("Punga de sange prelevata nu a fost adaugata inca");
                 CopyAnalysisDetailsToDb(uow, donorAnalysis, analysis);
 
                 if (IsNotValidBloodBag(analysis))
