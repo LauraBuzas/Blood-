@@ -16,7 +16,6 @@ namespace BloodPlus.Mappers
                 FirstName = donor.FirstName,
                 LastName = donor.LastName,
                 CNP = donor.CNP,
-
             };
         }
     }

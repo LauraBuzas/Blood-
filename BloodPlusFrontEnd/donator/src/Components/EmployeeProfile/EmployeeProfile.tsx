@@ -73,7 +73,14 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
                     <TextField text="Nume" type="text" value={this.state.employee.lastname} onChangeFunction={(event) =>this.handleLastNameChange(event)}/>
                     <TextField text="Prenume" type="text" value={this.state.employee.firstname} onChangeFunction={(event) =>this.handleFirstNameChange(event)}/>
                     <TextField text="Email" type="text" value={this.state.employee.email} onChangeFunction={(event) =>this.handleEmailChange(event)}/>  
-                    <TextField text="Centru" type="text"  value ={this.state.centerName} onChangeFunction={(event)=>this.handleCenterChange(event)}/>                        
+                    <TextField text="Centru" type="text"  value ={this.state.centerName} onChangeFunction={(event)=>this.handleCenterChange(event)}/>
+
+                    <MuiThemeProvider muiTheme={getMuiTheme()}>
+                    <PasswordField value={this.state.employee.password}className="passField" onChange={(event) => this.handleCPassChange(event)} hintText="Cel puțin 8 caractere" floatingLabelText="Introdu parola curentă" />
+                    <PasswordField value={this.state.newPassword} onChange={(event) => this.handleNewPassChange(event)} hintText="Cel puțin 8 caractere" floatingLabelText="Introdu noua parolă" />
+                    <PasswordField value={this.state.employee.confirmPassword} onChange={(event) => this.handleConfirmPassChange(event)} floatingLabelText="Confirmă noua parolă" />
+                    </MuiThemeProvider>
+
                     <button className="generic-button"  onClick={(event) => this.handleSave(event)}>
                     Salvează modificările
                     </button>
@@ -167,7 +174,7 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
 
     handleNewPassChange(event:any){
         this.setState({
-            newPassword:event.target.value ,
+            newPassword:event.target.value
             
         });
     }
