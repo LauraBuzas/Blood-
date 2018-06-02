@@ -21,7 +21,7 @@ namespace DatabaseAccess.Models
     {
         public int Id { get; set; }
 
-        public int CNP { get; set; }
+        public String CNP { get; set; }
 
         public String Name { get; set; }
 
