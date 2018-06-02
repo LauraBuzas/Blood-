@@ -3,8 +3,10 @@ import Cookies from 'universal-cookie';
 import { IDonorTestGet } from '../Models/IDonorTestGet';
 import { IMedicalTestDate } from '../Models/IMedicalTestDate';
 import { IMedicalTestDetails } from '../Models/IMedicalTestDetails';
-
+import {IDonorRegisterForDonation} from '../Models/IDonorRegisterForDonation';
 import { Config } from './UrlConfig';
+import {IDonorRegistrationData} from '../Models/IDonorRegistrationData'
+import { IDonorContact } from '../Models/IDonorContact';
 
 export class DonorService {
 
@@ -28,6 +30,103 @@ export class DonorService {
                 //console.log(response);
                 
                 resolve(DonorService.mapNextDate(response.data));
+            },
+                (error: any) => {
+                    reject(error);
+                });
+        });
+    }
+
+    public static addRegistration(name: IDonorRegisterForDonation ): Promise<any> {
+
+        return new Promise((resolve, reject) => {
+            axios(
+                this.rootDonors+'/registerForDonation',
+                {
+                    method:'POST',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                        'Access-Control-Allow-Credentials':true
+                    },
+                    withCredentials:true,
+                    maxRedirects:0,
+                    data:name
+                }
+            ).then((response: any) => {
+                console.log(response);
+                console.log(response.headers['set-cookie']);
+                resolve(response);
+                
+            },
+                (error: any) => {
+                    reject(error);
+                })
+        });
+    }
+
+
+    public static getDonorData(): Promise<IDonorRegistrationData> {
+        return new Promise((resolve, reject) => {
+            //var doctorId=cookies.get("DoctorId");
+            axios(
+                this.rootDonors+"/donordata",
+                {
+                    method:'GET',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                        Cookies:'UserId'
+                    },
+                    withCredentials:true,
+                }
+            ).then((response: any) => {
+                //let doctor = response.data.map(this.toDoctor);
+               let donord:IDonorRegistrationData={
+                    name:response.data.name,
+                    surname:response.data.surname,
+                    dob:response.data.dob,
+                    cnp:response.data.cnp,
+                    cityD:response.data.cityD,
+                    countyD:response.data.countyD,
+                    cityR:response.data.cityR,
+                    countyR:response.data.countyR,
+                    
+
+                   
+                }
+                resolve(donord);
+            },
+                (error: any) => {
+                    reject(error);
+                });
+        });
+    }
+
+    public static getDonorContact(): Promise<IDonorContact> {
+        return new Promise((resolve, reject) => {
+            //var doctorId=cookies.get("DoctorId");
+            axios(
+                this.rootDonors+"/donorcontact",
+                {
+                    method:'GET',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                        Cookies:'UserId'
+                    },
+                    withCredentials:true,
+                }
+            ).then((response: any) => {
+                let contactinfo:IDonorContact={
+                    email:response.data.email,
+                    phone:response.data.phone
+
+                   
+                }
+                resolve(contactinfo);
+              
+                resolve(response);
             },
                 (error: any) => {
                     reject(error);

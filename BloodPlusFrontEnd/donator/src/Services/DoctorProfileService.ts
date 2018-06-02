@@ -88,7 +88,7 @@ export class DoctorProfileService{
         return new Promise((resolve, reject) => {
             axios(
 
-                "http://localhost:50272/manage/change",
+                "http://localhost:54211/manage/change",
 
                 {
                     method:'POST',

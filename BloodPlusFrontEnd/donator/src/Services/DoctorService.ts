@@ -5,10 +5,11 @@ import { IDoctorRequestView } from '../Models/IDoctorRequestView';
 import { IPatientGet } from '../Models/IPatientGet';
 import { IPatientStatusChange } from '../Models/IPatientStatusChange';
 import {ICenterBloodQty} from '../Models/ICenterBloodQty';
-
+import { Config } from './UrlConfig';
 export class DoctorService {
 
-    private static rootDoctors: string = 'http://localhost:54211/doctors';
+    private static rootDoctors: string = Config.url + '/doctors';
+
 
 
     public static getHospitalizedPatients(): Promise<any> {

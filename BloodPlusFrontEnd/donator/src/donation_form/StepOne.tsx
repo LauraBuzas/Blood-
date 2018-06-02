@@ -2,15 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom";
 import HeaderForm from './HeaderForm'
 import StepTwo from './StepTwo';
-
+import {IDonorRegistrationData} from '../Models/IDonorRegistrationData'
 import './FormStyle.css'
-
+import {DonorService} from '../Services/DonorService'
 export interface StepOneProps{
   
     handleToParent:Function
     listfromParent:any
     listValidFromParent:any
     listMessageFromParent:any
+    donor:IDonorRegistrationData
     
 }
 
@@ -33,11 +34,15 @@ interface StepOneState{
 
 }
 
+
 export default class StepOne extends React.Component<StepOneProps,StepOneState>{
 
     constructor(props){
+        
         super(props);
-        this.state=this.state={name:this.props.listfromParent[0],surname:this.props.listfromParent[1],date_of_birth:this.props.listfromParent[2],domicile_city:this.props.listfromParent[3],domicile_county:this.props.listfromParent[4],residence_city:this.props.listfromParent[5],residence_county:this.props.listfromParent[6],cnp:this.props.listfromParent[7],
+        console.log("nume: "+this.props.listfromParent[0]);
+        this.state=//{name:this.props.listfromParent[0],surname:this.props.listfromParent[1],date_of_birth:this.props.listfromParent[2],domicile_city:this.props.listfromParent[3],domicile_county:this.props.listfromParent[4],residence_city:this.props.listfromParent[5],residence_county:this.props.listfromParent[6],cnp:this.props.listfromParent[7],
+        {name:this.props.donor.name,surname:this.props.donor.surname,date_of_birth:this.props.donor.dob,domicile_city:this.props.donor.cityD,domicile_county:this.props.donor.countyD,residence_city:this.props.listfromParent[5],residence_county:this.props.listfromParent[6],cnp:this.props.donor.cnp,
            listMessages:['Nume invalid','Prenume invalid','Data nasterii invalida','Localitatea de domiciliu e invalida','Judetul de domiciliu e invalid','Localitatea de resedinta e invalida','Judetul de resedinta e invalid','CNP-ul e invalid'],
            listMessagesClasses:this.props.listMessageFromParent//['invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel']
         }
@@ -51,6 +56,15 @@ export default class StepOne extends React.Component<StepOneProps,StepOneState>{
         this.handleRCounty=this.handleRCounty.bind(this);
         this.handleCNP=this.handleCNP.bind(this);
         
+    }
+    componentDidMount(){
+        DonorService.getDonorData().then((donor:IDonorRegistrationData) => {
+            this.setState({
+                name:donor.name,surname:donor.surname,date_of_birth:donor.dob,domicile_city:donor.cityD,domicile_county:donor.countyD,residence_city:this.props.listfromParent[5],residence_county:this.props.listfromParent[6],cnp:donor.cnp
+               
+            });    
+        });
+
     }
     handleCNP(event){
         this.setState({cnp:event.target.value});
@@ -175,10 +189,13 @@ export default class StepOne extends React.Component<StepOneProps,StepOneState>{
                
             <label>Nume </label>
             <input type='text' value={this.state.name} onChange={this.handleName} name="name" className={this.props.listValidFromParent[0]} />
+            
             <br/><label className={this.state.listMessagesClasses[0]}>{this.state.listMessages[0]}</label>
             <br /><br/>
+               
             <label>Prenume</label>
             <input type='text' value={this.state.surname} onChange={this.handleSurname} name="surname" className={this.props.listValidFromParent[1]}/>
+              
             <br/><label className={this.state.listMessagesClasses[1]}>{this.state.listMessages[1]}</label>
             <br/><br/>
             <label>CNP</label>

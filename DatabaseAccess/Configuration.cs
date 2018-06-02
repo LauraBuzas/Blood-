@@ -8,9 +8,10 @@ namespace DatabaseAccess
             get
             {
 
-                return "Data Source=localhost\\SQLEXPRESS01;Initial Catalog=BloodPlus3;Integrated Security=True;";
+                return "Data Source= DESKTOP-16UNP80\\SQLEXPRESS;Initial Catalog=BloodPlus;Integrated Security=True;";
 
             }
+           
         }
     }
 }

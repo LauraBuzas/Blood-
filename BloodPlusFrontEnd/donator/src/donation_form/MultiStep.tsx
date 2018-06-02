@@ -14,7 +14,7 @@ import Succes from './Succes'
 import {DonorService} from '../Services/DonorService'
 import {Redirect} from 'react-router-dom'
 import { IDonorRegisterForDonation } from "../Models/IDonorRegisterForDonation";
-
+import {IDonorRegistrationData} from '../Models/IDonorRegistrationData'
 export interface MultiStepProps {
     
 }
@@ -39,6 +39,7 @@ interface MultiStepState {
    listValid4:any;
    listValidMessage4:any;
    validation_msg:string;
+   donor:IDonorRegistrationData;
 
   
   
@@ -64,17 +65,25 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
         listValidMessage1:['invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel'],
         listValidMessage2:['invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel'],
         listValidMessage4:['invisibleLabel','invisibleLabel'],
-        validation_msg:"Sunteti eligibil sa donati"
+        validation_msg:"Sunteti eligibil sa donati",
+       donor:{name:"",surname:"",dob:new Date(),cnp:"",cityD:"",cityR:"",countyD:"",countyR:""}
       
         
         
     }
+    DonorService.getDonorData().then((donor:IDonorRegistrationData) => {
+        this.setState({
+           list_data1:[donor.name,donor.surname,donor.dob,donor.cityD,donor.countyD,"","",donor.cnp],
+           
+        });    
+    });
     this.handlefromChild=this.handlefromChild.bind(this);
     this.validateStepOne=this.validateStepOne.bind(this);
     this.validateStepTwo=this.validateStepTwo.bind(this);
     this.validateStepFour=this.validateStepFour.bind(this);
     
     }
+    
 
   
 
@@ -592,7 +601,8 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
        var list=[<StepOne handleToParent={this.handlefromChild}
          listfromParent={this.state.list_data1}
           listValidFromParent={this.state.listValid1} 
-          listMessageFromParent={this.state.listValidMessage1}/>,
+          listMessageFromParent={this.state.listValidMessage1}
+          donor={this.state.donor}/>,
         <StepTwo  handleToParent={this.handlefromChild}
                  listfromParent={this.state.list_data2}
                  listValidFromParent={this.state.listValid2}

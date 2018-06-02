@@ -1,7 +1,7 @@
 .step{
     
     margin-left: 25%;
-    margin-right: 30%;
+    
    
     
     
@@ -16,6 +16,10 @@ hr {
 
   border: 0;
 
+}
+
+.lableinput{
+  float: left;
 }
 
 .optionalText{

@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import HeaderForm from './HeaderForm'
-
+import {DonorService} from '../Services/DonorService'
 import './FormStyle.css'
-
+import {IDonorContact} from '../Models/IDonorContact'
 export interface FinalStepProps{
 handleToParent:Function;
 listfromParent:any
@@ -38,6 +38,17 @@ constructor(props){
     this.handleDonationToName=this.handleDonationToName.bind(this);
     this.handleDonationToSurname=this.handleDonationToSurname.bind(this);
 
+}
+
+componentDidMount(){
+    DonorService.getDonorContact().then((contact:IDonorContact) => {
+        this.setState({
+           email:contact.email,phone:contact.phone
+           
+        });
+        this.props.listfromParent[0]=contact.email;
+        this.props.listfromParent[1]=contact.phone;    
+    });
 }
 handleEmail(event){
     this.setState({email:event.target.value});

@@ -80,5 +80,41 @@ namespace Services
                 return uow.DonorRepository.GetAll().ToList();
             }
         }
+        public Address GetDonorAddres(int id)
+        {
+            Address a = new Address();
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var addr = uow.AddressRepository.GetById(id);
+                a = addr;
+
+
+
+                //thrombocytes.Concat(thrombocyteqty);
+            }
+                
+                return a;
+            }
+        public String GetDonorEmail(string id)
+        {
+            String m = "";
+            using(UnitOfWork uow=new UnitOfWork())
+            {
+                var mail = uow.ApplicationUserRepository.GetAll().Where(u => u.Id.Equals(id)).First().Email;
+                m = mail;
+            }
+            return m;
+        }
+        public String GetDonorPhone(string id)
+        {
+            String m = "";
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var ph = uow.ApplicationUserRepository.GetAll().Where(u => u.Id.Equals(id)).First().PhoneNumber;
+                m = ph;
+            }
+            return m;
+        }
+        
     }
 }

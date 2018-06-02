@@ -118,21 +118,21 @@ export class BloodStock extends React.Component<BloodStockProps,BloodStockState>
                    
                 >
                 
-                    <TableHeaderColumn dataField="CenterName" isKey={true}>Centru</TableHeaderColumn>
+                    <TableHeaderColumn width="8%" dataField="CenterName" isKey={true}>Centru</TableHeaderColumn>
                     <TableHeaderColumn dataField="Address" filter={ { type: 'TextFilter', delay: 200 } }>Locatie</TableHeaderColumn>
-                    <TableHeaderColumn width="15%" dataField="Component"
+                    <TableHeaderColumn width="6%" dataField="Component"
                     
                     filter={ { type: 'SelectFilter', options: componentType,selectText:'Alege',condition:'eq' } }
                     >Componenta</TableHeaderColumn>
-                    <TableHeaderColumn width="10%" dataField="Group"
+                    <TableHeaderColumn width="5%" dataField="Group"
                      filter={ { type: 'SelectFilter', options: groupType,selectText:'Alege',condition:'eq' } }
                     
                     >Grupa</TableHeaderColumn>
-                    <TableHeaderColumn width="10%" dataField="Rh"
+                    <TableHeaderColumn width="5%" dataField="Rh"
                      filter={ { type: 'SelectFilter', options: RhType,selectText:'Alege' } }
                     
                     >Rh</TableHeaderColumn>
-                    <TableHeaderColumn width="10%" dataField="Quantity">Cantitate</TableHeaderColumn>
+                    <TableHeaderColumn width="5%" dataField="Quantity">Cantitate</TableHeaderColumn>
                 </BootstrapTable>
           
                   
