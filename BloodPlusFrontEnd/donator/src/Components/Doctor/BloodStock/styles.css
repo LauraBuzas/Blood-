@@ -1,0 +1,204 @@
+.step{
+    
+    margin-left: 25%;
+    margin-right: 30%;
+   
+    
+    
+
+}
+
+hr {
+  margin-top:10px;
+  height: 2px;
+  
+  background-image: linear-gradient(to right,  rgba(255,0,0,1),rgba(255,0,0,0));
+
+  border: 0;
+
+}
+
+.invisiblediv{
+  display: none;
+}
+
+.visiblediv{
+  display: block;
+}
+
+.optionalText{
+  color:grey;
+  font-style: italic; 
+}
+
+.innerDiv{
+   padding-bottom: 80px;
+    
+}
+
+.invalidField{
+  border: 1px solid red;
+}
+
+.validField{
+  border:0.5px solid darkgray;
+}
+
+.invisibleLabel{
+  visibility: hidden;
+  
+  
+
+}
+
+.visibleLabel{
+  display: inline;
+  color:red;
+  font-weight: lighter;
+  font-size:12px;
+  padding-right: 80px;
+}
+
+.onlyF{
+
+display: none;
+
+}
+
+.onlyFShow{
+
+    display: block;
+    
+    }
+
+label {
+ font-size: 16px;
+ font-weight: bold;
+ padding: 10px;
+}
+
+.subtitle{
+    font-size: 16px;
+ font-weight: bold;
+ padding: 10px;
+ 
+ color:grey;
+}
+
+
+
+.stepName{
+    
+    color:#680b10;
+    text-align: left;
+    padding-bottom: 10px;
+    
+
+}
+
+.head{
+    text-align: center;
+    margin-left: 25%;
+    margin-right: 30%;
+}
+
+.head2{
+  text-align: left;
+  
+  margin-left:10px;
+  font-size: 30px;
+}
+
+.titlelabel{
+  text-align: left;
+  padding-left: 25%;
+ 
+}
+
+.buttonNext
+{
+  height: 50px;
+  padding: 10px 50px;
+  border: none;
+  color: rgb(236, 227, 227);
+  display: inline-block;
+  background: #f70606c7;
+  font-family: 'lato', sans-serif;
+
+  font-size: 13px;
+  letter-spacing: 0.10em;
+  border-radius: 25px;
+  float:right; 
+  margin-right:30%; 
+  
+}
+
+.buttonSubmit
+{
+  height: 50px;
+  padding: 10px 50px;
+  border: none;
+  color: rgb(236, 227, 227);
+  display: inline-block;
+  background: #f70606c7;
+  font-family: 'lato', sans-serif;
+  
+  font-size: 13px;
+  letter-spacing: 0.10em;
+  border-radius: 25px;
+  float:right; 
+  margin-right:30%; 
+  
+}
+
+
+.buttonBack{
+
+  height: 50px;
+  padding: 10px 30px;
+  border: none;
+  color: rgb(236, 227, 227);
+  display: inline-block;
+  background: #f70606c7;
+  font-family: 'lato', sans-serif;
+  
+  font-size: 13px;
+  letter-spacing: 0.10em;
+  border-radius: 25px;
+  float:left; 
+  margin-left: 25%;
+  visibility: hidden;
+  
+
+}
+
+.buttonBackVisible{
+
+    height: 50px;
+    padding: 10px 30px;
+    border: none;
+    color: rgb(236, 227, 227);
+    display: inline-block;
+    background: #f70606c7;
+    font-family: 'lato', sans-serif;
+    
+    font-size: 13px;
+    letter-spacing: 0.10em;
+    border-radius: 25px;
+    float:left; 
+    margin-left: 25%;
+    visibility: visible;
+    
+  
+  }
+
+.buttonBackVisible:hover{
+    background: #680b10;
+  }
+  
+.buttonBack:hover{
+    background: #680b10;
+  }
+.buttonNext:hover{
+    background: #680b10;
+  }

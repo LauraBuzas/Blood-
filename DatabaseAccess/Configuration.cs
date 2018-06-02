@@ -9,6 +9,7 @@ namespace DatabaseAccess
             {
                 return "Data Source=localhost\\SQLEXPRESS;Initial Catalog=BloodPlus;Integrated Security=True;";
             }
+           
         }
     }
 }
