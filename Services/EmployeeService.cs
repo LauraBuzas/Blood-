@@ -153,14 +153,17 @@ namespace Services
 
 		public List<BloodBag> GetBloodBags(int centerId) {
 			using (UnitOfWork uow = new UnitOfWork()) {
-				return uow.BloodBagRepository
-					.GetAll()
-					.Include(bb => bb.Analysis.Donor)
+                var bloodBags = uow.BloodBagRepository
+                    .GetAll()
+                    .Include(bb => bb.Analysis.Donor)
                     .Include(bb => bb.Center)
-					.Where(bb => (bb.Status!=BloodBagStatus.Destroyed && bb.Status!=BloodBagStatus.Rejected && bb.Stage!=BloodBagStage.Sent) && bb.CenterId == centerId)
-					.ToList();
-				
-			}
+                    .Where(bb => (bb.Status != BloodBagStatus.Destroyed && bb.Status != BloodBagStatus.Rejected && bb.Stage != BloodBagStage.Sent) && bb.CenterId == centerId)
+                    .ToList();
+                
+                return bloodBags;
+
+
+            }
 		}
 
 
@@ -244,38 +247,81 @@ namespace Services
 
 		public List<Thrombocyte> GetThrombocytesStock(int centerId) {
 			using (UnitOfWork uow = new UnitOfWork()) {
-				return uow.ThrombocyteRepository
+				var thrombocytes= uow.ThrombocyteRepository
 					.GetAll()
                     .Include(bb => bb.Analysis.Donor)
                     .Include(bb => bb.Center)
-                    .Where(t => t.Status!=ComponentStatus.Sent && t.CenterId == centerId && t.Status!=ComponentStatus.Sent)
+                    .Where(t => t.Status!=ComponentStatus.Sent && t.CenterId == centerId && t.Status!=ComponentStatus.Sent && t.Status != ComponentStatus.Expired)
 					.ToList();
+                thrombocytes.Select(thr =>
+                {
+                    if (thr.ExpirationDateAndTime < DateTime.Now)
+                    {
+                        thr.Status = ComponentStatus.Expired;
+                        uow.ThrombocyteRepository.Update(thr);
+                        uow.Save();
+                        return null;
+                    }
+                    else
+                        return thr;
+                });
 
-			}
+                return thrombocytes;
+
+            }
 		}
 
 		public List<RedBloodCell> GetRedBloodCellsStock(int centerId) {
 			using (UnitOfWork uow = new UnitOfWork()) {
-				return uow.RedBloodCellRepository
+				var redCells = uow.RedBloodCellRepository
 					.GetAll()
                     .Include(bb => bb.Analysis.Donor)
                     .Include(bb => bb.Center)
-                    .Where(rbc => rbc.Status != ComponentStatus.Sent && rbc.CenterId == centerId && rbc.Status!=ComponentStatus.Sent)
+                    .Where(rbc => rbc.Status != ComponentStatus.Sent && rbc.CenterId == centerId && rbc.Status!=ComponentStatus.Sent && rbc.Status != ComponentStatus.Expired)
 					.ToList();
+                redCells.Select(redCell =>
+                 {
+                     if (redCell.ExpirationDateAndTime < DateTime.Now)
+                     {
+                         redCell.Status = ComponentStatus.Expired;
+                         uow.RedBloodCellRepository.Update(redCell);
+                         uow.Save();
+                         return null;
+                     }
+                     else
+                         return redCell;
+                 });
 
-			}
+                return redCells;
+
+            }
 		}
 
 		public List<Plasma> GetPlasmaStock(int centerId) {
 			using (UnitOfWork uow = new UnitOfWork()) {
-				return uow.PlasmaRepository
+				var plasmas= uow.PlasmaRepository
 					.GetAll()
                     .Include(bb => bb.Analysis.Donor)
                     .Include(bb => bb.Center)
-                    .Where(p => p.Status != ComponentStatus.Sent && p.CenterId == centerId && p.Status != ComponentStatus.Sent)
+                    .Where(p => p.Status != ComponentStatus.Sent && p.CenterId == centerId && p.Status != ComponentStatus.Sent && p.Status != ComponentStatus.Expired)
 					.ToList();
 
-			}
+                plasmas.Select(plasma =>
+                {
+                    if (plasma.ExpirationDateAndTime < DateTime.Now)
+                    {
+                        plasma.Status = ComponentStatus.Expired;
+                        uow.PlasmaRepository.Update(plasma);
+                        uow.Save();
+                        return null;
+                    }
+                    else
+                        return plasma;
+                });
+
+                return plasmas;
+
+            }
 		}
 
 		public void CopyAnalysisDetailsToDb(UnitOfWork uow, MedicalAnalysis dbAnalysis, MedicalAnalysis analysis)
