@@ -207,14 +207,94 @@ namespace DatabaseAccess.Data.Migrations
 
             modelBuilder.Entity("DatabaseAccess.Models.DonorRegistrationForDonation", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("DonorName");
+                    b.Property<int>("Age");
+
+                    b.Property<int>("BeatsPerMiute");
+
+                    b.Property<DateTime>("BirthDate");
+
+                    b.Property<int>("BloodPressure");
+
+                    b.Property<bool>("Brucellosis");
+
+                    b.Property<string>("CNP");
+
+                    b.Property<bool>("Cancer");
+
+                    b.Property<string>("CityOfBirth");
+
+                    b.Property<string>("CountyOfBirth");
+
+                    b.Property<string>("CurrentCity");
+
+                    b.Property<string>("CurrentCounty");
+
+                    b.Property<bool>("Diabetes");
+
+                    b.Property<string>("DonorId");
+
+                    b.Property<string>("Email");
+
+                    b.Property<bool>("EndocrineDisease");
+
+                    b.Property<bool>("Epilepsy");
+
+                    b.Property<int>("HadSurgery");
+
+                    b.Property<bool>("HeartDisease");
+
+                    b.Property<bool>("HeartDiseases");
+
+                    b.Property<bool>("Hepatitis");
+
+                    b.Property<bool>("Hypertension");
+
+                    b.Property<bool>("KidneyDisease");
+
+                    b.Property<bool>("LiverDisease");
+
+                    b.Property<bool>("Malaria");
+
+                    b.Property<bool>("MentalIlness");
+
+                    b.Property<bool>("MindIlnesses");
+
+                    b.Property<bool>("Myopia");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("OtherPersonName");
+
+                    b.Property<string>("OtherPersonSurname");
+
+                    b.Property<bool>("Period");
+
+                    b.Property<int>("PersonSex");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("Pox");
+
+                    b.Property<int>("PregnancyStatus");
 
                     b.Property<DateTime>("RegistrationDate");
 
+                    b.Property<bool>("SkinDiseases");
+
+                    b.Property<string>("Surname");
+
+                    b.Property<bool>("Tuberculosis");
+
+                    b.Property<bool>("Ulcer");
+
+                    b.Property<int>("Weigth");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("DonorId");
 
                     b.ToTable("DonorsRegistrationsForDonation");
                 });
@@ -322,6 +402,8 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<int>("IdAddress");
 
                     b.Property<string>("IdDoctor");
+
+                    b.Property<bool>("IsActiveDonor");
 
                     b.Property<string>("LastName")
                         .IsRequired();
@@ -610,6 +692,13 @@ namespace DatabaseAccess.Data.Migrations
                         .WithOne()
                         .HasForeignKey("DatabaseAccess.Models.Donor", "Id")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DatabaseAccess.Models.DonorRegistrationForDonation", b =>
+                {
+                    b.HasOne("DatabaseAccess.Models.Donor", "Donor")
+                        .WithMany("RegistrationHistory")
+                        .HasForeignKey("DonorId");
                 });
 
             modelBuilder.Entity("DatabaseAccess.Models.Employee", b =>

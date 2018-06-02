@@ -3,11 +3,12 @@ import { IEmployeeGet } from '../Models/IEmployeeGet';
 import Cookies from 'universal-cookie';
 import { Session } from 'inspector';
 import { IEmployeeDelete } from '../Models/IEmployeeDelete';
+import { Config } from './UrlConfig';
 
 export class CenterAdminService {
 
-    private static rootEmployees: string = 'http://localhost:51401/employees';
-    private static rootRegisterEmployees: string = 'http://localhost:51401/account/register/employee';
+    private static rootEmployees: string = Config.url + '/employees';
+    private static rootRegisterEmployees: string = Config.url + '/account/register/employee';
 
 
 

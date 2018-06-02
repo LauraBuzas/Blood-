@@ -110,12 +110,11 @@ namespace BloodPlus.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("Numele nu este valid!");
+                return BadRequest("Datele dunt invalide");
             }
-
             try
             {
-                donorService.AddRegistrationForDonation(donorsRegisterForDonation.DonorName);
+                donorService.AddRegistrationForDonation(MapperDonorRegistrationForDonation.ToDonorRegistrationForDonation(donorsRegisterForDonation));
                 return Ok();
             } catch(Exception exception)
             {
@@ -123,5 +122,6 @@ namespace BloodPlus.Controllers
             }
         }
 
+       
     }
 }

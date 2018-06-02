@@ -23,7 +23,7 @@ export class Footer extends React.Component {
     }
 
     render() {
-        this.placeAtBottom();
+        //this.placeAtBottom();
         return(
             <div id="footer">
                 <button onClick={this.scrollUp} className="footer-button up-button" id="up-button">

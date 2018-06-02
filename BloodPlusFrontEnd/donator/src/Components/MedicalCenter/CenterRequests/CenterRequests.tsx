@@ -17,8 +17,6 @@ import {
     AccordionItemBody,
 } from 'react-accessible-accordion';
 import 'react-accessible-accordion/dist/fancy-example.css';
-import NotificationBadge from 'react-notification-badge';
-import {Effect} from 'react-notification-badge';
 
 export interface CenterRequestProps{webSocket:WebSocketService;}
 interface CenterRequestState
@@ -107,7 +105,9 @@ export class CenterRequest extends React.Component<CenterRequestProps,CenterRequ
     }
 
     buttonAccept(cell,row){
-          return <button className="button-accept" onClick = {() => {this.acceptRequest(row)}}>Acceptă</button>
+          return <button className="button-accept" onClick = {() => {this.acceptRequest(row)}}>
+            <i className="fa fa-check-square"></i>
+            </button>
     }
 
     acceptRequest(row)
@@ -174,7 +174,7 @@ export class CenterRequest extends React.Component<CenterRequestProps,CenterRequ
              <NotificationBadge count={this.state.noNotifications} effect={Effect.SCALE}/>
         </div> */}
             <div className="column left-stock">
-                <h1> Stoc sange </h1>
+                <h1 id="stock-header"> Stoc sânge </h1>
                 <Accordion>
                 <AccordionItem>
                     <AccordionItemTitle>
@@ -226,7 +226,7 @@ export class CenterRequest extends React.Component<CenterRequestProps,CenterRequ
             <TableHeaderColumn dataField='component' >Componentă</TableHeaderColumn>
             <TableHeaderColumn dataField='dateOfRequest'>Data</TableHeaderColumn>
             <TableHeaderColumn dataField='emergencyLevel' >Nivel urgență</TableHeaderColumn>
-            <TableHeaderColumn dataField='quantityNeeded'>Cantitate necesară</TableHeaderColumn>
+            <TableHeaderColumn dataField='quantityNeeded'>Necesar</TableHeaderColumn>
             <TableHeaderColumn dataField="button" dataAlign={'center'} editable={false} dataFormat={this.buttonAccept.bind(this)}>Acceptă</TableHeaderColumn>
             </BootstrapTable>
            <Alert stack={true} timeout={3000} />

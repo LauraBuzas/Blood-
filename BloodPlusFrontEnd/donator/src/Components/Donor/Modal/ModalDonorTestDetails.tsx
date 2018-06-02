@@ -1,16 +1,14 @@
 import * as React from 'react'
 import Modal from "react-responsive-modal";
-import '../../Doctor/DoctorRequest/Modal/ModalDoctorRequestView.css';
 import {Helmet} from 'react-helmet'
 import {Label} from 'react-bootstrap'
 import { IMedicalTestDetails } from '../../../Models/IMedicalTestDetails';
 import { DonorService } from '../../../Services/DonorService';
 import Alert from 'react-s-alert';
-
+import './modal-tests.css';
 
 const styles = {
-  fontFamily: "sans-serif",
-  textAlign: "center"
+  fontFamily: "sans-serif"
 };
 
 export interface ModalDonorTestDetailsProps
@@ -67,25 +65,25 @@ export class ModalDonorTestDetails extends React.Component<ModalDonorTestDetails
 
 
     return (
-      <div style={styles}>
+      <div id="modal-medical-tests" style={styles}>
         <Helmet>
             <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css"/>
         </Helmet>    
         
-        <Modal open={open} onClose={this.onCloseModal} large>
+        <Modal dialogClassName="tests-modal" open={open} onClose={this.onCloseModal} large>
           <h2>Detalii analiză</h2>
-          <hr className="invisibleHr"/>
+          {/* <hr className="invisibleHr"/> */}
           <div>
             <div>
-                <Label className="infoLabel" bsStyle="default">Data analiza: {date+" "+time}</Label>
-                <Label className="infoLabel" bsStyle="default">Nivel ALT: {this.props.currentTest.altLevel}</Label>
-                <Label className="infoLabel" bsStyle="default">HTLV: {this.props.currentTest.HTLV}</Label>
-                <Label className="infoLabel" bsStyle="default">Hepatita B: {this.props.currentTest.hepatitisB}</Label>
-                <Label className="infoLabel" bsStyle="default">Hepatita C: {this.props.currentTest.hepatitisC}</Label>
-                <Label className="infoLabel" bsStyle="default">HIV: {this.props.currentTest.hiv}</Label>
-                <Label className="infoLabel" bsStyle="default">Sifilis: {this.props.currentTest.Sifilis}</Label>
-                <Label className="infoLabel" bsStyle="default">Respins din alte cauze:{this.props.currentTest.rejectedOtherCauses}</Label>
-                <Label className="infoLabel" bsStyle="default">Observatii:{this.props.currentTest.observations}</Label>
+                <Label bsClass="info-label" bsStyle="info">Data analiza: {date+" "+time}</Label>
+                <Label bsClass="info-label" bsStyle="info">Nivel ALT: {this.props.currentTest.altLevel}</Label>
+                <Label bsClass="info-label" bsStyle="info">HTLV: {this.props.currentTest.HTLV}</Label>
+                <Label bsClass="info-label" bsStyle="info">Hepatita B: {this.props.currentTest.hepatitisB}</Label>
+                <Label bsClass="info-label" bsStyle="info">Hepatita C: {this.props.currentTest.hepatitisC}</Label>
+                <Label bsClass="info-label" bsStyle="info">HIV: {this.props.currentTest.hiv}</Label>
+                <Label bsClass="info-label" bsStyle="info">Sifilis: {this.props.currentTest.Sifilis}</Label>
+                <Label bsClass="info-label" bsStyle="info">Respins din alte cauze:{this.props.currentTest.rejectedOtherCauses}</Label>
+                <Label bsClass="info-label" bsStyle="info">Observatii:{this.props.currentTest.observations}</Label>
             </div>
          </div>
           
