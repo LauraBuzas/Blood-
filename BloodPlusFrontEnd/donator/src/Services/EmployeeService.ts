@@ -166,7 +166,6 @@ export class EmployeeService {
             status:response.status
         };
     }
-
     public static mapBloodStock(data: any): BloodStockModel[] {
         let result = [];
         for (let i = 0; i < data.length; i++) {
