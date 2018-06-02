@@ -2,26 +2,11 @@
 
 namespace DatabaseAccess.Models
 {
-    public enum Sex
-    {
-        Male, Female
-    }
-
-    public enum Pregnancy
-    {
-        NotPregnant, Pregnant, PostPregnant
-    }
-
-    public enum Surgery
-    {
-        Yes, No
-    }
-
     public class DonorRegistrationForDonation
     {
         public int Id { get; set; }
 
-        public int CNP { get; set; }
+        public String CNP { get; set; }
 
         public String Name { get; set; }
 
