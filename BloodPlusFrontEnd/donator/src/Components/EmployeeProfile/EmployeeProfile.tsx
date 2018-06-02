@@ -186,7 +186,7 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
         });
     }
 
-    handleUpdate
+    
 
     handleSave(event:any){
         var completed = true;
