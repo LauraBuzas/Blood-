@@ -8,6 +8,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: #ededff;
+    padding-right: 40px;
     /* background-blend-mode: soft-light; */
 }
 
@@ -42,17 +43,29 @@
     text-decoration: none;
 }
 
+@media (max-width: 840px) {
+    .hangouts-nodes a{
+        font-size: 18px;
+        padding: 10px 10px;
+    }
 
+    .log-out, .home-link {
+        font-size: 30px;
+        padding: 10px 10px;
+        
+    }
 
-@media (max-width: 700px) {
+}
+
+@media (max-width: 720px) {
     .hangouts-nodes a{
         font-size: 15px;
-        padding: 20px 10px;
+        padding: 5px 5px;
     }
 
     .home-link, .log-out {
         font-size: 30px;
-        padding: 10px 10px;
+        padding: 5px 5px;
     }
 }
 
@@ -70,7 +83,7 @@
 
 .log-out {
     position: absolute;
-    right: 5px;
+    right: 0px;
     font-size: 30px;
     padding: 10px 10px;
     

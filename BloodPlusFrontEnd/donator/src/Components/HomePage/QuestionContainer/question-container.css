@@ -3,6 +3,10 @@
     margin-right: 5px;
 }
 
+.question i {
+    margin: 0 5px;
+}
+
 .question {
     width: 100%;
     max-width: 800px;;

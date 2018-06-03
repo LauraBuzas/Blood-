@@ -9,6 +9,7 @@ import { AccountService } from '../../Services/AccountServices';
 import Alert from 'react-s-alert';
 import { Redirect } from 'react-router';
 
+
 export interface HeaderProps
 {
     role:string;
@@ -60,7 +61,7 @@ var nodesDoctor=[
         link:"doctor/patients"
     },
     {
-        title:"Sange disponibil",
+        title:"Sânge disponibil",
         link:"/bloodstock"
     }
 ]
@@ -94,16 +95,20 @@ var nodesEmployee=[
         link:"/employee/profile"
     },
     {
-        title:"Cereri de sânge",
+        title:"Cereri sânge",
         link:"/employee/requests"
     },
     {
-        title: "Stoc sange",
+        title: "Stoc sânge",
         link: "/employees/stock"
     },
     {
         title: "Analize",
         link: "/employees/analyses"
+    },
+    {
+        title:"Donatori",
+        link: "/employees/donors"
     }
 
 ]
@@ -170,22 +175,25 @@ export class Header extends React.Component<HeaderProps,HeaderState>
 
     renderHeader(isRegistered:boolean, currentNodes)
     {
-            return( 
-                <div className="hangouts-header">
-                <div className="hangouts-nodes">
-                    <Link className="home-link" to="/">
-                        <i className="fa fa-home"></i>
+        return( 
+            <div className="hangouts-header">
+            <div className="hangouts-nodes">
+                <Link className="home-link" to="/">
+                    <i className="fa fa-home"></i>
+                    
+                </Link>
+                    
+                {currentNodes.map(this.renderNode.bind(this))}
+                {isRegistered?
+                    <Link className="log-out" onClick={this.props.logOut} to="/">
+                        <i className="fa fa-sign-out"></i>
+                        
+                        
                     </Link>
-                       
-                    {currentNodes.map(this.renderNode.bind(this))}
-                    {isRegistered?
-                        <Link className="log-out" onClick={this.props.logOut} to="/">
-                           <i className="fa fa-angle-double-right"></i>
-                        </Link>
-                        : <Redirect to="/"/>
-                    }
-                   
-                </div>
-                </div>)
+                    : <Redirect to="/"/>
+                }
+                
+            </div>
+            </div>)
     }
 }

@@ -1,0 +1,13 @@
+.select-status {
+    width: 100%;
+    margin: 2px auto;
+    padding: 3px;
+}
+
+.patients-table-area {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}

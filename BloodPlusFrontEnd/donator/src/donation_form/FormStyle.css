@@ -1,188 +1,162 @@
-.step{
-    
-    margin-left: 25%;
-    
-   
-    
-    
-    
-
+.header-register {
+  font-size: 30px;
+  color: #333333;
+  font-family: 'Roboto', sans-serif;
+  padding: 10px;
 }
 
-hr {
-  height: 3px;
-  
-  background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1),rgba(255,0,0,0));
-
-  border: 0;
-
+.step {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
 }
 
-.lableinput{
-  float: left;
-}
-
-.optionalText{
-  color:grey;
-  font-style: italic; 
-}
-
-.innerDiv{
-   padding-bottom: 80px;
-    
-}
-
-.invalidField{
-  border: 1px solid red;
-}
-
-.validField{
-  border:0.5px solid darkgray;
-}
-
-.invisibleLabel{
-  visibility: hidden;
-  
-  
+.register-donation-field {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  width: 100%;
 
 }
-
-.visibleLabel{
-  display: inline;
-  color:red;
-  font-weight: lighter;
-  font-size:12px;
-  padding-right: 80px;
-}
-
-.onlyF{
-
-display: none;
-
-}
-
-.onlyFShow{
-
-    display: block;
-    
-    }
-
-label {
- font-size: 16px;
- font-weight: bold;
- padding: 10px;
- 
-}
-
-.subtitle{
-    font-size: 16px;
- font-weight: bold;
- padding: 10px;
- 
- color:grey;
+.register-donation-field input, .register-donation-field select {
+  border: 1px solid #666666;
 }
 
 
-
-.stepName{
-    
-    color:#680b10;
-    text-align: left;
-    padding-bottom: 10px;
-    
-
+.sex-field {
+  width: 100%;
+  margin: 10px;
 }
 
-.head{
-    text-align: center;
-    margin-left: 25%;
-    margin-right: 30%;
+.onlyFShow {
+  width: 100%;
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: unset;
 }
 
-.buttonNext
-{
-  height: 50px;
-  padding: 10px 50px;
-  border: none;
-  color: rgb(236, 227, 227);
+.onlyFShow label, .onlyFShow select {
   display: inline-block;
-  background: #f70606c7;
-  font-family: 'lato', sans-serif;
-
-  font-size: 13px;
-  letter-spacing: 0.10em;
-  border-radius: 25px;
-  float:right; 
-  margin-right:30%; 
   
 }
 
-.buttonSubmit
-{
-  height: 50px;
-  padding: 10px 50px;
-  border: none;
-  color: rgb(236, 227, 227);
-  display: inline-block;
-  background: #f70606c7;
-  font-family: 'lato', sans-serif;
-  
-  font-size: 13px;
-  letter-spacing: 0.10em;
-  border-radius: 25px;
-  float:right; 
-  margin-right:30%; 
+.header-label {
+  color: #444444;
+  font-size: 24px;
+  width: 100%;
+  padding: 5px;
+  display: block;
+  text-align: left;
+  margin: 2px;
+}
+
+.register-donation-field > label {
+  padding: 5px;
+  width: 100%;
+  max-width: 140px;
+  min-width: 70px;
+  display: block;
+  line-height: 1;
+  font-family: 'Roboto', sans-serif;
+  flex-grow: 1;
   
 }
 
+.step3-diseases > div {
+  display: block;
+  text-align: left;
+  width: 100%;
+  max-width: 250px;
+  margin: 10px auto;
+}
 
-.buttonBack{
+.step3-diseases input {
+  /* display: block; */
+  margin: 5px;
+  height: 15px;
+  width: 30px;
+}
 
-  height: 50px;
-  padding: 10px 30px;
-  border: none;
-  color: rgb(236, 227, 227);
-  display: inline-block;
-  background: #f70606c7;
-  font-family: 'lato', sans-serif;
-  
-  font-size: 13px;
-  letter-spacing: 0.10em;
-  border-radius: 25px;
-  float:left; 
-  margin-left: 25%;
-  visibility: hidden;
-  
+.tratament div {
+  width: 100%;
+  margin: 5px auto;
+}
+
+.tratament {
+  width: 100%;
+  max-width: 200px;
+  text-align: left;
+  margin: 5px auto 5px 10%;
 
 }
 
-.buttonBackVisible{
+.register-donation-field input[type="text"],
+.register-donation-field input[type="date"], 
+.register-donation-field input[type="number"], 
+.register-donation-field select {
+  padding: 5px;
+  margin: 5px;
+  font-size: 15px;
+  width: 200px;
+  box-sizing: border-box;
+  transition-duration: 0.5s;
+  border-radius: 4px;
+  height: 30px;
+}
 
-    height: 50px;
-    padding: 10px 30px;
-    border: none;
-    color: rgb(236, 227, 227);
-    display: inline-block;
-    background: #f70606c7;
-    font-family: 'lato', sans-serif;
-    
-    font-size: 13px;
-    letter-spacing: 0.10em;
-    border-radius: 25px;
-    float:left; 
-    margin-left: 25%;
-    visibility: visible;
-    
-  
-  }
+.register-donation-field input[type="checkbox"] {
+  height: 15px;
+  width: 30px;
+}
 
-.buttonBackVisible:hover{
-    background: #680b10;
-  }
+.register-donation-field input[type="radio"] {
+  height: 15px;
+  width: 30px;
+}
+
+.register-donation-field input[type="text"]:focus, .register-donation-field input[type="date"]:focus {
+
   
-.buttonBack:hover{
-    background: #680b10;
-  }
-.buttonNext:hover{
-    background: #680b10;
-  }
+}
+
+.invisibleLabel {
+  max-width: 200px;
+  width: 100%;
+}
+
+.step-name {
+  padding: 5px;
+  color: #555555;
+  font-size: 20px;
+}
+
+.measure-unit {
+  font-size: 14px;
+  text-align: left;
+}
+
+.step4-fields, .step4-fields div {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+.step4-fields div label {
+  width: 90px;
+}
+
+.step4-fields input {
+  padding: 5px;
+  margin: 5px;
+  font-size: 15px;
+  width: 200px;
+  box-sizing: border-box;
+  transition-duration: 0.3s;
+  border-radius: 4px;
+  height: 30px;
+  border: 1px solid #666666;
+}

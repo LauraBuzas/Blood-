@@ -11,6 +11,10 @@ import update from 'react-addons-update';
 import Alert from 'react-s-alert';
 import '../css/SignUp.css';
 import '../css/Button.css';
+import { Link } from 'react-router-dom';
+import {ImgSource} from '../Components/ImgSource/ImgSource';
+
+
 
 export interface SignUpProps 
 {
@@ -19,7 +23,6 @@ export interface SignUpProps
 interface SignUpState {
     newUser: IUserRegister
     created: boolean
-    redirect: boolean
 }
 export class SignUp extends React.Component<SignUpProps, SignUpState> 
 {
@@ -42,8 +45,8 @@ export class SignUp extends React.Component<SignUpProps, SignUpState>
                         cnp : ''
                     },
                 created: false,
-                redirect: false   
             }
+            this.linkLogin=this.linkLogin.bind(this);
     }
 
     handleEmailChange(event: any) {
@@ -210,21 +213,26 @@ export class SignUp extends React.Component<SignUpProps, SignUpState>
         });
     }
 
-    updateRedirect() {
-        this.setState({redirect: true});
+    // updateRedirect() {
+    //     this.setState({redirect: true});
+    // }
+
+    linkLogin()
+    {
+        return <Link to="/logIn">Conectează-te acum și alătură-te donatorilor de sânge</Link>
     }
 
 
     render() {
-        if(this.state.created === true && this.state.redirect !== true) {
-            return <Alert stack={true} timeout={3000} onClose={this.updateRedirect()}/>
-        }
-        if(this.state.created === true && this.state.redirect === true) {
-            return <Redirect to="/"/>
-        }
+        // if(this.state.created === true && this.state.redirect !== true) {
+        //     return <Alert stack={true} timeout={3000} onClose={this.updateRedirect()}/>
+        // }
+        // if(this.state.created === true && this.state.redirect === true) {
+        //     return <Redirect to="/"/>
+        // }
         return (
-            <VBox id="signup-container">
-            
+            <div id="signup-main">
+<VBox id="signup-container">
             {/* first and last names */}
             <HBox>
                 <TextField text="Nume" 
@@ -271,9 +279,15 @@ export class SignUp extends React.Component<SignUpProps, SignUpState>
                     type="password" 
                     onChangeFunction={this.handleConfirmPasswordChange.bind(this)} />
             </HBox>
-            <button className="generic-button" onClick={(event) => this.registerUser(event)}>Inregistrează-te</button>
+            {this.state.created === true?this.linkLogin():         
+               <button className="generic-button" onClick={(event) => this.registerUser(event)}>Inregistrează-te</button>
+            }
             <Alert stack={true} timeout={3000} />
-            </VBox>      
+           
+            </VBox>
+            <ImgSource source="www.tophospitals.ro"  white={true}/>
+            </div>
+            
         );
     }
 }

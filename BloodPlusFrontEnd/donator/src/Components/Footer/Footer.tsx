@@ -31,7 +31,7 @@ export class Footer extends React.Component {
                 </button>
                 
                 <a href="/" className="footer-button" id="up-button">
-                    Acasă
+                    <i className="fa fa-home"></i>
                 </a>
             
                 

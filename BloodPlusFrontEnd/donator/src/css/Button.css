@@ -1,4 +1,5 @@
 .generic-button {
+  color: white;
   height: 50px;
   padding: 12px 30px;
   border: none;
@@ -12,10 +13,19 @@
   border-radius: 25px;
   margin: 10px auto;
   width: 300px;
+  transition-duration: 0.2s;
 
   -webkit-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75);
   -moz-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75);
   box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75);
+}
+
+.generic-button:hover {
+  color: #DDDDDD;
+}
+
+.generic-button:focus {
+  outline: none;
 }
 
 @media (max-width: 700px) {
@@ -26,69 +36,12 @@
   }
 }
 
+.green-button {
+  background-color: #22AA10;
+}
+
 .titles
 {
   color: #000055;
 }
 
-.div-add-bloodbag
-{
-  background-color: #98c4ea;
-
-}
-.buttonAddBloodBag
-{
-  height: 50px;
-  padding: 0px 10px;
-  border: none;
-  color: rgb(236, 227, 227);
-  display: inline-block;
-  background: #f70606c7;
-  font-family: 'lato', sans-serif;
-  text-transform: uppercase;
-  font-size: 13px;
-  letter-spacing: 0.10em;
-  border-radius: 25px;
-  margin-left: 20px;
-}
-
-.buttonRequestBlood
-{
-  height: 50px;
-  padding: 0px 10px;
-  border: none;
-  color: rgb(236, 227, 227);
-  display: inline-block;
-  background: #f70606c7;
-  font-family: 'lato', sans-serif;
-  text-transform: uppercase;
-  font-size: 13px;
-  letter-spacing: 0.10em;
-  border-radius: 25px;
-  margin-right: 10px;
-  float:right;
-}
-.buttonSendRequest, 
-{
-  height: 40px;
-  width: 130px;
-  padding: 10px 10px 10px 10px;
-  border: none;
-  color: rgb(236, 227, 227);
-  display: inline-block;
-  background: #f70606c7;
-  font-family: 'lato', sans-serif;
-  text-transform: uppercase;
-  font-size: 13px;
-  letter-spacing: 0.10em;
-  border-radius: 25px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 10px;
-}
-.invisibleHr
-{
-  width:600px;
-  visibility: hidden;
-
-}

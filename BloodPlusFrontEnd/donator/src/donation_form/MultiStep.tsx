@@ -56,7 +56,7 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
         
         this.nextComponent=this.nextComponent.bind(this);
         this.prevComponent=this.prevComponent.bind(this);
-        this.state={comp:0,backclass:'buttonBack',nextbtnclass:'buttonNext',nextclass:'Urmator',comp0:'progtrckr-doing',comp1:'progtrckr-todo',comp2:'progtrckr-todo',comp3:'progtrckr-todo',
+        this.state={comp:0,backclass:'buttonBack',nextbtnclass:'buttonNext',nextclass:'Următor',comp0:'progtrckr-doing',comp1:'progtrckr-todo',comp2:'progtrckr-todo',comp3:'progtrckr-todo',
        list_data1:['','',new Date(),'','','','',''],
       // list_data1:[donor1.name,donor1.surname,donor1.dob,donor1.cityD,donor1.countyD,'','',donor1.cnp],
         list_data2:[0,0,0,0,'Nu','M','',false,false,false,false,false,false,false,true,false],
@@ -69,7 +69,7 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
         listValidMessage1:['invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel'],
         listValidMessage2:['invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel','invisibleLabel'],
         listValidMessage4:['invisibleLabel','invisibleLabel'],
-        validation_msg:"Sunteti eligibil sa donati",
+        validation_msg:"Sunteți eligibil să donați",
       
       
         
@@ -361,7 +361,7 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
         if(this.state.list_data2[0]<18 || this.state.list_data2[0]>60){
           
             ok1=false;
-            message+='Varsta trebuie sa fie minim 18 ani si maxim 60 ani.\n';
+            message+='Vârsta trebuie să fie minim 18 ani și maxim 60 ani.\n';
             
         }
        
@@ -369,28 +369,28 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
         if(this.state.list_data2[1]<50){
            
             ok1=false;
-            message+='Greutatea trebuie sa fie peste 50 kg.\n';
+            message+='Greutatea trebuie să fie peste 50 kg.\n';
         }
         if(this.state.list_data2[2]<60 || this.state.list_data2[2]>100){
             
             ok1=false;
-            message+='Pulsul trebuie sa fie intre 60 si 100 batai/minut.\n';
+            message+='Pulsul trebuie să fie între 60 și 100 bătăi/minut.\n';
         }
 
         if(this.state.list_data2[3]<100 || this.state.list_data2[3]>180){
           
             ok1=false;
-            message+='Tensiunea arteriala trebuie sa fie intre 100 si 180 mmHg.\n'
+            message+='Tensiunea arterială trebuie să fie între 100 și 180 mmHg.\n'
         }
         if(this.state.list_data2[4]!='Nu'){
            
             ok1=false;
-            message+='Daca ati suferit interventii chirurgicale in ultimele 6 luni nu sunteti eligibil sa donati.\n';
+            message+='Dacă ați suferit intervenții chirurgicale în ultimele 6 luni nu sunteți eligibil să donați.\n';
         }
         if(this.state.list_data2[6]!='' && this.state.list_data2[6]!='Nu e cazul'){
             
             ok1=false;
-            message+='Daca sunteti in perioada de sarcina sau lehuzie nu sunteti eligibil sa donati.\n';
+            message+='Dacă sunteți în perioada de sarcină sau lehuzie nu sunteți eligibil să donați.\n';
         }
         for(var i=7;i<=13;i++){
             if(this.state.list_data2[i]){
@@ -399,44 +399,44 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
             switch(i){
                 case 7:
                     if(this.state.list_data2[i]){
-                        message+="Daca sunteti in perioada menstruala nu puteti dona sange.";
+                        message+="Dacă sunteți în perioada menstruală nu puteți dona sânge.";
                     }
                     break;
                 case 8: 
                 if(this.state.list_data2[i]){
-                    message+="Daca urmati tratament pentu hipertensiune nu puteti dona sange.";
+                    message+="Dacă urmați tratament pentu hipertensiune nu puteți dona sânge.";
                 }
                 break;
                 case 9: 
                 if(this.state.list_data2[i]){
-                    message+="Daca urmati tratament pentu boli de inima nu puteti dona sange.";
+                    message+="Dacă urmați tratament pentu boli de inimă nu puteți dona sânge.";
                 }
                 break;
                 case 10: 
                 if(this.state.list_data2[i]){
-                    message+="Daca urmati tratament pentu boli renale nu puteti dona sange.";
+                    message+="Dacă urmați tratament pentu boli renale nu puteți dona sânge.";
                 }
                 break;
                 case 11: 
                 if(this.state.list_data2[i]){
-                    message+="Daca urmati tratament pentu boli psihice nu puteti dona sange.";
+                    message+="Dacă urmați tratament pentu boli psihice nu puteți dona sânge.";
                 }
                 break;
                 case 12: 
                 if(this.state.list_data2[i]){
-                    message+="Daca urmati tratament pentu boli hepatice nu puteti dona sange.";
+                    message+="Dacă urmați tratament pentu boli hepatice nu puteți dona sânge.";
                 }
                 break;
                 case 13: 
                 if(this.state.list_data2[i]){
-                    message+="Daca urmati tratament pentu boli endocrine nu puteti dona sange.";
+                    message+="Dacă urmați tratament pentu boli endocrine nu puteți dona sânge.";
                 }
                 break;
                 
 
             }
         }
-        var m='Nu puteti dona sange daca suferiti de :'+"";
+        var m='Nu puteți dona sânge dacă suferiți de :'+"";
         
         var m1=''
         for(var i=0;i<=12;i++){
@@ -446,7 +446,7 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
             switch(i){
                 case 0: 
                 if(this.state.list_data3[i]){
-                    m1+="hepatita";
+                    m1+="hepatită";
                 }
                 break;
                 case 1: 
@@ -466,7 +466,7 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
                 break;
                 case 4: 
                 if(this.state.list_data3[i]){
-                    m1+="epilepsie si alte boli neurologice,";
+                    m1+="epilepsie și alte boli neurologice,";
                 }
                 break;
                 case 5: 
@@ -476,7 +476,7 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
                 break;
                 case 6: 
                 if(this.state.list_data3[i]){
-                    m1+="bruceloza,";
+                    m1+="bruceloză,";
                 }
                 break;
                 case 7: 
@@ -491,7 +491,7 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
                 break;
                 case 9: 
                 if(this.state.list_data3[i]){
-                    m1+="boli de inima,";
+                    m1+="boli de inimă,";
                 }
                 break;
                 case 10: 
@@ -531,7 +531,7 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
         if(pregnancy=="Perioada de lehuzie"){
             pregnancy="PostPregnant"
         }
-        if(pregnancy=="Insarcinata"){
+        if(pregnancy=="Însărcinată"){
             pregnancy="Pregnant"
         }
 
@@ -686,15 +686,23 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
                    <HeaderForm/>
                    <ol className='progtrckr'>
                    <li className={this.state.comp0}><span>Date personale</span></li>
-                   <li className={this.state.comp1}><span>Conditii fiziologice</span></li>
+                   <li className={this.state.comp1}><span>Condiții fiziologice</span></li>
                    <li className={this.state.comp2}><span>Antecedente medicale</span></li>
                    <li className={this.state.comp3}><span>Finalizare</span></li>
                        </ol>
                     {list[this.state.comp]} 
                     
-                  
-                   <button className={this.state.nextbtnclass} onClick={this.nextComponent} > {this.state.nextclass} </button>
-                   <button className={this.state.backclass} onClick={this.prevComponent} > Inapoi </button>
+                    <button className={this.state.backclass} 
+                        onClick={this.prevComponent}>
+                        <i className="fa fa-arrow-left" aria-hidden="true"></i>
+                        Înapoi
+
+                    </button>
+                    <button className={this.state.nextbtnclass} 
+                        onClick={this.nextComponent} >{this.state.nextclass}
+                        <i style={{float: "right"}} className="fa fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                    
                    
 
                    </div>

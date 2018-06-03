@@ -372,6 +372,8 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.Property<bool>("HepatitisC");
 
+                    b.Property<bool>("IsFilled");
+
                     b.Property<string>("Observations");
 
                     b.Property<bool>("RejectedOtherCauses");

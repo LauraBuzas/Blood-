@@ -16,7 +16,7 @@ import { DoctorRequest } from './Components/Doctor/DoctorRequest/DoctorRequest';
 import { CenterRequest } from './Components/MedicalCenter/CenterRequests/CenterRequests';
 import { WebSocketService } from './Services/WebSocketService';
 //import {Cookies} from 'universal-cookie';
-import cookie from 'react-cookies'
+import cookie from 'react-cookies';
 import { Marker } from './Components/Map/Map';
 
 

@@ -29,7 +29,7 @@ export default class Succes extends React.Component<SuccesProps,SuccesState>{
                 <div className='step'>
              
            
-                <h2 className='stepName'> Verificare efectuata</h2>
+                <h2 className='stepName'> Verificare efectuată</h2>
         
             <label>{this.props.textFromParent} </label><br/><br/>
             </div>

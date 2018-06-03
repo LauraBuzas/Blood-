@@ -8,7 +8,7 @@
 
 }
 
-hr {
+/* hr {
   margin-top:10px;
   height: 2px;
   
@@ -16,7 +16,7 @@ hr {
 
   border: 0;
 
-}
+} */
 
 .invisiblediv{
   display: none;
@@ -104,9 +104,8 @@ label {
 
 .head2{
   text-align: left;
-  
-  margin-left:10px;
-  font-size: 30px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 34px;
 }
 
 .titlelabel{
@@ -115,90 +114,78 @@ label {
  
 }
 
-.buttonNext
-{
+
+.buttonBack, .buttonBackVisible, .buttonNext, .buttonSubmit {
+
+  color: white;
   height: 50px;
-  padding: 10px 50px;
+  padding: 12px 30px;
   border: none;
   color: rgb(236, 227, 227);
   display: inline-block;
-  background: #f70606c7;
+  background-color: #f70606c7;
   font-family: 'lato', sans-serif;
-
-  font-size: 13px;
+  text-transform: uppercase;
+  font-size: 14px;
   letter-spacing: 0.10em;
   border-radius: 25px;
-  float:right; 
-  margin-right:30%; 
-  
-}
+  margin: 10px 10px;
+  width: 300px;
+  transition-duration: 0.2s;
 
-.buttonSubmit
-{
-  height: 50px;
-  padding: 10px 50px;
-  border: none;
-  color: rgb(236, 227, 227);
-  display: inline-block;
-  background: #f70606c7;
-  font-family: 'lato', sans-serif;
-  
-  font-size: 13px;
-  letter-spacing: 0.10em;
-  border-radius: 25px;
-  float:right; 
-  margin-right:30%; 
-  
-}
-
-
-.buttonBack{
-
-  height: 50px;
-  padding: 10px 30px;
-  border: none;
-  color: rgb(236, 227, 227);
-  display: inline-block;
-  background: #f70606c7;
-  font-family: 'lato', sans-serif;
-  
-  font-size: 13px;
-  letter-spacing: 0.10em;
-  border-radius: 25px;
-  float:left; 
-  margin-left: 25%;
-  visibility: hidden;
+  -webkit-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75);
+  box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75);
   
 
 }
 
-.buttonBackVisible{
+.buttonBack {
+  display: none;
+}
 
-    height: 50px;
-    padding: 10px 30px;
-    border: none;
-    color: rgb(236, 227, 227);
-    display: inline-block;
-    background: #f70606c7;
-    font-family: 'lato', sans-serif;
-    
-    font-size: 13px;
-    letter-spacing: 0.10em;
-    border-radius: 25px;
-    float:left; 
-    margin-left: 25%;
-    visibility: visible;
-    
-  
+.buttonBackVisible:hover,
+.buttonBack:hover,
+.buttonNext:hover,
+.buttonSubmit:hover {
+
+    color: #DDDDDD;
   }
 
-.buttonBackVisible:hover{
-    background: #680b10;
-  }
+.buttonBackVisible:focus,
+.buttonBack:focus,
+.buttonNext:focus,
+.buttonSubmit:focus {
+  outline: none;
+}
   
-.buttonBack:hover{
-    background: #680b10;
+@media (max-width: 700px) {
+  .buttonBack, 
+  .buttonBackVisible, 
+  .buttonNext, 
+  .buttonSubmit {
+    width: 170px;
+    font-size: 12px;
+    padding: 5px 10px;
   }
-.buttonNext:hover{
-    background: #680b10;
+}
+
+@media (max-width: 400px) {
+  .buttonBack, 
+  .buttonBackVisible, 
+  .buttonNext, 
+  .buttonSubmit {
+    width: 120px;
+    font-size: 12px;
+    padding: 5px 10px;
+    margin: 5px 5px;
   }
+}
+
+
+.doctor-stock-table {
+  padding: 15px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+}

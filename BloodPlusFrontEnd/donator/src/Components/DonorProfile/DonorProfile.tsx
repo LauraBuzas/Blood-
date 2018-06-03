@@ -13,7 +13,11 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Alert from 'react-s-alert';
 import {IPasswordUpdate} from '../../Models/IPasswordUpdate'
+
+import {ImgSource} from '../ImgSource/ImgSource';
+
 export interface DonorProfileProps{
+
 
 }
 interface DonorProfileState{
@@ -312,6 +316,7 @@ export class DonorProfile extends React.Component<DonorProfileProps,DonorProfile
                     </VBox>
                 </HBox>
                 </div>
+                <ImgSource source="www.kindakind.com" white={true} />
                 <Alert stack={true} timeout={3000}/>
             </div>    
         );

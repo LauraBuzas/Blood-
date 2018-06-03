@@ -1,11 +1,12 @@
 ﻿using BloodPlus.Services;
 using DatabaseAccess.Models;
 using DatabaseAccess.UOW;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Services
 {
@@ -32,7 +33,7 @@ namespace Services
             {
                 return uow.DonorRepository.GetAll().Include(d => d.MedicalAnalysis)
                     .Where(d => d.Id == id)
-                    .FirstOrDefault().MedicalAnalysis;
+                    .FirstOrDefault().MedicalAnalysis.Where(ma=>ma.IsFilled==true).ToList();
             }
         }
         
@@ -42,11 +43,32 @@ namespace Services
             using (UnitOfWork uow = new UnitOfWork())
             {
                 donorRegistrationForDonation.RegistrationDate = DateTime.Now;
-                //donorRegistrationForDonation.DonorId = uow.DonorRepository.GetAll().Where(d => d.CNP == donorRegistrationForDonation.CNP).First().Id;
+                //var donorId = uow.DonorRepository.GetAll().Where(d => d.CNP == donorRegistrationForDonation.CNP).First().Id;
+                try
+                {
+                    donorRegistrationForDonation.DonorId = uow.DonorRepository.GetByFunc(donor => donor.CNP == donorRegistrationForDonation.CNP).Id;
+                } catch (Exception) {
+                    var address = new Address
+                    {
+                        City = donorRegistrationForDonation.CurrentCity,
+                        County = donorRegistrationForDonation.CurrentCounty,
+                        Street = "UNKNOWN",
+                        Number = 0
+                        
+                    };
+                    var donor = new Donor
+                    {
+                        CNP = donorRegistrationForDonation.CNP,
+                        Address = address,
+                        FirstName = donorRegistrationForDonation.Name,
+                        LastName = donorRegistrationForDonation.Surname,
+                    };
 
-                donorRegistrationForDonation.DonorId = uow.DonorRepository.GetByFunc(donor => donor.CNP == donorRegistrationForDonation.CNP).Id;
+                    uow.DonorRepository.Add(donor);
+                }
+
                 donorRegistrationForDonation.Donor = uow.DonorRepository.GetByFunc(donor => donor.CNP == donorRegistrationForDonation.CNP);
-                //uow.DonorRepository.GetAll().Where(d => d.CNP == donorRegistrationForDonation.CNP).First();//
+                //uow.DonorRepository.GetAll().Where(d => d.CNP == donorRegistrationForDonation.CNP).First();
 
                 uow.DonorRegistrationForDonationRepository.Add(donorRegistrationForDonation);
                 uow.Save();
