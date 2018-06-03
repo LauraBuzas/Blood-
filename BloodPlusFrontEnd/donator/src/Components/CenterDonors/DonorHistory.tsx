@@ -143,7 +143,7 @@ export class DonorHistory extends React.Component<DonorHistoryProps,DonorHistory
                     options={options}
                     exportCSV
                 >
-                <TableHeaderColumn dataField="registrationDate" isKey={true}>Data analizei</TableHeaderColumn>
+                <TableHeaderColumn dataField="registrationDate" isKey={true}>Data înregistrării pentru donare</TableHeaderColumn>
                 </BootstrapTable>
                 {this.state.showDetails?<ModalDonorRegistrationForDonation row={this.state.currentRow} onClose={this.closeDetailsInfo.bind(this)}/>:null};
             </div>    

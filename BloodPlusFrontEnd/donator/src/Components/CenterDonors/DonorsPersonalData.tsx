@@ -112,7 +112,7 @@ export class DonorsPersonalData extends React.Component<DonorsPersonalDataProps,
                 <TableHeaderColumn dataField="cnp" width={130} isKey={true}>CNP</TableHeaderColumn>
                 <TableHeaderColumn dataField="lastname">Nume</TableHeaderColumn>
                 <TableHeaderColumn dataField="firstname">Prenume</TableHeaderColumn>
-                <TableHeaderColumn dataField="button" dataAlign={'center'} dataFormat={this.buttonHistory.bind(this)}>Istoric analize</TableHeaderColumn>
+                <TableHeaderColumn dataField="button" dataAlign={'center'} dataFormat={this.buttonHistory.bind(this)}>Istoric donări</TableHeaderColumn>
                 </BootstrapTable>
                 {this.state.showDetails?<ModalDonorPersonalData row={this.state.currentRow} onClose={this.closeDetailsInfo.bind(this)}/>:null}
             </div>

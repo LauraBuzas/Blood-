@@ -43,7 +43,7 @@ export class ModalDonorRegistrationForDonation extends React.Component<ModalDono
             </Helmet>    
             
             <Modal open={open} onClose={this.onCloseModal} large>
-              <h2>Detalii formular pentru donare</h2>
+              <h2>Detalii despre înregistrarea pentru donare</h2>
               
               <div className="hboxWithSpace">
                 <div className="labels">
