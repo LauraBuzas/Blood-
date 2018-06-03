@@ -400,6 +400,16 @@ namespace Services
             return plasmas;
         }
 
+        public List<Donor> GetDonors()
+        {
+            using(UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.DonorRepository.GetAll().Include("Address").ToList();
+            }
+        }
+
+        
+
         public void AcceptBloodBag(Request doctorRequest, int centerId, string rh, string bloodType, int quatityNeeded)
         {
             var availableBloodBags = GetBloodBagsForRequest(centerId, rh, bloodType).OrderBy(b => b.Date).ToList();
@@ -514,6 +524,18 @@ namespace Services
             using (UnitOfWork uow = new UnitOfWork())
             {
                 var x = uow.BloodBagRepository.GetAll().GroupBy(b => new { b.BloodType, b.RhType }).Select(b => new { BloodType = b.Key.BloodType, RhType = b.Key.RhType, Count = b.Count() }).ToList();
+            }
+        }
+
+
+        public List<DonorRegistrationForDonation> GetHistory(string cnp)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.DonorRegistrationForDonationRepository.GetAll()
+                    .Include("Donor")
+                    .Where(d => d.Donor.CNP==cnp)
+                    .ToList();
             }
         }
 
