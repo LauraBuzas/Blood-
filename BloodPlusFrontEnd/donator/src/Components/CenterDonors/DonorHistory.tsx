@@ -4,6 +4,7 @@ import {Helmet} from 'react-helmet';
 import {BootstrapTable,TableHeaderColumn} from 'react-bootstrap-table';
 import { IDonorAnalisys } from '../../Models/IDonorAnalysis';
 import { DonorsPersonalDataService } from '../../Services/DonorsPersonalDataService';
+import { ModalDonorRegistrationForDonation } from './Modals/ModalDonorRegistrationForDonation';
 
 export interface DonorHistoryProps extends RouteComponentProps<any>{
 
@@ -88,10 +89,10 @@ export class DonorHistory extends React.Component<DonorHistoryProps,DonorHistory
             age:row.age,
             weight:row.weight,
             beatsPerMinute:row.beatsPerMinute,
-            bloodPressure:row.blooPressure,
+            bloodPressure:row.bloodPressure,
             hadSurgery:row.hadSurgery,
             personSex:row.personSex,
-            pregnancyStatus:row.pregnancy,
+            pregnancyStatus:row.pregnancyStatus,
             period:row.period,
             heartDisease:row.heartDisease,
             hypertension:row.hypertension,
@@ -104,7 +105,7 @@ export class DonorHistory extends React.Component<DonorHistoryProps,DonorHistory
             pox:row.pox,
             malaria:row.malaria,
             epilepsy:row.epilepsy,
-            mindIlnesses:row.mindIlness,
+            mindIlnesses:row.mindIlnesses,
             brucellosis:row.brucellosis,
             ulcer:row.ulcer,
             diabetes:row.diabetes,
@@ -125,15 +126,15 @@ export class DonorHistory extends React.Component<DonorHistoryProps,DonorHistory
     }
     render(){
         const options ={
-            noDataText:"Nu exista analize",
-            onRowDoubleClick:this.onSelectRow.bind(this),
+            noDataText:"Nu exista formulare completate",
+            onRowClick:this.onSelectRow.bind(this),
         }
         return(
             <div id="stock-table">
                 <Helmet>
                     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
                 </Helmet> 
-                <div><h3>Analizele donatorului cu CNP-ul: {this.props.match.params.cnp} </h3></div>
+                <div><h3>Formularele donatorului cu CNP-ul: {this.props.match.params.cnp} </h3></div>
                 <BootstrapTable
                     data={this.state.analysis}
                     striped
@@ -142,8 +143,9 @@ export class DonorHistory extends React.Component<DonorHistoryProps,DonorHistory
                     options={options}
                     exportCSV
                 >
-                <TableHeaderColumn dataField="registrationdate" isKey={true}>Data analizei</TableHeaderColumn>
+                <TableHeaderColumn dataField="registrationDate" isKey={true}>Data analizei</TableHeaderColumn>
                 </BootstrapTable>
+                {this.state.showDetails?<ModalDonorRegistrationForDonation row={this.state.currentRow} onClose={this.closeDetailsInfo.bind(this)}/>:null};
             </div>    
         );
     }

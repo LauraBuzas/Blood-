@@ -303,7 +303,7 @@ namespace BloodPlus.Controllers
                 List<BloodBag> bloodBags = employeeService.GetBloodBags(centerId);
                 foreach(BloodBag b in bloodBags)
                 {
-                    if (b.Analysis.DateAndTime.ToString().Equals(date) && b.Analysis.Donor.CNP.Equals(cnp))
+                    if (b.Date.ToString().Equals(date) && b.Analysis.Donor.CNP.Equals(cnp))
                     {
                         employeeService.ChangeStatus(b);
                         break;
@@ -336,7 +336,7 @@ namespace BloodPlus.Controllers
                 List<BloodBag> bloodBags = employeeService.GetBloodBags(centerId);
                 foreach (BloodBag b in bloodBags)
                 {
-                    if (b.Analysis.DateAndTime.ToString().Equals(date) && b.Analysis.Donor.CNP.Equals(cnp))
+                    if (b.Date.ToString().Equals(date) && b.Analysis.Donor.CNP.Equals(cnp))
                     {
                         employeeService.ChangeStatusReject(b);
                         break;
@@ -476,7 +476,7 @@ namespace BloodPlus.Controllers
                 List<BloodBag> bloodBags = employeeService.GetBloodBags(centerId);
                 foreach (BloodBag b in bloodBags)
                 {
-                    if (b.Analysis.DateAndTime.ToString().Equals(date) && b.Analysis.Donor.CNP.Equals(cnp))
+                    if (b.Date.ToString().Equals(date) && b.Analysis.Donor.CNP.Equals(cnp))
                     {
                         var thrombocyte = MapperBloodBag.ToThrombocyte(b);
                         var redBloodCell = MapperBloodBag.ToRedBloodCell(b);
@@ -542,8 +542,8 @@ namespace BloodPlus.Controllers
             }
         }
 
-        //[Authorize(Roles = "DonationCenterDoctor")]
-        [AllowAnonymous]
+        [Authorize(Roles = "DonationCenterDoctor")]
+        //[AllowAnonymous]
         [HttpPost("donors-history")]
         public IActionResult GetHistoryForDonor([FromBody] CNPViewModel cnp)
         {

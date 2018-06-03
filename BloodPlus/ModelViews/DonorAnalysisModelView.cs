@@ -7,7 +7,7 @@ namespace BloodPlus.ModelViews
 {
     public class DonorAnalysisModelView
     {
-        public int CNP { get; set; }
+        public String CNP { get; set; }
 
         public String Name { get; set; }
 

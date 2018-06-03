@@ -190,7 +190,7 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
                 <Select
                     name="dropdown-pacient"
                     creatable={false}
-                    placeholder='Nume sau CNP pacient...'
+                    placeholder='Nume sau CNP donator...'
                     onChange={this.handleChangeDonor}
                     options={this.state.optionsDonors}
                     value={selectedDonor}
