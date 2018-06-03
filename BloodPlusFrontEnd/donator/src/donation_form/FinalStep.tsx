@@ -100,34 +100,46 @@ handleDonationToSurname(event){
                 
                 
             <div className='step'>
-            <h2 className='stepName'> Finalizare</h2>
-            <label className='subtitle'>Informatii de contact</label>
-            <br/><br/>
+            <h2 className='step-name'>Finalizare</h2>
+            <div className="step4-fields">
+            <label className='subtitle'>Informații de contact</label>
+            
+            <div>
             <label>E-mail </label>
             <input type="text" onChange={this.handleEmail} value={this.state.email} className={this.props.listValidFromParent[0]} />
-            <br/>
+            
             <label className={this.state.listMessageClasses[0]}>{this.state.listMessage[0]}</label>
-            <br /><br/>
+            
+            </div>
+            
+            <div>
             <label>Telefon</label>
             <input type="text"   onChange={this.handlePhone} value={this.state.phone} className={this.props.listValidFromParent[1]} />
-            <br/>
+            
             <label className={this.state.listMessageClasses[1]}>{this.state.listMessage[1]}</label>
-            <br/><br/>
-            <label className='subtitle'>Persoana pentru care se doneaza sange</label>
-            <label className='optionalText'>(Optional)</label>
-            <br/><br/>
-            <label>Nume </label>
+            
+            </div>
+            
+            <div>
+            <label className='subtitle'>Persoana pentru care se donează sânge</label>
+            <label className='optionalText'>(Opțional)</label>
+            
+            <div>
+            <label>Nume</label>
             <input type='text'  name="name" onChange={this.handleDonationToName}/>
-            <br /><br/>
+            
+            </div>
+           
+            <div>
             <label>Prenume</label>
             <input type='text'  name="surname" onChange={this.handleDonationToSurname}/>
-            <br/><br/>
+      
+            </div>
             
+            </div>
+
             
-
- <br/><br/><br/>
-
-
+            </div>
             
             </div>
 
