@@ -18,6 +18,7 @@
 } */
 
 #login-div, #signup-container {
+    display: table;
     margin: 10px auto;
     width: 100%;
     max-width: 380px;
@@ -29,7 +30,7 @@
 #login-main, #signup-main {
     display: flex;
     width: 100%;
-    min-height: 100vh;
+    min-height: calc(100vh - 180px);
     
     background-size: cover;
     background-position: center;

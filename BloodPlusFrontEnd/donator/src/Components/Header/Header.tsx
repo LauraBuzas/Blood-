@@ -95,7 +95,7 @@ var nodesEmployee=[
         link:"/employee/profile"
     },
     {
-        title:"Cereri de sânge",
+        title:"Cereri sânge",
         link:"/employee/requests"
     },
     {
