@@ -7,7 +7,7 @@ export default class HeaderForm extends React.Component{
         return(
            
             
-           <h1 className='head'><hr/>Vreau sa donez!<hr/></h1>
+           <h1 className='header-register'>Vreau să donez!</h1>
          
     )
     }
