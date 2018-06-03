@@ -32,8 +32,8 @@ export class CenterBloodStock extends React.Component<BloodStockProps, BloodStoc
             currentRow:undefined
         }
         this.addBloodBag=this.addBloodBag.bind(this);
-        // this.changeStatus=this.changeStatus.bind(this);
-        // this.changeStatusReject=this.changeStatusReject.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+        this.onAdd = this.onAdd.bind(this);
     }
 
     componentDidMount(){
@@ -268,7 +268,7 @@ export class CenterBloodStock extends React.Component<BloodStockProps, BloodStoc
         return(
             <div id="stock-table">
 
-                {this.state.addBloodBag?<ModalAddBloodBag onAdd={this.addBloodBag} onClose={()=>this.closeModal()}/>:null}  
+                {this.state.addBloodBag?<ModalAddBloodBag onAdd={this.onAdd} onClose={()=>this.closeModal()}/>:null}  
                 <button className="generic-button stock-btn" onClick={(event) => this.addBloodBag(event)} >Adaugă pungă de sânge</button>
                 <button className="generic-button stock-btn" onClick={(event) => this.requestBlood(event)}>Cere sânge donatorilor</button>               
                 

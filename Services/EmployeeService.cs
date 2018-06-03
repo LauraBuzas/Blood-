@@ -129,6 +129,8 @@ namespace Services
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
+                if (cnp == "")
+                    throw new Exception("Donatorul nu a fost selectat");
                 var donor = uow.DonorRepository.GetAll().Where(d => d.CNP == cnp).FirstOrDefault();
                 var donorAnalysis = uow.MedicalAnalysisRepository.GetAll().Include(da => da.BloodBag).Where(ma => ma.DonorId == donor.Id).FirstOrDefault();
                 if (donorAnalysis == null)
@@ -140,7 +142,7 @@ namespace Services
                     donorAnalysis.BloodBag.Status = BloodBagStatus.Rejected;
                     uow.BloodBagRepository.Update(donorAnalysis.BloodBag);
                     uow.Save();
-                    throw new Exception("Punga de sange nu poate fi utilizata!");
+                    throw new Exception("Analize adaugate. Punga de sange nu poate fi utilizata!");
                 }
 
                 donorAnalysis.BloodBag.Status = BloodBagStatus.Accepted;
