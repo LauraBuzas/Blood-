@@ -220,7 +220,7 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.Property<bool>("Brucellosis");
 
-                    b.Property<int>("CNP");
+                    b.Property<string>("CNP");
 
                     b.Property<bool>("Cancer");
 
@@ -371,6 +371,8 @@ namespace DatabaseAccess.Data.Migrations
                     b.Property<bool>("HepatitisB");
 
                     b.Property<bool>("HepatitisC");
+
+                    b.Property<bool>("IsFilled");
 
                     b.Property<string>("Observations");
 

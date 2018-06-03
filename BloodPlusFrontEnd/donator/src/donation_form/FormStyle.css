@@ -1,0 +1,162 @@
+.header-register {
+  font-size: 30px;
+  color: #333333;
+  font-family: 'Roboto', sans-serif;
+  padding: 10px;
+}
+
+.step {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.register-donation-field {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  width: 100%;
+
+}
+.register-donation-field input, .register-donation-field select {
+  border: 1px solid #666666;
+}
+
+
+.sex-field {
+  width: 100%;
+  margin: 10px;
+}
+
+.onlyFShow {
+  width: 100%;
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: unset;
+}
+
+.onlyFShow label, .onlyFShow select {
+  display: inline-block;
+  
+}
+
+.header-label {
+  color: #444444;
+  font-size: 24px;
+  width: 100%;
+  padding: 5px;
+  display: block;
+  text-align: left;
+  margin: 2px;
+}
+
+.register-donation-field > label {
+  padding: 5px;
+  width: 100%;
+  max-width: 140px;
+  min-width: 70px;
+  display: block;
+  line-height: 1;
+  font-family: 'Roboto', sans-serif;
+  flex-grow: 1;
+  
+}
+
+.step3-diseases > div {
+  display: block;
+  text-align: left;
+  width: 100%;
+  max-width: 250px;
+  margin: 10px auto;
+}
+
+.step3-diseases input {
+  /* display: block; */
+  margin: 5px;
+  height: 15px;
+  width: 30px;
+}
+
+.tratament div {
+  width: 100%;
+  margin: 5px auto;
+}
+
+.tratament {
+  width: 100%;
+  max-width: 200px;
+  text-align: left;
+  margin: 5px auto 5px 10%;
+
+}
+
+.register-donation-field input[type="text"],
+.register-donation-field input[type="date"], 
+.register-donation-field input[type="number"], 
+.register-donation-field select {
+  padding: 5px;
+  margin: 5px;
+  font-size: 15px;
+  width: 200px;
+  box-sizing: border-box;
+  transition-duration: 0.5s;
+  border-radius: 4px;
+  height: 30px;
+}
+
+.register-donation-field input[type="checkbox"] {
+  height: 15px;
+  width: 30px;
+}
+
+.register-donation-field input[type="radio"] {
+  height: 15px;
+  width: 30px;
+}
+
+.register-donation-field input[type="text"]:focus, .register-donation-field input[type="date"]:focus {
+
+  
+}
+
+.invisibleLabel {
+  max-width: 200px;
+  width: 100%;
+}
+
+.step-name {
+  padding: 5px;
+  color: #555555;
+  font-size: 20px;
+}
+
+.measure-unit {
+  font-size: 14px;
+  text-align: left;
+}
+
+.step4-fields, .step4-fields div {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+.step4-fields div label {
+  width: 90px;
+}
+
+.step4-fields input {
+  padding: 5px;
+  margin: 5px;
+  font-size: 15px;
+  width: 200px;
+  box-sizing: border-box;
+  transition-duration: 0.3s;
+  border-radius: 4px;
+  height: 30px;
+  border: 1px solid #666666;
+}

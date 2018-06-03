@@ -166,7 +166,6 @@ export class EmployeeService {
             status:response.status
         };
     }
-
     public static mapBloodStock(data: any): BloodStockModel[] {
         let result = [];
         for (let i = 0; i < data.length; i++) {
@@ -325,10 +324,11 @@ export class EmployeeService {
                     data:analysis
                 }
             ).then((response: any) => {
+                console.log(response);
                 resolve(response);
             },
                 (error: any) => {
-                    reject(error);
+                    reject(error.response);
                 });
         });
     }

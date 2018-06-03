@@ -160,6 +160,24 @@ export class CenterRequest extends React.Component<CenterRequestProps,CenterRequ
         else return null;
         
     }
+
+    emergencyColumnFormat(fieldValue, row, rowIdx, colIdx) {
+        // fieldValue is column value
+        // row is whole row object
+        // rowIdx is index of row
+        // colIdx is index of column
+        switch (fieldValue) {
+            case ("CRITIC"):
+                return "column-critical";
+            case ("RIDICAT"):
+                return "column-high";
+            case ("MEDIU"):
+                return "column-medium";
+            case ("SCĂZUT"):
+                return "column-low";
+        }
+        return "";
+    }
     
     render() {
       if(this.props.webSocket!==null && !this.state.notificationRequested){
@@ -175,36 +193,36 @@ export class CenterRequest extends React.Component<CenterRequestProps,CenterRequ
         </div> */}
             <div className="column left-stock">
                 <h1 id="stock-header"> Stoc sânge </h1>
-                <Accordion>
-                <AccordionItem>
-                    <AccordionItemTitle>
+                <Accordion className="stock-accordion">
+                <AccordionItem className="stock-accordion-item">
+                    <AccordionItemTitle className="stock-accordion-title">
                         <h3>Pungi de sânge</h3>
                     </AccordionItemTitle>
-                    <AccordionItemBody>
+                    <AccordionItemBody className="stock-accordion-body">
                         {this.state.stock.map(this.bloodbags.bind(this))}
                     </AccordionItemBody>
                 </AccordionItem>
-                <AccordionItem>
-                    <AccordionItemTitle>
+                <AccordionItem className="stock-accordion-item">
+                    <AccordionItemTitle className="stock-accordion-title">
                         <h3>Trombocite</h3>
                     </AccordionItemTitle>
-                    <AccordionItemBody>
+                    <AccordionItemBody className="stock-accordion-body">
                     {this.state.stock.map(this.thrombocytes.bind(this))}
                     </AccordionItemBody>
                 </AccordionItem>
-                <AccordionItem>
-                    <AccordionItemTitle>
+                <AccordionItem className="stock-accordion-item">
+                    <AccordionItemTitle className="stock-accordion-title">
                         <h3>Globule roșii</h3>
                     </AccordionItemTitle>
-                    <AccordionItemBody>
+                    <AccordionItemBody className="stock-accordion-body">
                     {this.state.stock.map(this.redbloodcells.bind(this))}
                     </AccordionItemBody>
                 </AccordionItem>
-                <AccordionItem>
-                    <AccordionItemTitle>
+                <AccordionItem className="stock-accordion-item">
+                    <AccordionItemTitle className="stock-accordion-title">
                         <h3>Plasma</h3>
                     </AccordionItemTitle>
-                    <AccordionItemBody>
+                    <AccordionItemBody className="stock-accordion-body">
                         {this.state.stock.map(this.plasma.bind(this))}
                     </AccordionItemBody>
                 </AccordionItem>
@@ -220,14 +238,14 @@ export class CenterRequest extends React.Component<CenterRequestProps,CenterRequ
                             hover={true}
                             search={ true }
                             >
-            <TableHeaderColumn dataField='id' isKey={true}>Id</TableHeaderColumn>
-            <TableHeaderColumn dataField='bloodType'>Grupă</TableHeaderColumn>
-            <TableHeaderColumn dataField='rh'>Rh</TableHeaderColumn>
-            <TableHeaderColumn dataField='component' >Componentă</TableHeaderColumn>
-            <TableHeaderColumn dataField='dateOfRequest'>Data</TableHeaderColumn>
-            <TableHeaderColumn dataField='emergencyLevel' >Nivel urgență</TableHeaderColumn>
-            <TableHeaderColumn dataField='quantityNeeded'>Necesar</TableHeaderColumn>
-            <TableHeaderColumn dataField="button" dataAlign={'center'} editable={false} dataFormat={this.buttonAccept.bind(this)}>Acceptă</TableHeaderColumn>
+            <TableHeaderColumn width={30} dataField='id' isKey={true}>Id</TableHeaderColumn>
+            <TableHeaderColumn width={70} dataField='bloodType'>Grupă</TableHeaderColumn>
+            <TableHeaderColumn width={100} dataField='rh'>Rh</TableHeaderColumn>
+            <TableHeaderColumn width={130} dataField='component' >Componentă</TableHeaderColumn>
+            <TableHeaderColumn width={180} dataField='dateOfRequest'>Data</TableHeaderColumn>
+            <TableHeaderColumn width={120} dataField='emergencyLevel' columnClassName={this.emergencyColumnFormat}>Nivel urgență</TableHeaderColumn>
+            <TableHeaderColumn width={90} dataField='quantityNeeded'>Necesar</TableHeaderColumn>
+            <TableHeaderColumn width={80} dataField="button" dataAlign={'center'} editable={false} dataFormat={this.buttonAccept.bind(this)}>Acceptă</TableHeaderColumn>
             </BootstrapTable>
            <Alert stack={true} timeout={3000} />
                   

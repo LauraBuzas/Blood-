@@ -3,9 +3,13 @@ import Cookies from 'universal-cookie';
 import { IDonorTestGet } from '../Models/IDonorTestGet';
 import { IMedicalTestDate } from '../Models/IMedicalTestDate';
 import { IMedicalTestDetails } from '../Models/IMedicalTestDetails';
-
+import {IDonorRegisterForDonation} from '../Models/IDonorRegisterForDonation';
 import { Config } from './UrlConfig';
-
+import {IDonorRegistrationData} from '../Models/IDonorRegistrationData'
+import { IDonorContact } from '../Models/IDonorContact';
+import { IDonorRegistrationForDonation } from '../Models/IDonorRegistrationForDonation';
+import { parse } from 'url';
+var dateformat=require('dateformat');
 export class DonorService {
 
     private static rootDonors: string = Config.url + '/donors';
@@ -28,6 +32,142 @@ export class DonorService {
                 //console.log(response);
                 
                 resolve(DonorService.mapNextDate(response.data));
+            },
+                (error: any) => {
+                    reject(error);
+                });
+        });
+    }
+
+  /*  public static addRegistration(name: IDonorRegisterForDonation ): Promise<any> {
+
+        return new Promise((resolve, reject) => {
+            axios(
+                this.rootDonors+'/registerForDonation',
+                {
+                    method:'POST',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                        'Access-Control-Allow-Credentials':true
+                    },
+                    withCredentials:true,
+                    maxRedirects:0,
+                    data:name
+                }
+            ).then((response: any) => {
+                console.log(response);
+                console.log(response.headers['set-cookie']);
+                resolve(response);
+                
+            },
+                (error: any) => {
+                    reject(error);
+                })
+        });
+    }
+
+*/
+
+public static addRegistration(formdata: IDonorRegistrationForDonation ): Promise<any> {
+
+    return new Promise((resolve, reject) => {
+        axios(
+            this.rootDonors+'/registerForDonation',
+            {
+                method:'POST',
+                headers:{
+                    'Access-Control-Allow-Origin':'*',
+                    'Content-Type':'application/json',
+                    'Access-Control-Allow-Credentials':true
+                },
+                withCredentials:true,
+                maxRedirects:0,
+                data:formdata
+            }
+        ).then((response: any) => {
+            console.log(response);
+            console.log(response.headers['set-cookie']);
+            resolve(response);
+            
+        },
+            (error: any) => {
+                reject(error);
+            })
+    });
+}
+    public static getDonorData(): Promise<IDonorRegistrationData> {
+        return new Promise((resolve, reject) => {
+            //var doctorId=cookies.get("DoctorId");
+            axios(
+                this.rootDonors+"/donordata",
+                {
+                    method:'GET',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                        Cookies:'UserId'
+                    },
+                    withCredentials:true,
+                }
+            ).then((response: any) => {
+                //let doctor = response.data.map(this.toDoctor);
+                let dataofb:string=response.data.dob.toString();
+                let datas:string[]=dataofb.split('-');
+                let year:number=parseInt(datas[0]);
+                let month:number=parseInt(datas[1]);
+                let day:number=parseInt(datas[2].slice(0,2));
+                console.log("data nasterii: "+dataofb);
+                let db:Date=new Date(year,month,day,0,0,0,0);
+                console.log(db.getDate()+" "+db.getFullYear()+" "+db.getMonth())
+               // db=new Date(response.data.dob);
+                db=dateformat(db,'isoDate');
+                console.log(db);
+               let donord:IDonorRegistrationData={
+                    name:response.data.name,
+                    surname:response.data.surname,
+                    dob:db,
+                    cnp:response.data.cnp,
+                    cityD:response.data.cityD,
+                    countyD:response.data.countyD,
+                    cityR:response.data.cityR,
+                    countyR:response.data.countyR,
+                    
+
+                   
+                }
+                resolve(donord);
+            },
+                (error: any) => {
+                    reject(error);
+                });
+        });
+    }
+
+    public static getDonorContact(): Promise<IDonorContact> {
+        return new Promise((resolve, reject) => {
+            //var doctorId=cookies.get("DoctorId");
+            axios(
+                this.rootDonors+"/donorcontact",
+                {
+                    method:'GET',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                        Cookies:'UserId'
+                    },
+                    withCredentials:true,
+                }
+            ).then((response: any) => {
+                let contactinfo:IDonorContact={
+                    email:response.data.email,
+                    phone:response.data.phone
+
+                   
+                }
+                resolve(contactinfo);
+              
+                resolve(response);
             },
                 (error: any) => {
                     reject(error);
@@ -111,12 +251,12 @@ export class DonorService {
 
     private static toAnalysesDetails(response:any):IMedicalTestDetails{
         return{
-            altLevel:this.DaNu(response.ALTLevel),
+            altLevel:this.DaNu(response.altLevel),
             hepatitisB:this.DaNu(response.hepatitisB),
             hepatitisC:this.DaNu(response.hepatitisC),
             hiv:this.DaNu(response.hiv),
-            HTLV:this.DaNu(response.HTLV),
-            Sifilis:this.DaNu(response.Sifilis),
+            HTLV:this.DaNu(response.htlv),
+            Sifilis:this.DaNu(response.sifilis),
             date:this.GetDate(response.dateAndTime),
             rejectedOtherCauses:this.DaNu(response.rejectedOtherCauses),
             observations:this.GetObservations(response.observations)

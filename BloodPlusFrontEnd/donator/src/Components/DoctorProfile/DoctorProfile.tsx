@@ -13,6 +13,7 @@ import PasswordField from 'material-ui-password-field'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Alert from 'react-s-alert';
+import { ImgSource } from '../ImgSource/ImgSource';
 export interface DoctorProfileProps{
 
 }
@@ -279,7 +280,8 @@ export class DoctorProfile extends React.Component<DoctorProfileProps,DoctorProf
                         </ReactBootstrap.Button>
                     </HBox>
                 </VBox>
-               
+                <ImgSource source="www.kindakind.com" white={true} />
+                
                 <Alert stack={true} timeout={3000}/>
             </div>    
         );

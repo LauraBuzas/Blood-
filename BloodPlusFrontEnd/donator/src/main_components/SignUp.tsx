@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-
 import { VBox, HBox } from 'react-stylesheet';
 import { TextField } from '../utils/TextField'
 import { IUserRegister } from '../Models/IUserRegister';
@@ -12,6 +11,10 @@ import update from 'react-addons-update';
 import Alert from 'react-s-alert';
 import '../css/SignUp.css';
 import '../css/Button.css';
+import { Link } from 'react-router-dom';
+import {ImgSource} from '../Components/ImgSource/ImgSource';
+
+
 
 export interface SignUpProps 
 {
@@ -41,8 +44,9 @@ export class SignUp extends React.Component<SignUpProps, SignUpState>
                         number : -1,
                         cnp : ''
                     },
-                created: false
+                created: false,
             }
+            this.linkLogin=this.linkLogin.bind(this);
     }
 
     handleEmailChange(event: any) {
@@ -130,25 +134,21 @@ export class SignUp extends React.Component<SignUpProps, SignUpState>
                 this.showError('Va rugam introduceti doar numere!');
                 return;
             }
-            if(!(/^\d+$/.test(this.state.newUser.cnp))) {
-                this.showError('Campul CNP trebuie sa contina doar numere!');
+            if(!this.validateCNP(this.state.newUser.cnp)) {
                 return;
             }
-            if(this.state.newUser.cnp.length < 10) {
-                this.showError('CNP-ul trebuie sa aiba cel putin 10 cifre');
+            if(!this.validatePassword(this.state.newUser.password)) {
                 return;
             }
-            if(this.state.newUser.password.length < 6){
-                this.showError('Parola trebuie sa aiba minim 6 caractere');
-                return;
-            }
-            //needs stronger validation for password, or at least an info field
-            //rework thislater if there is time
             if(EmailValidator.validate(this.state.newUser.email)){
                 console.log('signing up', this.state.newUser);
                 AccountService.registerUser(this.state.newUser).then((resp) => {
                     this.setState({
                         created: update(this.state.created, { $set: true } )
+                    });
+                    Alert.success("V-a fost creat un cont nou!", {
+                        position: 'top-right',
+                        effect: 'jelly'
                     });
                 });
             } else {
@@ -159,6 +159,53 @@ export class SignUp extends React.Component<SignUpProps, SignUpState>
         } 
     }
 
+    validateCNP(cnp: string) {
+        if(!(/^\d+$/.test(cnp))) {
+            this.showError('Campul CNP trebuie sa contina doar numere!');
+            return false;
+        }
+        if(cnp.length < 10) {
+            this.showError('CNP-ul trebuie sa aiba cel putin 10 cifre!');
+            return false;
+        }
+        if(cnp.match(".*[A-Z].*") || cnp.match(".*[a-z].*")){
+            this.showError('CNP-ul nu trebuie sa contina litere');
+            return false;
+        }
+
+        var format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+        if(format.test(cnp)){
+            this.showError('CNP-ulnu nu trebuie sa contina caractere speciale');
+            return false;
+        }
+        return true;
+    }
+
+    validatePassword(password: string){
+        if(password.length < 6){
+            this.showError('Parola trebuie sa aiba minim 6 caractere');
+            return false;
+        }
+        if(!password.match(".*[A-Z].*")){
+            this.showError('Parola trebuie sa aiba cel putin o litera mare');
+            return false;
+        }
+        if(!password.match(".*[a-z].*")){
+            this.showError('Parola trebuie sa aiba cel putin o litera mica');
+            return false;
+        }
+        if(!password.match(".*\\d.*")){
+            this.showError('Parola trebuie sa aiba cel putin un numar');
+            return false;
+        }
+        var format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+        if(!format.test(password)){
+            this.showError('Parola trebuie sa aiba cel putin un caracter special');
+            return false;
+        }
+        return true;
+    }
+
     showError(errorMessage: string) {
         Alert.error(errorMessage, {
             position: 'top-right',
@@ -166,13 +213,26 @@ export class SignUp extends React.Component<SignUpProps, SignUpState>
         });
     }
 
+    // updateRedirect() {
+    //     this.setState({redirect: true});
+    // }
+
+    linkLogin()
+    {
+        return <Link to="/logIn">Conectează-te acum și alătură-te donatorilor de sânge</Link>
+    }
+
+
     render() {
-        if(this.state.created === true) {
-            return <Redirect to='/'/>
-        }
+        // if(this.state.created === true && this.state.redirect !== true) {
+        //     return <Alert stack={true} timeout={3000} onClose={this.updateRedirect()}/>
+        // }
+        // if(this.state.created === true && this.state.redirect === true) {
+        //     return <Redirect to="/"/>
+        // }
         return (
-            <VBox id="signup-container">
-            
+            <div id="signup-main">
+<VBox id="signup-container">
             {/* first and last names */}
             <HBox>
                 <TextField text="Nume" 
@@ -205,7 +265,6 @@ export class SignUp extends React.Component<SignUpProps, SignUpState>
                     onChangeFunction={this.handleNumberChange.bind(this)} />
             </HBox>
             
-            
             <TextField text="E-mail" 
                 
                 type="text" 
@@ -220,9 +279,14 @@ export class SignUp extends React.Component<SignUpProps, SignUpState>
                     type="password" 
                     onChangeFunction={this.handleConfirmPasswordChange.bind(this)} />
             </HBox>
-            <button className="generic-button">Inregistrează-te</button>
-        
-            </VBox>      
+            {this.state.created === true?this.linkLogin():         
+               <button className="generic-button" onClick={(event) => this.registerUser(event)}>Inregistrează-te</button>
+            }
+            <Alert stack={true} timeout={3000} />
+           
+            </VBox>
+            <ImgSource source="www.tophospitals.ro"  white={true}/>
+            </div>
             
         );
     }

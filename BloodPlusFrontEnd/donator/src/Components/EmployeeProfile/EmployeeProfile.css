@@ -21,6 +21,15 @@
     justify-content: center;
 }
 
+.pass-visible {
+    height: 250px;
+    
+}
+
+.pass-hidden {
+    height: 0px;
+}
+
 .hBox {
     
     width: 100%;

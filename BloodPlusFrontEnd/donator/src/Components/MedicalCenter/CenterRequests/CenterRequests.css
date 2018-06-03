@@ -1,12 +1,13 @@
 .all-requests{
     margin: 0;
     display:flex;
+    flex-wrap: wrap;
 }
 
 .column {
     float: left;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 15px;
 }
 
 .left-stock {
@@ -19,40 +20,19 @@
   margin: 0 auto;
 }
 
-/* id column */
-.react-bs-table table tr th:first-child {
-  width: 40px;
+@media (max-width: 800px) {
+  .left-stock {
+    width: 80%;
+    font-size: 15px;
+    max-width: 600px;
+    margin: 0px auto;
 }
 
-.react-bs-table table tr td:first-child {
-  width: 40px;
-}
-
-/* accept column */
-.react-bs-table table tr th:last-child {
-  width: 90px;
-}
-
-.react-bs-table table tr td:last-child {
-  width: 90px;
-}
-
-/* group column */
-.react-bs-table table tr th:nth-child(2) {
-  width: 80px;
-}
-
-.react-bs-table table tr td:nth-child(2) {
-  width: 80px;
-}
-
-/* rh column */
-.react-bs-table table tr th:nth-child(3) {
-  width: 100px;
-}
-
-.react-bs-table table tr td:nth-child(3) {
-  width: 100px;
+  .right-table {
+    width: 100%;
+    margin: 10px auto;
+    
+  }
 }
 
 .button-accept {
@@ -74,22 +54,46 @@
   outline: none;
 }
 
-.accordion__item div {
-  background-color: #ededff;
+.stock-accordion {
+  
+  background-color: #9e0308;
+  color: white;
+  border-radius: 10px;
 }
 
-.accordion__item div h3 {
-  vertical-align: middle;
-  font-size: 20px;
-  font-family: 'Roboto', sans-serif;
+.stock-accordion-body {
+  background-color: #DDDDDD;
+  color: black;
 }
 
-.accordion__item div h3:after {
-  content: '';
-  display: block;
-  height: 10px;
+.stock-accordion-title {
+  box-sizing: border-box;
+  padding: 5px;
+  transition-duration: 0.3s;
 }
 
-#stock-header {
-  font-family: 'Roboto', sans-serif;
+.stock-accordion-title:hover {
+  color: #DDDDDD;
 }
+
+.stock-accordion-title:focus {
+  outline:none;
+}
+
+.column-critical {
+  background-color: #9e0308;
+  color: white;
+}
+
+.column-high {
+  background-color: #ef962f;
+}
+
+.column-medium {
+  background-color: #e8da5c
+}
+
+.column-low {
+  background-color: #8de567
+}
+

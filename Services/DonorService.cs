@@ -1,11 +1,12 @@
 ﻿using BloodPlus.Services;
 using DatabaseAccess.Models;
 using DatabaseAccess.UOW;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Services
 {
@@ -32,21 +33,45 @@ namespace Services
             {
                 return uow.DonorRepository.GetAll().Include(d => d.MedicalAnalysis)
                     .Where(d => d.Id == id)
-                    .FirstOrDefault().MedicalAnalysis;
+                    .FirstOrDefault().MedicalAnalysis.Where(ma=>ma.IsFilled==true).ToList();
             }
         }
         
 
-        public void AddRegistrationForDonation(String donorName)
+        public void AddRegistrationForDonation(DonorRegistrationForDonation donorRegistrationForDonation)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                //var registration = new DonorRegistrationForDonation();
-                //registration.DonorName = donorName;
-                //registration.RegistrationDate = DateTime.Now;
+                donorRegistrationForDonation.RegistrationDate = DateTime.Now;
+                //var donorId = uow.DonorRepository.GetAll().Where(d => d.CNP == donorRegistrationForDonation.CNP).First().Id;
+                try
+                {
+                    donorRegistrationForDonation.DonorId = uow.DonorRepository.GetByFunc(donor => donor.CNP == donorRegistrationForDonation.CNP).Id;
+                } catch (Exception) {
+                    var address = new Address
+                    {
+                        City = donorRegistrationForDonation.CurrentCity,
+                        County = donorRegistrationForDonation.CurrentCounty,
+                        Street = "UNKNOWN",
+                        Number = 0
+                        
+                    };
+                    var donor = new Donor
+                    {
+                        CNP = donorRegistrationForDonation.CNP,
+                        Address = address,
+                        FirstName = donorRegistrationForDonation.Name,
+                        LastName = donorRegistrationForDonation.Surname,
+                    };
 
-                //uow.DonorRegistrationForDonationRepository.Add(registration);
-                //uow.Save();
+                    uow.DonorRepository.Add(donor);
+                }
+
+                donorRegistrationForDonation.Donor = uow.DonorRepository.GetByFunc(donor => donor.CNP == donorRegistrationForDonation.CNP);
+                //uow.DonorRepository.GetAll().Where(d => d.CNP == donorRegistrationForDonation.CNP).First();
+
+                uow.DonorRegistrationForDonationRepository.Add(donorRegistrationForDonation);
+                uow.Save();
             }
         }
 
@@ -80,5 +105,41 @@ namespace Services
                 return uow.DonorRepository.GetAll().ToList();
             }
         }
+        public Address GetDonorAddres(int id)
+        {
+            Address a = new Address();
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var addr = uow.AddressRepository.GetById(id);
+                a = addr;
+
+
+
+                //thrombocytes.Concat(thrombocyteqty);
+            }
+                
+                return a;
+            }
+        public String GetDonorEmail(string id)
+        {
+            String m = "";
+            using(UnitOfWork uow=new UnitOfWork())
+            {
+                var mail = uow.ApplicationUserRepository.GetAll().Where(u => u.Id.Equals(id)).First().Email;
+                m = mail;
+            }
+            return m;
+        }
+        public String GetDonorPhone(string id)
+        {
+            String m = "";
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var ph = uow.ApplicationUserRepository.GetAll().Where(u => u.Id.Equals(id)).First().PhoneNumber;
+                m = ph;
+            }
+            return m;
+        }
+        
     }
 }

@@ -11,6 +11,7 @@ import { TextField } from '../../../utils/TextField';
 import { IAddBloodBag } from '../../../Models/IAddBloodBag';
 import { EmployeeService } from '../../../Services/EmployeeService';
 import { BloodStockModel } from '../../../Models/BloodStockModel';
+import { IDonorView } from '../../../Models/IDonorView';
 
 const styles = {
   fontFamily: "sans-serif",
@@ -26,6 +27,8 @@ interface ModalAddBloodBagState
 {
     open:boolean,
     selectedGroup:ISelection;
+    selectedDonor:ISelection;
+    optionsDonors:ISelection[],
     cnp:string;
     addPatient:boolean,
     rh:string
@@ -47,10 +50,45 @@ export class ModalAddBloodBag extends React.Component<ModalAddBloodBagProps,Moda
                 open: true,
                 addPatient:false,
                 rh:null,
-                errors:[]
+                selectedDonor:undefined,
+                errors:[],
+                optionsDonors:[]
             }
         this.handleChangeGroup=this.handleChangeGroup.bind(this);
+        this.handleChangeDonor=this.handleChangeDonor.bind(this);
+        this.addBloodBag=this.addBloodBag.bind(this);
     }
+
+    componentWillMount()
+    {
+        EmployeeService.getDonors().then((donors:IDonorView[]) => {
+            if(donors!=null)
+            {
+                let optionsDonors:ISelection[];
+                optionsDonors=[]
+                donors.forEach(element => {
+                    let option:ISelection;
+                    option={
+                        value:element.cnp,
+                        label:element.cnp+" ( "+element.firstname+" "+ element.lastname+ ")"
+                    }
+                    optionsDonors.push(option);
+                    
+                });
+                this.setState({
+                    optionsDonors:optionsDonors
+                })    
+            }  
+        },
+            (error) => {
+                Alert.error("A apărut o eroare la aducerea donatorilor", {
+                    position: 'top-right',
+                    effect: 'jelly'
+                  });
+            });
+    
+    }
+    
 
   onOpenModal = () => {
     this.setState({ open: true });
@@ -98,7 +136,7 @@ export class ModalAddBloodBag extends React.Component<ModalAddBloodBagProps,Moda
             let bloodBag:IAddBloodBag;
             bloodBag=
             {
-                CNP:this.state.cnp,
+                CNP:this.state.selectedDonor.value,
                 rh:this.state.rh,
                 bloodType:this.state.selectedGroup.value
             }
@@ -131,10 +169,16 @@ export class ModalAddBloodBag extends React.Component<ModalAddBloodBagProps,Moda
         }
     }
 
-    handleCnpChange(event: any) {
-        this.setState({
-            cnp: event.target.value
-        });
+    handleChangeDonor = (selectedDonor) => {
+       
+        if(selectedDonor!=null)
+        {
+            this.setState({ selectedDonor });
+        }
+        else
+        {
+            this.setState({selectedDonor:{value:undefined,label:''}})
+        }
     }
 
 
@@ -144,6 +188,9 @@ export class ModalAddBloodBag extends React.Component<ModalAddBloodBagProps,Moda
     const { selectedGroup } = this.state;
     const valueGroup = selectedGroup && selectedGroup.value;
 
+    const { selectedDonor } = this.state;
+    const valueDonor = selectedDonor && selectedDonor.value;
+
     return (
       <div style={styles}>
         
@@ -152,7 +199,17 @@ export class ModalAddBloodBag extends React.Component<ModalAddBloodBagProps,Moda
           <h2>Adaugă o pungă de sânge</h2>
           <hr className="invisibleHr"/>
 
-        <TextField text="CNP donator" type="text" onChangeFunction={(event) => this.handleCnpChange(event)} />  
+        {/* <TextField text="CNP donator" type="text" onChangeFunction={(event) => this.handleCnpChange(event)} />   */}
+        <Select
+            name="dropdown-donor"
+            creatable={false}
+            placeholder='Nume sau CNP donator...'
+            onChange={this.handleChangeDonor}
+            options={this.state.optionsDonors}
+            value={selectedDonor}
+                        
+        />
+
 
         <Select
                 name="dropdown-group"
@@ -173,7 +230,7 @@ export class ModalAddBloodBag extends React.Component<ModalAddBloodBagProps,Moda
             <RadioButton value="POZITIV" iconInnerSize={7} iconSize={17} pointColor="#f70606c7">RH Pozitiv</RadioButton>   
         </RadioGroup>
         
-        <button className="buttonAddBloodBag" onClick={(event) => this.addBloodBag(event)}>Adaugă pungă de sânge</button>
+        <button className="generic-button green-button" onClick={(event) => this.addBloodBag(event)}>Adaugă pungă de sânge</button>
      
         <Alert stack={true} timeout={5000} />
         </div>

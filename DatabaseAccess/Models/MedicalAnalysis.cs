@@ -34,6 +34,8 @@ namespace DatabaseAccess.Models
 
         public string Observations { get; set; }
 
+        public bool IsFilled { get; set; }
+
 
     }
 }
