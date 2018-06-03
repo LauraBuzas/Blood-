@@ -54,10 +54,10 @@ export class ModalDonorPersonalData extends React.Component<ModalDonorPersonalDa
                 </div>
             
                 <div>
-                    <Label bsClass="info-label" bsStyle="info">Oras: {this.props.row.city}</Label>
-                    <Label bsClass="info-label" bsStyle="info">Judet: {this.props.row.county}</Label>
+                    <Label bsClass="info-label" bsStyle="info">Oraș: {this.props.row.city}</Label>
+                    <Label bsClass="info-label" bsStyle="info">Județ: {this.props.row.county}</Label>
                     <Label bsClass="info-label" bsStyle="info">Strada: {this.props.row.street}</Label>
-                    <Label bsClass="info-label" bsStyle="info">Numar: {this.props.row.number}</Label>
+                    <Label bsClass="info-label" bsStyle="info">Număr: {this.props.row.number}</Label>
                 </div>
               
              </div>

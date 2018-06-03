@@ -22,13 +22,13 @@ export class HomePage extends React.Component {
 
                     <CarouselPage 
                                 image="assets/homePage/carousel/carousel1.jpg" 
-                                legend="Dati mai jos pentru a afla cum puteti dona"/>
+                                legend="Dați mai jos pentru a afla cum puteți dona"/>
                     <CarouselPage 
                                 image="assets/homePage/carousel/donare-sange-1.jpg" 
-                                legend="Donati acum"/>
+                                legend="Donați acum!"/>
                     <CarouselPage 
                                 image="assets/homePage/carousel/carousel3.jpg" 
-                                legend="Romania are nevoie de un numar dublu de donatori!"/>
+                                legend="România are nevoie de un număr dublu de donatori!"/>
                 </Carousel>
                 
                 <div id="welcome-container">

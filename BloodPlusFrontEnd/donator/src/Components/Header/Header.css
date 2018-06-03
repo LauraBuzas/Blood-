@@ -43,7 +43,19 @@
     text-decoration: none;
 }
 
+@media (max-width: 840px) {
+    .hangouts-nodes a{
+        font-size: 18px;
+        padding: 10px 10px;
+    }
 
+    .log-out, .home-link {
+        font-size: 30px;
+        padding: 10px 10px;
+        
+    }
+
+}
 
 @media (max-width: 720px) {
     .hangouts-nodes a{
