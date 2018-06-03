@@ -18,5 +18,19 @@ namespace BloodPlus.Mappers
                 CNP = donor.CNP,
             };
         }
+
+        public static DonorInfoGetModelView ToDonorInfoModelView(Donor donor)
+        {
+            return new DonorInfoGetModelView
+            {
+                FirstName=donor.FirstName,
+                LastName=donor.LastName,
+                CNP=donor.CNP,
+                City=donor.Address.City,
+                County=donor.Address.County,
+                Street=donor.Address.Street,
+                Number=donor.Address.Number
+            };
+        }
     }
 }
