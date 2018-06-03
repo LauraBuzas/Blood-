@@ -19,6 +19,7 @@ interface MedicalAnalysesState {
     analysis:IAddMedicalTest
     selectedDonor:ISelection;
     optionsDonors:ISelection[];
+    analysisAdded:boolean;
 }
 export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps, MedicalAnalysesState>
 {
@@ -40,6 +41,7 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
             },
             selectedDonor:undefined,
             optionsDonors:[],
+            analysisAdded:false
 
         }
     }
@@ -116,7 +118,13 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
         });
     }
 
-    handleChangePacient = (selectedDonor) => {
+    handleRejectedCheckboxClick(event:any){
+        this.setState({
+            analysis: update(this.state.analysis, { RejectedOtherCauses: { $set: event.target.checked } })
+        });
+    }
+
+    handleChangeDonor = (selectedDonor) => {
        
         if(selectedDonor!=null)
         {
@@ -124,7 +132,7 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
         }
         else
         {
-            this.setState({selectedDonor:{value:undefined,label:''} , analysis: update(this.state.analysis, { CNP: { $set: selectedDonor.value } })})
+            this.setState({selectedDonor:{value:undefined,label:''} , analysis: update(this.state.analysis, { CNP: { $set: "" } })})
         }
       }
 
@@ -132,8 +140,43 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
         this.setState({
             analysis: update(this.state.analysis, { Observations: { $set: (this.refs.observationTextArea as HTMLTextAreaElement).value } })
         },()=>{
-            EmployeeService.addAnalysis(this.state.analysis);
+            EmployeeService.addAnalysis(this.state.analysis).then((resp:any)=>{ 
+                Alert.success("Analize adaugate cu succes.", {
+                position: 'top-right',
+                effect: 'jelly'
+              });
+              this.clearFields();
+            }).catch((resp:any)=>{
+                Alert.error(resp.data, {
+                    position: 'top-right',
+                    effect: 'jelly'
+                  });
+                  this.clearFields();
+            });
         });
+    }
+
+    clearFields(){
+        (this.refs.HIV as HTMLInputElement).checked = false;
+        (this.refs.HepatitisB as HTMLInputElement).checked = false;
+        (this.refs.HepatitisC as HTMLInputElement).checked = false;
+        (this.refs.Sifilis as HTMLInputElement).checked = false;
+        (this.refs.HTLV as HTMLInputElement).checked = false;
+        (this.refs.ALTLevel as HTMLInputElement).checked = false;
+        (this.refs.Rejected as HTMLInputElement).checked = false;
+        (this.refs.observationTextArea as HTMLTextAreaElement).value = "";
+        this.setState({selectedDonor:undefined, analysis:{
+            CNP:"",
+            Sifilis:false,
+            RejectedOtherCauses:false,
+            Observations:"",
+            HTLV:false,
+            HIV:false,
+            HepatitisB:false,
+            HepatitisC:false,
+            ALTLevel:false
+        }});
+        
     }
 
     render(){
