@@ -3,8 +3,12 @@ h1, .date-text, .days-remaining {
 }
 
 #analyses-table {
-    width: 80%;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 700px;
     margin: 20px auto;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 @media (max-width: 800px) {
@@ -18,9 +22,24 @@ h1, .date-text, .days-remaining {
     color: #3b4754;
 }
 
+#days-remaining-div {
+    width: 140px;
+    margin: 0 auto;
+}
+
+#days-remaining-container {
+    background-color: #ededff;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 10px;
+}
+
 .days-remaining {
-    font-size: 40px;
+    font-size: 50px;
     margin: 5px;
-    padding: 0;
+    padding: 20px;
+    border-radius: 40px;
+    background-color: #98c4ea;
+    color: white;
     font-weight: 800;
 }

@@ -1,7 +1,14 @@
 #stock-table {
-    width: 90%;
+    width: 100%;
     margin: 20px auto;
     align-items: flex-start;
+    font-size: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#stock-table table {
+    font-size: 15px;
 }
 
 .stock-btn {
@@ -19,6 +26,7 @@
     
     margin: 0;
 }
+
 
 .accept-btn {
     color: #11CC00;
@@ -47,22 +55,5 @@
 
 .accept-btn:focus, .reject-btn:focus {
     outline: none;
-}
-
-
-.react-bs-table table tr th {
-    font-size: 14px;
-}
-
-.react-bs-table table tr td {
-    font-size: 14px;
-}
-
-.react-bs-table table tr th:nth-child(5) {
-    width: 9em;
-}
-
-.react-bs-table table tr td:nth-child(5) {
-    width: 9em;
 }
 

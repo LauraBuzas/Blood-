@@ -11,7 +11,7 @@
 
 .footer-button {
     float: right;
-    width: 60px;
+    width: 30px;
     height: 30px;
     text-align: center;
     
@@ -21,7 +21,7 @@
     background-color: rgba(0,0,0,0.5);
     border: none;
     color: white;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .footer-button:focus {
@@ -31,8 +31,6 @@
 .up-button {
     border-radius: 5px;
     display: flex;
-    height: 30px;
-    width: 30px;
     font-size: 30px;
     background-color: #98c4ea;
     
@@ -50,7 +48,7 @@
 
 #copyright-text {
     box-sizing: border-box;
-    font-size: 10px;
+    font-size: 15px;
     margin: 10px 0 0 0;
     width: 100%;
     color: white;
@@ -60,4 +58,16 @@
 #contact-title {
     font-size: 24px;
     color: #DDDDDD;
+}
+
+@media (max-width: 340px) {
+    #contact {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 500px) {
+    #copyright-text {
+        font-size: 10px;
+    }
 }

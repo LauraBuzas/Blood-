@@ -220,7 +220,7 @@ namespace DatabaseAccess.Data.Migrations
 
                     b.Property<bool>("Brucellosis");
 
-                    b.Property<int>("CNP");
+                    b.Property<string>("CNP");
 
                     b.Property<bool>("Cancer");
 

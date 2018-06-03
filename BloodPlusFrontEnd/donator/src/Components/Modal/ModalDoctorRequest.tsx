@@ -292,8 +292,8 @@ renderPatient()
 {
     return(
     
-        <div>
-          <div className="hboxWithSpace">
+        <div className="request-modal">
+          <div className="h-box">
             <TextField text="Nume" type="text" onChangeFunction={(event) => this.handleFirstNameChange(event)} />
             <TextField text="Prenume" type="text" onChangeFunction={(event) => this.handleLastNameChange(event)}/>
             <TextField text="Oraș" type="text" onChangeFunction={(event) => this.handleCityChange(event)}/>
@@ -359,10 +359,10 @@ componentWillMount()
     return (
       <div style={styles}>
         
-        <Modal open={open} onClose={this.onCloseModal} large>
-          <div className="vboxWithSpace">
+        <Modal dialogClassName="request-modal" open={open} onClose={this.onCloseModal}>
+          <div>
           <h2>Cerere sânge</h2>
-          <hr className="invisibleHr"/>
+          <hr/>
           <Creatable
             name="dropdown-pacient"
             creatable={true}
@@ -429,7 +429,7 @@ componentWillMount()
 
         <div className="hboxWithSpace">
             <input type="number" className="input-cantitate" placeholder="Cantitatea ceruta..." min="1" onChange={(event)=>this.handleChangeQuantity(event)}/>
-            <button className="buttonSendRequest" onClick={(event) => this.sendRequest(event)}>Trimite</button>
+            <button className="generic-button request-button" onClick={(event) => this.sendRequest(event)}>Trimite</button>
         </div>
         {/* {this.state.errors!=[]?
                 this.state.errors.forEach(element => {

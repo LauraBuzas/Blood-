@@ -274,6 +274,7 @@ export class CenterBloodStock extends React.Component<BloodStockProps, BloodStoc
                     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
                 </Helmet>
                 <BootstrapTable
+                    className="stock-table"
                     data={this.state.bloodStock}
                     striped
                     hover
@@ -284,12 +285,13 @@ export class CenterBloodStock extends React.Component<BloodStockProps, BloodStoc
                     //width={600}
                 >
                 
-                    <TableHeaderColumn dataField="type" editable={false} width={150}>Tip</TableHeaderColumn>
-                    <TableHeaderColumn dataField="group">Grupa</TableHeaderColumn>
-                    <TableHeaderColumn dataField="rh">Rh</TableHeaderColumn>
-                    <TableHeaderColumn dataField="donor" editable={false} width={170}>Donator</TableHeaderColumn>
-                    <TableHeaderColumn dataField="cnp" editable={false}>CNP</TableHeaderColumn>
-                    <TableHeaderColumn dataField="date" editable={false} isKey={true}>Data</TableHeaderColumn>
+                    <TableHeaderColumn width={160} dataField="type" editable={false}>Tip</TableHeaderColumn>
+                    <TableHeaderColumn width={90} dataField="group">Grupa</TableHeaderColumn>
+                    <TableHeaderColumn width={90} dataField="rh">Rh</TableHeaderColumn>
+                    <TableHeaderColumn width={180} dataField="donor" editable={false}>Donator</TableHeaderColumn>
+                    <TableHeaderColumn width={140} dataField="cnp" editable={false}>CNP</TableHeaderColumn>
+                    <TableHeaderColumn width={200} dataField="date" editable={false} isKey={true}>Data</TableHeaderColumn>
+                    <TableHeaderColumn dataField="stage" width={130} editable={false}>Stadiu</TableHeaderColumn>
                     <TableHeaderColumn dataField="status" width={90} editable={false}>Status</TableHeaderColumn>
                     <TableHeaderColumn dataField="button" width={130} dataAlign={'center'} editable={false} dataFormat={this.buttonFormatter.bind(this)}>Schimbă status</TableHeaderColumn>
                     <TableHeaderColumn dataField="button" width={70} dataAlign={'center'} editable={false} dataFormat={this.buttonSeparation.bind(this)}>Separă</TableHeaderColumn>

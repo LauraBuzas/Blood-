@@ -67,7 +67,7 @@ namespace Services
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-               
+
                 var center = uow.CenterRepository.GetAll()
                         .Include("Address")
                         .FirstOrDefault(c => c.Id == centerId);
@@ -82,15 +82,15 @@ namespace Services
                                 .ThenBy(r => r.DateOfRequest);
 
                 List<Request> requestsForCenter = new List<Request>();
-                foreach(var request in allRequests)
+                foreach (var request in allRequests)
                 {
-                    if(request.Patient.Doctor.Hospital.Address.County==center.Address.County && request.ReceivedQuantity!=request.RequestedQuantity)
+                    if (request.Patient.Doctor.Hospital.Address.County == center.Address.County && request.ReceivedQuantity != request.RequestedQuantity)
                     {
                         requestsForCenter.Add(request);
                     }
                 }
                 return requestsForCenter;
-    
+
             }
 
         }
@@ -131,6 +131,8 @@ namespace Services
             {
                 var donor = uow.DonorRepository.GetAll().Where(d => d.CNP == cnp).FirstOrDefault();
                 var donorAnalysis = uow.MedicalAnalysisRepository.GetAll().Include(da => da.BloodBag).Where(ma => ma.DonorId == donor.Id).FirstOrDefault();
+                if (donorAnalysis == null)
+                    throw new Exception("Punga de sange prelevata nu a fost adaugata inca");
                 CopyAnalysisDetailsToDb(uow, donorAnalysis, analysis);
 
                 if (IsNotValidBloodBag(analysis))
@@ -138,7 +140,7 @@ namespace Services
                     donorAnalysis.BloodBag.Status = BloodBagStatus.Rejected;
                     uow.BloodBagRepository.Update(donorAnalysis.BloodBag);
                     uow.Save();
-                    throw new Exception("Unusable Blood Bag");
+                    throw new Exception("Punga de sange nu poate fi utilizata!");
                 }
 
                 donorAnalysis.BloodBag.Status = BloodBagStatus.Accepted;
@@ -149,24 +151,29 @@ namespace Services
         }
 
 
-		public List<BloodBag> GetBloodBags(int centerId) {
-			using (UnitOfWork uow = new UnitOfWork()) {
-				return uow.BloodBagRepository
-					.GetAll()
-					.Include(bb => bb.Analysis.Donor)
+        public List<BloodBag> GetBloodBags(int centerId)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var bloodBags = uow.BloodBagRepository
+                    .GetAll()
+                    .Include(bb => bb.Analysis.Donor)
                     .Include(bb => bb.Center)
-					.Where(bb => (bb.Status!=BloodBagStatus.Destroyed && bb.Status!=BloodBagStatus.Rejected && bb.Stage!=BloodBagStage.Sent) && bb.CenterId == centerId)
-					.ToList();
-				
-			}
-		}
+                    .Where(bb => (bb.Status != BloodBagStatus.Destroyed && bb.Status != BloodBagStatus.Rejected && bb.Stage != BloodBagStage.Sent) && bb.CenterId == centerId)
+                    .ToList();
+
+                return bloodBags;
+
+
+            }
+        }
 
 
         public void ChangeStatus(BloodBag bloodBag)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-     
+
                 if (bloodBag.Status == BloodBagStatus.Waiting)
                 {
                     bloodBag.Status = BloodBagStatus.Accepted;
@@ -184,7 +191,7 @@ namespace Services
 
                 bloodBag.Status = BloodBagStatus.Rejected;
                 bloodBag.Stage = BloodBagStage.Qualification;
-               
+
                 uow.BloodBagRepository.Update(bloodBag);
                 uow.Save();
             }
@@ -192,7 +199,7 @@ namespace Services
 
         public void UpdateBloodBag(BloodBag bloodBag)
         {
-            using(UnitOfWork uow =new UnitOfWork())
+            using (UnitOfWork uow = new UnitOfWork())
             {
                 uow.BloodBagRepository.Update(bloodBag);
                 uow.Save();
@@ -226,9 +233,9 @@ namespace Services
             }
         }
 
-        public void SeparateBloodBag(BloodBag bloodBag,Thrombocyte t,Plasma p, RedBloodCell r)
+        public void SeparateBloodBag(BloodBag bloodBag, Thrombocyte t, Plasma p, RedBloodCell r)
         {
-            using(UnitOfWork uow = new UnitOfWork())
+            using (UnitOfWork uow = new UnitOfWork())
             {
                 bloodBag.Stage = BloodBagStage.Separation;
                 bloodBag.Status = BloodBagStatus.Destroyed;
@@ -240,43 +247,87 @@ namespace Services
             }
         }
 
-		public List<Thrombocyte> GetThrombocytesStock(int centerId) {
-			using (UnitOfWork uow = new UnitOfWork()) {
-				return uow.ThrombocyteRepository
-					.GetAll()
+        public List<Thrombocyte> GetThrombocytesStock(int centerId)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var thrombocytes = uow.ThrombocyteRepository
+                    .GetAll()
                     .Include(bb => bb.Analysis.Donor)
                     .Include(bb => bb.Center)
-                    .Where(t => t.Status!=ComponentStatus.Sent && t.CenterId == centerId && t.Status!=ComponentStatus.Sent)
-					.ToList();
+                    .Where(t => t.Status != ComponentStatus.Sent && t.CenterId == centerId && t.Status != ComponentStatus.Sent && t.Status != ComponentStatus.Expired)
+                    .ToList();
+                thrombocytes = thrombocytes.Select(thr =>
+                {
+                    if (thr.ExpirationDateAndTime < DateTime.Now)
+                    {
+                        thr.Status = ComponentStatus.Expired;
+                        uow.ThrombocyteRepository.Update(thr);
+                        uow.Save();
+                    }
+                    return thr;
+                }).Where(t => t.Status != ComponentStatus.Expired).ToList();
 
-			}
-		}
+                return thrombocytes;
 
-		public List<RedBloodCell> GetRedBloodCellsStock(int centerId) {
-			using (UnitOfWork uow = new UnitOfWork()) {
-				return uow.RedBloodCellRepository
-					.GetAll()
+            }
+        }
+
+        public List<RedBloodCell> GetRedBloodCellsStock(int centerId)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var redCells = uow.RedBloodCellRepository
+                    .GetAll()
                     .Include(bb => bb.Analysis.Donor)
                     .Include(bb => bb.Center)
-                    .Where(rbc => rbc.Status != ComponentStatus.Sent && rbc.CenterId == centerId && rbc.Status!=ComponentStatus.Sent)
-					.ToList();
+                    .Where(rbc => rbc.Status != ComponentStatus.Sent && rbc.CenterId == centerId && rbc.Status != ComponentStatus.Sent && rbc.Status != ComponentStatus.Expired)
+                    .ToList();
+                redCells.Select(redCell =>
+                 {
+                     if (redCell.ExpirationDateAndTime < DateTime.Now)
+                     {
+                         redCell.Status = ComponentStatus.Expired;
+                         uow.RedBloodCellRepository.Update(redCell);
+                         uow.Save();
+                         return null;
+                     }
+                     return redCell;
+                 }).Where(rc => rc.Status != ComponentStatus.Expired).ToList();
 
-			}
-		}
+                return redCells;
 
-		public List<Plasma> GetPlasmaStock(int centerId) {
-			using (UnitOfWork uow = new UnitOfWork()) {
-				return uow.PlasmaRepository
-					.GetAll()
+            }
+        }
+
+        public List<Plasma> GetPlasmaStock(int centerId)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var plasmas = uow.PlasmaRepository
+                    .GetAll()
                     .Include(bb => bb.Analysis.Donor)
                     .Include(bb => bb.Center)
-                    .Where(p => p.Status != ComponentStatus.Sent && p.CenterId == centerId && p.Status != ComponentStatus.Sent)
-					.ToList();
+                    .Where(p => p.Status != ComponentStatus.Sent && p.CenterId == centerId && p.Status != ComponentStatus.Sent && p.Status != ComponentStatus.Expired)
+                    .ToList();
 
-			}
-		}
+                plasmas.Select(plasma =>
+                {
+                    if (plasma.ExpirationDateAndTime < DateTime.Now)
+                    {
+                        plasma.Status = ComponentStatus.Expired;
+                        uow.PlasmaRepository.Update(plasma);
+                        uow.Save();
+                    }
+                    return plasma;
+                }).Where(p => p.Status != ComponentStatus.Expired).ToList();
 
-		public void CopyAnalysisDetailsToDb(UnitOfWork uow, MedicalAnalysis dbAnalysis, MedicalAnalysis analysis)
+                return plasmas;
+
+            }
+        }
+
+        public void CopyAnalysisDetailsToDb(UnitOfWork uow, MedicalAnalysis dbAnalysis, MedicalAnalysis analysis)
         {
             dbAnalysis.ALTLevel = analysis.ALTLevel;
             dbAnalysis.HepatitisB = analysis.HepatitisB;
@@ -299,11 +350,11 @@ namespace Services
             return donorHasADisease || analysis.RejectedOtherCauses;
         }
 
-        public List<RedBloodCell> GetRedBloodCellsForRequest(int centerId,string rh, string bloodType)
+        public List<RedBloodCell> GetRedBloodCellsForRequest(int centerId, string rh, string bloodType)
         {
             List<RedBloodCell> redBloodCells = new List<RedBloodCell>();
             var available = GetRedBloodCellsStock(centerId);
-            foreach(var redBloodCell in available)
+            foreach (var redBloodCell in available)
             {
                 if (redBloodCell.BloodType.ToString() == bloodType && redBloodCell.RhType.ToString() == rh)
                     redBloodCells.Add(redBloodCell);
@@ -359,7 +410,7 @@ namespace Services
 
         public void AcceptBloodBag(Request doctorRequest, int centerId, string rh, string bloodType, int quatityNeeded)
         {
-            var availableBloodBags = GetBloodBagsForRequest(centerId,rh,bloodType).OrderBy(b => b.Date).ToList();
+            var availableBloodBags = GetBloodBagsForRequest(centerId, rh, bloodType).OrderBy(b => b.Date).ToList();
             var availableQuantity = availableBloodBags.Count;
             if (availableQuantity == 0)
                 throw new Exception("Nu exista pungi de sange in centru");
@@ -387,7 +438,7 @@ namespace Services
 
         public void AcceptThrombocytes(Request doctorRequest, int centerId, string rh, string bloodType, int quatityNeeded)
         {
-            var availableThrombocytes = GetThrombocytesForRequest(centerId,rh,bloodType).OrderBy(t=>t.ExpirationDateAndTime).ToList();
+            var availableThrombocytes = GetThrombocytesForRequest(centerId, rh, bloodType).OrderBy(t => t.ExpirationDateAndTime).ToList();
             var availableQuantity = availableThrombocytes.Count;
             if (availableQuantity == 0)
                 throw new Exception("Nu exista trombocite in centru");
@@ -414,7 +465,7 @@ namespace Services
 
         public void AcceptPlasma(Request doctorRequest, int centerId, string bloodType, int quatityNeeded)
         {
-            var availablePlasma = GetPlasmaForRequest(centerId,bloodType).OrderBy(t => t.ExpirationDateAndTime).ToList();
+            var availablePlasma = GetPlasmaForRequest(centerId, bloodType).OrderBy(t => t.ExpirationDateAndTime).ToList();
             var availableQuantity = availablePlasma.Count;
             if (availableQuantity == 0)
                 throw new Exception("Nu exista plasma in centru");
@@ -439,9 +490,9 @@ namespace Services
             }
         }
 
-        public void AcceptRedBloodCells(Request doctorRequest, int centerId, string rh,string bloodType, int quatityNeeded)
+        public void AcceptRedBloodCells(Request doctorRequest, int centerId, string rh, string bloodType, int quatityNeeded)
         {
-            var availableRedBloodCells = GetRedBloodCellsForRequest(centerId,rh,bloodType).OrderBy(rb => rb.ExpirationDateAndTime).ToList();
+            var availableRedBloodCells = GetRedBloodCellsForRequest(centerId, rh, bloodType).OrderBy(rb => rb.ExpirationDateAndTime).ToList();
             var availableQuantity = availableRedBloodCells.Count;
             if (availableQuantity == 0)
                 throw new Exception("Nu exista globule rosii in centru");
@@ -470,7 +521,7 @@ namespace Services
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                var x =uow.BloodBagRepository.GetAll().GroupBy(b => new { b.BloodType, b.RhType }).Select(b => new { BloodType = b.Key.BloodType, RhType = b.Key.RhType, Count = b.Count() }).ToList();
+                var x = uow.BloodBagRepository.GetAll().GroupBy(b => new { b.BloodType, b.RhType }).Select(b => new { BloodType = b.Key.BloodType, RhType = b.Key.RhType, Count = b.Count() }).ToList();
             }
         }
 

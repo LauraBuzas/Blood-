@@ -6,7 +6,7 @@ import {IEmployeeProfile} from '../../Models/IEmployeeProfile';
 import Alert from 'react-s-alert';
 import {TextField} from '../../utils/TextField';
 //import {Button1} from '../../utils/Button1';
-import {HBox,VBox} from '../../../node_modules/react-stylesheet';
+import {HBox,VBox} from 'react-stylesheet';
 //import {Avatar} from '../../../node_modules/react-avatar';
 import Avatar from 'react-avatar';
 import { EmployeeProfileService } from '../../Services/EmployeeProfileService';
@@ -26,6 +26,7 @@ interface EmployeeProfileState{
     centerName:string;
     newPassword:string;
     
+    isPasswordChanging: boolean;
 
     //firstName:string;
     //lastName:string;
@@ -51,9 +52,23 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
             message:'',
             centerName:'',
             newPassword:'',
+            isPasswordChanging: false
             
         };
     }
+
+    togglePasswordChange = () => {
+        if (this.state.isPasswordChanging) {
+            this.setState({
+                isPasswordChanging: false
+            });
+        } else {
+            this.setState({
+                isPasswordChanging: true
+            });
+        }
+    }
+
 
     render(){
         return(
@@ -73,8 +88,21 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
                     <TextField text="Nume" type="text" value={this.state.employee.lastname} onChangeFunction={(event) =>this.handleLastNameChange(event)}/>
                     <TextField text="Prenume" type="text" value={this.state.employee.firstname} onChangeFunction={(event) =>this.handleFirstNameChange(event)}/>
                     <TextField text="Email" type="text" value={this.state.employee.email} onChangeFunction={(event) =>this.handleEmailChange(event)}/>  
-                    <TextField text="Centru" type="text"  value ={this.state.centerName} onChangeFunction={(event)=>this.handleCenterChange(event)}/>                        
-                    <button className="generic-button"  onClick={(event) => this.handleSave(event)}>
+                    <TextField text="Centru" type="text"  value ={this.state.centerName} onChangeFunction={(event)=>this.handleCenterChange(event)}/>
+                    <div>
+                        <button onClick={this.togglePasswordChange} className="generic-button change-pass-btn">Schimbă parola</button>
+                    </div>
+
+                    <VBox className={this.state.isPasswordChanging? "pass-vbox pass-visible": "pass-vbox pass-hidden"}>
+                        <MuiThemeProvider muiTheme={getMuiTheme()}>
+                        <PasswordField value={this.state.employee.password}className="passField" onChange={(event) => this.handleCPassChange(event)} hintText="Cel puțin 8 caractere" floatingLabelText="Introdu parola curentă" />
+                        <PasswordField value={this.state.newPassword} onChange={(event) => this.handleNewPassChange(event)} hintText="Cel puțin 8 caractere" floatingLabelText="Introdu noua parolă" />
+                        <PasswordField value={this.state.employee.confirmPassword} onChange={(event) => this.handleConfirmPassChange(event)} floatingLabelText="Confirmă noua parolă" />
+                        </MuiThemeProvider>
+                    </VBox>
+                    
+
+                    <button className="generic-button blue-button"  onClick={(event) => this.handleSave(event)}>
                     Salvează modificările
                     </button>
                         
@@ -167,7 +195,7 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
 
     handleNewPassChange(event:any){
         this.setState({
-            newPassword:event.target.value ,
+            newPassword:event.target.value
             
         });
     }
@@ -179,7 +207,7 @@ export class EmployeeProfile extends React.Component<EmployeeProfileProps,Employ
         });
     }
 
-    handleUpdate
+    
 
     handleSave(event:any){
         var completed = true;

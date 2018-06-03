@@ -37,16 +37,19 @@ namespace Services
         }
         
 
-        public void AddRegistrationForDonation(String donorName)
+        public void AddRegistrationForDonation(DonorRegistrationForDonation donorRegistrationForDonation)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                //var registration = new DonorRegistrationForDonation();
-                //registration.DonorName = donorName;
-                //registration.RegistrationDate = DateTime.Now;
+                donorRegistrationForDonation.RegistrationDate = DateTime.Now;
+                //donorRegistrationForDonation.DonorId = uow.DonorRepository.GetAll().Where(d => d.CNP == donorRegistrationForDonation.CNP).First().Id;
 
-                //uow.DonorRegistrationForDonationRepository.Add(registration);
-                //uow.Save();
+                donorRegistrationForDonation.DonorId = uow.DonorRepository.GetByFunc(donor => donor.CNP == donorRegistrationForDonation.CNP).Id;
+                donorRegistrationForDonation.Donor = uow.DonorRepository.GetByFunc(donor => donor.CNP == donorRegistrationForDonation.CNP);
+                //uow.DonorRepository.GetAll().Where(d => d.CNP == donorRegistrationForDonation.CNP).First();//
+
+                uow.DonorRegistrationForDonationRepository.Add(donorRegistrationForDonation);
+                uow.Save();
             }
         }
 
@@ -80,5 +83,41 @@ namespace Services
                 return uow.DonorRepository.GetAll().ToList();
             }
         }
+        public Address GetDonorAddres(int id)
+        {
+            Address a = new Address();
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var addr = uow.AddressRepository.GetById(id);
+                a = addr;
+
+
+
+                //thrombocytes.Concat(thrombocyteqty);
+            }
+                
+                return a;
+            }
+        public String GetDonorEmail(string id)
+        {
+            String m = "";
+            using(UnitOfWork uow=new UnitOfWork())
+            {
+                var mail = uow.ApplicationUserRepository.GetAll().Where(u => u.Id.Equals(id)).First().Email;
+                m = mail;
+            }
+            return m;
+        }
+        public String GetDonorPhone(string id)
+        {
+            String m = "";
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var ph = uow.ApplicationUserRepository.GetAll().Where(u => u.Id.Equals(id)).First().PhoneNumber;
+                m = ph;
+            }
+            return m;
+        }
+        
     }
 }

@@ -23,6 +23,8 @@ import { DoctorPatients } from '../Doctor/DoctorPatients/DoctorPatients';
 import { CenterMedicalAnalyses } from '../MedicalCenter/MedicalAnalyses/MedicalAnalyses';
 import {DonorsPersonalData} from '../CenterDonors/DonorsPersonalData';
 import {DonorHistory} from '../CenterDonors/DonorHistory';
+import {BloodStock} from '../Doctor/BloodStock/BloodStock'
+import {MultiStep} from '../../donation_form/MultiStep'
 export interface BodyProps{
     setRole:any;
     webSocket:WebSocketService;
@@ -58,6 +60,9 @@ export class Body extends React.Component<BodyProps,BodyState>
         const DonorsPersonalDataComponent=()=>{return <DonorsPersonalData/>}
         //const DonorHistoryComponent=()=>{return <DonorHistory/>}
        
+        const BloodStockComponent=()=>{return <BloodStock/>}
+        const MultiStepComponent=()=>{return <MultiStep/>}
+
         return(
            <div id="body">
                 <Route path="/" exact={true} render={HomeComponent}/>
@@ -77,6 +82,8 @@ export class Body extends React.Component<BodyProps,BodyState>
                 <Route path="/employees/analyses" exact={true} render={AddAnalysisComponent}/>
                 <Route path="/employees/donors" exact={true} render={DonorsPersonalDataComponent}/>
                 <Route path="/employees/history/:cnp" exact={true} component={DonorHistory as any}/>
+                <Route path="/bloodstock" exact={true} render={BloodStockComponent}/>
+                <Route path="/donationform" exact={true} render={MultiStepComponent}/>
                 <div id="push">
                     {/* for footer */}
                 </div>
