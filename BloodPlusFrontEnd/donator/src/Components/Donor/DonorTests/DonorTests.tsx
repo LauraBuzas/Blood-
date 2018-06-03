@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import 'react-bootstrap-table/dist/react-bootstrap-table.min.css';
 import { IDonorMedicalTest } from '../../../Models/IDonorMedicalTests';
 import {DonorService} from '../../../Services/DonorService';
 import Alert from 'react-s-alert';
@@ -112,12 +113,14 @@ export class DonorTestsPage extends React.Component<DonorProfileProps, DonorProf
         }
         console.log(this.state.nextDate);
         return(
-            <div>
-               
-                <h1 className="days-remaining">
-                    <Days deadline={this.state.nextDate}/>
-                    
-                </h1>
+            <div id="days-remaining-container">
+                <div id="days-remaining-div">
+                    <h1 className="days-remaining">
+                        <Days deadline={this.state.nextDate}/>
+                        
+                    </h1>
+                </div>
+                
                 <div>
                     zile până când puteți dona din nou
                 </div>
@@ -151,7 +154,7 @@ export class DonorTestsPage extends React.Component<DonorProfileProps, DonorProf
                         options={options}
                         selectRow={selectRowProp}
                         exportCSV>
-                        <TableHeaderColumn dataField="id" isKey={true}>Nr</TableHeaderColumn>
+                        <TableHeaderColumn width={40} dataField="id" isKey={true}>Nr</TableHeaderColumn>
                         <TableHeaderColumn dataField="date">Data analizei</TableHeaderColumn>
                     </BootstrapTable>
                     {this.state.showDetails?<ModalDonorTestDetails currentTest={this.state.currentTest} onClose={this.closeDetails}/>:null}

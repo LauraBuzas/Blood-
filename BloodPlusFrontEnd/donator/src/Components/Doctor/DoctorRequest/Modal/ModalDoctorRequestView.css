@@ -11,7 +11,7 @@
     justify-content: space-between;
 }
 
-.infoLabel {
+.info-label {
     display: block !important;
    
 }
@@ -43,3 +43,25 @@
 .label-default{
     background-color: #c4a773 !important;
 }
+
+.scazut, .mediu, .ridicat, .critic {
+    display: block !important;
+    
+}
+.critic {
+    background-color: #9e0308;
+    color: white;
+}
+  
+.ridicat {
+    background-color: #ef962f;
+}
+  
+.mediu {
+    background-color: #e8da5c
+}
+  
+.scazut {
+    background-color: #8de567
+}
+  

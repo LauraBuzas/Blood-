@@ -230,7 +230,7 @@ export class ModalAddBloodBag extends React.Component<ModalAddBloodBagProps,Moda
             <RadioButton value="POZITIV" iconInnerSize={7} iconSize={17} pointColor="#f70606c7">RH Pozitiv</RadioButton>   
         </RadioGroup>
         
-        <button className="buttonAddBloodBag" onClick={(event) => this.addBloodBag(event)}>Adaugă pungă de sânge</button>
+        <button className="generic-button green-button" onClick={(event) => this.addBloodBag(event)}>Adaugă pungă de sânge</button>
      
         <Alert stack={true} timeout={5000} />
         </div>

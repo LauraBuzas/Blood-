@@ -34,7 +34,7 @@ export class LogIn extends React.Component<LoginProps, LoginState>
                 userRegistered:
                     {
                         email: '',
-                        password: ''
+                        password: 'Password123.'
                     },
                 role:''
             }

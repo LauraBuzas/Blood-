@@ -7,7 +7,7 @@ export class FaqMenu extends React.Component {
     render() {
         return(
             <div id="faq-menu">
-                <h2>Intrebari frecvente</h2>
+                <h2>Întrebări frecvente</h2>
                 <QuestionContainer question="Cum pot să donez sânge?"
                 answer={"Prima dată accesați link-ul din partea de sus a paginii. "+
                 "După ce aveți cont, vă prezentați la un centru de donare unde veți primi mai multe informații."}/>

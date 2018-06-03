@@ -1,0 +1,78 @@
+.analyses-container {
+    width: 100%;
+    max-width: 500px;
+    background-color: #ededff;
+    /* border-radius: 15px; */
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 0px auto;
+}
+
+.analyses-container label {
+    padding: 5px;
+    font-size: 18px;
+    text-align: left;
+}
+
+.analyses-container textarea {
+    padding: 10px;
+    margin: 10px;
+}
+
+label input[type="checkbox"] {
+    margin: 5px;
+    width: 15px;
+    height: 15px;
+}
+
+.nice-check-box {
+    margin: 20px 5px;
+    position: relative;
+    display: inline;
+}
+
+.nice-check-box label {
+    cursor: pointer;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 0;
+    left: 0;
+    background: #eee;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.nice-check-box label:after {
+    opacity: 0.2;
+    content: '';
+    position: absolute;
+    width: 7px;
+    height: 3px;
+    background: transparent;
+    top: 4px;
+    left: 5px;
+    border: 3px solid #333;
+    border-top: none;
+    border-right: none;
+
+    transform: rotate(-45deg);
+}
+
+/**
+ * Create the hover event of the tick
+ */
+ .nice-check-box label:hover::after {
+    opacity: 0.5;
+}
+
+/**
+ * Create the checkbox state for the tick
+ */
+.nice-check-box input[type=checkbox]:checked + label:after {
+    opacity: 1;
+}
+
+.nice-check-box input[type=checkbox]:checked + label {
+    border: 1px solid #888;
+}
