@@ -43,7 +43,7 @@ export class ModalDonorPersonalData extends React.Component<ModalDonorPersonalDa
             </Helmet>    
             
             <Modal open={open} onClose={this.onCloseModal} large>
-              <h2>Detalii cerere</h2>
+              <h2>Detalii donator</h2>
               
               <div className="hboxWithSpace">
                 <div className="labels">

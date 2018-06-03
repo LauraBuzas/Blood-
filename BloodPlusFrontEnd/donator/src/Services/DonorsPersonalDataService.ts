@@ -1,6 +1,9 @@
 import axios from 'axios';
 import {Config} from './UrlConfig';
 import { IDonorInfoGet } from '../Models/IDonorInfoGet';
+import { IDonorAnalisys } from '../Models/IDonorAnalysis';
+import { resolve } from 'url';
+import { ICnpModel } from '../Models/ICnpModel';
 
 export class DonorsPersonalDataService{
     private static rootDonors: string = Config.url+'/employees';
@@ -25,6 +28,30 @@ export class DonorsPersonalDataService{
         });
     });
     }
+
+    public static getAnalysis(cnp:ICnpModel):Promise<IDonorAnalisys[]>{
+        let cnpModel ={
+            cnp:cnp
+        }
+        return new Promise((resolve,reject) =>{
+            axios(this.rootDonors+'/donors-history',{
+                method:'POST',
+                headers:{
+                    'Access-Control-Allow-Origin':'*',
+                    'Content-Type':'application/json'
+                },
+                withCredentials:true,
+                data:cnpModel
+            }).then((response:any)=>{
+                let analysis=response.data.map(this.toAnalysis);
+                resolve(analysis);
+            },
+            (error:any)=>{
+                reject(error);
+            }
+        )
+        });
+    }
     public static toDonor(response:any):IDonorInfoGet{
         return{
             firstname:response.firstName,
@@ -35,5 +62,49 @@ export class DonorsPersonalDataService{
             street:response.street,
             number:response.number
         };
+    }
+    public static toAnalysis(row:any):IDonorAnalisys{ //row is response
+        return {
+            cnp:row.cnp,
+            name:row.name,
+            surname:row.surname,
+            birthDate:row.birthDate,
+            cityOfBirth:row.cityOfBirth,
+            countyOfBirth:row.countyOfBirth,
+            currentCity:row.currentCity,
+            currentCounty:row.currentCounty,
+            age:row.age,
+            weight:row.weight,
+            beatsPerMinute:row.beatsPerMinute,
+            bloodPressure:row.blooPressure,
+            hadSurgery:row.hadSurgery,
+            personSex:row.personSex,
+            pregnancyStatus:row.pregnancy,
+            period:row.period,
+            heartDisease:row.heartDisease,
+            hypertension:row.hypertension,
+            kidneyDisease:row.kidneyDisease,
+            mentalIlness:row.mentalIlness,
+            liverDisease:row.liverDisease,
+            endocrineDisease:row.endocrineDisease,
+            hepatitis:row.hepatitis,
+            tuberculosis:row.tuberculosis,
+            pox:row.pox,
+            malaria:row.malaria,
+            epilepsy:row.epilepsy,
+            mindIlnesses:row.mindIlness,
+            brucellosis:row.brucellosis,
+            ulcer:row.ulcer,
+            diabetes:row.diabetes,
+            heartDiseases:row.heartDiseases,
+            skinDiseases:row.skinDiseases,
+            myopia:row.myopia,
+            cancer:row.cancer,
+            email:row.email,
+            phoneNumber:row.phoneNumber,
+            otherPersonName:row.otherPersonName,
+            otherPersonSurname:row.otherPersonSurname,
+            registrationDate:row.registrationDate
+        }
     }
 }

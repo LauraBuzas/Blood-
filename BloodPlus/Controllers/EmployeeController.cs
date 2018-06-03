@@ -539,5 +539,28 @@ namespace BloodPlus.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        //[Authorize(Roles = "DonationCenterDoctor")]
+        [AllowAnonymous]
+        [HttpPost("donors-history")]
+        public IActionResult GetHistoryForDonor([FromBody] CNPViewModel cnp)
+        {
+            try
+            {
+                List<DonorRegistrationForDonation> donors = employeeService.GetHistory(cnp.CNP);
+                List<DonorAnalysisModelView> damv = new List<DonorAnalysisModelView>();
+                foreach (DonorRegistrationForDonation dr in donors)
+                {
+                    damv.Add(Mappers.MapperAnalysis.toDonorRegistrationForDonationModelView(dr));
+                }
+                return Ok(damv);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }
