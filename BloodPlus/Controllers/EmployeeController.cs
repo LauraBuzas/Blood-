@@ -303,7 +303,7 @@ namespace BloodPlus.Controllers
                 List<BloodBag> bloodBags = employeeService.GetBloodBags(centerId);
                 foreach(BloodBag b in bloodBags)
                 {
-                    if (b.Analysis.DateAndTime.ToString().Equals(date) && b.Analysis.Donor.CNP.Equals(cnp))
+                    if (b.Date.ToString().Equals(date) && b.Analysis.Donor.CNP.Equals(cnp))
                     {
                         employeeService.ChangeStatus(b);
                         break;
@@ -336,7 +336,7 @@ namespace BloodPlus.Controllers
                 List<BloodBag> bloodBags = employeeService.GetBloodBags(centerId);
                 foreach (BloodBag b in bloodBags)
                 {
-                    if (b.Analysis.DateAndTime.ToString().Equals(date) && b.Analysis.Donor.CNP.Equals(cnp))
+                    if (b.Date.ToString().Equals(date) && b.Analysis.Donor.CNP.Equals(cnp))
                     {
                         employeeService.ChangeStatusReject(b);
                         break;
@@ -476,7 +476,7 @@ namespace BloodPlus.Controllers
                 List<BloodBag> bloodBags = employeeService.GetBloodBags(centerId);
                 foreach (BloodBag b in bloodBags)
                 {
-                    if (b.Analysis.DateAndTime.ToString().Equals(date) && b.Analysis.Donor.CNP.Equals(cnp))
+                    if (b.Date.ToString().Equals(date) && b.Analysis.Donor.CNP.Equals(cnp))
                     {
                         var thrombocyte = MapperBloodBag.ToThrombocyte(b);
                         var redBloodCell = MapperBloodBag.ToRedBloodCell(b);
@@ -520,5 +520,49 @@ namespace BloodPlus.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [Authorize(Roles = "DonationCenterDoctor")]
+        [HttpGet("donors-info")]
+        public IActionResult GetDonorsInfo()
+        {
+            try
+            {
+                List<Donor> donors = employeeService.GetDonors();
+                List<DonorInfoGetModelView> digmv = new List<DonorInfoGetModelView>();
+                foreach(Donor d in donors)
+                {
+                    digmv.Add(Mappers.MapperDonnorDonnorView.ToDonorInfoModelView(d));
+                }
+                return Ok(digmv);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Authorize(Roles = "DonationCenterDoctor")]
+        //[AllowAnonymous]
+        [HttpPost("donors-history")]
+        public IActionResult GetHistoryForDonor([FromBody] CNPViewModel cnp)
+        {
+            try
+            {
+                List<DonorRegistrationForDonation> donors = employeeService.GetHistory(cnp.CNP);
+                List<DonorAnalysisModelView> damv = new List<DonorAnalysisModelView>();
+                foreach (DonorRegistrationForDonation dr in donors)
+                {
+                    damv.Add(Mappers.MapperAnalysis.toDonorRegistrationForDonationModelView(dr));
+                }
+                return Ok(damv);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

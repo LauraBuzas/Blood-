@@ -129,6 +129,8 @@ namespace Services
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
+                if (cnp == "")
+                    throw new Exception("Donatorul nu a fost selectat");
                 var donor = uow.DonorRepository.GetAll().Where(d => d.CNP == cnp).FirstOrDefault();
                 var donorAnalysis = uow.MedicalAnalysisRepository.GetAll().Include(da => da.BloodBag).Where(ma => ma.DonorId == donor.Id).FirstOrDefault();
                 if (donorAnalysis == null)
@@ -140,7 +142,7 @@ namespace Services
                     donorAnalysis.BloodBag.Status = BloodBagStatus.Rejected;
                     uow.BloodBagRepository.Update(donorAnalysis.BloodBag);
                     uow.Save();
-                    throw new Exception("Punga de sange nu poate fi utilizata!");
+                    throw new Exception("Analize adaugate. Punga de sange nu poate fi utilizata!");
                 }
 
                 donorAnalysis.BloodBag.Status = BloodBagStatus.Accepted;
@@ -398,6 +400,16 @@ namespace Services
             return plasmas;
         }
 
+        public List<Donor> GetDonors()
+        {
+            using(UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.DonorRepository.GetAll().Include("Address").ToList();
+            }
+        }
+
+        
+
         public void AcceptBloodBag(Request doctorRequest, int centerId, string rh, string bloodType, int quatityNeeded)
         {
             var availableBloodBags = GetBloodBagsForRequest(centerId, rh, bloodType).OrderBy(b => b.Date).ToList();
@@ -512,6 +524,18 @@ namespace Services
             using (UnitOfWork uow = new UnitOfWork())
             {
                 var x = uow.BloodBagRepository.GetAll().GroupBy(b => new { b.BloodType, b.RhType }).Select(b => new { BloodType = b.Key.BloodType, RhType = b.Key.RhType, Count = b.Count() }).ToList();
+            }
+        }
+
+
+        public List<DonorRegistrationForDonation> GetHistory(string cnp)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.DonorRegistrationForDonationRepository.GetAll()
+                    .Include("Donor")
+                    .Where(d => d.Donor.CNP==cnp)
+                    .ToList();
             }
         }
 

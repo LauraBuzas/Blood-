@@ -10,7 +10,7 @@ import { Config } from './UrlConfig';
 
 export class EmployeeProfileService {
     private static rootEmployeeProfile: string = Config.url + '/employee/profile';
-   
+    private static rootPasswordChange: string = Config.url + '/manage/change';
     
     public static getEmployee(): Promise<IEmployeeGet> {
         return new Promise((resolve, reject) => {
@@ -109,7 +109,7 @@ export class EmployeeProfileService {
     public static updatePassword(passwordUpdate:IPasswordUpdate):Promise<any>{
         return new Promise((resolve, reject) => {
             axios(
-                "http://localhost:54211/manage/change",
+                this.rootPasswordChange,
                 {
                     method:'POST',
                     headers:{

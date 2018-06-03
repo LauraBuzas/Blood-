@@ -50,12 +50,12 @@ export class ModalInfoBloodBag extends React.Component<ModalInfoBloodBagProps,Mo
             </Helmet>    
             
             <Modal open={open} onClose={this.onCloseModal} large>
-              <h2>Detalii cerere</h2>
+              <h2>Detalii</h2>
               
               <div className="hboxWithSpace">
                 <div className="labels">
                     <Label bsClass="info-label" bsStyle="info">CNP: {this.props.row.CNP}</Label>
-                    <Label bsClass="info-label" bsStyle="info">Nume pacient: {this.props.row.fullName}</Label>
+                    <Label bsClass="info-label" bsStyle="info">Nume donator: {this.props.row.fullName}</Label>
                     <Label bsClass="info-label" bsStyle="info">Grupa sange: {this.props.row.bloodType}</Label>
                     <Label bsClass="info-label" bsStyle="info">Rh: {this.props.row.rh}</Label>
                     
