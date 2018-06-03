@@ -22,14 +22,15 @@ export class CarouselPage extends React.Component<CarouselPageProps, any> {
         //console.log(this.props.image);
         let loggedIn = cookie.load('.AspNetCore.Identity.Application');
         let role = localStorage.getItem("role");
-        
+        console.log(role);
+        let shouldDisplay = (!(loggedIn && role) || ((loggedIn && role) && (role == "Donor")));
 
-        console.log(this.props.image);
+        // console.log(this.props.image);
         return (
             <div className="carousel-page">   
                 <img src={this.props.image} alt="image not found"/>
                 
-                {!(loggedIn && role) ? <Link to="/donationForm" id="register-button">Vreau să donez!</Link> : null}
+                {shouldDisplay ? <Link to="/donationForm" id="register-button">Vreau să donez!</Link> : null}
                 <p className="legend">{ this.props.legend }</p>
             </div>
         );

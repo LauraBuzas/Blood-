@@ -8,6 +8,8 @@ import { IDonorInfoGet } from '../../Models/IDonorInfoGet';
 import { ModalDonorPersonalData } from './Modals/ModalDonorPersonalData';
 import { DonorsPersonalDataService } from '../../Services/DonorsPersonalDataService';
 
+import './center-donors.css';
+
 export interface DonorsPersonalDataProps{
  
 }
@@ -83,7 +85,7 @@ export class DonorsPersonalData extends React.Component<DonorsPersonalDataProps,
     }
     buttonHistory(cell,row){
         
-        return <div>{this.renderRedirect(this.state.currentRow.cnp)}<button onClick={(event)=>this.setRedirect()}>Istoric</button></div>
+        return <div>{this.renderRedirect(this.state.currentRow.cnp)}<button className="generic-button green-button history-button" onClick={(event)=>this.setRedirect()}>Istoric</button></div>
     }
     closeDetailsInfo(){
         this.setState({showDetails:false})
@@ -109,10 +111,10 @@ export class DonorsPersonalData extends React.Component<DonorsPersonalDataProps,
                     options={options}
                     exportCSV
                 >
-                <TableHeaderColumn dataField="cnp" width={130} isKey={true}>CNP</TableHeaderColumn>
-                <TableHeaderColumn dataField="lastname">Nume</TableHeaderColumn>
-                <TableHeaderColumn dataField="firstname">Prenume</TableHeaderColumn>
-                <TableHeaderColumn dataField="button" dataAlign={'center'} dataFormat={this.buttonHistory.bind(this)}>Istoric donări</TableHeaderColumn>
+                <TableHeaderColumn dataField="cnp" width={140} isKey={true}>CNP</TableHeaderColumn>
+                <TableHeaderColumn width={200} dataField="lastname">Nume</TableHeaderColumn>
+                <TableHeaderColumn width={200} dataField="firstname">Prenume</TableHeaderColumn>
+                <TableHeaderColumn width={100} dataField="button" dataAlign={'center'} dataFormat={this.buttonHistory.bind(this)}>Istoric donări</TableHeaderColumn>
                 </BootstrapTable>
                 {this.state.showDetails?<ModalDonorPersonalData row={this.state.currentRow} onClose={this.closeDetailsInfo.bind(this)}/>:null}
             </div>

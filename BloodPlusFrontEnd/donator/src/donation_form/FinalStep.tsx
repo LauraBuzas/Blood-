@@ -100,43 +100,43 @@ handleDonationToSurname(event){
                 
                 
             <div className='step'>
-            <h2 className='step-name'>Finalizare</h2>
-            <div className="step4-fields">
-            <label className='subtitle'>Informații de contact</label>
-            
-            <div>
-            <label>E-mail </label>
-            <input type="text" onChange={this.handleEmail} value={this.state.email} className={this.props.listValidFromParent[0]} />
-            
-            <label className={this.state.listMessageClasses[0]}>{this.state.listMessage[0]}</label>
-            
-            </div>
-            
-            <div>
-            <label>Telefon</label>
-            <input type="text"   onChange={this.handlePhone} value={this.state.phone} className={this.props.listValidFromParent[1]} />
-            
-            <label className={this.state.listMessageClasses[1]}>{this.state.listMessage[1]}</label>
-            
-            </div>
-            
-            <div>
-            <label className='subtitle'>Persoana pentru care se donează sânge</label>
-            <label className='optionalText'>(Opțional)</label>
-            
-            <div>
-            <label>Nume</label>
-            <input type='text'  name="name" onChange={this.handleDonationToName}/>
-            
-            </div>
-           
-            <div>
-            <label>Prenume</label>
-            <input type='text'  name="surname" onChange={this.handleDonationToSurname}/>
-      
-            </div>
-            
-            </div>
+                <h2 className='step-name'>Finalizare</h2>
+                <div className="step4-fields">
+                <label className='subtitle'>Informații de contact</label>
+                
+                <div>
+                    <label>E-mail </label>
+                    <input type="text" onChange={this.handleEmail} value={this.state.email} className={this.props.listValidFromParent[0]} />
+                    
+                    <label className={this.state.listMessageClasses[0]}>{this.state.listMessage[0]}</label>
+                    
+                </div>
+                
+                <div>
+                    <label>Telefon</label>
+                    <input type="text"   onChange={this.handlePhone} value={this.state.phone} className={this.props.listValidFromParent[1]} />
+                    
+                    <label className={this.state.listMessageClasses[1]}>{this.state.listMessage[1]}</label>
+                
+                </div>
+                <label className='subtitle'>Persoana pentru care se donează sânge</label>
+                <div>
+                
+                    <label className='optionalText'>(Opțional)</label>
+                    
+                    <div>
+                        <label>Nume</label>
+                        <input type='text'  name="name" onChange={this.handleDonationToName}/>
+                        
+                    </div>
+                
+                    <div>
+                        <label>Prenume</label>
+                        <input type='text'  name="surname" onChange={this.handleDonationToSurname}/>
+                
+                    </div>
+                
+                </div>
 
             
             </div>

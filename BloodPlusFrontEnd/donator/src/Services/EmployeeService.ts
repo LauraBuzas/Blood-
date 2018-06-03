@@ -324,6 +324,7 @@ export class EmployeeService {
                     data:analysis
                 }
             ).then((response: any) => {
+                console.log(response);
                 resolve(response);
             },
                 (error: any) => {
