@@ -19,21 +19,28 @@
   flex-wrap: wrap;
   align-content: flex-start;
   width: 100%;
+
 }
+.register-donation-field input, .register-donation-field select {
+  border: 1px solid #666666;
+}
+
 
 .sex-field {
   width: 100%;
+  margin: 10px;
 }
 
 .onlyFShow {
   width: 100%;
   display: flex;
   align-content: flex-start;
-  flex-wrap: wrap;
+  flex-wrap: unset;
 }
 
 .onlyFShow label, .onlyFShow select {
   display: inline-block;
+  
 }
 
 .header-label {
@@ -49,11 +56,12 @@
 .register-donation-field > label {
   padding: 5px;
   width: 100%;
-  max-width: 120px;
-  min-width: 90px;
+  max-width: 140px;
+  min-width: 70px;
   display: block;
   line-height: 1;
   font-family: 'Roboto', sans-serif;
+  flex-grow: 1;
   
 }
 
@@ -81,7 +89,7 @@
   width: 100%;
   max-width: 200px;
   text-align: left;
-  margin: 5px auto;
+  margin: 5px auto 5px 10%;
 
 }
 
@@ -94,7 +102,7 @@
   font-size: 15px;
   width: 200px;
   box-sizing: border-box;
-  transition-duration: 0.3s;
+  transition-duration: 0.5s;
   border-radius: 4px;
   height: 30px;
 }
@@ -110,8 +118,8 @@
 }
 
 .register-donation-field input[type="text"]:focus, .register-donation-field input[type="date"]:focus {
-  outline: none;
-  border: 2px solid #f70606c7;
+
+  
 }
 
 .invisibleLabel {
@@ -137,6 +145,10 @@
   align-content: flex-start;
 }
 
+.step4-fields div label {
+  width: 90px;
+}
+
 .step4-fields input {
   padding: 5px;
   margin: 5px;
@@ -146,4 +158,5 @@
   transition-duration: 0.3s;
   border-radius: 4px;
   height: 30px;
+  border: 1px solid #666666;
 }

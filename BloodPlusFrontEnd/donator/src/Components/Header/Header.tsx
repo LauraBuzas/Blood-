@@ -61,7 +61,7 @@ var nodesDoctor=[
         link:"doctor/patients"
     },
     {
-        title:"Sange disponibil",
+        title:"Sânge disponibil",
         link:"/bloodstock"
     }
 ]
@@ -99,7 +99,7 @@ var nodesEmployee=[
         link:"/employee/requests"
     },
     {
-        title: "Stoc sange",
+        title: "Stoc sânge",
         link: "/employees/stock"
     },
     {

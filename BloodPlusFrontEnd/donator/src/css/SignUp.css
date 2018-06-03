@@ -17,8 +17,30 @@
     display: block;
 } */
 
-#login-div {
+#login-div, #signup-container {
     margin: 10px auto;
     width: 100%;
     max-width: 380px;
+    background-color: rgba(240, 240, 240, 0.9);
+    border-radius: 10px;
+    padding: 10px;
+    
+}
+#login-main, #signup-main {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    justify-content: center;
+}
+
+#login-main {
+    background-image: url("../assets/profile/login-donare.jpg");
+}
+
+#signup-main {
+    background-image: url("../assets/profile/donatori-sange.jpg");
 }

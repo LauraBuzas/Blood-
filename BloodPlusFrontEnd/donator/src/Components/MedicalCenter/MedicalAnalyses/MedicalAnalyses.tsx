@@ -157,14 +157,14 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
     }
 
     clearFields(){
-        (this.refs.HIV as HTMLInputElement).checked = false;
-        (this.refs.HepatitisB as HTMLInputElement).checked = false;
-        (this.refs.HepatitisC as HTMLInputElement).checked = false;
-        (this.refs.Sifilis as HTMLInputElement).checked = false;
-        (this.refs.HTLV as HTMLInputElement).checked = false;
-        (this.refs.ALTLevel as HTMLInputElement).checked = false;
-        (this.refs.Rejected as HTMLInputElement).checked = false;
-        (this.refs.observationTextArea as HTMLTextAreaElement).value = "";
+        // (this.refs.HIV as HTMLInputElement).checked = false;
+        // (this.refs.HepatitisB as HTMLInputElement).checked = false;
+        // (this.refs.HepatitisC as HTMLInputElement).checked = false;
+        // (this.refs.Sifilis as HTMLInputElement).checked = false;
+        // (this.refs.HTLV as HTMLInputElement).checked = false;
+        // (this.refs.ALTLevel as HTMLInputElement).checked = false;
+        // (this.refs.Rejected as HTMLInputElement).checked = false;
+        // (this.refs.observationTextArea as HTMLTextAreaElement).value = "";
         this.setState({selectedDonor:undefined, analysis:{
             CNP:"",
             Sifilis:false,
