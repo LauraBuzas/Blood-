@@ -531,7 +531,7 @@ export  class MultiStep extends React.Component<MultiStepProps,MultiStepState>{
         if(pregnancy=="Perioada de lehuzie"){
             pregnancy="PostPregnant"
         }
-        if(pregnancy=="Insarcinata"){
+        if(pregnancy=="Însărcinată"){
             pregnancy="Pregnant"
         }
 
