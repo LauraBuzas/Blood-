@@ -14,7 +14,7 @@ ol.progtrckr {
   ol.progtrckr li span {
     padding: 0 1.5rem;
   }
-  @media (max-width: 950px) {
+  @media (max-width: 1050px) {
     .progtrckr li span {
       display: none;
     } 
@@ -27,7 +27,7 @@ ol.progtrckr {
     font-weight: 700;
     padding-left: 1rem;
   }
-  @media (max-width: 950px) {
+  @media (max-width: 1050px) {
     .progtrckr em {
       display: inline;
     }

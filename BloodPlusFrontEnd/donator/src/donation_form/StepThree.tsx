@@ -250,29 +250,34 @@ export default class StepThree extends React.Component<StepThreeProps,StepThreeS
             <div >
             
             
-        <div className='step'>
-        <h2 className='stepName'> Antecedente medicale</h2>
+        
+        <h2 className='step-name'>Antecedente medicale</h2>
            
+        <div className="step3-diseases">
         
-        
-        <label>Bifati afectiunile de care suferiti sau ati suferit: </label><br/><br/>
-        <input type="checkbox" onClick={this.handleHepatitis} defaultChecked={this.state.hepatitis}  /> hepatita<br/><br/>
-        <input type="checkbox" onClick={this.handleTuberculosis} defaultChecked={this.state.tuberculosis}/> TBC<br/><br/>
-        <input type="checkbox" onClick={this.handlePox} defaultChecked={this.state.pox}/> sifilis<br/><br/>
-        <input type="checkbox" onClick={this.handleMalaria} defaultChecked={this.state.malaria}/> malarie<br/><br/>
-        <input type="checkbox" onClick={this.handleEpilepsy} defaultChecked={this.state.epilepsy}/> epilepsie si alte boli neurologice<br/><br/>
-        <input type="checkbox" onClick={this.handlePsychic} defaultChecked={this.state.psychic_disease}/> boli psihice<br/><br/>
-        <input type="checkbox" onClick={this.handleBrucellosis} defaultChecked={this.state.brucellosis}/> bruceloza<br/><br/>
-        <input type="checkbox" onClick={this.handleUlcer} defaultChecked={this.state.ulcer}/> ulcer<br/><br/>
-        <input type="checkbox" onClick={this.handleDiabetes} defaultChecked={this.state.diabetes}/> diabet zaharat<br/><br/>
-        <input type="checkbox" onClick={this.handleHeart} defaultChecked={this.state.heart_disease}/> boli de inima<br/><br/>
-        <input type="checkbox" onClick={this.handleSkin} defaultChecked={this.state.skin_disease}/> boli de piele: psoriazis, vitiligo<br/><br/>
-        <input type="checkbox" onClick={this.handleMyopia} defaultChecked={this.state.myopia}/> miopie forte peste (-) 6 dioptri<br/><br/>
-        <input type="checkbox" onClick={this.handleCancer} defaultChecked={this.state.cancer}/> cancer<br/><br/>
+        <label>Bifați afecțiunile de care suferiți sau ați suferit</label>
+        <div>
+        <div><input type="checkbox" onClick={this.handleHepatitis} defaultChecked={this.state.hepatitis}/>Hepatită</div>
+        <div><input type="checkbox" onClick={this.handleTuberculosis} defaultChecked={this.state.tuberculosis}/>TBC</div>
+        <div><input type="checkbox" onClick={this.handlePox} defaultChecked={this.state.pox}/>Sifilis</div>
+        <div><input type="checkbox" onClick={this.handleMalaria} defaultChecked={this.state.malaria}/>Malarie</div>
+        <div><input type="checkbox" onClick={this.handleEpilepsy} defaultChecked={this.state.epilepsy}/>Epilepsie și alte boli neurologice</div>
+        <div><input type="checkbox" onClick={this.handlePsychic} defaultChecked={this.state.psychic_disease}/>Boli psihice</div>
+        <div><input type="checkbox" onClick={this.handleBrucellosis} defaultChecked={this.state.brucellosis}/>Bruceloză</div>
+        <div><input type="checkbox" onClick={this.handleUlcer} defaultChecked={this.state.ulcer}/>Ulcer</div>
+        <div><input type="checkbox" onClick={this.handleDiabetes} defaultChecked={this.state.diabetes}/>Diabet zaharat</div>
+        <div><input type="checkbox" onClick={this.handleHeart} defaultChecked={this.state.heart_disease}/>Boli de inimă</div>
+        <div><input type="checkbox" onClick={this.handleSkin} defaultChecked={this.state.skin_disease}/>Boli de piele: psoriazis, vitiligo</div>
+        <div><input type="checkbox" onClick={this.handleMyopia} defaultChecked={this.state.myopia}/>Miopie forte peste (-) 6 dioptri</div>
+        <div><input type="checkbox" onClick={this.handleCancer} defaultChecked={this.state.cancer}/>Cancer</div>
 
         </div>
-
+        
         </div>
+        
+        </div>
+
+        
     )
     }
 }

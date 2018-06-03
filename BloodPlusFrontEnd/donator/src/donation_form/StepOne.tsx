@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import HeaderForm from './HeaderForm'
 import StepTwo from './StepTwo';
-import {IDonorRegistrationData} from '../Models/IDonorRegistrationData'
-import './FormStyle.css'
-import DatePicker from 'react-date-picker'
+import {IDonorRegistrationData} from '../Models/IDonorRegistrationData';
+import './FormStyle.css';
+
 import {DonorService} from '../Services/DonorService'
 export interface StepOneProps{
   
@@ -191,66 +191,76 @@ export default class StepOne extends React.Component<StepOneProps,StepOneState>{
                 
                
             
-            <h2 className='stepName'> Date Personale</h2>
+            <h2 className='step-name'>Date Personale</h2>
+            
+    
+
+            <div className="register-donation-field">
+                <label>Nume</label>
+                <input type='text' value={this.state.name} onChange={this.handleName} name="name" className={this.props.listValidFromParent[0]} />
+                
+                <label className={this.state.listMessagesClasses[0]}>{this.state.listMessages[0]}</label>
+                
+            </div>
+           
+            <div className="register-donation-field">
+                <label>Prenume</label>
+                <input type='text' value={this.state.surname} onChange={this.handleSurname} name="surname" className={this.props.listValidFromParent[1]}/>
+                
+                <label className={this.state.listMessagesClasses[1]}>{this.state.listMessages[1]}</label>
+                
+            </div>
                
-            <label>Nume </label>
-            <input type='text' value={this.state.name} onChange={this.handleName} name="name" className={this.props.listValidFromParent[0]} />
             
-            <br/><label className={this.state.listMessagesClasses[0]}>{this.state.listMessages[0]}</label>
-            <br /><br/>
+            <div className="register-donation-field">
+                <label>CNP</label>
+                <input type='text' value={this.state.cnp} onChange={this.handleCNP} name="cnp" className={this.props.listValidFromParent[7]}/>
+                <label className={this.state.listMessagesClasses[7]}>{this.state.listMessages[7]}</label>
+                
+            </div>
+            
+            <div className="register-donation-field">
+                <label>Data nașterii</label>
+                <input type='date' onChange={this.handleDOB} name="dob" value={this.props.listfromParent[2]} className={this.props.listValidFromParent[2]} />
+            
+                <label className={this.state.listMessagesClasses[2]}>{this.state.listMessages[2]}</label>
+            </div>
+            
+            <label className="header-label">Domiciliu</label>
+
+            <div className="register-donation-field">
+                <label>Localitate</label>
+                <input  type='text' onChange={this.handleDCity} name="dcity" value={this.state.domicile_city} className={this.props.listValidFromParent[3]}/>           
+                <label className={this.state.listMessagesClasses[3]}>{this.state.listMessages[3]}</label>
+            </div>
+                
+            <div className="register-donation-field">
+
+                <label>Județ</label>
+                <input  type='text' onChange={this.handleDCounty} name="dcounty" value={this.state.domicile_county} className={this.props.listValidFromParent[4]}/>
+                <label className={this.state.listMessagesClasses[4]}>{this.state.listMessages[4]}</label>
+            </div>
+            <label className="header-label">Reședință</label>
+            
+            <div className="register-donation-field">
+                <label>Localitate</label>
+                <input  type='text' onChange={this.handleRCity} name="rcity" value={this.state.residence_city} className={this.props.listValidFromParent[5]}/>
+                
+                
+                <label className={this.state.listMessagesClasses[5]}>{this.state.listMessages[5]}</label>
                
-            <label>Prenume</label>
-            <input type='text' value={this.state.surname} onChange={this.handleSurname} name="surname" className={this.props.listValidFromParent[1]}/>
-              
-            <br/><label className={this.state.listMessagesClasses[1]}>{this.state.listMessages[1]}</label>
-            <br/><br/>
-            <label>CNP</label>
-            <input type='text' value={this.state.cnp} onChange={this.handleCNP} name="cnp" className={this.props.listValidFromParent[7]}/>
-            <br/><label className={this.state.listMessagesClasses[7]}>{this.state.listMessages[7]}</label>
-            <br/><br/>
-            <label>Data nasterii </label>
-           
-            <input type='date' onChange={this.handleDOB} name="dob" value={this.props.listfromParent[2]} className={this.props.listValidFromParent[2]} />
-            <br/>
-            <label className={this.state.listMessagesClasses[2]}>{this.state.listMessages[2]}</label>
-            <br/><br/>
-            <label className='subtitle'>Domiciliu</label>
-           
-            <br/><br/>
-            <label>Localitate </label>
-            <input  type='text' onChange={this.handleDCity} name="dcity" value={this.state.domicile_city} className={this.props.listValidFromParent[3]}/>
-           
-            <label>   Judet   </label>
-            <input  type='text' onChange={this.handleDCounty} name="dcounty" value={this.state.domicile_county} className={this.props.listValidFromParent[4]}/>
-            <br/>
-            <label className={this.state.listMessagesClasses[3]}>{this.state.listMessages[3]}</label>
-            
-            <label className={this.state.listMessagesClasses[4]}>{this.state.listMessages[4]}</label>
-            <br/><br/>
-            <label className='subtitle'>Resedinta</label>
-            <br/><br/>
-            <label>Localitate </label>
-            <input  type='text' onChange={this.handleRCity} name="rcity" value={this.state.residence_city} className={this.props.listValidFromParent[5]}/>
-            
-            <label>   Judet   </label>
-            <input  type='text' onChange={this.handleRCounty} name="rcounty" value={this.state.residence_county} className={this.props.listValidFromParent[6]}/>
-            <br/>
-            <label className={this.state.listMessagesClasses[5]}>{this.state.listMessages[5]}</label>
-            <label className={this.state.listMessagesClasses[6]}>{this.state.listMessages[6]}</label>
-            
-            <br/><br/>
-            
+            </div>
 
-            
-            <br/>
-            
-            
-
-            
-
-</div>
+            <div className="register-donation-field">
+                <label>Județ</label>
+                <input  type='text' onChange={this.handleRCounty} name="rcounty" value={this.state.residence_county} className={this.props.listValidFromParent[6]}/>
+                <label className={this.state.listMessagesClasses[6]}>{this.state.listMessages[6]}</label>
             
             </div>
+
+            </div>
+            
+        </div>
 
            
     )
