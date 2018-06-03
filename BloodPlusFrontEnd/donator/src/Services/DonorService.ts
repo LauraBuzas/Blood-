@@ -251,12 +251,12 @@ public static addRegistration(formdata: IDonorRegistrationForDonation ): Promise
 
     private static toAnalysesDetails(response:any):IMedicalTestDetails{
         return{
-            altLevel:this.DaNu(response.ALTLevel),
+            altLevel:this.DaNu(response.altLevel),
             hepatitisB:this.DaNu(response.hepatitisB),
             hepatitisC:this.DaNu(response.hepatitisC),
             hiv:this.DaNu(response.hiv),
-            HTLV:this.DaNu(response.HTLV),
-            Sifilis:this.DaNu(response.Sifilis),
+            HTLV:this.DaNu(response.htlv),
+            Sifilis:this.DaNu(response.sifilis),
             date:this.GetDate(response.dateAndTime),
             rejectedOtherCauses:this.DaNu(response.rejectedOtherCauses),
             observations:this.GetObservations(response.observations)

@@ -90,13 +90,13 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
 
     handleHepatitisBCheckboxClick(event:any){
         this.setState({
-            analysis: update(this.state.analysis, { Sifilis: { $set: event.target.checked } })
+            analysis: update(this.state.analysis, { HepatitisB: { $set: event.target.checked } })
         });
     }
 
     handleHepatitisCCheckboxClick(event:any){
         this.setState({
-            analysis: update(this.state.analysis, { Sifilis: { $set: event.target.checked } })
+            analysis: update(this.state.analysis, { HepatitisC: { $set: event.target.checked } })
         });
     }
 
@@ -108,7 +108,7 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
 
     handleHTLVCheckboxClick(event:any){
         this.setState({
-            analysis: update(this.state.analysis, { Sifilis: { $set: event.target.checked } })
+            analysis: update(this.state.analysis, { HTLV: { $set: event.target.checked } })
         });
     }
 
@@ -247,7 +247,7 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
 
                 <label>
                     <div className="nice-check-box">
-                        <input ref="Rejected" id="nice-check-7" type="checkbox" value="Rejected" onChange={(event) => this.handleSifilisCheckboxClick(event)}/>
+                        <input ref="Rejected" id="nice-check-7" type="checkbox" value="Rejected" onChange={(event) => this.handleRejectedCheckboxClick(event)}/>
                         <label htmlFor="nice-check-7"></label>
                     </div>
                     Respins din alte cauze
