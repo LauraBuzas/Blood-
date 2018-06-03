@@ -1,4 +1,5 @@
 .hangouts-header {
+    box-sizing: border-box;
     height:60px;
     background: #ffffff;
     color: black;
@@ -7,10 +8,12 @@
     justify-content: space-between;
     align-items: center;
     background-color: #ededff;
+    padding-right: 40px;
     /* background-blend-mode: soft-light; */
 }
 
 .hangouts-nodes {
+    box-sizing: border-box;
     display:flex;
     text-transform: uppercase;
     font-size: large;
@@ -21,21 +24,62 @@
 }
 
 .hangouts-nodes a {
+    box-sizing: border-box;
     color: black;
     text-decoration: none;
+    height: 60px;
     padding: 20px 20px;
+    transition-duration: 0.3s;
 }
 
-.hangouts-nodes a:hover {
-    color:#98c4ea;
+.hangouts-nodes a:hover, .hangouts-nodes a:focus {
+    background-color: #98c4ea;
+    color:white;
     text-decoration: none;
     /* background-color: #89b4c8; */
 }
 
-@media (max-width: 700px) {
+.hangouts-nodes a:visited {
+    text-decoration: none;
+}
+
+
+
+@media (max-width: 720px) {
     .hangouts-nodes a{
         font-size: 15px;
-        padding: 20px 10px;
+        padding: 5px 5px;
+    }
+
+    .home-link, .log-out {
+        font-size: 30px;
+        padding: 5px 5px;
     }
 }
+
+@media (max-width: 400px) {
+    .hangouts-nodes a{
+        font-size: 10px;
+        padding: 10px 5px;
+    }
+
+    .home-link, .log-out {
+        font-size: 20px;
+        padding: 10px 10px;
+    }
+}
+
+.log-out {
+    position: absolute;
+    right: 0px;
+    font-size: 30px;
+    padding: 10px 10px;
+    
+}
+
+.home-link {
+    font-size: 30px;
+    padding: 10px 10px;
+}
+
 

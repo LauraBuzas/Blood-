@@ -5,6 +5,7 @@ using BloodPlus.Hubs;
 using BloodPlus.Mappers;
 using BloodPlus.ModelViews;
 using BloodPlus.ModelViews.AccountViewModels;
+using BloodPlus.Services;
 using DatabaseAccess.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,12 +22,17 @@ namespace BloodPlus.Controllers
         EmployeeService employeeService;
         DoctorsService doctorService;
         Broadcaster broadcaster;
+        DonorService donorService;
+        private readonly IEmailSender _emailSender;
 
-        public EmployeeController(EmployeeService employeeService,DoctorsService doctorService, Broadcaster broadcaster)
+
+        public EmployeeController(EmployeeService employeeService, DoctorsService doctorService, DonorService donorService, IEmailSender _emailSender, Broadcaster broadcaster)
         {
             this.employeeService = employeeService;
             this.doctorService = doctorService;
             this.broadcaster = broadcaster;
+            this._emailSender = _emailSender;
+            this.donorService = donorService;
         }
 
         [Authorize(Roles = "DonationCenterAdmin")]
@@ -178,14 +184,33 @@ namespace BloodPlus.Controllers
                 return BadRequest(ex.Message);
             }
         }
-	
 
-		[Authorize(Roles = "DonationCenterDoctor")]
+        [Authorize(Roles = "DonationCenterDoctor")]
+        [HttpGet("notify")]
+        public IActionResult NotifyDonors()
+        {
+            try
+            {
+                var centerId = int.Parse(Request.Cookies["CenterId"]);
+                donorService.SendEmails(_emailSender, centerId);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+               
+            }
+            return Ok();
+        }
+
+
+
+        [Authorize(Roles = "DonationCenterDoctor")]
 		[HttpGet("stock")]
 		public IActionResult GetBloodStock() {
 			try {
 				var centerId = int.Parse(Request.Cookies["CenterId"]);
 				var bagsStock = employeeService.GetBloodBags(centerId);
+                
 				var thromboStock = employeeService.GetThrombocytesStock(centerId);
 				var redCellsStock = employeeService.GetRedBloodCellsStock(centerId);
 				var plasmaStock = employeeService.GetPlasmaStock(centerId);
@@ -198,7 +223,8 @@ namespace BloodPlus.Controllers
 			}
 		}
 
-		private List<BloodStockViewModel> CreateFullStock(List<BloodBag> bagsStock, List<Thrombocyte> thromboStock, List<RedBloodCell> redCellsStock, List<Plasma> plasmaStock) {
+
+        private List<BloodStockViewModel> CreateFullStock(List<BloodBag> bagsStock, List<Thrombocyte> thromboStock, List<RedBloodCell> redCellsStock, List<Plasma> plasmaStock) {
 			List<BloodStockViewModel> finalStock = new List<BloodStockViewModel>();
 			foreach (BloodBag bag in bagsStock) {
                 finalStock.Add(new BloodStockViewModel() {
@@ -208,20 +234,26 @@ namespace BloodPlus.Controllers
 					Rh = bag.RhType.ToString(),
                     CNP = bag.Analysis.Donor.CNP,
 					Donor = bag.Analysis.Donor.FirstName + " " + bag.Analysis.Donor.LastName,
-					Date = bag.Analysis.DateAndTime.ToString(),
+
+                    Stage =bag.Stage.ToString(),
+					Date = bag.Date.ToString(),
+
 					Status = bag.Status.ToString()
 				});
 			}
 
 			foreach (Thrombocyte bag in thromboStock) {
-				finalStock.Add(new BloodStockViewModel() {
-					ID = bag.Id,
-					Type = "Trombocite",
-					Group = bag.BloodType.ToString(),
-					Rh = bag.RhType.ToString(),
-					Donor = bag.Analysis.Donor.FirstName + " " + bag.Analysis.Donor.LastName,
+                finalStock.Add(new BloodStockViewModel() {
+                    ID = bag.Id,
+                    Type = "Trombocite",
+                    Group = bag.BloodType.ToString(),
+                    Rh = bag.RhType.ToString(),
+                    Donor = bag.Analysis.Donor.FirstName + " " + bag.Analysis.Donor.LastName,
                     CNP = bag.Analysis.Donor.CNP,
-					Date = bag.Analysis.DateAndTime.ToString(),
+
+                    Stage = bag.Status.ToString(),
+
+					Date = bag.ExpirationDateAndTime.ToString(),
 					Status = "Separated"
 				});
 			}
@@ -234,8 +266,10 @@ namespace BloodPlus.Controllers
 					Rh = "-",
 					Donor = bag.Analysis.Donor.FirstName + " " + bag.Analysis.Donor.LastName,
                     CNP = bag.Analysis.Donor.CNP,
-                    Date = bag.Analysis.DateAndTime.ToString(),
-					Status = "Separated"
+                    Stage = bag.Status.ToString(),
+                    Status = "Separated",
+                    Date = bag.ExpirationDateAndTime.ToString(),
+
 				});
 			}
 
@@ -247,8 +281,10 @@ namespace BloodPlus.Controllers
 					Rh = bag.RhType.ToString(),
 					Donor = bag.Analysis.Donor.FirstName + " " + bag.Analysis.Donor.LastName,
                     CNP = bag.Analysis.Donor.CNP,
-                    Date = bag.Analysis.DateAndTime.ToString(),
-					Status = "Separated"
+
+                    Stage = bag.Status.ToString(),
+                    Status = "Separated",
+                    Date = bag.ExpirationDateAndTime.ToString(),
 				});
 			}
 
@@ -333,7 +369,7 @@ namespace BloodPlus.Controllers
                 List<BloodBag> bloodBags = employeeService.GetBloodBags(centerId);
                 foreach (BloodBag b in bloodBags)
                 {
-                    if (b.Analysis.DateAndTime.ToString().Equals(date) && b.Analysis.Donor.CNP.Equals(cnp))
+                    if (b.Analysis.Donor.CNP.Equals(cnp))
                     {
                         if (bloodBagEditViewModel.BloodType == "A2")
                             b.BloodType = BloodTypes.A2;
@@ -355,7 +391,7 @@ namespace BloodPlus.Controllers
                 List<Thrombocyte> thrombocytes = employeeService.GetThrombocytesStock(centerId);
                 foreach (Thrombocyte t in thrombocytes)
                 {
-                    if (t.Analysis.DateAndTime.ToString().Equals(date) && t.Analysis.Donor.CNP.Equals(cnp))
+                    if ( t.Analysis.Donor.CNP.Equals(cnp))
                     {
                         if (bloodBagEditViewModel.BloodType == "A2")
                             t.BloodType = BloodTypes.A2;
@@ -377,7 +413,7 @@ namespace BloodPlus.Controllers
                 List<Plasma> plasma = employeeService.GetPlasmaStock(centerId);
                 foreach (Plasma p in plasma)
                 {
-                    if (p.Analysis.DateAndTime.ToString().Equals(date) && p.Analysis.Donor.CNP.Equals(cnp))
+                    if (p.Analysis.Donor.CNP.Equals(cnp))
                     {
                         if (bloodBagEditViewModel.BloodType == "A2")
                             p.BloodType = BloodTypes.A2;
@@ -396,7 +432,7 @@ namespace BloodPlus.Controllers
                 List<RedBloodCell> redBloodCells = employeeService.GetRedBloodCellsStock(centerId);
                 foreach (RedBloodCell r in redBloodCells)
                 {
-                    if (r.Analysis.DateAndTime.ToString().Equals(date) && r.Analysis.Donor.CNP.Equals(cnp))
+                    if (r.Analysis.Donor.CNP.Equals(cnp))
                     {
                         if (bloodBagEditViewModel.BloodType == "A2")
                             r.BloodType = BloodTypes.A2;
@@ -465,6 +501,22 @@ namespace BloodPlus.Controllers
             }
             catch (Exception ex)
             {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Authorize(Roles = "DonationCenterDoctor")]
+        [HttpGet("donors")]
+        public IActionResult GetDonors()
+        {
+            try
+            {
+                var donors = donorService.GetDonors().Select(d=>MapperDonnorDonnorView.ToDonorModelView(d)).ToList();
+                return Ok(donors);
+            }
+            catch (Exception ex)
+            {
+
                 return BadRequest(ex.Message);
             }
         }

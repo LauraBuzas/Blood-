@@ -10,9 +10,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using DatabaseAccess.Data;
 using DatabaseAccess.Models;
-using BloodPlus.Services2;
+using BloodPlus.Services;
 using Services;
 using BloodPlus.Hubs;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
+using System.Net.Http;
 
 namespace BloodPlus
 {
@@ -68,9 +71,13 @@ namespace BloodPlus
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+			
 
-           
-            services.AddSignalR();
+			services.AddSignalR(
+                options =>
+                {
+                    options.KeepAliveInterval = TimeSpan.FromSeconds(3);
+                });
 
 
             services.AddMvc();
@@ -106,7 +113,7 @@ namespace BloodPlus
 
            
             app.UseAuthentication();
-            
+			
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials());
             app.UseMvc();
 

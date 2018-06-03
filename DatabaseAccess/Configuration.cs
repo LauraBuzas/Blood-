@@ -10,7 +10,10 @@ namespace DatabaseAccess
 
                 return "Data Source=NICU-ASUS;Initial Catalog=BloodPlus2;Integrated Security=True;";
 
+               
+
             }
+           
         }
     }
 }

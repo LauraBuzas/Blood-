@@ -19,7 +19,8 @@ namespace BloodPlus.Mappers
                 RhType = bloodBag.RhType,
                 SeparationDateAndTime = DateTime.Now,
                 CenterId = bloodBag.CenterId,
-                Analysis = bloodBag.Analysis
+                Analysis = bloodBag.Analysis,
+                Status = ComponentStatus.Available
             };
         }
 
@@ -32,7 +33,8 @@ namespace BloodPlus.Mappers
                 RhType = bloodBag.RhType,
                 SeparationDateAndTime = DateTime.Now,
                 CenterId = bloodBag.CenterId,
-                Analysis = bloodBag.Analysis
+                Analysis = bloodBag.Analysis,
+                Status = ComponentStatus.Available
             };
         }
 
@@ -44,7 +46,8 @@ namespace BloodPlus.Mappers
                 ExpirationDateAndTime = bloodBag.Date.AddDays(26),
                 SeparationDateAndTime = DateTime.Now,
                 CenterId = bloodBag.CenterId,
-                Analysis = bloodBag.Analysis
+                Analysis = bloodBag.Analysis,
+                Status = ComponentStatus.Available
             };
         }
     }

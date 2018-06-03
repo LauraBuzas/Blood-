@@ -8,12 +8,16 @@ import { BloodStockModel } from '../Models/BloodStockModel';
 import { IAddBloodBag } from '../Models/IAddBloodBag';
 import { IStatusChange } from '../Models/IStatusChange';
 import { IEditBloodBag } from '../Models/IEditBloodBag';
+import { IAddMedicalTest } from '../Models/IAddMedicalTest';
+import { IDonorView } from '../Models/IDonorView';
 import { IDoctorRequestView } from '../Models/IDoctorRequestView';
 import { IEmployeeRequest } from '../Models/IEmployeeRequest';
 import { IGroupedStock } from '../Models/IGroupedStock';
 
+import { Config } from './UrlConfig';
+
 export class EmployeeService {
-    private static rootEmployee: string = 'http://localhost:51401/employees';
+    private static rootEmployee: string = Config.url + '/employees';
 
     public static getRequests(): Promise<IEmployeeRequest[]> {
         return new Promise((resolve, reject) => {
@@ -128,6 +132,27 @@ export class EmployeeService {
         });
     }
 
+    public static notifyDonors(): Promise<boolean>{
+        return new Promise((resolve, reject) => {
+            axios(
+                this.rootEmployee + '/notify',
+                {
+                    method:'GET',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                        Cookies: "CenterId"
+                    },
+                    withCredentials:true
+                }
+            ).then((response: any) => {
+                resolve(true);
+            },
+                (error: any) => {
+                    reject(error);
+                });
+        });
+    }
    
     public static toBloodStockModel(response:any):BloodStockModel{
         return{
@@ -137,10 +162,10 @@ export class EmployeeService {
             donor:response.donor,
             cnp:response.cnp,
             date:response.date,
+            stage:response.stage,
             status:response.status
         };
     }
-
     public static mapBloodStock(data: any): BloodStockModel[] {
         let result = [];
         for (let i = 0; i < data.length; i++) {
@@ -281,5 +306,62 @@ export class EmployeeService {
                     reject(error);
                 });
         });
+    }
+
+    public static addAnalysis(analysis:IAddMedicalTest):Promise<any>{
+        return new Promise((resolve,reject)=>{
+            axios(
+            this.rootEmployee+'/analysis',
+                {
+                    method:'POST',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json',
+                        'Access-Control-Allow-Credentials':true
+                    },
+                    withCredentials:true,
+                    maxRedirects:0,
+                    data:analysis
+                }
+            ).then((response: any) => {
+                resolve(response);
+            },
+                (error: any) => {
+                    reject(error.response);
+                });
+        });
+    }
+
+    public static getDonors(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            axios(
+                this.rootEmployee+'/donors',
+                {
+                    method: 'GET',
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type':'application/json'
+                    },
+                    withCredentials:true,
+                }
+            ).then((response: any) => {
+                //console.log(response.data);
+                resolve(EmployeeService.mapDonorsToModel(response.data));
+            }, (error: any) => {
+                reject(error);
+            });
+        });
+    }
+
+    private static mapDonorsToModel(response:any):IDonorView[]{
+        let result = [];
+        response.forEach(element => {
+        result.push({
+            cnp:element.cnp,
+            firstname: element.firstName,
+            lastname: element.lastName
+        });
+    });
+        return result;
     }
 }

@@ -1,4 +1,59 @@
 #stock-table {
-    width: 80%;
+    width: 100%;
     margin: 20px auto;
+    align-items: flex-start;
+    font-size: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
+
+#stock-table table {
+    font-size: 15px;
+}
+
+.stock-btn {
+    margin: 10px;
+    
+}
+
+.accept-btn, .reject-btn, .separation-btn {
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+    border: none;
+    background-color: transparent;
+    
+    margin: 0;
+}
+
+
+.accept-btn {
+    color: #11CC00;
+}
+
+.reject-btn {
+    color: #f70606c7;
+}
+
+
+.separation-btn {
+    color: steelblue;
+}
+
+.reject-btn:hover {
+    color: #c30104b4;
+}
+
+.accept-btn:hover {
+    color: #33AA00;
+}
+
+.separation-btn:hover {
+    color: #3355CC;
+}
+
+.accept-btn:focus, .reject-btn:focus {
+    outline: none;
+}
+

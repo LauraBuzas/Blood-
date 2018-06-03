@@ -5,25 +5,24 @@
     position: relative;
   }
 
-  .hboxWithSpace
-{
+.hboxWithSpace {
     display:flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.infoLabel{
+.info-label {
     display: block !important;
    
 }
 
-.emergencyLevel{
+.emergencyLevel {
     display: inline-block !important;
     width:47%;
     margin-left:7px;
 }
 
-.emergencyLabel{
+.emergencyLabel {
     display: inline-block !important;
     width:47%;
     
@@ -44,3 +43,25 @@
 .label-default{
     background-color: #c4a773 !important;
 }
+
+.scazut, .mediu, .ridicat, .critic {
+    display: block !important;
+    
+}
+.critic {
+    background-color: #9e0308;
+    color: white;
+}
+  
+.ridicat {
+    background-color: #ef962f;
+}
+  
+.mediu {
+    background-color: #e8da5c
+}
+  
+.scazut {
+    background-color: #8de567
+}
+  
