@@ -1,14 +1,8 @@
-﻿using DatabaseAccess.Models;
-using Microsoft.AspNetCore.Mvc;
-using Services;
+﻿using Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authorization;
 using BloodPlus.ModelViews;
-using BloodPlus.ModelViews.ManageViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BloodPlus.Controllers
 {
@@ -56,13 +50,6 @@ namespace BloodPlus.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        //[Authorize(Roles ="HospitalDoctor")]
-        //[HttpPost("password")]
-        //public IActionResult UpdatePassword([FromBody] ChangePasswordViewModel changePassword)
-        //{
-
-        //}
 
         [Authorize(Roles ="HospitalDoctor")]
         [HttpPost("info")]
