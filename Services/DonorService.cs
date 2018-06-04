@@ -38,7 +38,7 @@ namespace Services
         }
         
 
-        public void AddRegistrationForDonation(DonorRegistrationForDonation donorRegistrationForDonation)
+        public async Task AddRegistrationForDonation(DonorRegistrationForDonation donorRegistrationForDonation, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
@@ -47,6 +47,7 @@ namespace Services
                 try
                 {
                     donorRegistrationForDonation.DonorId = uow.DonorRepository.GetByFunc(donor => donor.CNP == donorRegistrationForDonation.CNP).Id;
+                    donorRegistrationForDonation.Donor = uow.DonorRepository.GetByFunc(donor => donor.CNP == donorRegistrationForDonation.CNP);
                 } catch (Exception) {
                     var address = new Address
                     {
@@ -56,19 +57,23 @@ namespace Services
                         Number = 0
                         
                     };
-                    var donor = new Donor
+
+                    await userManager.CreateAsync(new ApplicationUser { Email = donorRegistrationForDonation.Email, UserName = donorRegistrationForDonation.Email }, "Password123.");
+                    var donorAccount = await userManager.FindByEmailAsync(donorRegistrationForDonation.Email);
+                    var role = await roleManager.FindByNameAsync("Donor");
+                    await userManager.AddToRoleAsync(donorAccount, role.Name);
+
+                    donorRegistrationForDonation.Donor = new Donor
                     {
                         CNP = donorRegistrationForDonation.CNP,
                         Address = address,
                         FirstName = donorRegistrationForDonation.Name,
                         LastName = donorRegistrationForDonation.Surname,
+                        Id = donorAccount.Id
                     };
 
-                    uow.DonorRepository.Add(donor);
+                    uow.DonorRepository.Add(donorRegistrationForDonation.Donor);
                 }
-
-                donorRegistrationForDonation.Donor = uow.DonorRepository.GetByFunc(donor => donor.CNP == donorRegistrationForDonation.CNP);
-                //uow.DonorRepository.GetAll().Where(d => d.CNP == donorRegistrationForDonation.CNP).First();
 
                 uow.DonorRegistrationForDonationRepository.Add(donorRegistrationForDonation);
                 uow.Save();
