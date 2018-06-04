@@ -1,0 +1,11 @@
+.img-src {
+    position: absolute;
+    left: 5px;
+    bottom: calc(120px + 5px);
+    font-weight: 600;
+    color: #333333;
+}
+
+.img-white {
+    color: #eeeeee;
+}

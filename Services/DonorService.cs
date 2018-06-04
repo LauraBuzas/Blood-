@@ -33,7 +33,7 @@ namespace Services
             {
                 return uow.DonorRepository.GetAll().Include(d => d.MedicalAnalysis)
                     .Where(d => d.Id == id)
-                    .FirstOrDefault().MedicalAnalysis;
+                    .FirstOrDefault().MedicalAnalysis.Where(ma=>ma.IsFilled==true).ToList();
             }
         }
         

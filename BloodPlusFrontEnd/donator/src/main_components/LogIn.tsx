@@ -12,7 +12,7 @@ import '../css/Button.css';
 import { IUserLogin } from '../Models/IUserLogin';
 import { DoctorRequest } from '../Components/Doctor/DoctorRequest/DoctorRequest';
 //import WebSocketService from '../Services/WebSocketService';
-
+import {ImgSource} from '../Components/ImgSource/ImgSource';
 export interface LoginProps {
     setRole:any
 }
@@ -110,12 +110,16 @@ export class LogIn extends React.Component<LoginProps, LoginState>
         
         
         return (
-            <div id="login-div">
-                <TextField text="Email" type="text" onChangeFunction={(event) => this.handleEmailChange(event)} />
-                <TextField text="Parolă" type="password" onChangeFunction={(event) => this.handlePasswordChange(event)} />
-                <button className="generic-button" onClick={(event) => this.loginUser(event)}>Conectare</button>
-                <Alert stack={true} timeout={3000} />
+            <div id="login-main">
+                <div id="login-div">
+                    <TextField text="Email" type="text" onChangeFunction={(event) => this.handleEmailChange(event)} />
+                    <TextField text="Parolă" type="password" onChangeFunction={(event) => this.handlePasswordChange(event)} />
+                    <button className="generic-button" onClick={(event) => this.loginUser(event)}>Conectare</button>
+                    <Alert stack={true} timeout={3000} />
+                </div>
+                <ImgSource source="www.stiridecluj.ro" white={true} />
             </div>
+            
         );
     }
 }

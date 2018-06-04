@@ -61,7 +61,7 @@ var nodesDoctor=[
         link:"doctor/patients"
     },
     {
-        title:"Sange disponibil",
+        title:"Sânge disponibil",
         link:"/bloodstock"
     }
 ]
@@ -95,16 +95,20 @@ var nodesEmployee=[
         link:"/employee/profile"
     },
     {
-        title:"Cereri de sânge",
+        title:"Cereri sânge",
         link:"/employee/requests"
     },
     {
-        title: "Stoc sange",
+        title: "Stoc sânge",
         link: "/employees/stock"
     },
     {
         title: "Analize",
         link: "/employees/analyses"
+    },
+    {
+        title:"Donatori",
+        link: "/employees/donors"
     }
 
 ]

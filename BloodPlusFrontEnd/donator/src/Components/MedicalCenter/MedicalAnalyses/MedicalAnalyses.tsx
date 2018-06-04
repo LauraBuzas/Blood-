@@ -90,13 +90,13 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
 
     handleHepatitisBCheckboxClick(event:any){
         this.setState({
-            analysis: update(this.state.analysis, { Sifilis: { $set: event.target.checked } })
+            analysis: update(this.state.analysis, { HepatitisB: { $set: event.target.checked } })
         });
     }
 
     handleHepatitisCCheckboxClick(event:any){
         this.setState({
-            analysis: update(this.state.analysis, { Sifilis: { $set: event.target.checked } })
+            analysis: update(this.state.analysis, { HepatitisC: { $set: event.target.checked } })
         });
     }
 
@@ -108,7 +108,7 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
 
     handleHTLVCheckboxClick(event:any){
         this.setState({
-            analysis: update(this.state.analysis, { Sifilis: { $set: event.target.checked } })
+            analysis: update(this.state.analysis, { HTLV: { $set: event.target.checked } })
         });
     }
 
@@ -190,7 +190,7 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
                 <Select
                     name="dropdown-pacient"
                     creatable={false}
-                    placeholder='Nume sau CNP pacient...'
+                    placeholder='Nume sau CNP donator...'
                     onChange={this.handleChangeDonor}
                     options={this.state.optionsDonors}
                     value={selectedDonor}
@@ -199,7 +199,7 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
 
                 <label>
                     <div className="nice-check-box">
-                        <input id="nice-check-1" type="checkbox" value="HIV" onChange={(event) => this.handleHIVCheckboxClick(event)}/>
+                        <input ref="HIV" id="nice-check-1" type="checkbox" value="HIV" onChange={(event) => this.handleHIVCheckboxClick(event)}/>
                         <label htmlFor="nice-check-1"></label>
                     </div>
                     SIDA
@@ -207,7 +207,7 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
 
                 <label>
                     <div className="nice-check-box">
-                        <input id="nice-check-2" type="checkbox" value="HepatitisB" onChange={(event) => this.handleHepatitisBCheckboxClick(event)}/>
+                        <input ref="HepatitisB" id="nice-check-2" type="checkbox" value="HepatitisB" onChange={(event) => this.handleHepatitisBCheckboxClick(event)}/>
                         <label htmlFor="nice-check-2"></label>
                     </div>
                     Hepatita B
@@ -215,7 +215,7 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
 
                 <label>
                     <div className="nice-check-box">
-                        <input id="nice-check-3" type="checkbox" value="HepatitisC" onChange={(event) => this.handleHepatitisCCheckboxClick(event)}/>
+                        <input ref="HepatitisC" id="nice-check-3" type="checkbox" value="HepatitisC" onChange={(event) => this.handleHepatitisCCheckboxClick(event)}/>
                         <label htmlFor="nice-check-3"></label>
                     </div>
                     Hepatita C
@@ -223,7 +223,7 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
 
                 <label>
                     <div className="nice-check-box">
-                        <input id="nice-check-4" type="checkbox" value="Sifilis" onChange={(event) => this.handleSifilisCheckboxClick(event)}/>
+                        <input ref="Sifilis" id="nice-check-4" type="checkbox" value="Sifilis" onChange={(event) => this.handleSifilisCheckboxClick(event)}/>
                         <label htmlFor="nice-check-4"></label>
                     </div>
                     Sifilis
@@ -231,7 +231,7 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
 
                 <label>
                     <div className="nice-check-box">
-                        <input id="nice-check-5" type="checkbox" value="HTLV" onChange={(event) => this.handleHTLVCheckboxClick(event)}/>
+                        <input ref="HTLV" id="nice-check-5" type="checkbox" value="HTLV" onChange={(event) => this.handleHTLVCheckboxClick(event)}/>
                         <label htmlFor="nice-check-5"></label>
                     </div>
                     HTLV
@@ -239,7 +239,7 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
 
                 <label>
                     <div className="nice-check-box">
-                        <input id="nice-check-6" type="checkbox" value="ALTLevel" onChange={(event) => this.handleALTLevelCheckboxClick(event)}/>
+                        <input ref="ALTLevel" id="nice-check-6" type="checkbox" value="ALTLevel" onChange={(event) => this.handleALTLevelCheckboxClick(event)}/>
                         <label htmlFor="nice-check-6"></label>
                     </div>
                     Nivel ALT
@@ -247,7 +247,7 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
 
                 <label>
                     <div className="nice-check-box">
-                        <input id="nice-check-7" type="checkbox" value="Rejected" onChange={(event) => this.handleSifilisCheckboxClick(event)}/>
+                        <input ref="Rejected" id="nice-check-7" type="checkbox" value="Rejected" onChange={(event) => this.handleRejectedCheckboxClick(event)}/>
                         <label htmlFor="nice-check-7"></label>
                     </div>
                     Respins din alte cauze
@@ -262,6 +262,7 @@ export class CenterMedicalAnalyses extends React.Component<MedicalAnalysesProps,
                 <label><input type="checkbox" value="Rejected" onChange={(event) => this.handleSifilisCheckboxClick(event)}/>Respins din alte cauze</label> */}
                 <textarea  rows={4} ref="observationTextArea"/>
                 <button className="generic-button" onClick={()=>this.addAnalyses()}>Salvati analizele</button>
+                <Alert stack={true} timeout={5000}/>
             
             </VBox>
         );

@@ -12,6 +12,9 @@ import Alert from 'react-s-alert';
 import '../css/SignUp.css';
 import '../css/Button.css';
 import { Link } from 'react-router-dom';
+import {ImgSource} from '../Components/ImgSource/ImgSource';
+
+
 
 export interface SignUpProps 
 {
@@ -228,7 +231,8 @@ export class SignUp extends React.Component<SignUpProps, SignUpState>
         //     return <Redirect to="/"/>
         // }
         return (
-            <VBox id="signup-container">
+            <div id="signup-main">
+<VBox id="signup-container">
             {/* first and last names */}
             <HBox>
                 <TextField text="Nume" 
@@ -280,7 +284,10 @@ export class SignUp extends React.Component<SignUpProps, SignUpState>
             }
             <Alert stack={true} timeout={3000} />
            
-            </VBox>      
+            </VBox>
+            <ImgSource source="www.tophospitals.ro"  white={true}/>
+            </div>
+            
         );
     }
 }

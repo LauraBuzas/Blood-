@@ -154,7 +154,7 @@ export class DonorTestsPage extends React.Component<DonorProfileProps, DonorProf
                         options={options}
                         selectRow={selectRowProp}
                         exportCSV>
-                        <TableHeaderColumn width={40} dataField="id" isKey={true}>Nr</TableHeaderColumn>
+                        <TableHeaderColumn width={100} dataField="id" isKey={true}>Nr</TableHeaderColumn>
                         <TableHeaderColumn dataField="date">Data analizei</TableHeaderColumn>
                     </BootstrapTable>
                     {this.state.showDetails?<ModalDonorTestDetails currentTest={this.state.currentTest} onClose={this.closeDetails}/>:null}

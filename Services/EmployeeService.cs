@@ -118,6 +118,8 @@ namespace Services
 
                 medicalAnalysis.BloodBag = bloodBag;
                 medicalAnalysis.Donor = donor;
+                medicalAnalysis.IsFilled = false;
+                medicalAnalysis.DateAndTime = DateTime.Now;
 
                 uow.MedicalAnalysisRepository.Add(medicalAnalysis);
                 uow.Save();
@@ -129,8 +131,10 @@ namespace Services
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
+                if (cnp == "")
+                    throw new Exception("Donatorul nu a fost selectat");
                 var donor = uow.DonorRepository.GetAll().Where(d => d.CNP == cnp).FirstOrDefault();
-                var donorAnalysis = uow.MedicalAnalysisRepository.GetAll().Include(da => da.BloodBag).Where(ma => ma.DonorId == donor.Id).FirstOrDefault();
+                var donorAnalysis = uow.MedicalAnalysisRepository.GetAll().Include(da => da.BloodBag).Where(ma => ma.DonorId == donor.Id && ma.IsFilled==false).FirstOrDefault();
                 if (donorAnalysis == null)
                     throw new Exception("Punga de sange prelevata nu a fost adaugata inca");
                 CopyAnalysisDetailsToDb(uow, donorAnalysis, analysis);
@@ -140,7 +144,7 @@ namespace Services
                     donorAnalysis.BloodBag.Status = BloodBagStatus.Rejected;
                     uow.BloodBagRepository.Update(donorAnalysis.BloodBag);
                     uow.Save();
-                    throw new Exception("Punga de sange nu poate fi utilizata!");
+                    throw new Exception("Analize adaugate. Punga de sange nu poate fi utilizata!");
                 }
 
                 donorAnalysis.BloodBag.Status = BloodBagStatus.Accepted;
@@ -339,6 +343,7 @@ namespace Services
             dbAnalysis.RejectedOtherCauses = analysis.RejectedOtherCauses;
             dbAnalysis.Observations = analysis.Observations;
             dbAnalysis.DateAndTime = DateTime.Now;
+            dbAnalysis.IsFilled = true;
             uow.MedicalAnalysisRepository.Update(dbAnalysis);
             uow.Save();
         }
@@ -397,6 +402,16 @@ namespace Services
             }
             return plasmas;
         }
+
+        public List<Donor> GetDonors()
+        {
+            using(UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.DonorRepository.GetAll().Include("Address").ToList();
+            }
+        }
+
+        
 
         public void AcceptBloodBag(Request doctorRequest, int centerId, string rh, string bloodType, int quatityNeeded)
         {
@@ -512,6 +527,18 @@ namespace Services
             using (UnitOfWork uow = new UnitOfWork())
             {
                 var x = uow.BloodBagRepository.GetAll().GroupBy(b => new { b.BloodType, b.RhType }).Select(b => new { BloodType = b.Key.BloodType, RhType = b.Key.RhType, Count = b.Count() }).ToList();
+            }
+        }
+
+
+        public List<DonorRegistrationForDonation> GetHistory(string cnp)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.DonorRegistrationForDonationRepository.GetAll()
+                    .Include("Donor")
+                    .Where(d => d.Donor.CNP==cnp)
+                    .ToList();
             }
         }
 

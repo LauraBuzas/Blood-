@@ -98,16 +98,12 @@ export class BloodStock extends React.Component<BloodStockProps,BloodStockState>
         // withFirstAndLast: false > Hide the going to First and Last page button
     }
         return(
-             <div>
-              
-                  
-                 
-
+             <div className="doctor-stock-table">
                  <Helmet>
                     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
                    
                 </Helmet>
-                <h1 className='head2'><hr/>Sange disponibil in centre <hr/></h1>
+                <h1 className="head2">Sânge disponibil în centre</h1>
                 <BootstrapTable
                 
                     data={this.state.centerstock}
@@ -118,21 +114,21 @@ export class BloodStock extends React.Component<BloodStockProps,BloodStockState>
                    
                 >
                 
-                    <TableHeaderColumn width="8%" dataField="CenterName" isKey={true}>Centru</TableHeaderColumn>
-                    <TableHeaderColumn dataField="Address" filter={ { type: 'TextFilter', delay: 200 } }>Locatie</TableHeaderColumn>
-                    <TableHeaderColumn width="6%" dataField="Component"
+                    <TableHeaderColumn width={200} dataField="CenterName" isKey={true}>Centru</TableHeaderColumn>
+                    <TableHeaderColumn width={200} dataField="Address" filter={ { type: 'TextFilter', delay: 200 } }>Locație</TableHeaderColumn>
+                    <TableHeaderColumn width={120} dataField="Component"
                     
                     filter={ { type: 'SelectFilter', options: componentType,selectText:'Alege',condition:'eq' } }
-                    >Componenta</TableHeaderColumn>
-                    <TableHeaderColumn width="5%" dataField="Group"
+                    >Componentă</TableHeaderColumn>
+                    <TableHeaderColumn width={120} dataField="Group"
                      filter={ { type: 'SelectFilter', options: groupType,selectText:'Alege',condition:'eq' } }
                     
-                    >Grupa</TableHeaderColumn>
-                    <TableHeaderColumn width="5%" dataField="Rh"
+                    >Grupă</TableHeaderColumn>
+                    <TableHeaderColumn width={120} dataField="Rh"
                      filter={ { type: 'SelectFilter', options: RhType,selectText:'Alege' } }
                     
                     >Rh</TableHeaderColumn>
-                    <TableHeaderColumn width="5%" dataField="Quantity">Cantitate</TableHeaderColumn>
+                    <TableHeaderColumn width={100} dataField="Quantity">Cantitate</TableHeaderColumn>
                 </BootstrapTable>
           
                   

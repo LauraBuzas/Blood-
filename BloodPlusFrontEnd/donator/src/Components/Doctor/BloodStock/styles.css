@@ -104,9 +104,8 @@ label {
 
 .head2{
   text-align: left;
-  
-  margin-left:10px;
-  font-size: 30px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 34px;
 }
 
 .titlelabel{
@@ -142,7 +141,7 @@ label {
 }
 
 .buttonBack {
-  visibility: hidden;
+  display: none;
 }
 
 .buttonBackVisible:hover,
@@ -181,4 +180,12 @@ label {
     padding: 5px 10px;
     margin: 5px 5px;
   }
+}
+
+
+.doctor-stock-table {
+  padding: 15px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
 }
