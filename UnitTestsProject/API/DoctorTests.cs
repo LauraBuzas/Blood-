@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 using UnitTestsProject.APIUtils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

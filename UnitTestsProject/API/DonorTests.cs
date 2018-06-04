@@ -11,41 +11,44 @@ namespace UnitTestsProject.API
     {
         public static readonly String BaseURL = "http://localhost:49853";
         public static readonly String Password = "Password123.";
-        public static readonly String donor1 = "donor1@donor.com";
-        public static readonly String donor2 = "donor2@donor.com";
-        public static readonly String invalidDonor = "d@donor.com";
+        public static readonly String InvalidPassword = "InvalidPassword";
+        public static readonly String Donor1 = "donor1@donor.com";
+        public static readonly String Laura = "laura_andrada96@yahoo.com";
+        public static readonly String InvalidDonor = "d@donor.com";
 
         [TestMethod]
         public async Task LoginTest()
         {
-            var response = await AccountUtils.LoginUserAndGetResponsMessage(donor1, Password);
+            var response = await AccountUtils.LoginUserAndGetResponsMessage(Donor1, Password);
             Assert.IsTrue(response.StatusCode == System.Net.HttpStatusCode.OK);
 
-
-            var response2 = await AccountUtils.LoginUserAndGetResponsMessage(donor2, Password);
+            var response2 = await AccountUtils.LoginUserAndGetResponsMessage(Laura, Password);
             Assert.IsTrue(response2.StatusCode == System.Net.HttpStatusCode.OK);
 
-            var response3 = await AccountUtils.LoginUserAndGetResponsMessage(invalidDonor, Password);
+            var response3 = await AccountUtils.LoginUserAndGetResponsMessage(InvalidDonor, Password);
             Assert.IsTrue(response3.StatusCode == System.Net.HttpStatusCode.BadRequest);
+
+            var response4 = await AccountUtils.LoginUserAndGetResponsMessage(Laura, InvalidPassword);
+            Assert.IsTrue(response4.StatusCode == System.Net.HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
         public async Task GetAnalysesTest()
         {
-            var responseBody = await GetAnalysesForDonor(donor1);
+            var responseBody = await GetAnalysesForDonor(Donor1);
             Assert.IsTrue(responseBody == "[]");
 
-            var responseBody1 = await GetAnalysesForDonor(donor2);
-            Assert.IsTrue(responseBody1.Contains("hiv"));
+            var responseBody1 = await GetAnalysesForDonor(Laura);
+            Assert.IsTrue(responseBody1.Contains("S-a găsit prea multă grăsime în sânge."));
         }
 
         [TestMethod]
         public async Task GetNextDonationDateTest()
         {
-            var responseBody = await GetNextDonationDate(donor1);
+            var responseBody = await GetNextDonationDate(Donor1);
             Assert.IsTrue(responseBody == "\"\"");
 
-            var responseBody1 = await GetNextDonationDate(donor2);
+            var responseBody1 = await GetNextDonationDate(Laura);
             Assert.IsTrue(responseBody1 != "\"\"");
         }
 

@@ -557,7 +557,8 @@ namespace DatabaseAccess.Data
                 HIV=false,
                 HTLV=false,
                 RejectedOtherCauses=false,
-                Donor=donor1
+                Donor=donor1,
+                IsFilled = true
             };
 
             context.MedicalAnalyses.Add(medicalAnalysis1);
@@ -588,7 +589,8 @@ namespace DatabaseAccess.Data
                 HIV = false,
                 HTLV = false,
                 RejectedOtherCauses = false,
-                Donor=donor1
+                Donor=donor1,
+                IsFilled = true
             };
 
             context.MedicalAnalyses.Add(medicalAnalysis2);
@@ -618,7 +620,8 @@ namespace DatabaseAccess.Data
                 HIV = false,
                 HTLV = false,
                 RejectedOtherCauses = false,
-                Donor=donor2
+                Donor=donor2,
+                IsFilled = true
             };
 
             context.MedicalAnalyses.Add(medicalAnalysis3);
@@ -649,7 +652,8 @@ namespace DatabaseAccess.Data
                 HTLV = false,
                 RejectedOtherCauses = true,
                 Observations = "S-a găsit prea multă grăsime în sânge.",
-                Donor = donor1
+                Donor = donor1,
+                IsFilled = true
             };
 
             context.MedicalAnalyses.Add(medicalAnalysis4);
