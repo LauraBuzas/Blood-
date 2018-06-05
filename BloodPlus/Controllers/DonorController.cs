@@ -5,6 +5,8 @@ using BloodPlus.ModelViews;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Services;
+using Microsoft.AspNetCore.Identity;
+using DatabaseAccess.Models;
 
 namespace BloodPlus.Controllers
 {
@@ -13,9 +15,14 @@ namespace BloodPlus.Controllers
     public class DonorController : Controller
     {
         DonorService donorService;
-        public DonorController(DonorService donorService)
+        UserManager<ApplicationUser> userManager;
+        RoleManager<IdentityRole> roleManager;
+
+        public DonorController(DonorService donorService, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             this.donorService = donorService;
+            this.userManager = userManager;
+            this.roleManager = roleManager;
         }
 
         [Authorize(Roles = "Donor")]
@@ -82,7 +89,6 @@ namespace BloodPlus.Controllers
         {
             try
             {
-
                 var id = Request.Cookies["UserId"];
                 var analyses = donorService.GetMedicalAnalyses(id).AsQueryable().OrderByDescending(a => a.DateAndTime).ToList();
                 if (analyses.Count != 0)
@@ -95,10 +101,8 @@ namespace BloodPlus.Controllers
                 {
                     return Ok("");
                 }
-
-
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return BadRequest("Nu putem determina urmatoarea data la care poti sa donezi");
             }
@@ -114,7 +118,7 @@ namespace BloodPlus.Controllers
             }
             try
             {
-                donorService.AddRegistrationForDonation(MapperDonorRegistrationForDonation.ToDonorRegistrationForDonation(donorsRegisterForDonation));
+                donorService.AddRegistrationForDonation(MapperDonorRegistrationForDonation.ToDonorRegistrationForDonation(donorsRegisterForDonation), userManager, roleManager).Wait();
                 return Ok();
             } catch(Exception exception)
             {

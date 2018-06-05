@@ -117,7 +117,7 @@ var nodesDonor=[
     // {
     //     title:"Acasă",
     //     link:'/'
-    // },
+    // }
     {
         title:"Profil",
         link:'/donor/profile'
@@ -125,7 +125,12 @@ var nodesDonor=[
     {
         title:"Analizele mele",
         link:"/donor/analyses"
-    }]
+    },
+    {
+        title:"Centre",
+        link:'/centers'
+    }
+]
 export class Header extends React.Component<HeaderProps,HeaderState>
 {
     constructor(props:HeaderProps)
